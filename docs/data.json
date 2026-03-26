@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-26T14:26:39.806818+00:00",
+  "updated": "2026-03-26T22:44:07.883953+00:00",
   "levels": {
     "orel": 413,
     "belev": 112,
@@ -17,23 +17,32 @@
     "date_to_945": null,
     "peak_base_level": null,
     "peak_base_date": null,
-    "danger_pct": 0,
+    "danger_pct": -4.6,
     "wave_msg": null,
-    "insights": [
-      "🌡 Тепло (10.8°C) — активное таяние снега"
-    ]
+    "insights": []
   },
   "weather": {
-    "temp": 10.8,
-    "humidity": 73,
-    "wind_ms": 8.4,
-    "wind_dir": 133,
+    "temp": 4.0,
+    "humidity": 58,
+    "wind_ms": 2.9,
+    "wind_dir": 120,
     "clouds": null,
-    "precip_mm": 0.0,
-    "snow_depth": 0.17,
-    "weather": "данные Open-Meteo",
-    "temp_max": 11.8,
-    "temp_min": -2.0,
-    "wind_max": 10.8
+    "precip_mm": 1.1,
+    "snow_depth": 0.14,
+    "weather": "Open-Meteo",
+    "temp_max": 7.1,
+    "temp_min": 3.5,
+    "wind_max": 6.6
+  },
+  "weather_ext": {
+    "flood_index": 4,
+    "flood_label": "КРИТИЧЕСКИЙ",
+    "flood_summary": "Все факторы против нас: тепло, дождь, снег. Максимально быстрый рост уровня.",
+    "snow_depth_cm": 14.0,
+    "commentary": [
+      "⚠️ Значительный снежный покров: 17 см — серьёзный вклад в паводок при потеплении и дожде.",
+      "🌡 Последние ночи с морозом (4/4), прогноз — потепление: таяние ускорится.",
+      "🌡 Ночные температуры стабильно минусовые — таяние только днём."
+    ]
   }
 }

@@ -1,0 +1,565 @@
+# okamonitor.py v4.3 — 26.03.2026
+# Fixes: B1 B2 B3 B4 + warning-сигнал приближения
+import re, json, os, time, datetime, requests
+from fetch_module import fetch_level, fetch_snow_cover, STATIONS
+
+VERSION = "4.3"
+MODE    = os.environ.get("OKA_MODE", "full")
+
+TG_TOKEN       = os.environ.get("TG_TOKEN", "")
+CHAT_ADMIN     = int(os.environ.get("TG_CHAT_ID",    "49747475"))
+CHAT_MY_GROUP  = int(os.environ.get("TG_GROUP_ID",   "-5234360275"))
+CHAT_NEIGHBORS = int(os.environ.get("TG_NEIGHBORS_ID", "-1001672586477"))
+SEND_TG        = bool(TG_TOKEN)
+
+HISTORY_FILE  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "history.json")
+WARNING_FILE  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "warning_sent.json")
+
+# KIM-пороги для Серпухова
+KIM = [300, 500, 645, 800, 920, 945, 965]
+KIM_EMOJI = {300:"🟡", 500:"🟠", 645:"🔴", 800:"🆘", 920:"💀", 945:"⚫", 965:"⛔"}
+KIM_LABEL = {
+    300: "T0 Внимание — приближение",
+    500: "T1 Опасный уровень",
+    645: "T2 Критический",
+    800: "T3 Очень опасный",
+    920: "T4 Уровень 2024",
+    945: "T5 ДОМ ПОД УГРОЗОЙ",
+    965: "T6 Подвал затоплен",
+}
+WARN_THRESHOLDS = [300, 400, 450]  # сигналы приближения
+ALERT_THRESHOLDS = [500, 645, 800, 920, 945, 965]  # полные алерты
+
+KEY_BY_SLUG = {
+    "oka-orel":     "orel",
+    "oka-belev":    "belev",
+    "oka-kaluga":   "kaluga",
+    "oka-shukina":  "shukina",
+    "oka-serpuhov": "serpukhov",
+    "oka-kashira":  "kashira",
+    "oka-kolomna":  "kolomna",
+}
+
+# ─── TG ──────────────────────────────────────────────────────────────────────
+def tg_send(chat_id, text, silent=False):
+    if not SEND_TG:
+        tag = f"[TG-skip {chat_id}]"
+        print(f"{tag} {text[:120].replace(chr(10),' ')}")
+        return True
+    try:
+        r = requests.post(
+            f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage",
+            json={"chat_id": chat_id, "text": text, "parse_mode": "HTML",
+                  "disable_notification": silent},
+            timeout=15,
+        )
+        print(f"  TG→{chat_id}: {r.status_code}")
+        if r.status_code == 400:
+            err = r.json().get("description","")
+            print(f"  TG error: {err}")
+        return r.status_code == 200
+    except Exception as e:
+        print(f"  TG err {chat_id}: {e}")
+        return False
+
+def tg_send_all(text, include_neighbors=False, silent=False):
+    tg_send(CHAT_ADMIN, text, silent)
+    tg_send(CHAT_MY_GROUP, text, silent)
+    if include_neighbors:
+        tg_send(CHAT_NEIGHBORS, text, silent)
+
+# ─── ДАННЫЕ ──────────────────────────────────────────────────────────────────
+def fetch_all_levels():
+    print(f"[OkaMonitor v{VERSION}] Парсим уровни воды ({len(STATIONS)} постов fishingsib)...")
+    levels = {}
+    for s in STATIONS:
+        url = "https://allrivers.info/gauge/" + s["slug"]
+        key = KEY_BY_SLUG.get(s["slug"], s["slug"])
+        val = fetch_level(url, s["name"])
+        levels[key] = val
+        print(f"  {s['name']}: {val} см")
+    print(f"  Уровни: {levels}")
+    return levels
+
+def load_history():
+    try:
+        os.makedirs(os.path.dirname(HISTORY_FILE), exist_ok=True)
+        if os.path.exists(HISTORY_FILE):
+            with open(HISTORY_FILE) as f:
+                return json.load(f)
+    except Exception:
+        pass
+    return []
+
+def save_history(history, levels):
+    now = datetime.datetime.now()
+    date_key = now.strftime("%Y-%m-%d")
+    entry = {"ts": now.strftime("%Y-%m-%d %H:%M"), "date": date_key, "levels": levels}
+    history = [h for h in history if h.get("date") != date_key][-29:]
+    history.append(entry)
+    try:
+        with open(HISTORY_FILE, "w") as f:
+            json.dump(history, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print("  history save err:", e)
+    return history
+
+def load_warning_state():
+    try:
+        if os.path.exists(WARNING_FILE):
+            with open(WARNING_FILE) as f:
+                return json.load(f)
+    except Exception:
+        pass
+    return {}
+
+def save_warning_state(state):
+    try:
+        os.makedirs(os.path.dirname(WARNING_FILE), exist_ok=True)
+        with open(WARNING_FILE, "w") as f:
+            json.dump(state, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print("  warning state err:", e)
+
+# ─── ВЫЧИСЛЕНИЯ ──────────────────────────────────────────────────────────────
+def get_deltas(history, key):
+    vals = [(h["date"], h["levels"].get(key)) for h in history if h["levels"].get(key) is not None]
+    d24 = vals[-1][1] - vals[-2][1] if len(vals) >= 2 else None
+    d48 = vals[-1][1] - vals[-3][1] if len(vals) >= 3 else None
+    return d24, d48
+
+def trend_arrow(d):
+    if d is None: return "→"
+    if d > 3:  return "↑"
+    if d < -3: return "↓"
+    return "→"
+
+def danger_pct(level):
+    """% от порога T1=500 (опасного уровня). Не может быть отрицательным."""
+    if level is None: return None
+    return round(max(0.0, min(100.0, level / 500.0 * 100.0)), 1)
+
+def kim_label_current(level):
+    if level is None: return "н/д", 0
+    active = [k for k in KIM if level >= k]
+    if not active: return "Норма", 0
+    cur = max(active)
+    return KIM_LABEL[cur], cur
+
+def days_to(level, delta24, target):
+    if level is None or delta24 is None or delta24 <= 0: return None
+    remaining = target - level
+    if remaining <= 0: return 0
+    return round(remaining / delta24, 1)
+
+def fmt_level(v, key, history):
+    d24, _ = get_deltas(history, key)
+    arrow  = trend_arrow(d24)
+    d24s   = (f"+{d24}" if d24 and d24 > 0 else str(d24)) if d24 is not None else "н/д"
+    vs     = f"{v} см" if v is not None else "н/д"
+    return f"{vs} {arrow} ({d24s}/сут)"
+
+# ─── ПОГОДА ──────────────────────────────────────────────────────────────────
+def fetch_weather():
+    print("Парсим погоду (Серпухов)...")
+    try:
+        r = requests.get(
+            "https://api.open-meteo.com/v1/forecast",
+            params={
+                "latitude": 54.834050, "longitude": 37.742901,
+                "daily": "temperature_2m_max,temperature_2m_min,precipitation_sum,snow_depth_max",
+                "current_weather": True,
+                "timezone": "Europe/Moscow", "forecast_days": 3,
+            }, timeout=15)
+        if r.status_code == 200:
+            d = r.json()
+            daily = d.get("daily", {})
+            ds = (daily.get("temperature_2m_max") or [None])[0]
+            dn = (daily.get("temperature_2m_min") or [None])[0]
+            precip = (daily.get("precipitation_sum") or [None])[0]
+            snow   = (daily.get("snow_depth_max") or [None])[0]
+            alert  = "WARM" if (ds is not None and ds >= 10) else "GREEN"
+            print(f"  alert={alert}, ds24={ds}")
+            return {"alert": alert, "temp_day": ds, "temp_night": dn,
+                    "precip": precip, "snow": snow}
+    except Exception as e:
+        print("  weather err:", e)
+    return {"alert": "UNKNOWN", "temp_day": None, "temp_night": None,
+            "precip": None, "snow": None}
+
+# ─── ФОРМАТИРОВАНИЕ ──────────────────────────────────────────────────────────
+def build_heartbeat(levels, history, weather):
+    now   = datetime.datetime.now().strftime("%d.%m.%Y %H:%M")
+    serp  = levels.get("serpukhov")
+    label, code = kim_label_current(serp)
+    emoji = KIM_EMOJI.get(code, "🟢") if code else "🟢"
+    dpct  = danger_pct(serp)
+    dpct_s = f"{dpct}%" if dpct is not None else "н/д"
+
+    lines = [f"🕐 <b>HEARTBEAT {now} МСК</b>",
+             f"Статус: {emoji} {label} | Опасность: {dpct_s}", ""]
+    for s in STATIONS:
+        key  = KEY_BY_SLUG.get(s["slug"], s["slug"])
+        lag  = s["lag_h"]
+        lag_s = f"−{abs(lag)}ч" if lag < 0 else (f"+{lag}ч" if lag > 0 else "0")
+        lines.append(f"  {s['name']} [{lag_s}]: {fmt_level(levels.get(key), key, history)}")
+    if weather.get("temp_day") is not None:
+        lines.append(f"\n🌡 Серпухов: {weather['temp_day']}°/{weather['temp_night']}° | "
+                     f"осадки: {weather.get('precip',0)} мм")
+    return "\n".join(lines)
+
+def build_digest_neighbors(levels, history, weather):
+    """Краткий дайджест для соседей — без heartbeat-шума."""
+    now  = datetime.datetime.now().strftime("%d.%m.%Y %H:%M")
+    serp = levels.get("serpukhov")
+    label, code = kim_label_current(serp)
+    emoji = KIM_EMOJI.get(code, "🟢") if code else "🟢"
+    dpct  = danger_pct(serp)
+    dpct_s = f"{dpct}%" if dpct is not None else "н/д"
+    serp_d24, serp_d48 = get_deltas(history, "serpukhov")
+
+    lines = [
+        f"🌊 <b>ОКА ПАВОДОК 2026 — ДАЙДЖЕСТ</b>",
+        f"📅 {now} МСК | {emoji} Опасность: {dpct_s}",
+        "",
+        "━━━ УРОВНИ ВОДЫ ━━━━━━━━━━━━━━━━",
+    ]
+    for s in STATIONS:
+        key  = KEY_BY_SLUG.get(s["slug"], s["slug"])
+        v    = levels.get(key)
+        d24, d48 = get_deltas(history, key)
+        arrow = trend_arrow(d24)
+        d24s  = (f"+{d24}" if d24 and d24>0 else str(d24)) if d24 is not None else "н/д"
+        vs    = f"{v} см" if v is not None else "н/д"
+        lines.append(f"📍 {s['name']} (лаг {s['lag_h']}ч): {vs} {arrow} | Δ24ч: {d24s}")
+
+    lines.append("")
+    lines.append("━━━ СЕРПУХОВ — ДО ПОРОГОВ ━━━━━━━━")
+    if serp is not None:
+        for thr in ALERT_THRESHOLDS:
+            if serp < thr:
+                d = days_to(serp, serp_d24, thr)
+                d_s = f"~{d} дн" if d else "н/д (уровень падает)"
+                lines.append(f"  {KIM_EMOJI.get(thr,'')} {thr} см ({KIM_LABEL[thr]}): "
+                              f"ещё {thr-serp} см ({d_s})")
+    else:
+        lines.append("  Данные недоступны")
+
+    lines.append("")
+    if weather.get("temp_day") is not None:
+        lines.append("━━━ ПОГОДА (Серпухов) ━━━━━━━━━━━━")
+        lines.append(f"  🌡 {weather['temp_day']}°/{weather['temp_night']}° | "
+                     f"💧 {weather.get('precip',0)} мм")
+        if weather.get("snow") is not None:
+            lines.append(f"  ❄️ Снег: {weather['snow']} м")
+
+    lines.append("")
+    lines.append("📊 Данные: fishingsib.ru | open-meteo.com")
+    lines.append("🌐 https://em-from-pu.github.io/oka-flood-monitor")
+    return "\n".join(lines)
+
+def build_warning(level, threshold, d24, station="Серпухов"):
+    """Сигнал приближения — ещё не алерт, но надо знать."""
+    emoji  = KIM_EMOJI.get(threshold, "⚠️")
+    label  = KIM_LABEL.get(threshold, "")
+    days_s = f"~{days_to(level, d24, threshold)} дн" if d24 and d24 > 0 else "темп нарастания неизвестна"
+    return (
+        f"⚠️ <b>ВНИМАНИЕ: Приближение к порогу!</b>\n\n"
+        f"📍 {station}: {level} см\n"
+        f"Следующий порог: {emoji} {threshold} см ({label})\n"
+        f"Осталось: {threshold - level} см\n"
+        f"Прогноз: {days_s}\n\n"
+        f"Данные обновляются каждый час."
+    )
+
+def build_alert(level, threshold, d24, station="Серпухов"):
+    """Полный алерт при достижении порога."""
+    emoji = KIM_EMOJI.get(threshold, "🚨")
+    label = KIM_LABEL.get(threshold, "")
+    now   = datetime.datetime.now().strftime("%d.%m.%Y %H:%M")
+    return (
+        f"🚨 <b>АЛЕРТ! ПОРОГ ДОСТИГНУТ!</b>\n\n"
+        f"📍 {station}: {level} см\n"
+        f"Порог: {emoji} {threshold} см\n"
+        f"Уровень: <b>{label}</b>\n"
+        f"Время: {now} МСК\n\n"
+        f"Скорость подъёма: "
+        f"{(f'+{d24} см/сут' if d24 else 'н/д')}\n\n"
+        f"🌐 https://em-from-pu.github.io/oka-flood-monitor"
+    )
+
+# ─── ЛОГИКА АЛЕРТОВ ──────────────────────────────────────────────────────────
+def check_and_send_alerts(levels, history):
+    serp  = levels.get("serpukhov")
+    if serp is None:
+        return
+    d24, _ = get_deltas(history, "serpukhov")
+    state   = load_warning_state()
+    today   = datetime.datetime.now().strftime("%Y-%m-%d")
+
+    # Сигналы приближения (только один раз в день на каждый порог)
+    for thr in WARN_THRESHOLDS:
+        key = f"warn_{thr}"
+        last = state.get(key)
+        # Шлём если: уровень в диапазоне [thr-50, thr) И сегодня ещё не слали
+        if (thr - 50) <= serp < thr and last != today:
+            msg = build_warning(serp, thr, d24)
+            print(f"  ⚠️ Warning → {thr} см")
+            tg_send_all(msg, include_neighbors=True)
+            state[key] = today
+
+    # Полные алерты при достижении порогов (один раз на каждый порог)
+    for thr in ALERT_THRESHOLDS:
+        key = f"alert_{thr}"
+        last = state.get(key)
+        if serp >= thr and last != today:
+            msg = build_alert(serp, thr, d24)
+            print(f"  🚨 Alert → {thr} см")
+            tg_send_all(msg, include_neighbors=True)
+            state[key] = today
+
+    save_warning_state(state)
+
+# ─── РАСПИСАНИЕ ──────────────────────────────────────────────────────────────
+def is_digest_time():
+    """Шлём дайджест соседям в 08:00 и 20:00 (±30 мин)."""
+    h = datetime.datetime.now().hour
+    m = datetime.datetime.now().minute
+    return (h == 8 and m <= 30) or (h == 20 and m <= 30)
+
+# ─── MAIN ─────────────────────────────────────────────────────────────────────
+def main():
+    levels  = fetch_all_levels()
+    weather = fetch_weather()
+    history = load_history()
+    history = save_history(history, levels)
+
+    # 1. Heartbeat + полный дайджест → личка + моя группа (каждый час)
+    heartbeat = build_heartbeat(levels, history, weather)
+    print("Отправляем heartbeat...")
+    tg_send(CHAT_ADMIN, heartbeat)
+    tg_send(CHAT_MY_GROUP, heartbeat)
+
+    # 2. Дайджест соседям → только в 08:00 и 20:00
+    if is_digest_time():
+        digest = build_digest_neighbors(levels, history, weather)
+        print("Отправляем дайджест соседям (время 08/20)...")
+        tg_send(CHAT_NEIGHBORS, digest)
+    else:
+        print(f"  Дайджест соседям: не время (час={datetime.datetime.now().hour})")
+
+    # 3. Алерты и сигналы приближения → все группы при срабатывании
+    check_and_send_alerts(levels, history)
+
+if __name__ == "__main__":
+    main()
+import datetime as _dt
+
+def fetch_weather_extended():
+    try:
+        url = (
+            "https://api.open-meteo.com/v1/forecast"
+            "?latitude=54.834050&longitude=37.742901"
+            "&daily=temperature_2m_max,temperature_2m_min,"
+            "precipitation_sum,rain_sum,snowfall_sum,"
+            "snow_depth,wind_speed_10m_max,weather_code"
+            "&past_days=4&forecast_days=4"
+            "&timezone=Europe/Moscow&wind_speed_unit=ms"
+        )
+        r = requests.get(url, timeout=12)
+        r.raise_for_status()
+        d = r.json()
+        daily = d.get('daily', {})
+        dates = daily.get('time', [])
+        today = _dt.date.today().isoformat()
+        days = []
+        for i, date in enumerate(dates):
+            snow_raw = daily['snow_depth'][i]
+            days.append({
+                'date': date,
+                'is_forecast': date > today,
+                'tmax': daily['temperature_2m_max'][i],
+                'tmin': daily['temperature_2m_min'][i],
+                'precip': round(daily['precipitation_sum'][i] or 0, 1),
+                'rain_sum': round(daily['rain_sum'][i] or 0, 1),
+                'snowfall_cm': round(daily['snowfall_sum'][i] or 0, 1),
+                'snow_depth_cm': round((snow_raw or 0) * 100, 1),
+                'wind_ms': round(daily['wind_speed_10m_max'][i] or 0, 1),
+                'wcode': daily['weather_code'][i],
+            })
+        past_days = [x for x in days if not x['is_forecast']]
+        snow_depth_cm = past_days[-1]['snow_depth_cm'] if past_days else 0.0
+        fi_level, fi_label, fi_color, fi_summary = _compute_weather_flood_index(days, snow_depth_cm)
+        commentary = _generate_weather_commentary(days, snow_depth_cm)
+        return {
+            'days': days,
+            'snow_depth_cm': snow_depth_cm,
+            'flood_index': fi_level,
+            'flood_label': fi_label,
+            'flood_color': fi_color,
+            'flood_summary': fi_summary,
+            'commentary': commentary,
+        }
+    except Exception as e:
+        print(f"fetch_weather_extended error: {e}")
+        return None
+
+def _compute_weather_flood_index(days, snow_depth_cm):
+    score = 0
+    future = [x for x in days if x['is_forecast']]
+    warm_nights = sum(1 for d in future if (d['tmin'] or -99) >= 0)
+    hot_days    = sum(1 for d in future if (d['tmax'] or 0) >= 10)
+    rain_future = sum((d['rain_sum'] or 0) for d in future)
+    score += warm_nights * 2
+    score += hot_days * 1
+    score += min(rain_future / 5.0, 4)
+    if snow_depth_cm > 20:  score += 2
+    elif snow_depth_cm > 5: score += 1
+    ros = any(
+        (d['rain_sum'] or 0) >= 5 and (d['tmax'] or 0) > 0 and snow_depth_cm > 3
+        for d in future
+    )
+    if ros: score += 3
+    if score >= 10:
+        return 4, "КРИТИЧЕСКИЙ", "#8e0000", "Все факторы против: тепло, дождь, снег — ожидается максимально быстрый рост уровня."
+    elif score >= 7:
+        return 3, "ВЫСОКИЙ",    "#c0392b", "Активное таяние, ночи тёплые, осадки — уровень реки будет расти значительно."
+    elif score >= 4:
+        return 2, "УМЕРЕННЫЙ",  "#e67e22", "Таяние идёт, но есть сдерживающие факторы — умеренный рост уровня."
+    elif score >= 2:
+        return 1, "НИЗКИЙ",     "#f39c12", "Ночные заморозки сдерживают таяние — уровень растёт медленно."
+    else:
+        return 0, "СТАБИЛЬНЫЙ", "#27ae60", "Погода не способствует значительному росту уровня."
+
+def _generate_weather_commentary(days, snow_depth_cm):
+    comments = []
+    future = [x for x in days if x['is_forecast']]
+    past4  = [x for x in days if not x['is_forecast']]
+    for i, d in enumerate(future, 1):
+        if (d['rain_sum'] or 0) >= 5 and (d['tmax'] or 0) > 0 and snow_depth_cm > 3:
+            comments.append(
+                f"⚠️ Через {i} дн. дождь {d['rain_sum']:.0f} мм при +{d['tmax']:.0f}°C "
+                f"на снег ({snow_depth_cm:.0f} см) — Rain-on-Snow, максимальный риск быстрого роста!"
+            )
+            break
+        elif (d['rain_sum'] or 0) >= 2 and (d['tmax'] or 0) > 0 and snow_depth_cm > 1:
+            comments.append(
+                f"🟡 Через {i} дн. дождь {d['rain_sum']:.0f} мм при плюсовой температуре — доп. нагрузка на реку."
+            )
+            break
+    if snow_depth_cm < 1:
+        comments.append("✅ Снежный покров исчез — талые воды уже не добавятся.")
+    elif snow_depth_cm < 5:
+        comments.append(f"🔵 Снежный покров минимальный ({snow_depth_cm:.0f} см) — растает за 1-2 тёплых дня.")
+    elif snow_depth_cm < 20:
+        delta = 0
+        if len(past4) >= 2:
+            delta = past4[-1]['snow_depth_cm'] - past4[0]['snow_depth_cm']
+        comments.append(f"❄️ Снежный покров: {snow_depth_cm:.0f} см (изменение за 4 дня: {delta:+.0f} см).")
+    else:
+        comments.append(f"⚠️ Значительный снег: {snow_depth_cm:.0f} см. При потеплении + дождях — серьёзный вклад в паводок.")
+    frost_future = sum(1 for d in future if (d['tmin'] or 0) < 0)
+    frost_past   = sum(1 for d in past4  if (d['tmin'] or 0) < 0)
+    if frost_future >= 2:
+        comments.append(f"❄️ Прогноз: {frost_future} ночи с морозом — таяние замедлится, рост уровня притормозит.")
+    elif frost_future == 1:
+        comments.append("❄️ Одна ночь с морозом в прогнозе — кратковременное замедление таяния.")
+    else:
+        if frost_past >= 2:
+            comments.append(f"🌡️ Последние ночи были с морозом ({frost_past} из {len(past4)}), прогноз — потепление: таяние ускоряется.")
+        else:
+            comments.append("🌡️ Ночных заморозков нет и не ожидается — снег тает круглосуточно.")
+    tmins = [d['tmin'] for d in past4 if d['tmin'] is not None]
+    if len(tmins) >= 2:
+        trend = tmins[-1] - tmins[0]
+        if trend >= 3 and tmins[-1] < 0:
+            comments.append(f"📈 Ночи теплеют (+{trend:.0f}°C за 4 дня), ещё с морозом — скоро переход через 0°.")
+        elif trend >= 3:
+            comments.append(f"📈 Ночные температуры растут (+{trend:.0f}°C за 4 дня) — таяние ускоряется.")
+        elif trend <= -3:
+            comments.append(f"📉 Ночи холодают ({trend:.0f}°C за 4 дня) — интенсивность таяния снижается.")
+    return comments[:4]
+
+def _weather_ext_html(wext):
+    if not wext:
+        return '<div class="weather-ext-block"><p style="color:#666">Погода: нет данных</p></div>'
+    days = wext['days']
+    fi_label   = wext['flood_label']
+    fi_color   = wext['flood_color']
+    fi_summary = wext['flood_summary']
+    commentary = wext['commentary']
+    html = f'''
+<div class="weather-ext-block">
+  <h2>🌡 Погода — динамика и прогноз (7 дней)</h2>
+  <div class="wfi-box" style="border-color:{fi_color}">
+    <span class="wfi-title">Паводковый индекс погоды</span>
+    <span class="wfi-val" style="color:{fi_color}">{fi_label}</span>
+    <p class="wfi-sum">{fi_summary}</p>
+  </div>
+'''
+    html += '<div class="table-wrap"><table class="wtbl"><thead><tr><th></th>'
+    for d in days:
+        fc = ' class="fc"' if d['is_forecast'] else ''
+        marker = '▸' if d['is_forecast'] else ''
+        html += f'<th{fc}>{d["date"][5:]}{marker}</th>'
+    html += '</tr></thead><tbody>'
+    html += '<tr><td>Tmax °C</td>'
+    for d in days:
+        hot = ' hot' if (d['tmax'] or 0) >= 10 else ''
+        fc = ' fc' if d['is_forecast'] else ''
+        v = f'+{round(d["tmax"])}' if d['tmax'] is not None else '—'
+        html += f'<td class="wc{hot}{fc}">{v}</td>'
+    html += '</tr><tr><td>Tmin °C</td>'
+    for d in days:
+        t = d['tmin']
+        if t is None:   cls = 'wc'
+        elif t < 0:     cls = 'wc frost'
+        elif t == 0:    cls = 'wc tzero'
+        else:           cls = 'wc wnght'
+        if d['is_forecast']: cls += ' fc'
+        v = ('+' if (t or 0) > 0 else '') + str(round(t)) if t is not None else '—'
+        html += f'<td class="{cls}">{v}</td>'
+    html += '</tr><tr><td>Осадки мм</td>'
+    for d in days:
+        fc = ' fc' if d['is_forecast'] else ''
+        v = str(d['precip']) if d['precip'] > 0 else '—'
+        html += f'<td class="wc{fc}">{v}</td>'
+    html += '</tr><tr><td>❄ Покров см</td>'
+    for d in days:
+        fc = ' fc' if d['is_forecast'] else ''
+        v = '—' if d['is_forecast'] else (str(d['snow_depth_cm']) if d['snow_depth_cm'] > 0 else '0')
+        html += f'<td class="wc{fc}">{v}</td>'
+    html += '</tr><tr><td>Ветер м/с</td>'
+    for d in days:
+        fc = ' fc' if d['is_forecast'] else ''
+        v = str(round(d['wind_ms'])) if d['wind_ms'] is not None else '—'
+        html += f'<td class="wc{fc}">{v}</td>'
+    html += '</tr></tbody></table></div>'
+    if commentary:
+        html += '<div class="wcomm"><h3>📊 Анализ погоды</h3><ul>'
+        for c in commentary:
+            html += f'<li>{c}</li>'
+        html += '</ul></div>'
+    html += '</div>'
+    return html
+
+WEATHER_EXT_CSS = """
+.weather-ext-block{background:var(--card);border-radius:12px;padding:16px;margin:12px 0}
+.wfi-box{border:2px solid;border-radius:10px;padding:14px 18px;margin-bottom:14px;background:rgba(255,255,255,.03)}
+.wfi-title{font-size:.82em;color:#95a5a6;display:block}
+.wfi-val{font-size:1.55em;font-weight:900;display:block;margin:4px 0}
+.wfi-sum{margin:0;color:#bdc3c7;font-size:.92em}
+.wtbl{width:100%;border-collapse:collapse;font-size:.82em}
+.wtbl th,.wtbl td{padding:5px 7px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap}
+.wtbl td:first-child{text-align:left;color:#95a5a6}
+.wc.frost{background:rgba(192,57,43,.28);color:#ff6b6b;font-weight:bold}
+.wc.tzero{background:rgba(243,156,18,.22);color:#f39c12}
+.wc.wnght{background:rgba(39,174,96,.20);color:#2ecc71}
+.wc.hot{color:#e74c3c;font-weight:bold}
+.wc.fc,.wtbl th.fc{background:rgba(52,152,219,.09);border-left:1px dashed #3498db}
+.wcomm{margin-top:12px}
+.wcomm h3{font-size:.95em;margin-bottom:6px}
+.wcomm ul{list-style:none;padding:0}
+.wcomm li{padding:5px 0;border-bottom:1px solid var(--border);font-size:.88em;color:#bdc3c7}
+.wcomm li:last-child{border:none}
+"""
