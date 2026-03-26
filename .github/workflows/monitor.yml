@@ -26,6 +26,7 @@ jobs:
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           TG_GROUP_ID: ${{ secrets.TG_GROUP_ID }}
+          TG_NEIGHBORS_ID: ${{ secrets.CHAT_NEIGHBORS }}
         run: python monitor.py
 
       - name: Commit HTML/data

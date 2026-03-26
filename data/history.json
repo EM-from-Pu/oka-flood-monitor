@@ -1,0 +1,15 @@
+[
+  {
+    "ts": "2026-03-26 20:30",
+    "date": "2026-03-26",
+    "levels": {
+      "orel": 413,
+      "belev": 112,
+      "kaluga": -35,
+      "shukina": 45,
+      "serpukhov": -43,
+      "kashira": -73,
+      "kolomna": -47
+    }
+  }
+]

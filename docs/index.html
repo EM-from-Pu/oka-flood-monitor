@@ -2,6 +2,10 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta name="theme-color" content="#0f1923">
+
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Ока Паводок 2026 — Пущино</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -93,7 +97,93 @@ footer{text-align:center;padding:1.4rem;color:var(--muted);font-size:.77rem;bord
 
 <!-- ПОРОГИ -->
 <div class="section">
-  <h2>📊 До порогов опасности · Серпухов</h2>
+  
+<!-- EXPLAINER_BLOCK: Как читать эту страницу -->
+<section id="explainer" style="background:#1a2635;border:2px solid #2980b9;border-radius:14px;padding:24px 28px;margin:20px 0;line-height:1.75;color:#ecf0f1">
+
+  <h2 style="margin-top:0;color:#3498db;font-size:1.4em">📖 Как читать эту страницу — инструкция с нуля</h2>
+  <p style="color:#95a5a6;font-size:0.9em;margin-top:-8px">Если вы видите страницу впервые — прочитайте этот раздел. Он отвечает на все вопросы.</p>
+
+  <hr style="border-color:#2c3e50;margin:16px 0">
+
+  <h3 style="color:#f39c12">❓ Что такое «уровень воды в сантиметрах»?</h3>
+  <p>Каждая цифра на странице — это <strong>высота воды в сантиметрах</strong>, измеренная на конкретном посту. Но измеряют её не от дна реки и не от уровня моря — а от специальной отметки, которую называют <strong>«нуль поста» (НП)</strong>.</p>
+  <p>Нуль поста — это фиксированная точка на берегу, которую гидрологи установили один раз при основании поста. Обычно она расположена <em>ниже самого низкого уровня воды за всю историю наблюдений</em>, чтобы показания всегда были положительными. Но на практике в межень (летом или зимой) вода иногда опускается ниже нуля — тогда получается минус.</p>
+
+  <div style="background:#0f1923;border-radius:10px;padding:16px;margin:12px 0">
+    <strong>Пример прямо сейчас:</strong><br>
+    🏙 <strong>Орёл: +413 см</strong> — вода стоит на 4 метра 13 см <em>выше</em> нуля поста в Орле. Это уже весенний разлив.<br>
+    ⭐ <strong>Серпухов: −43 см</strong> — вода на 43 см <em>ниже</em> нуля поста в Серпухове. Это нормально для ранней весны — паводок ещё не дошёл.<br><br>
+    <em>Важно: сравнивать 413 и −43 напрямую нельзя</em> — у каждого поста свой нуль. Смотрим не на абсолютные числа, а на <strong>динамику: насколько вода выросла за сутки</strong>.
+  </div>
+
+  <h3 style="color:#f39c12;margin-top:20px">❓ Как тогда понять — опасно или нет?</h3>
+  <p>Для этого у каждого поста есть <strong>исторические пороги опасности</strong> — уровни, при которых по опыту прошлых лет начинались те или иные последствия. Для Серпухова (наш главный пост) пороги такие:</p>
+
+  <table style="width:100%;border-collapse:collapse;font-size:0.92em;margin:10px 0">
+    <tr style="background:#0f1923;color:#95a5a6">
+      <th style="padding:8px 10px;text-align:left;border-bottom:2px solid #2c3e50">Отметка</th>
+      <th style="padding:8px 10px;text-align:left;border-bottom:2px solid #2c3e50">Значение</th>
+      <th style="padding:8px 10px;text-align:left;border-bottom:2px solid #2c3e50">Что происходит</th>
+    </tr>
+    <tr><td style="padding:7px 10px">🟡 300 см</td><td style="padding:7px 10px">Начало внимания</td><td style="padding:7px 10px">Вода начинает заходить в пойму, внимательно следим</td></tr>
+    <tr style="background:#0d1e2e"><td style="padding:7px 10px">🟠 500 см</td><td style="padding:7px 10px">Выход из берегов</td><td style="padding:7px 10px">Пойма затоплена, рыболовные места под водой</td></tr>
+    <tr><td style="padding:7px 10px">🔴 645 см</td><td style="padding:7px 10px">Опасный уровень</td><td style="padding:7px 10px">Низкие прибрежные территории затоплены, возможна эвакуация</td></tr>
+    <tr style="background:#0d1e2e"><td style="padding:7px 10px">🆘 800 см</td><td style="padding:7px 10px">Критический</td><td style="padding:7px 10px">Значительные затопления, угроза строениям у воды</td></tr>
+    <tr><td style="padding:7px 10px">💀 920 см</td><td style="padding:7px 10px">Рекорд 2024 года</td><td style="padding:7px 10px">Уровень апреля 2024 г. — крупнейший паводок за 20 лет</td></tr>
+    <tr style="background:#0d1e2e"><td style="padding:7px 10px">⚫ 945 см</td><td style="padding:7px 10px">Дом под угрозой</td><td style="padding:7px 10px">Наш критический порог — участок в зоне прямого риска</td></tr>
+    <tr><td style="padding:7px 10px">⛔ 965 см</td><td style="padding:7px 10px">Подвал затоплен</td><td style="padding:7px 10px">Вода достигает построек, подвал и фундамент под водой</td></tr>
+  </table>
+
+  <h3 style="color:#f39c12;margin-top:20px">❓ Зачем посты в Орле, Белеве, Калуге — если нас интересует Серпухов?</h3>
+  <p>Ока течёт из Орла через Белев → Калугу → Алексин → Серпухов → Каширу → Коломну. Паводковая волна движется вниз по реке со скоростью примерно <strong>50–80 км в сутки</strong>. Значит:</p>
+
+  <table style="width:100%;border-collapse:collapse;font-size:0.92em;margin:10px 0">
+    <tr style="background:#0f1923;color:#95a5a6">
+      <th style="padding:8px 10px;text-align:left;border-bottom:2px solid #2c3e50">Пост</th>
+      <th style="padding:8px 10px;text-align:left;border-bottom:2px solid #2c3e50">Время до Серпухова</th>
+      <th style="padding:8px 10px;text-align:left;border-bottom:2px solid #2c3e50">Что это нам даёт</th>
+    </tr>
+    <tr><td style="padding:7px 10px">🌊 Орёл</td><td style="padding:7px 10px"><strong>+4 дня (96 часов)</strong></td><td style="padding:7px 10px">Самое раннее предупреждение: видим паводок за 4 дня до прихода</td></tr>
+    <tr style="background:#0d1e2e"><td style="padding:7px 10px">🌊 Белев</td><td style="padding:7px 10px"><strong>+3 дня (72 часа)</strong></td><td style="padding:7px 10px">Уточняем: волна усилилась или ослабла?</td></tr>
+    <tr><td style="padding:7px 10px">🌊 Калуга</td><td style="padding:7px 10px"><strong>+2 дня (48 часов)</strong></td><td style="padding:7px 10px">Почти точный прогноз на послезавтра</td></tr>
+    <tr style="background:#0d1e2e"><td style="padding:7px 10px">🌊 Алексин/Щукина</td><td style="padding:7px 10px"><strong>+1 день (24 часа)</strong></td><td style="padding:7px 10px">Завтра в Серпухове будет примерно так</td></tr>
+    <tr><td style="padding:7px 10px">⭐ <strong>Серпухов</strong></td><td style="padding:7px 10px"><strong>0 — здесь живём</strong></td><td style="padding:7px 10px">Наш главный пост, именно для него все пороги</td></tr>
+    <tr style="background:#0d1e2e"><td style="padding:7px 10px">🌊 Кашира</td><td style="padding:7px 10px">−12 часов назад</td><td style="padding:7px 10px">Куда ушла волна — контроль</td></tr>
+    <tr><td style="padding:7px 10px">🌊 Коломна</td><td style="padding:7px 10px">−24 часа назад</td><td style="padding:7px 10px">Волна ушла вниз, паводок завершается</td></tr>
+  </table>
+
+  <p><strong>Итог:</strong> Орёл — это наши «глаза на 4 дня вперёд». Если там резко растёт — готовимся.</p>
+
+  <h3 style="color:#f39c12;margin-top:20px">❓ Что означают стрелки рядом с числами?</h3>
+  <div style="background:#0f1923;border-radius:10px;padding:14px;margin:8px 0">
+    <strong>↑↑</strong> — резкий подъём (больше 20 см в сутки) — срочное внимание!<br>
+    <strong>↑</strong> — умеренный подъём (5–20 см в сутки) — следим<br>
+    <strong>→</strong> — стабильно (меньше 5 см изменение) — спокойно<br>
+    <strong>↓</strong> — вода убывает — хорошая новость<br>
+    <strong>↓↓</strong> — быстрый спад (больше 10 см в сутки) — паводок проходит
+  </div>
+
+  <h3 style="color:#f39c12;margin-top:20px">❓ Откуда берутся данные? Им можно доверять?</h3>
+  <p>Данные собираются автоматически с сайта <a href="https://www.fishingsib.ru/waterinfo/water/oka/" target="_blank" style="color:#3498db">fishingsib.ru</a> — агрегатора показаний гидропостов Росгидромета. Посты ведут профессиональные гидрологи, данные официальные. Страница обновляется <strong>4 раза в сутки</strong> (08:00, 12:00, 17:00, 20:00 МСК) автоматически через GitHub Actions.</p>
+  <p>Если у какого-то поста написано «н/д» — значит сайт-источник временно не ответил. Данные появятся при следующем обновлении.</p>
+
+  <h3 style="color:#f39c12;margin-top:20px">❓ Как пользоваться Telegram-оповещениями?</h3>
+  <p>Если вы хотите получать уведомления автоматически — напишите администратору страницы. Бот <strong>OkaFlood2026EMbot</strong> отправляет:</p>
+  <ul style="margin:8px 0 0 0;padding-left:20px">
+    <li><strong>Heartbeat</strong> — краткая сводка 4 раза в день с уровнями всех 7 постов</li>
+    <li><strong>Дайджест</strong> — подробный отчёт с прогнозом и сценариями</li>
+    <li><strong>Алерты</strong> — мгновенное уведомление при резком росте или достижении опасного порога</li>
+  </ul>
+
+  <p style="margin-top:16px;color:#7f8c8d;font-size:0.88em">
+    Данные: <a href="https://www.fishingsib.ru" target="_blank" style="color:#3498db">fishingsib.ru</a> (Росгидромет) &nbsp;|&nbsp;
+    Погода: <a href="https://open-meteo.com" target="_blank" style="color:#3498db">Open-Meteo</a> &nbsp;|&nbsp;
+    Код: <a href="https://github.com/EM-from-Pu/oka-flood-monitor" target="_blank" style="color:#3498db">GitHub</a>
+  </p>
+</section>
+<!-- END EXPLAINER_BLOCK -->
+<h2>📊 До порогов опасности · Серпухов</h2>
   <div id="thresholds"></div>
 </div>
 

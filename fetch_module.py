@@ -34,7 +34,7 @@ def fetch_level(url, name):
     if st and st["fish"]:
         val = _fishingsib(st["fish"])
         if val is not None:
-            print("  " + name + ": " + str(val) + " cm (fishingsib)")
+            pass  # B4 fixed: print убран, monitor.py выводит сам
             return val
     print("  " + name + ": None")
     return None
