@@ -27,6 +27,8 @@ jobs:
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           TG_GROUP_ID: ${{ secrets.TG_GROUP_ID }}
           TG_NEIGHBORS_ID: ${{ secrets.CHAT_NEIGHBORS }}
+          CHAT_ADMIN: ${{ secrets.CHAT_ADMIN }}
+          CHAT_PERSONAL_GROUP: ${{ secrets.CHAT_PERSONAL_GROUP }}
         run: python monitor.py
 
       - name: Commit HTML/data
