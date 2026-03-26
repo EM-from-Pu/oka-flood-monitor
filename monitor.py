@@ -24,9 +24,9 @@ ALERTS_FILE  = "docs/alerts_sent.json"
 
 GAUGES = {
     "orel":      "https://allrivers.info/gauge/oka-orel",
-    "aleksin":   "https://allrivers.info/gauge/oka-aleksin",
+    "aleksin":   "https://allrivers.info/gauge/oka-shukina",
     "kaluga":    "https://allrivers.info/gauge/oka-kaluga",
-    "serpukhov": "https://allrivers.info/gauge/oka-serpukhov",
+    "serpukhov": "https://allrivers.info/gauge/oka-serpuhov",
     "kashira":   "https://allrivers.info/gauge/oka-kashira",
 }
 
