@@ -1,21 +1,39 @@
 {
-  "updated": "2026-03-26T11:34:50.538003+00:00",
+  "updated": "2026-03-26T13:56:31.552994+00:00",
   "levels": {
-    "orel": null,
-    "aleksin": null,
-    "kaluga": null,
-    "serpukhov": null,
-    "kashira": null
+    "orel": 413,
+    "belev": 112,
+    "kaluga": -35,
+    "shukina": 45,
+    "serpukhov": -43,
+    "kashira": -73,
+    "kolomna": -47
   },
   "analytics": {
     "ds24": null,
     "ds48": null,
-    "alert_level": "UNKNOWN",
+    "alert_level": "GREEN",
     "days_to_945": null,
     "date_to_945": null,
     "peak_base_level": null,
     "peak_base_date": null,
-    "insights": []
+    "danger_pct": 0,
+    "wave_msg": null,
+    "insights": [
+      "🌡 Тепло (11.2°C) — активное таяние снега"
+    ]
   },
-  "weather": {}
+  "weather": {
+    "temp": 11.2,
+    "humidity": 73,
+    "wind_ms": 9.2,
+    "wind_dir": 138,
+    "clouds": null,
+    "precip_mm": 0.0,
+    "snow_depth": 0.17,
+    "weather": "данные Open-Meteo",
+    "temp_max": 11.8,
+    "temp_min": -2.0,
+    "wind_max": 10.8
+  }
 }

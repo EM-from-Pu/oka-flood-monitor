@@ -1,0 +1,4 @@
+datetime,orel,belev,kaluga,shukina,serpukhov,kashira,kolomna,delta_serp_24h,delta_serp_48h,delta_orel_24h,delta_kaluga_24h,temp,humidity,wind_ms,wind_dir,clouds,precip_mm,alert_level,forecast_days_to_945,forecast_days_to_peak,scenario_base_peak,scenario_base_date,notes
+2026-03-26T13:43:32.870172+00:00,413,112,-35,45,-43,-73,-47,,,,,11.3,73,9.7,138,,0.0,GREEN,,,,,
+2026-03-26T13:46:37.550017+00:00,413,112,-35,45,-43,-73,-47,,,,,11.2,73,9.2,138,,0.0,GREEN,,,,,
+2026-03-26T13:56:31.552994+00:00,413,112,-35,45,-43,-73,-47,,,,,11.2,73,9.2,138,,0.0,GREEN,,,,,

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.okaflood.monitor</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/admin/Downloads/oka_v3/monitor.py</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>TG_TOKEN</key>
+        <string>8715561124:AAFxyNB3j1BgNa1vtAbqPEw7ATMaBLovPbo</string>
+        <key>TG_CHAT_ID</key>
+        <string>49747475</string>
+        <key>TG_GROUP_ID</key>
+        <string>-5234360275</string>
+        <key>PYTHONIOENCODING</key>
+        <string>utf-8</string>
+    </dict>
+
+    <key>StartInterval</key>
+    <integer>3600</integer>
+
+    <key>StandardOutPath</key>
+    <string>/Users/admin/Downloads/oka_v3/logs/monitor.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/admin/Downloads/oka_v3/logs/monitor_err.log</string>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/admin/Downloads/oka_v3</string>
+</dict>
+</plist>
