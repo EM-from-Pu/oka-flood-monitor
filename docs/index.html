@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🌊 Ока Паводок 2026</title>
+<style>
+:root{--green:#27ae60;--yellow:#f39c12;--orange:#e67e22;--red:#c0392b;--crit:#8e0000;
+      --bg:#0f1923;--card:#1a2635;--text:#ecf0f1;--border:#2c3e50;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;padding:16px;max-width:1200px;margin:0 auto;}
+h1{font-size:1.8em;margin-bottom:4px;}h2{font-size:1.3em;margin:20px 0 10px;border-bottom:1px solid var(--border);padding-bottom:6px;}h3{font-size:1.1em;margin:12px 0 8px;}
+.subtitle{color:#95a5a6;font-size:0.9em;margin-bottom:16px;}
+.status-badge{display:inline-block;padding:6px 18px;border-radius:20px;font-weight:bold;font-size:1.1em;margin:10px 0;background:#7f8c8d;color:white;}
+.hero-forecast{background:linear-gradient(135deg,#1a2635,#243447);border:2px solid var(--orange);border-radius:12px;padding:28px;text-align:center;margin:16px 0;}
+.hero-forecast.critical{border-color:var(--crit);background:#2d0000;}
+.hero-forecast.green{border-color:var(--green);}
+.hero-label{font-size:1em;color:#bdc3c7;display:block;margin-bottom:8px;}
+.hero-days{font-size:3.5em;font-weight:900;color:var(--orange);display:block;line-height:1;}
+.hero-forecast.green .hero-days{color:var(--green);}
+.hero-date{font-size:1.4em;color:#ecf0f1;display:block;margin-top:4px;}
+.progress-wrap{background:#1a2635;border-radius:8px;padding:14px;margin:12px 0;}
+.progress-label{display:flex;justify-content:space-between;font-size:0.85em;color:#95a5a6;margin-bottom:6px;}
+.progress-bar{height:24px;border-radius:6px;overflow:hidden;background:#0a1420;position:relative;}
+.progress-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#27ae60,#f39c12,#e67e22,#c0392b);width:0%;}
+.progress-pct{position:absolute;right:8px;top:3px;font-size:0.85em;font-weight:bold;color:white;}
+.gauges-grid{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0;}
+.gauge-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;min-width:160px;flex:1;}
+.gauge-card.main{border-color:var(--orange);background:#1f2f3e;}
+.gauge-name{font-size:0.85em;color:#95a5a6;margin-bottom:4px;}
+.gauge-level{font-size:2em;font-weight:bold;line-height:1;}
+.gauge-level span{font-size:0.5em;color:#7f8c8d;}
+.gauge-delta{font-size:0.95em;color:var(--orange);margin-top:4px;}
+.gauge-note{font-size:0.75em;color:#7f8c8d;margin-top:6px;}
+.scenarios{background:var(--card);border-radius:10px;padding:16px;margin:12px 0;}
+.scenario-cards{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0;}
+.sc-card{flex:1;min-width:140px;border-radius:8px;padding:12px;text-align:center;}
+.sc-card.green{background:#0d2b17;border:1px solid var(--green);}
+.sc-card.yellow{background:#2b1f00;border:1px solid var(--yellow);}
+.sc-card.red{background:#2b0000;border:1px solid var(--red);}
+.sc-title{font-size:0.85em;margin-bottom:8px;}
+.sc-level{font-size:1.8em;font-weight:bold;}
+.sc-date{font-size:0.85em;color:#95a5a6;margin-top:4px;}
+.scenario-note{font-size:0.75em;color:#7f8c8d;margin-top:8px;}
+.insights-block{background:var(--card);border-radius:10px;padding:16px;margin:12px 0;}
+.insights-block ul{list-style:none;}
+.insights-block li{padding:5px 0;border-bottom:1px solid var(--border);}
+.insights-block li:last-child{border:none;}
+.milestones{background:var(--card);border-radius:10px;padding:16px;margin:12px 0;}
+.ms-row{display:flex;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);gap:12px;}
+.ms-row:last-child{border:none;}
+.ms-level{font-size:1.1em;font-weight:bold;min-width:80px;}
+.ms-desc{flex:1;font-size:0.85em;color:#bdc3c7;}
+.ms-dist{font-size:0.9em;color:var(--orange);text-align:right;min-width:120px;}
+.table-wrap{overflow-x:auto;margin:12px 0;}
+table{width:100%;border-collapse:collapse;font-size:0.82em;}
+th{background:#1a2635;padding:8px 6px;text-align:center;border-bottom:2px solid var(--border);white-space:nowrap;}
+td{padding:6px;text-align:center;border-bottom:1px solid var(--border);}
+tr.row-green td{background:#0d2017;}tr.row-yellow td{background:#1f1600;}
+tr.row-orange td{background:#1f1000;}tr.row-red td{background:#1f0000;}
+tr.row-critical td{background:#2d0000;}tr:hover td{background:#243447;}
+.weather-block{background:var(--card);border-radius:10px;padding:16px;margin:12px 0;}
+.weather-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:8px;}
+.weather-grid div{background:#0f1923;border-radius:6px;padding:8px 12px;font-size:0.9em;}
+.legend{background:var(--card);border-radius:10px;padding:16px;margin:12px 0;line-height:1.6;}
+.legend p{margin:6px 0;font-size:0.9em;}
+.legend-levels{margin:10px 0;}
+.ll{padding:6px 10px;border-radius:6px;margin:4px 0;font-size:0.9em;}
+.ll.green{background:#0d2017;}.ll.yellow{background:#1f1600;}
+.ll.orange{background:#1f1000;}.ll.red{background:#1f0000;}
+.ll.critical{background:#2d0000;}
+.compare-2024{background:var(--card);border-radius:10px;padding:16px;margin:12px 0;}
+.table-2024{width:100%;border-collapse:collapse;font-size:0.85em;margin-top:8px;}
+.table-2024 th{background:#0f1923;padding:6px;}
+.table-2024 td{padding:6px;border-bottom:1px solid var(--border);}
+.links-block{background:var(--card);border-radius:10px;padding:16px;margin:12px 0;}
+.links-block ul{list-style:none;}.links-block li{padding:4px 0;}
+.links-block a{color:#3498db;text-decoration:none;}
+.footer{text-align:center;color:#4a5568;font-size:0.8em;margin-top:24px;padding:16px;}
+@media(max-width:600px){.gauge-level{font-size:1.5em;}.hero-days{font-size:2.5em;}}
+</style></head><body>
+<h1>🌊 Ока Паводок 2026</h1>
+<div class="subtitle">Автоматический мониторинг · Пущино / Серпухов</div>
+<span class="status-badge">❓</span>
+<div class="hero-forecast green"><span class="hero-label">📏 До порога домов:</span><br><span class="hero-days" style="font-size:2.5em">945 см</span><span class="hero-date">рост остановлен / спад</span></div>
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>Серпухов: ? см → порог домов 945 см</span>
+    <span>0% от критического уровня</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill"></div>
+    <span class="progress-pct">0%</span>
+  </div>
+</div>
+<h2>📡 Уровни воды прямо сейчас</h2>
+<div class="gauges-grid"><div class="gauge-card"><div class="gauge-name">📍 ОРЁЛ</div><div class="gauge-level">н/д <span>см</span></div><div class="gauge-note">верховье, −3-4 дня</div></div><div class="gauge-card"><div class="gauge-name">📍 АЛЕКСИН</div><div class="gauge-level">н/д <span>см</span></div><div class="gauge-note">−24-36 ч до нас</div></div><div class="gauge-card"><div class="gauge-name">📍 КАЛУГА</div><div class="gauge-level">н/д <span>см</span></div><div class="gauge-note">−48-72 ч до нас</div></div><div class="gauge-card main"><div class="gauge-name">🎯 СЕРПУХОВ</div><div class="gauge-level">н/д <span>см</span></div><div class="gauge-note">НАША ТОЧКА</div></div><div class="gauge-card"><div class="gauge-name">📍 КАШИРА</div><div class="gauge-level">н/д <span>см</span></div><div class="gauge-note">ниже по течению</div></div></div>
+
+<div class="scenarios"><p>🏔 Прогноз пика: накапливаем данные (нужно ≥2 дня)</p></div>
+<div class="insights-block">
+  <h3>🧠 Аналитика — что происходит</h3>
+  <ul><li>Накапливаем данные для аналитики...</li></ul>
+</div>
+<h2>🎯 До критических отметок (Серпухов)</h2>
+<div class="milestones">
+  <div class="ms-row"><div class="ms-level" style="color:#f39c12">645 см</div>
+    <div class="ms-desc">🟡 Вода на пойме — нижние луга залиты</div>
+    <div class="ms-dist">+645 см</div></div>
+  <div class="ms-row"><div class="ms-level" style="color:#e67e22">800 см</div>
+    <div class="ms-desc">🟠 Подтопление — въезд на дачи затруднён</div>
+    <div class="ms-dist">+800 см</div></div>
+  <div class="ms-row"><div class="ms-level" style="color:#c0392b">920 см</div>
+    <div class="ms-desc">🔴 Уровень пика 2024 — вода в 20 см от порогов</div>
+    <div class="ms-dist">+920 см</div></div>
+  <div class="ms-row"><div class="ms-level" style="color:#ff4444">945 см</div>
+    <div class="ms-desc">🚨 ПОРОГ ДОМОВ — вода заходит в дома</div>
+    <div class="ms-dist">+945 см</div></div>
+</div>
+<h2>📊 История уровней — полная таблица</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Дата/Время</th><th>Орёл</th><th>Алексин</th><th>Калуга</th>
+    <th>Серпухов</th><th>Δ24ч</th><th>Δ48ч(ср)</th><th>Кашира</th>
+    <th>T°C</th><th>Осадки</th><th>Статус</th><th>Примечание</th></tr></thead>
+  <tbody><tr class=""><td>2026-03-26T11:34</td><td>—</td><td>—</td><td>—</td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>UNKNOWN</td><td></td></tr></tbody>
+</table></div>
+<div class="compare-2024">
+  <h3>📅 Как было в 2024 (для сравнения)</h3>
+  <table class="table-2024"><thead>
+    <tr><th>Период</th><th>Серпухов</th><th>Событие</th></tr></thead>
+  <tbody>
+    <tr><td>Конец марта 2024</td><td>400-500 см</td><td>Начало роста</td></tr>
+    <tr><td>1-5 апреля 2024</td><td>600-750 см</td><td>Активный рост, пойма залита</td></tr>
+    <tr><td>7-10 апреля 2024</td><td>800-920 см</td><td>Подтопление дорог</td></tr>
+    <tr><td>11 апреля 2024</td><td>~920 см</td><td>🔴 ПИК — 20 см от порогов!</td></tr>
+    <tr><td>12-20 апреля 2024</td><td>920→700 см</td><td>Постепенный спад</td></tr>
+  </tbody></table>
+  <p style="margin-top:8px;font-size:0.85em;color:#bdc3c7;">
+    В 2026 году снегозапас и температурный фон схожи с 2024. Следим внимательно!</p>
+</div>
+<div class="legend">
+  <h3>📖 Как читать эту страницу</h3>
+  <p>Мы отслеживаем уровень воды в Оке по цепочке постов от истоков к устью:
+     <b>Орёл → Алексин → Калуга → Серпухов → Кашира</b>.</p>
+  <p>Вода движется вниз по течению: что сейчас в Орле — придёт к нам через <b>3-4 суток</b>.
+     Калуга — через <b>48-72 часа</b>. Это позволяет предупреждать паводок заранее.</p>
+  <div class="legend-levels">
+    <div class="ll green">💚 <b>0 – 644 см</b> — Норма. Дачи вне угрозы.</div>
+    <div class="ll yellow">🟡 <b>645 – 799 см</b> — Вода на пойме. Нижние луга залиты.</div>
+    <div class="ll orange">🟠 <b>800 – 919 см</b> — Подтопление. Въезд на дачи затруднён.</div>
+    <div class="ll red">🔴 <b>920 – 944 см</b> — Уровень пика 2024. Вода в 20 см от порогов.</div>
+    <div class="ll critical">🚨 <b>945+ см</b> — ПОРОГ ДОМОВ. Вода заходит в дома.</div>
+  </div>
+  <p><b>Прогноз "N дней"</b> — при текущем суточном темпе роста, через сколько вода достигнет
+     отметки 945 см. Если темп = 0 или вода спадает — показываем остаток в сантиметрах.</p>
+  <p><b>Прогноз пика</b> строится когда верхние посты (Орёл, Калуга) начинают снижаться —
+     тогда волна уже прошла через них и движется к нам.</p>
+</div>
+<div class="links-block">
+  <h3>🔗 Полезные ссылки</h3>
+  <ul>
+    <li><a href="https://allrivers.info/gauge/oka-serpuhov" target="_blank">allrivers.info — Серпухов</a></li>
+    <li><a href="https://www.snt-bugorok.ru/level/uroven-vody-v-oke-u-g-serpukhov-segodnya" target="_blank">snt-bugorok.ru — Серпухов (дубль)</a></li>
+    <li><a href="https://willmap.me/uroven-vody-oka-g-serpuhov" target="_blank">willmap.me — карта уровней</a></li>
+    <li><a href="https://50.mchs.gov.ru/" target="_blank">МЧС Московской области</a></li>
+    <li><a href="https://cugms.ru/" target="_blank">Центральное УГМС — обзоры паводка</a></li>
+  </ul>
+</div>
+<div class="footer">
+  Обновлено: 26.03.2026 11:34 МСК · GitHub Actions · allrivers.info<br>
+  <a href="https://github.com/EM-from-Pu/oka-flood-monitor" style="color:#4a5568">GitHub репо</a>
+</div>
+</body></html>
