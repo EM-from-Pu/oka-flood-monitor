@@ -24,7 +24,7 @@ h3 { color: #79c0ff; margin: 12px 0 6px; }
 /* ═══ GAUGE CARDS ═══ */
 .gauges { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
 .gauge-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px;
-               padding: 12px 16px; min-width: 120px; text-align: center; }
+               padding: 12px 16px; min-width: 120px; text-align: center; flex: 1; }
 .gauge-card.main { border: 2px solid #27ae60; background: #1c2128; }
 .gauge-name { font-size: .8em; color: #8b949e; margin-bottom: 4px; }
 .gauge-level { font-size: 2em; font-weight: 700; color: #e6edf3; }
@@ -36,6 +36,13 @@ h3 { color: #79c0ff; margin: 12px 0 6px; }
 .danger-bar { height: 10px; background: #21262d; border-radius: 5px; margin: 12px 0; }
 .danger-fill { height: 10px; border-radius: 5px;
                 background: linear-gradient(90deg, #3fb950, #d29922, #db6d28, #f85149); }
+
+/* ═══ ACTION BLOCK (Блок 13) ═══ */
+.action-block { background: rgba(255,255,255,0.03); border-radius: 0 8px 8px 0;
+                padding: 14px 18px; margin: 16px 0; }
+.action-block h3 { margin: 0 0 8px; font-size: 1.05em; color: #e6edf3; }
+.action-block p { color: #bdc3c7; font-size: 0.9em; margin: 4px 0; line-height: 1.5; }
+.action-meta { color: #6e7681; font-size: 0.8em; }
 
 /* ═══ TABLES ═══ */
 table { width: 100%; border-collapse: collapse; font-size: .82em; }
@@ -50,7 +57,7 @@ td { padding: 5px 8px; border-bottom: 1px solid #21262d; }
 
 /* ═══ SCENARIO CARDS ═══ */
 .scenario-cards { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0; }
-.sc-card { background: #161b22; border-radius: 8px; padding: 12px; min-width: 120px; text-align: center; }
+.sc-card { background: #161b22; border-radius: 8px; padding: 12px; min-width: 120px; text-align: center; flex: 1; }
 .sc-card.green { border-left: 3px solid #3fb950; }
 .sc-card.yellow { border-left: 3px solid #d29922; }
 .sc-card.red { border-left: 3px solid #f85149; }
@@ -94,6 +101,18 @@ td.forecast-col, th.forecast-col { background: rgba(52,152,219,0.08);
 .deltas-block { background: #161b22; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
 .deltas-block p { margin: 4px 0; font-size: 0.9em; }
 
+/* ═══ REGRESSION BLOCK (ML) ═══ */
+.regression-block { background: rgba(56,139,253,0.08); border-left: 3px solid #388bfd;
+                    border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; }
+.regression-block h4 { color: #79c0ff; margin: 0 0 6px; font-size: 0.9em; }
+.regression-block p { color: #bdc3c7; font-size: 0.88em; margin: 3px 0; }
+
+/* ═══ MCHS COMPARE ═══ */
+.mchs-compare { background: rgba(211,153,34,0.08); border-left: 3px solid #d29922;
+                border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; }
+.mchs-compare h4 { color: #e3b341; margin: 0 0 8px; font-size: 0.95em; }
+.mchs-source { color: #6e7681; font-size: 0.75em; margin-top: 8px; }
+
 /* ═══ PDF REPORT CARDS ═══ */
 .reports-grid { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0; }
 .report-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px;
@@ -103,9 +122,37 @@ td.forecast-col, th.forecast-col { background: rgba(52,152,219,0.08);
 .report-date { font-size: .75em; color: #6e7681; margin-bottom: 8px; }
 .report-card a { color: #388bfd; text-decoration: none; font-size: .85em; }
 
+/* ═══ INSTRUCTION BLOCK (Блок 12) ═══ */
+.instruction-block { background: var(--card); border-radius: 12px; padding: 20px 24px;
+                     margin: 20px 0; border: 1px solid var(--border); }
+.instruction-block h2 { color: #79c0ff; margin-top: 0; font-size: 1.2em; }
+.instr-section { margin: 16px 0; }
+.instr-section h4 { color: #e3b341; margin: 0 0 6px; font-size: 0.95em; }
+.instr-section p { color: #bdc3c7; font-size: 0.88em; margin: 4px 0; line-height: 1.5; }
+
 /* ═══ LINKS & FOOTER ═══ */
 a { color: #388bfd; }
 footer { color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }
+
+/* ═══ МОБИЛЬНАЯ АДАПТАЦИЯ ═══ */
+@media (max-width: 768px) {
+  .gauges { flex-direction: column; }
+  .gauge-card { min-width: 100%; }
+  .scenario-cards { flex-direction: column; }
+  .sc-card { min-width: 100%; }
+  .reports-grid { flex-direction: column; }
+  .report-card { min-width: 100%; }
+  h1 { font-size: 1.1em; padding: 14px 12px; }
+  .container { padding: 8px; }
+  .weather-flood-index { padding: 10px 12px; }
+  .wfi-value { font-size: 1.3em; }
+  .instruction-block { padding: 14px 12px; }
+}
+@media (max-width: 480px) {
+  .gauge-level { font-size: 1.5em; }
+  .sc-level { font-size: 1.3em; }
+  .weather-table { font-size: 0.75em; }
+}
 </style>
 </head>
 <body>
@@ -116,13 +163,15 @@ footer { color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }
 </h1>
 
 <div class="container">
-<p class="meta">Обновлено: 27.03.2026 17:34 МСК | Источник: fishingsib.ru</p>
+<p class="meta">Обновлено: 27.03.2026 17:51 МСК | Источник: fishingsib.ru</p>
 
 <!-- ═══ БЛОК 1: БОЛЬШИЕ ЦИФРЫ ═══ -->
 <h3>📊 7 гидропостов Оки</h3>
 <div class="gauges">
 <div class="gauge-card"><div class="gauge-name">Орёл</div><div class="gauge-level">413</div><div class="gauge-delta">0 см/сут</div><div class="gauge-note">96ч до Серп.</div></div><div class="gauge-card"><div class="gauge-name">Белёв</div><div class="gauge-level">112</div><div class="gauge-note">72ч</div></div><div class="gauge-card"><div class="gauge-name">Калуга</div><div class="gauge-level">-35</div><div class="gauge-delta">0 см/сут</div><div class="gauge-note">48ч</div></div><div class="gauge-card"><div class="gauge-name">Щукина</div><div class="gauge-level">45</div><div class="gauge-note">24ч</div></div><div class="gauge-card main"><div class="gauge-name">Серпухов</div><div class="gauge-level">-43</div><div class="gauge-delta">0 см/сут</div><div class="gauge-note">★ ключевой пост</div></div><div class="gauge-card"><div class="gauge-name">Кашира</div><div class="gauge-level">-73</div><div class="gauge-note">-12ч</div></div><div class="gauge-card"><div class="gauge-name">Коломна</div><div class="gauge-level">-47</div><div class="gauge-note">-24ч</div></div>
 </div>
+<div style="overflow-x:auto; margin:8px 0"><svg viewBox="0 0 620 160" style="width:100%;max-width:620px;height:auto" xmlns="http://www.w3.org/2000/svg"><polyline points="50,100 130,80 220,60 310,80 400,100 480,90 560,70" stroke="#388bfd" stroke-width="3" fill="none" opacity="0.5"/><circle cx="50" cy="100" r="12" fill="#27ae60" opacity="0.8" stroke="#e6edf3" stroke-width="1"/><text x="50" y="104" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">413</text><text x="50" y="83" text-anchor="middle" fill="#8b949e" font-size="7">Орёл</text><circle cx="130" cy="80" r="12" fill="#27ae60" opacity="0.8" stroke="#e6edf3" stroke-width="1"/><text x="130" y="84" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">112</text><text x="130" y="63" text-anchor="middle" fill="#8b949e" font-size="7">Белёв</text><circle cx="220" cy="60" r="12" fill="#27ae60" opacity="0.8" stroke="#e6edf3" stroke-width="1"/><text x="220" y="64" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">-35</text><text x="220" y="43" text-anchor="middle" fill="#8b949e" font-size="7">Калуга</text><circle cx="310" cy="80" r="12" fill="#27ae60" opacity="0.8" stroke="#e6edf3" stroke-width="1"/><text x="310" y="84" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">45</text><text x="310" y="63" text-anchor="middle" fill="#8b949e" font-size="7">Щукина</text><circle cx="400" cy="100" r="18" fill="#27ae60" opacity="0.8" stroke="#e6edf3" stroke-width="3"/><text x="400" y="104" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">-43</text><text x="400" y="77" text-anchor="middle" fill="#8b949e" font-size="7">Серпухов</text><circle cx="480" cy="90" r="12" fill="#27ae60" opacity="0.8" stroke="#e6edf3" stroke-width="1"/><text x="480" y="94" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">-73</text><text x="480" y="73" text-anchor="middle" fill="#8b949e" font-size="7">Кашира</text><circle cx="560" cy="70" r="12" fill="#27ae60" opacity="0.8" stroke="#e6edf3" stroke-width="1"/><text x="560" y="74" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">-47</text><text x="560" y="53" text-anchor="middle" fill="#8b949e" font-size="7">Коломна</text><text x="310" y="150" text-anchor="middle" fill="#6e7681" font-size="8">Орёл → → → Серпухов → → → Коломна  (направление течения Оки)</text></svg></div>
+
 <div class="explainer">
   <b>Что означают цифры?</b> Уровень воды (см) на 7 гидропостах Оки —
   от Орла (верховье) до Коломны (низовье). Паводковая волна идёт сверху вниз:
@@ -132,6 +181,9 @@ footer { color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }
 
 <!-- ═══ БЛОК 2: DANGER BAR ═══ -->
 <div class="danger-bar"><div class="danger-fill" style="width:-4.6%"></div></div>
+
+<!-- ═══ БЛОК 13: ACTION BLOCK (ЧТО ДЕЛАТЬ ПРЯМО СЕЙЧАС) ═══ -->
+<div class="action-block" style="border-left:4px solid #27ae60"><h3>🌧️ ПРОГНОЗ НЕБЛАГОПРИЯТНЫЙ</h3><p>Вода пока спокойна, но погодный индекс высокий: ожидаются условия для быстрого подъёма (потепление + осадки). Рекомендуем проверять сайт ежедневно.</p><p class="action-meta">Обновлено: 27.03.2026 17:51 МСК</p></div>
 
 <!-- ═══ БЛОК 3: ПОРОГИ КИМ ═══ -->
 <h3>🚨 Пороги КИМ (Серпухов)</h3>
@@ -153,7 +205,7 @@ footer { color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }
 <div class="scenario-cards"><p style="color:#8b949e;">Недостаточно данных для построения сценариев. Прогноз пика формируется по накопленной истории.</p></div>
 
 <!-- ═══ БЛОК 5: РАСШИРЕННЫЙ БЛОК ПОГОДЫ ═══ -->
-<div class="weather-ext-block"><h3>🌡 Расширенный прогноз погоды (8 дней)</h3><div class="weather-flood-index" style="border-color:#8e0000"><span class="wfi-label">Паводковый индекс погоды</span><span class="wfi-value" style="color:#8e0000">КРИТИЧЕСКИЙ</span><p class="wfi-summary">Активное таяние + осадки. Все факторы против нас. Максимально быстрый рост уровня.</p></div><div style="overflow-x:auto"><table class="weather-table"><thead><tr><th></th><th>03-23</th><th>03-24</th><th>03-25</th><th>03-26</th><th>03-27</th><th class="forecast-col" style="border-left:2px solid #3498db">03-28 ▸</th><th class="forecast-col">03-29 ▸</th><th class="forecast-col">03-30 ▸</th></tr></thead><tbody><tr><td>Tmax °C</td><td class="hot">+12</td><td class="hot">+11</td><td class="hot">+12</td><td class="hot">+12</td><td>+9</td><td class="forecast-col hot">+11</td><td class="forecast-col hot">+13</td><td class="forecast-col hot">+13</td></tr><tr><td>Tmin °C</td><td class="frost">-2</td><td class="frost">-2</td><td class="frost">-2</td><td class="frost">-2</td><td class="warm-night">+3</td><td class="warm-night forecast-col">+5</td><td class="warm-night forecast-col">+3</td><td class="warm-night forecast-col">+4</td></tr><tr><td>Осадки мм</td><td>—</td><td>—</td><td>—</td><td>—</td><td>4.2</td><td class="forecast-col">1.2</td><td class="forecast-col">—</td><td class="forecast-col">—</td></tr><tr><td>❄ Снег см</td><td>25.0</td><td>22.0</td><td>19.0</td><td>17.0</td><td>15.0</td><td class="forecast-col">—</td><td class="forecast-col">—</td><td class="forecast-col">—</td></tr><tr><td>Ветер м/с</td><td>2</td><td>2</td><td>2</td><td>3</td><td>2</td><td class="forecast-col">3</td><td class="forecast-col">2</td><td class="forecast-col">3</td></tr></tbody></table></div><div class="explainer"><b>Как читать таблицу?</b> Слева 4 дня факт, справа 4 дня прогноз (выделены синим). Красные ячейки Tmin = ночные заморозки (замедляют таяние). Зелёные ячейки Tmin = тёплые ночи (ускоряют таяние). Rain-on-Snow = дождь на снег при T&gt;0 — самый опасный фактор паводка.</div><div class="weather-commentary"><h3>📝 Выводы</h3><ul><li>🟡 Через 1 дн. умеренный дождь (4мм) при плюсе — дополнительная нагрузка на реку.</li><li>⚠️ Значительный снежный покров: 17 см (Δ4 дня: -8 см) — серьёзный вклад в паводок при потеплении. РИСК ПАВОДКА.</li><li>🌡 Последние ночи с морозом (4/4), прогноз — потепление: таяние ускорится.</li><li>🌡 Ночные температуры устойчиво выше нуля — снег тает круглосуточно.</li></ul></div></div>
+<div class="weather-ext-block"><h3>🌡 Расширенный прогноз погоды (8 дней)</h3><div class="weather-flood-index" style="border-color:#8e0000"><span class="wfi-label">Паводковый индекс погоды</span><span class="wfi-value" style="color:#8e0000">КРИТИЧЕСКИЙ</span><p class="wfi-summary">Активное таяние + осадки. Все факторы против нас. Максимально быстрый рост уровня.</p></div><div style="overflow-x:auto"><table class="weather-table"><thead><tr><th></th><th>03-23</th><th>03-24</th><th>03-25</th><th>03-26</th><th>03-27</th><th class="forecast-col" style="border-left:2px solid #3498db">03-28 ▸</th><th class="forecast-col">03-29 ▸</th><th class="forecast-col">03-30 ▸</th></tr></thead><tbody><tr><td>Tmax °C</td><td class="hot">+12</td><td class="hot">+11</td><td class="hot">+12</td><td class="hot">+12</td><td>+9</td><td class="forecast-col hot">+11</td><td class="forecast-col hot">+13</td><td class="forecast-col hot">+13</td></tr><tr><td>Tmin °C</td><td class="frost">-2</td><td class="frost">-2</td><td class="frost">-2</td><td class="frost">-2</td><td class="warm-night">+3</td><td class="warm-night forecast-col">+5</td><td class="warm-night forecast-col">+3</td><td class="warm-night forecast-col">+4</td></tr><tr><td>Осадки мм</td><td>—</td><td>—</td><td>—</td><td>—</td><td>4.2</td><td class="forecast-col">1.2</td><td class="forecast-col">—</td><td class="forecast-col">—</td></tr><tr><td>🌧 Дождь мм</td><td>—</td><td>—</td><td>—</td><td>—</td><td>4.2</td><td class="forecast-col">1.2</td><td class="forecast-col">—</td><td class="forecast-col">—</td></tr><tr><td>❄ Снег см</td><td>25.0</td><td>22.0</td><td>19.0</td><td>17.0</td><td>15.0</td><td class="forecast-col">—</td><td class="forecast-col">—</td><td class="forecast-col">—</td></tr><tr><td>Ветер м/с</td><td>2</td><td>2</td><td>2</td><td>3</td><td>2</td><td class="forecast-col">3</td><td class="forecast-col">2</td><td class="forecast-col">3</td></tr></tbody></table></div><div class="explainer"><b>Как читать таблицу?</b> Слева 4 дня факт, справа 4 дня прогноз (выделены синим). Красные ячейки Tmin = ночные заморозки (замедляют таяние). Зелёные ячейки Tmin = тёплые ночи (ускоряют таяние). Дождь мм — отдельная строка от общих осадков; важна для Rain-on-Snow индикации. Rain-on-Snow = дождь на снег при T&gt;0 — самый опасный фактор паводка.</div><div class="weather-commentary"><h3>📝 Выводы</h3><ul><li>🟡 Через 1 дн. умеренный дождь (4мм) при плюсе — дополнительная нагрузка на реку.</li><li>⚠️ Значительный снежный покров: 17 см (Δ4 дня: -8 см) — серьёзный вклад в паводок при потеплении. РИСК ПАВОДКА.</li><li>🌡 Последние ночи с морозом (4/4), прогноз — потепление: таяние ускорится.</li><li>🌡 Ночные температуры устойчиво выше нуля — снег тает круглосуточно.</li></ul></div></div>
 
 <!-- ═══ БЛОК 6: ВОЛНОВОЙ ПРОГНОЗ ═══ -->
 <div class="wave-block">🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч</div>
@@ -165,11 +217,17 @@ footer { color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }
 <h3>🧠 Аналитика</h3>
 <ul><li>🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч</li></ul>
 
+<!-- ═══ ML-РЕГРЕССИЯ ═══ -->
+
+
+<!-- ═══ СРАВНЕНИЕ С МЧС ═══ -->
+
+
 <!-- ═══ БЛОК 9: ДЕЛЬТЫ И РАССТОЯНИЯ ═══ -->
 <div class="deltas-block"><p>Δ24ч Серпухов: <b>0</b> | Δ48ч: <b></b></p><p>Δ24ч Орёл: <b>0</b> | Δ24ч Калуга: <b>0</b></p></div>
 
 <!-- ═══ ПОГОДА СЕЙЧАС (базовый блок) ═══ -->
-<div class="weather-block"><h3>🌤 Погода сейчас</h3><div class="weather-grid"><div>🌡 7.8°C Open-Meteo</div><div>min 3.1 / max 9.2</div><div>💧 4.2 мм</div><div>💨 4.6 м/с С</div><div>💦 55%</div></div></div>
+<div class="weather-block"><h3>🌤 Погода сейчас</h3><div class="weather-grid"><div>🌡 7.7°C Open-Meteo</div><div>min 3.1 / max 9.2</div><div>💧 4.2 мм</div><div>💨 4.3 м/с СВ</div><div>💦 55%</div></div></div>
 
 <!-- ═══ БЛОК 10: ТАБЛИЦА ИСТОРИИ ═══ -->
 <h3>📋 История (последние 50 записей)</h3>
@@ -179,12 +237,74 @@ footer { color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }
   <th>Дата/время</th><th>Орёл</th><th>Белёв</th><th>Калуга</th><th>Щукина</th>
   <th>Серпухов</th><th>Кашира</th><th>Коломна</th><th>Δ/сут</th><th>T°</th><th>Осадки</th>
 </tr>
-<tr class=""><td>>>>>>>> ecdcf16 </td><td> PDF archive</td><td> explainers)</td><td></td><td></td><td><b></b></td><td></td><td></td><td></td><td></td><td></td></tr><tr class=""><td>=======</td><td></td><td></td><td></td><td></td><td><b></b></td><td></td><td></td><td></td><td></td><td></td></tr><tr class=""><td><<<<<<< HEAD</td><td></td><td></td><td></td><td></td><td><b></b></td><td></td><td></td><td></td><td></td><td></td></tr><tr class="row-green"><td>2026-03-27T14:34</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>8</td><td>4</td></tr><tr class="row-green"><td>2026-03-27T13:23</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td>0</td><td>8</td><td>4</td></tr><tr class="row-green"><td>2026-03-27T11:31</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td>0</td><td>8</td><td>1</td></tr><tr class="row-green"><td>2026-03-27T09:30</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td>0</td><td></td><td></td></tr><tr class="row-green"><td>2026-03-27T08:06</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td>0</td><td>5</td><td>1</td></tr><tr class="row-green"><td>2026-03-26T22:44</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>4</td><td>1</td></tr><tr class="row-green"><td>2026-03-26T14:26</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr><tr class="row-green"><td>2026-03-26T14:21</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr><tr class="row-green"><td>2026-03-26T13:56</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr><tr class="row-green"><td>2026-03-26T13:46</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr><tr class="row-green"><td>2026-03-26T13:43</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr>
+<tr class=""><td>>>>>>>> ecdcf16 </td><td> PDF archive</td><td> explainers)</td><td></td><td></td><td><b></b></td><td></td><td></td><td></td><td></td><td></td></tr><tr class=""><td>=======</td><td></td><td></td><td></td><td></td><td><b></b></td><td></td><td></td><td></td><td></td><td></td></tr><tr class=""><td><<<<<<< HEAD</td><td></td><td></td><td></td><td></td><td><b></b></td><td></td><td></td><td></td><td></td><td></td></tr><tr class="row-green"><td>2026-03-27T14:51</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>8</td><td>4</td></tr><tr class="row-green"><td>2026-03-27T14:34</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td>0</td><td>8</td><td>4</td></tr><tr class="row-green"><td>2026-03-27T13:23</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td>0</td><td>8</td><td>4</td></tr><tr class="row-green"><td>2026-03-27T11:31</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td>0</td><td>8</td><td>1</td></tr><tr class="row-green"><td>2026-03-27T09:30</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td>0</td><td></td><td></td></tr><tr class="row-green"><td>2026-03-27T08:06</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td>0</td><td>5</td><td>1</td></tr><tr class="row-green"><td>2026-03-26T22:44</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>4</td><td>1</td></tr><tr class="row-green"><td>2026-03-26T14:26</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr><tr class="row-green"><td>2026-03-26T14:21</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr><tr class="row-green"><td>2026-03-26T13:56</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr><tr class="row-green"><td>2026-03-26T13:46</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr><tr class="row-green"><td>2026-03-26T13:43</td><td>413</td><td>112</td><td>-35</td><td>45</td><td><b>-43</b></td><td>-73</td><td>-47</td><td></td><td>11</td><td>0</td></tr>
 </table>
 </div>
 
 <!-- ═══ БЛОК 11: PDF-АРХИВ ОТЧЁТОВ ═══ -->
 
+
+<!-- ═══ БЛОК 12: ИНСТРУКЦИЯ С НУЛЯ ═══ -->
+<div class="instruction-block">
+  <h2>📖 Как читать эту страницу — инструкция с нуля</h2>
+
+  <div class="instr-section">
+    <h4>🌊 Что это за система?</h4>
+    <p>OkaFloodMonitor — автоматическая система мониторинга паводка на реке Оке
+    в районе Серпухова. Работает 24/7, данные обновляются 4 раза в день
+    (08:00, 12:00, 17:00, 20:00 МСК). Автор — Егор Мельников.</p>
+  </div>
+
+  <div class="instr-section">
+    <h4>📊 Откуда берутся данные?</h4>
+    <p><b>Уровни воды</b> — с 7 гидропостов Росгидромета (fishingsib.ru): Орёл, Белёв,
+    Калуга, Щукина/Алексин, Серпухов, Кашира, Коломна. Это реальные показания
+    автоматических уровнемеров.</p>
+    <p><b>Погода</b> — Open-Meteo API: температура, осадки, снежный покров, ветер.
+    Факт за 4 дня + прогноз на 4 дня.</p>
+    <p><b>PDF-бюллетени</b> — официальные сводки ЦУГМС (Центральное управление
+    гидрометеорологической службы).</p>
+  </div>
+
+  <div class="instr-section">
+    <h4>🔢 Что означают цифры?</h4>
+    <p><b>Уровень (см)</b> — высота воды над нулём водомерного поста.
+    Серпухов — ключевой пост. При 645 см затапливается пойма.
+    При 800 см — дачные участки. При 945 см — вода у фундамента дома.</p>
+    <p><b>Δ/сут</b> — изменение уровня за последние 24 часа.
+    Положительное = вода поднимается. Отрицательное = вода спадает.</p>
+    <p><b>Опасность %</b> — насколько текущий уровень близок к критической
+    отметке 945 см (0% = далеко, 100% = достигнут).</p>
+  </div>
+
+  <div class="instr-section">
+    <h4>🌡 Паводковый индекс погоды</h4>
+    <p>Комплексный показатель от 0 до 4, учитывающий: температуру (днём и ночью),
+    осадки, снежный покров и Rain-on-Snow (дождь на снег — самый опасный фактор).
+    СТАБИЛЬНЫЙ → УМЕРЕННЫЙ → ПОВЫШЕННЫЙ → ВЫСОКИЙ → КРИТИЧЕСКИЙ.</p>
+  </div>
+
+  <div class="instr-section">
+    <h4>🌊 Паводковая волна</h4>
+    <p>Вода движется от верховья к низовью. Если в Орле уровень начал падать —
+    значит волна прошла через него и через ~96 часов дойдёт до Серпухова.
+    Калуга — промежуточный индикатор (~48 ч до Серпухова).</p>
+  </div>
+
+  <div class="instr-section">
+    <h4>📈 Три сценария пика</h4>
+    <p><b>Оптимистичный</b> — если потепление замедлится и осадков не будет.
+    <b>Базовый</b> — при текущем темпе роста.
+    <b>Пессимистичный</b> — если потепление усилится + Rain-on-Snow.</p>
+  </div>
+
+  <div class="instr-section">
+    <h4>📱 Как получать уведомления?</h4>
+    <p>1️⃣ Группа «Ока Паводок 🌊» в Telegram — присоединяйтесь.
+    2️⃣ Бот @OkaFlood2026EMbot — можно добавить в любую группу.
+    3️⃣ Личная рассылка — напишите Егору, добавит в список.</p>
+  </div>
+</div>
 
 <!-- ═══ FOOTER ═══ -->
 <footer>
