@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-26T22:44:07.883953+00:00",
+  "updated": "2026-03-27T08:06:14.155227+00:00",
   "levels": {
     "orel": 413,
     "belev": 112,
@@ -10,7 +10,7 @@
     "kolomna": -47
   },
   "analytics": {
-    "ds24": null,
+    "ds24": 0,
     "ds48": null,
     "alert_level": "GREEN",
     "days_to_945": null,
@@ -18,21 +18,23 @@
     "peak_base_level": null,
     "peak_base_date": null,
     "danger_pct": -4.6,
-    "wave_msg": null,
-    "insights": []
+    "wave_msg": "🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч",
+    "insights": [
+      "🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч"
+    ]
   },
   "weather": {
-    "temp": 4.0,
-    "humidity": 58,
-    "wind_ms": 2.9,
-    "wind_dir": 120,
+    "temp": 5.4,
+    "humidity": 55,
+    "wind_ms": 3.1,
+    "wind_dir": 36,
     "clouds": null,
-    "precip_mm": 1.1,
+    "precip_mm": 0.9,
     "snow_depth": 0.14,
     "weather": "Open-Meteo",
-    "temp_max": 7.1,
-    "temp_min": 3.5,
-    "wind_max": 6.6
+    "temp_max": 7.2,
+    "temp_min": 3.1,
+    "wind_max": 8.3
   },
   "weather_ext": {
     "flood_index": 4,
@@ -40,6 +42,7 @@
     "flood_summary": "Все факторы против нас: тепло, дождь, снег. Максимально быстрый рост уровня.",
     "snow_depth_cm": 14.0,
     "commentary": [
+      "🟡 Через 4 дн. ожидается дождь (2мм) при плюсе — доп. нагрузка на реку.",
       "⚠️ Значительный снежный покров: 17 см — серьёзный вклад в паводок при потеплении и дожде.",
       "🌡 Последние ночи с морозом (4/4), прогноз — потепление: таяние ускорится.",
       "🌡 Ночные температуры стабильно минусовые — таяние только днём."
