@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "updated": "2026-03-27T11:31:06.405427+00:00",
+=======
+  "updated": "2026-03-27T13:23:19.264260+00:00",
+>>>>>>> ecdcf16 (feat: v5.0 — full rewrite with weather block, PDF archive, explainers)
   "levels": {
     "orel": 413,
     "belev": 112,
@@ -12,18 +16,29 @@
   "analytics": {
     "ds24": 0,
     "ds48": null,
+    "do24": 0,
+    "dk24": 0,
     "alert_level": "GREEN",
+    "danger_pct": -4.6,
     "days_to_945": null,
     "date_to_945": null,
     "peak_base_level": null,
     "peak_base_date": null,
-    "danger_pct": -4.6,
+    "peak_base_days": null,
+    "peak_opt_level": null,
+    "peak_opt_date": null,
+    "peak_pess_level": null,
+    "peak_pess_date": null,
     "wave_msg": "🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч",
     "insights": [
+      "☀️ Активное дневное таяние (+8.1°C)",
       "🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч"
-    ]
+    ],
+    "serp_2024": null,
+    "vs_2024": null
   },
   "weather": {
+<<<<<<< HEAD
     "temp": 7.9,
     "humidity": 55,
     "wind_ms": 6.1,
@@ -33,9 +48,20 @@
     "snow_depth": 0.15,
     "weather": "Open-Meteo",
     "temp_max": 8.0,
+=======
+    "temp": 8.1,
+    "humidity": 55,
+    "wind_ms": 3.7,
+    "wind_dir": 11,
+    "clouds": null,
+    "precip_mm": 4.2,
+    "weather": "Open-Meteo",
+    "temp_max": 9.2,
+>>>>>>> ecdcf16 (feat: v5.0 — full rewrite with weather block, PDF archive, explainers)
     "temp_min": 3.1,
     "wind_max": 7.6
   },
+<<<<<<< HEAD
   "weather_ext": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
@@ -47,4 +73,7 @@
       "🌡 Ночные температуры стабильно минусовые — таяние только днём."
     ]
   }
+=======
+  "weather_extended": null
+>>>>>>> ecdcf16 (feat: v5.0 — full rewrite with weather block, PDF archive, explainers)
 }
