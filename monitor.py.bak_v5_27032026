@@ -20,14 +20,9 @@
 #  14. tg_send()                   — Telegram API
 #  15. format_heartbeat()          — краткая сводка (+ wext)
 #  16. format_digest()             — полный дайджест (+ wext)
-#  16a. format_neighbors_digest()  — НОВОЕ: упрощённый для соседей
-#  17. format_group_draft()        — ПЕРЕПИСАН: от первого лица Егора (+ wext)
-#  18. generate_action_block()     — НОВОЕ: рекомендации для жителей
-#  19. compute_simple_regression() — НОВОЕ: ML-прогноз (чистый Python)
-#  20. generate_chart_js_block()   — НОВОЕ: Chart.js график
-#  21. load_mailing_list()         — НОВОЕ: динамическая рассылка
-#  22. generate_html()             — ПОЛНАЯ HTML-страница (13 блоков + CSS)
-#  23. main()                      — orchestrator
+#  17. format_group_draft()        — draft для группы
+#  18. generate_html()             — ПОЛНАЯ HTML-страница (11 блоков, CSS inline)
+#  19. main()                      — orchestrator
 #
 # NO-GO:
 #   - НЕ трогаем fetch_module.py, fetch_report.py, fetch_2024.py, monitor.yml
@@ -40,7 +35,6 @@
 import os
 import json
 import csv
-import math
 import requests
 from datetime import datetime, timedelta, timezone
 
@@ -86,13 +80,6 @@ INDEX_HTML   = os.path.join(DOCS_DIR, "index.html")
 GROUP_DRAFT  = os.path.join(DOCS_DIR, "group_draft.txt")
 STATUS_FILE  = os.path.join(DOCS_DIR, "status.txt")
 ALERTS_FILE  = os.path.join(DATA_DIR, "alerts_sent.json")
-MAILING_LIST = os.path.join(DATA_DIR, "mailing_list.json")  # НОВОЕ v5
-
-# Притоки (B4) — заглушка, заполняется вручную если найдены на fishingsib.ru
-EXTRA_STATIONS = {
-    # "nara": {"url": "https://...", "name": "Нара (Серпухов)"},
-    # "protva": {"url": "https://...", "name": "Протва (Обнинск)"},
-}
 
 # Колонки CSV (v5 = v4.2 + 2 новых)
 HISTORY_COLS = [
@@ -167,20 +154,6 @@ def fetch_all_levels():
         printf("  %s → %s", st["name"], val)
     printf("levels: %s", levels)
     return levels
-
-
-def fetch_extra_levels():
-    """Получает уровни притоков (Нара, Протва) если настроены."""
-    result = {}
-    for slug, info in EXTRA_STATIONS.items():
-        try:
-            from fetch_module import fetch_level as fish_fetch
-            val = fish_fetch(info["url"], info["name"])
-            result[slug] = val
-        except Exception as e:
-            printf("extra fetch %s: %s", slug, e)
-            result[slug] = None
-    return result
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -921,7 +894,7 @@ def format_heartbeat(levels, analytics, weather, wext=None):
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def format_digest(levels, analytics, weather, history, wext=None):
-    """Полный дайджест — ADMIN + условно MY_GROUP."""
+    """Полный дайджест — ADMIN + условно MY_GROUP + NEIGHBORS."""
     now = datetime.now().strftime("%d.%m.%Y")
     al = analytics
     s  = levels.get("serpukhov")
@@ -1024,512 +997,53 @@ def format_digest(levels, analytics, weather, history, wext=None):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 16a. FORMAT NEIGHBORS DIGEST (НОВОЕ! — упрощённый для соседей)
+# 17. FORMAT GROUP DRAFT (без изменений v4.2)
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def format_neighbors_digest(levels, analytics, weather, wext=None):
-    """
-    Упрощённый дайджест для соседей.
-    Без технических деталей (без дельт станций кроме Серпухова).
-    Без таблицы порогов КИМ.
-    Простой человеческий язык + практические рекомендации.
-    """
-    now = datetime.now().strftime("%d.%m.%Y")
-    al = analytics
-    s = levels.get("serpukhov")
-    ds24 = al.get("ds24")
-    dpct = al.get("danger_pct", 0)
-
-    # Тренд простым языком
-    if ds24 is not None:
-        if ds24 > 20:
-            trend_txt = f"быстро растёт (+{round(ds24)} см/сут)"
-        elif ds24 > 5:
-            trend_txt = f"растёт (+{round(ds24)} см/сут)"
-        elif ds24 > 0:
-            trend_txt = f"медленно растёт (+{round(ds24)} см/сут)"
-        elif ds24 < -5:
-            trend_txt = f"падает ({round(ds24)} см/сут)"
-        elif ds24 < 0:
-            trend_txt = f"медленно падает ({round(ds24)} см/сут)"
-        else:
-            trend_txt = "без изменений"
-    else:
-        trend_txt = "нет данных за 24ч"
-
-    # Рекомендация из generate_action_block
-    action_icon, action_title, action_text = generate_action_block(analytics, wext)
-
-    # Погодный индекс
-    flood_line = ""
-    if wext:
-        flood_line = (
-            f"\n🌡 Погода: {wext.get('flood_label', '—')}\n"
-            f"{wext.get('flood_summary', '')}"
-        )
-
-    serp_str = str(s) if s is not None else "н/д"
-
-    return (
-        f"🌊 <b>ПАВОДОК ОКА — СВОДКА {now}</b>\n\n"
-        f"📊 Серпухов: {serp_str} см ({trend_txt})\n"
-        f"⚠️ Опасность: {dpct:.0f}%\n\n"
-        f"{action_icon} <b>{action_title}</b>\n"
-        f"{action_text}\n"
-        f"{flood_line}\n\n"
-        f"🔗 Подробнее: https://em-from-pu.github.io/oka-flood-monitor"
-    )
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# 17. FORMAT GROUP DRAFT (ПЕРЕПИСАН — от первого лица Егора + wext)
-# ═══════════════════════════════════════════════════════════════════════════════
-
-def format_group_draft(levels, analytics, wext=None):
-    """Draft для ручной отправки в общие группы — от первого лица (Егора)."""
+def format_group_draft(levels, analytics):
+    """Draft для ручной отправки в общие группы."""
     now = datetime.now().strftime("%d.%m.%Y %H:%M")
     al  = analytics
-    s   = levels.get("serpukhov")
-    ds24 = al.get("ds24")
-    dpct = al.get("danger_pct", 0)
+    s   = levels.get("serpukhov", "?")
+    o   = levels.get("orel", "?")
+    k   = levels.get("kaluga", "?")
+    sh  = levels.get("shukina", "?")
+    ka  = levels.get("kashira", "?")
 
-    # Тренд
-    if ds24 is not None:
-        sign = "+" if ds24 > 0 else ""
-        delta_txt = f"{sign}{round(ds24)} см/сут"
-        if ds24 > 0:
-            trend_word = "растёт"
-        elif ds24 < 0:
-            trend_word = "падает"
-        else:
-            trend_word = "стабилен"
-    else:
-        delta_txt = "нет данных"
-        trend_word = "нет данных за 24ч"
+    ds24    = al.get("ds24")
+    pb      = al.get("peak_base_level")
+    pbd     = al.get("peak_base_date")
+    status  = ALERT_EMOJI.get(al.get("alert_level"), "⚪")
 
-    # Сценарии пика
-    po = al.get("peak_opt_level")
-    pod = al.get("peak_opt_date")
-    pb = al.get("peak_base_level")
-    pbd = al.get("peak_base_date")
-    pp = al.get("peak_pess_level")
-    ppd = al.get("peak_pess_date")
+    sign      = "+" if ds24 and ds24 > 0 else ""
+    delta_txt = f"{sign}{round(ds24)}" if ds24 is not None else ""
+    dist_txt  = _dist(s if isinstance(s, int) else None, CRITICAL_LEVEL, ds24)
 
-    peak_lines = ""
+    txt = (
+        f"📊 Паводок Ока 2026 | {now}\n"
+        f"Данные 4 раза в сутки (08/12/17/20)\n\n"
+        f"🔺 Орёл (3–4 сут.): {o}\n"
+        f"  Калуга (1–2 сут.): {k}\n"
+        f"  Щукино (~1 сут.): {sh}\n"
+        f"<b>⭐ Серпухов: {s} {delta_txt} см/сут</b>\n"
+        f"  Кашира: {ka}\n\n"
+        f"Пик 2024: 920 см | Критический: 945 см\n"
+        f"До критического: {dist_txt}\n"
+    )
     if pb and pbd:
-        peak_lines = (
-            f"\n📈 Прогноз пика:\n"
-            f"- Оптимистичный: {po or '?'} см к {pod or '?'}\n"
-            f"- Базовый: {pb} см к {pbd}\n"
-            f"- Пессимистичный: {pp or '?'} см к {ppd or '?'}"
-        )
-
-    # Волновой прогноз
-    wave = al.get("wave_msg")
-    wave_txt = wave if wave else "Паводковая волна пока не сформировалась."
-
-    # Погодный индекс
-    weather_lines = ""
-    if wext:
-        fi = wext.get("flood_index", 0)
-        fl = wext.get("flood_label", "—")
-        fs = wext.get("flood_summary", "")
-        weather_lines = f"\n\n🌡 Погодный индекс: {fl} ({fi}/4)\n{fs}"
-
-    serp_str = str(s) if s is not None else "нет данных"
-
-    return (
-        f"Привет! Это Егор, обновление паводковой обстановки на Оке.\n\n"
-        f"📊 Серпухов сейчас: {serp_str} см (вчера {trend_word}, {delta_txt})\n"
-        f"⚠️ Уровень опасности: {dpct:.0f}%\n\n"
-        f"🌊 Что происходит:\n"
-        f"{wave_txt}"
-        f"{peak_lines}"
-        f"{weather_lines}\n\n"
-        f"💡 Как работает система:\n"
-        f"Бот собирает данные с 7 гидропостов Оки (от Орла до Коломны) + погоду\n"
-        f"из Open-Meteo. Анализирует скорость подъёма воды, снежный покров,\n"
-        f"температуру и осадки. Обновление — 4 раза в сутки автоматически.\n\n"
-        f"🔗 Полная аналитика: https://em-from-pu.github.io/oka-flood-monitor\n"
-        f"🤖 Бот: @OkaFlood2026EMbot"
-    )
+        txt += f"\nПрогноз пика: ~{pb} см ({pbd})"
+    txt += f"\n\n{status}\nhttps://fishingsib.ru | ~60 гидропостов"
+    return txt
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 18. GENERATE ACTION BLOCK (НОВОЕ — Блок 13)
+# 18. GENERATE HTML — ПОЛНАЯ ПЕРЕПИСКА С НУЛЯ (11 блоков)
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def generate_action_block(analytics, wext):
+def generate_html(levels, analytics, weather, history, wext=None):
     """
-    Генерирует текст 'Что делать жителям/дачникам в ближайшие 48 часов'.
-    Возвращает (icon, title, text).
-    """
-    al = analytics.get("alert_level", "GREEN")
-    fi = wext.get("flood_index", 0) if wext else 0
-    serp = 0
-    # Вычисляем уровень Серпухова из danger_pct (обратная формула)
-    # или используем косвенные данные
-    dpct = analytics.get("danger_pct", 0)
-    # Приблизительный уровень из danger_pct
-    serp = round(dpct / 100 * CRITICAL_LEVEL) if dpct > 0 else 0
-
-    if al == "CRITICAL" or serp >= 920:
-        icon = "🚨"
-        title = "КРИТИЧЕСКАЯ СИТУАЦИЯ"
-        text = ("Вода приближается к отметке затопления жилых домов. "
-                "Рекомендуем: вывезти ценные вещи из подвалов, подготовить "
-                "насосы, проверить пути эвакуации. Следите за обновлениями каждый час.")
-    elif al == "RED" or serp >= 800:
-        icon = "⚠️"
-        title = "ПОВЫШЕННАЯ ОПАСНОСТЬ"
-        text = ("Дачные участки начинают подтапливаться. Проверьте свои участки, "
-                "уберите вещи с низких мест. До критической отметки дома осталось "
-                f"{945 - serp} см.")
-    elif al == "ORANGE" or serp >= 645:
-        icon = "🟠"
-        title = "ПОЙМА ЗАТОПЛЕНА"
-        text = ("Пойма Оки у Серпухова затоплена. Не выходите на пойменные луга. "
-                "Дачным участкам пока ничего не угрожает, но следите за динамикой.")
-    elif fi >= 3:
-        icon = "🌧️"
-        title = "ПРОГНОЗ НЕБЛАГОПРИЯТНЫЙ"
-        text = ("Вода пока спокойна, но погодный индекс высокий: ожидаются "
-                "условия для быстрого подъёма (потепление + осадки). "
-                "Рекомендуем проверять сайт ежедневно.")
-    else:
-        icon = "✅"
-        title = "СИТУАЦИЯ СТАБИЛЬНАЯ"
-        text = ("Уровень воды в пределах нормы. Паводковый индекс погоды не вызывает "
-                "опасений. Обновления — 4 раза в день.")
-
-    return icon, title, text
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# 19. COMPUTE SIMPLE REGRESSION (НОВОЕ — ML-прогноз, чистый Python)
-# ═══════════════════════════════════════════════════════════════════════════════
-
-def compute_simple_regression(history):
-    """
-    Линейная регрессия уровня Серпухова за последние 14 дней.
-    НЕ использует scikit-learn (не установлен в GitHub Actions).
-    Реализация на чистом Python (least squares).
-
-    Возвращает:
-    {
-      "slope_per_day": float,        # см/день
-      "r_squared": float,            # R² (качество фита)
-      "predicted_3d": float,         # прогноз через 3 дня
-      "predicted_7d": float,         # прогноз через 7 дней
-      "predicted_peak_date": str,    # когда достигнет 945 при текущем тренде
-      "trend_text": str,             # "рост X см/день" или "спад" или "стабильно"
-    }
-    """
-    # Берём последние 14 записей с непустым serpukhov
-    points = []
-    for row in history[-100:]:
-        val = row.get("serpukhov")
-        if val and str(val).strip():
-            try:
-                points.append((row["datetime"], int(float(val))))
-            except (ValueError, TypeError):
-                pass
-
-    if len(points) < 5:
-        return None
-
-    # Последние 14 уникальных по дате
-    seen_dates = set()
-    daily = []
-    for dt_str, val in reversed(points):
-        d = dt_str[:10]
-        if d not in seen_dates:
-            seen_dates.add(d)
-            daily.append((d, val))
-        if len(daily) >= 14:
-            break
-    daily.reverse()
-
-    if len(daily) < 5:
-        return None
-
-    n = len(daily)
-    xs = list(range(n))  # 0, 1, 2, ...
-    ys = [v for _, v in daily]
-
-    x_mean = sum(xs) / n
-    y_mean = sum(ys) / n
-    ss_xy = sum((xs[i] - x_mean) * (ys[i] - y_mean) for i in range(n))
-    ss_xx = sum((xs[i] - x_mean) ** 2 for i in range(n))
-    ss_yy = sum((ys[i] - y_mean) ** 2 for i in range(n))
-
-    if ss_xx == 0:
-        return None
-
-    slope = ss_xy / ss_xx
-    intercept = y_mean - slope * x_mean
-    r_squared = (ss_xy ** 2) / (ss_xx * ss_yy) if ss_yy != 0 else 0
-
-    last_x = n - 1
-    pred_3d = slope * (last_x + 3) + intercept
-    pred_7d = slope * (last_x + 7) + intercept
-
-    # Когда достигнет 945
-    peak_date = None
-    if slope > 0.5:
-        days_to_945 = (945 - ys[-1]) / slope
-        if 0 < days_to_945 < 365:
-            peak_date = (datetime.now() + timedelta(days=days_to_945)).strftime("%d.%m")
-
-    if slope > 1:
-        trend_text = f"📈 Рост {slope:.1f} см/день"
-    elif slope < -1:
-        trend_text = f"📉 Спад {abs(slope):.1f} см/день"
-    else:
-        trend_text = "➡️ Стабильно"
-
-    return {
-        "slope_per_day": round(slope, 2),
-        "r_squared": round(r_squared, 3),
-        "predicted_3d": round(pred_3d),
-        "predicted_7d": round(pred_7d),
-        "predicted_peak_date": peak_date,
-        "trend_text": trend_text,
-    }
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# 20. GENERATE CHART.JS BLOCK (НОВОЕ — Chart.js график, Зона C)
-# ═══════════════════════════════════════════════════════════════════════════════
-
-def generate_chart_js_block(history, ref_2024):
-    """
-    Генерирует HTML+JS блок с Chart.js графиком:
-    - 14 дней Серпухов
-    - 2024 overlay (тот же день года)
-    - Линии порогов 645, 800, 945
-    Если данных < 3 дней → возвращает пустую строку.
-    """
-    # Собираем последние 14 дней из history
-    seen_dates = {}
-    for row in reversed(history):
-        dt_str = row.get("datetime", "")[:10]
-        if dt_str and dt_str not in seen_dates:
-            val = row.get("serpukhov", "")
-            if val and str(val).strip():
-                try:
-                    seen_dates[dt_str] = int(float(val))
-                except (ValueError, TypeError):
-                    pass
-        if len(seen_dates) >= 14:
-            break
-
-    if len(seen_dates) < 3:
-        return ""
-
-    # Сортируем по дате
-    sorted_dates = sorted(seen_dates.keys())
-    labels = []
-    values_2026 = []
-    values_2024 = []
-
-    for d_str in sorted_dates:
-        # Формат для лейбла: DD.MM
-        try:
-            dt = datetime.strptime(d_str, "%Y-%m-%d")
-            labels.append(dt.strftime("%d.%m"))
-            values_2026.append(seen_dates[d_str])
-            # 2024 overlay
-            doy = dt.timetuple().tm_yday
-            v2024 = get_2024_value(ref_2024, doy) if ref_2024 else None
-            values_2024.append(int(v2024) if v2024 is not None else "null")
-        except Exception:
-            labels.append(d_str[5:])
-            values_2026.append(seen_dates[d_str])
-            values_2024.append("null")
-
-    labels_js = ", ".join(f'"{l}"' for l in labels)
-    values_2026_js = ", ".join(str(v) for v in values_2026)
-    values_2024_js = ", ".join(str(v) for v in values_2024)
-
-    # Threshold datasets (горизонтальные пунктирные линии)
-    n_points = len(labels)
-    thresh_645 = ", ".join(["645"] * n_points)
-    thresh_800 = ", ".join(["800"] * n_points)
-    thresh_945 = ", ".join(["945"] * n_points)
-
-    return f'''<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
-<div style="position:relative; height:300px; margin:16px 0;">
-  <canvas id="levelChart"></canvas>
-</div>
-<script>
-(function() {{
-  var ctx = document.getElementById('levelChart').getContext('2d');
-  new Chart(ctx, {{
-    type: 'line',
-    data: {{
-      labels: [{labels_js}],
-      datasets: [
-        {{
-          label: '🔵 Серпухов 2026',
-          data: [{values_2026_js}],
-          borderColor: '#388bfd',
-          backgroundColor: 'rgba(56,139,253,0.1)',
-          fill: true,
-          tension: 0.3,
-          pointRadius: 3,
-        }},
-        {{
-          label: '⚫ 2024 (тот же день)',
-          data: [{values_2024_js}],
-          borderColor: '#6e7681',
-          borderDash: [5, 5],
-          fill: false,
-          tension: 0.3,
-          pointRadius: 2,
-        }},
-        {{
-          label: '645 пойма',
-          data: [{thresh_645}],
-          borderColor: 'rgba(243,156,18,0.4)',
-          borderDash: [8, 4],
-          pointRadius: 0,
-          borderWidth: 1,
-          fill: false,
-        }},
-        {{
-          label: '800 дачи',
-          data: [{thresh_800}],
-          borderColor: 'rgba(231,76,60,0.4)',
-          borderDash: [8, 4],
-          pointRadius: 0,
-          borderWidth: 1,
-          fill: false,
-        }},
-        {{
-          label: '945 дом',
-          data: [{thresh_945}],
-          borderColor: 'rgba(142,0,0,0.5)',
-          borderDash: [8, 4],
-          pointRadius: 0,
-          borderWidth: 1,
-          fill: false,
-        }}
-      ]
-    }},
-    options: {{
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {{
-        legend: {{ labels: {{ color: '#8b949e' }} }},
-        title: {{ display: true, text: '📈 Уровень воды Серпухов — 14 дней', color: '#79c0ff' }}
-      }},
-      scales: {{
-        x: {{ ticks: {{ color: '#8b949e' }}, grid: {{ color: '#21262d' }} }},
-        y: {{
-          ticks: {{ color: '#8b949e' }},
-          grid: {{ color: '#21262d' }},
-          title: {{ display: true, text: 'см', color: '#8b949e' }}
-        }}
-      }}
-    }}
-  }});
-}})();
-</script>
-<div class="explainer">
-  <b>Как читать график?</b> Синяя линия — уровень воды в Серпухове за последние 14 дней.
-  Серая пунктирная — уровень в тот же день в 2024 году (для сравнения).
-  Горизонтальные линии — пороги КИМ: 645 см (пойма), 800 см (дачи), 945 см (дом).
-</div>'''
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# 21. LOAD MAILING LIST (НОВОЕ — динамическая рассылка)
-# ═══════════════════════════════════════════════════════════════════════════════
-
-def load_mailing_list():
-    """Читает data/mailing_list.json, возвращает list[str] chat_ids."""
-    try:
-        with open(MAILING_LIST, "r") as f:
-            data = json.load(f)
-        return [r["chat_id"] for r in data.get("recipients", [])]
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# 21a. GENERATE RIVER MAP SVG (B1 — мини-карта)
-# ═══════════════════════════════════════════════════════════════════════════════
-
-def generate_river_map_svg(levels):
-    """Генерирует inline SVG мини-карту бассейна Оки с 7 станциями."""
-    stations_pos = [
-        ("Орёл", 50, 100, "orel"),
-        ("Белёв", 130, 80, "belev"),
-        ("Калуга", 220, 60, "kaluga"),
-        ("Щукина", 310, 80, "shukina"),
-        ("Серпухов", 400, 100, "serpukhov"),
-        ("Кашира", 480, 90, "kashira"),
-        ("Коломна", 560, 70, "kolomna"),
-    ]
-
-    def _color_for_level(val):
-        if val is None:
-            return "#6e7681"
-        if val >= 800:
-            return "#e74c3c"
-        if val >= 645:
-            return "#e67e22"
-        if val >= 500:
-            return "#f39c12"
-        return "#27ae60"
-
-    # River path
-    path_points = " ".join(f"{x},{y}" for _, x, y, _ in stations_pos)
-    river_path = f'<polyline points="{path_points}" stroke="#388bfd" stroke-width="3" fill="none" opacity="0.5"/>'
-
-    circles = ""
-    for name, x, y, slug in stations_pos:
-        val = levels.get(slug)
-        color = _color_for_level(val)
-        r = 18 if slug == "serpukhov" else 12
-        stroke_w = 3 if slug == "serpukhov" else 1
-        val_str = str(val) if val is not None else "—"
-        circles += (
-            f'<circle cx="{x}" cy="{y}" r="{r}" fill="{color}" opacity="0.8" '
-            f'stroke="#e6edf3" stroke-width="{stroke_w}"/>'
-            f'<text x="{x}" y="{y + 4}" text-anchor="middle" fill="#fff" '
-            f'font-size="8" font-weight="bold">{val_str}</text>'
-            f'<text x="{x}" y="{y - r - 5}" text-anchor="middle" fill="#8b949e" '
-            f'font-size="7">{name}</text>'
-        )
-
-    return (
-        '<div style="overflow-x:auto; margin:8px 0">'
-        '<svg viewBox="0 0 620 160" style="width:100%;max-width:620px;height:auto" '
-        'xmlns="http://www.w3.org/2000/svg">'
-        f'{river_path}'
-        f'{circles}'
-        '<text x="310" y="150" text-anchor="middle" fill="#6e7681" font-size="8">'
-        'Орёл → → → Серпухов → → → Коломна  (направление течения Оки)</text>'
-        '</svg></div>'
-    )
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# 22. GENERATE HTML — ПОЛНАЯ ПЕРЕПИСКА С НУЛЯ (13 блоков + CSS)
-# ═══════════════════════════════════════════════════════════════════════════════
-
-def generate_html(levels, analytics, weather, history, wext=None,
-                  ref_2024=None, regression=None, extra_levels=None):
-    """
-    Генерирует полную HTML-страницу (dark theme, 13 блоков, встроенный CSS).
+    Генерирует полную HTML-страницу (dark theme, 11 блоков, встроенный CSS).
     Все тексты на русском языке.
-
-    Параметры:
-        ref_2024     — dict с данными 2024 для Chart.js
-        regression   — dict с результатами compute_simple_regression
-        extra_levels — dict с уровнями притоков (Нара, Протва)
     """
     # === Подготовка данных ===
     s  = levels.get("serpukhov")
@@ -1589,23 +1103,6 @@ def generate_html(levels, analytics, weather, history, wext=None,
         + _gauge_card("Кашира",   ka, None,            "-12ч")
         + _gauge_card("Коломна",  ko, None,            "-24ч")
     )
-
-    # SVG мини-карта
-    river_map_html = generate_river_map_svg(levels)
-
-    # Притоки (если настроены)
-    tributaries_html = ""
-    if extra_levels:
-        tribs = ""
-        for slug, info in EXTRA_STATIONS.items():
-            val = extra_levels.get(slug)
-            tribs += _gauge_card(info["name"], val, None, "приток")
-        tributaries_html = (
-            '<div style="margin:8px 0">'
-            '<h4 style="color:#8b949e;font-size:0.85em">🔀 Притоки (leading indicators)</h4>'
-            f'<div class="gauges">{tribs}</div>'
-            '</div>'
-        )
 
     # ══════════════════════════════════════════════════════════════════════
     # БЛОК 3: ПОРОГИ КИМ
@@ -1688,7 +1185,7 @@ def generate_html(levels, analytics, weather, history, wext=None,
             f'</div>'
         )
 
-        # Зона B: 8-дневная таблица (6 строк: Tmax, Tmin, Осадки, Дождь, Снег, Ветер)
+        # Зона B: 8-дневная таблица
         fc_start = next((i for i, dd in enumerate(wdays) if dd["is_forecast"]), len(wdays))
 
         def _hdr_cls(idx):
@@ -1753,12 +1250,6 @@ def generate_html(levels, analytics, weather, history, wext=None,
             val = dd.get("precip", 0)
             r_prec += f'<td{_td_cls_fc(dd)}>{val if val else "—"}</td>'
 
-        # Строка Дождь мм (rain_sum) — НОВОЕ: отдельная строка!
-        r_rain = ""
-        for dd in wdays:
-            val = dd.get("rain_sum", 0) or 0
-            r_rain += f'<td{_td_cls_fc(dd)}>{val if val else "—"}</td>'
-
         # Строка Снег
         r_snow = ""
         for dd in wdays:
@@ -1783,7 +1274,6 @@ def generate_html(levels, analytics, weather, history, wext=None,
             f'<tr><td>Tmax °C</td>{r_tmax}</tr>'
             f'<tr><td>Tmin °C</td>{r_tmin}</tr>'
             f'<tr><td>Осадки мм</td>{r_prec}</tr>'
-            f'<tr><td>🌧 Дождь мм</td>{r_rain}</tr>'
             f'<tr><td>❄ Снег см</td>{r_snow}</tr>'
             f'<tr><td>Ветер м/с</td>{r_wind}</tr>'
             '</tbody></table></div>'
@@ -1795,17 +1285,9 @@ def generate_html(levels, analytics, weather, history, wext=None,
             '<b>Как читать таблицу?</b> Слева 4 дня факт, справа 4 дня прогноз (выделены синим). '
             'Красные ячейки Tmin = ночные заморозки (замедляют таяние). '
             'Зелёные ячейки Tmin = тёплые ночи (ускоряют таяние). '
-            'Дождь мм — отдельная строка от общих осадков; важна для Rain-on-Snow индикации. '
             'Rain-on-Snow = дождь на снег при T&gt;0 — самый опасный фактор паводка.'
             '</div>'
         )
-
-        # Зона C: Chart.js график (НОВОЕ!)
-        zone_c = ""
-        if ref_2024 is not None:
-            zone_c = generate_chart_js_block(history, ref_2024)
-        elif history:
-            zone_c = generate_chart_js_block(history, {})
 
         # Зона D: Комментарии аналитики
         zone_d = ""
@@ -1824,7 +1306,6 @@ def generate_html(levels, analytics, weather, history, wext=None,
             f'{zone_a}'
             f'{zone_b}'
             f'{zone_b_explainer}'
-            f'{zone_c}'
             f'{zone_d}'
             '</div>'
         )
@@ -1856,28 +1337,6 @@ def generate_html(levels, analytics, weather, history, wext=None,
 
     ins_items = al.get("insights", [])
     ins_html = "".join(f"<li>{i}</li>" for i in ins_items) if ins_items else "<li>Нет особых наблюдений</li>"
-
-    # ══════════════════════════════════════════════════════════════════════
-    # БЛОК: ML-РЕГРЕССИЯ (после insights)
-    # ══════════════════════════════════════════════════════════════════════
-
-    regression_html = ""
-    if regression:
-        r2 = regression.get("r_squared", 0)
-        tt = regression.get("trend_text", "")
-        p3 = regression.get("predicted_3d", "?")
-        p7 = regression.get("predicted_7d", "?")
-        peak_d = regression.get("predicted_peak_date")
-
-        regression_html = (
-            '<div class="regression-block">'
-            f'<h4>🤖 ML-прогноз (линейная регрессия, R²={r2})</h4>'
-            f'<p>{tt}</p>'
-            f'<p>Прогноз: через 3 дня ≈ {p3} см, через 7 дней ≈ {p7} см</p>'
-        )
-        if peak_d:
-            regression_html += f'<p>При текущем темпе 945 см будет достигнут ~{peak_d}</p>'
-        regression_html += '</div>'
 
     # ══════════════════════════════════════════════════════════════════════
     # БЛОК 9: ДЕЛЬТЫ И РАССТОЯНИЯ
@@ -1968,40 +1427,6 @@ def generate_html(levels, analytics, weather, history, wext=None,
         reports_html = ""
 
     # ══════════════════════════════════════════════════════════════════════
-    # БЛОК: Сравнение с МЧС (B2)
-    # ══════════════════════════════════════════════════════════════════════
-
-    mchs_html = ""
-    mchs_path = os.path.join(DATA_DIR, "mchs_forecast.json")
-    try:
-        if os.path.exists(mchs_path):
-            with open(mchs_path, encoding="utf-8") as mf:
-                mchs = json.load(mf)
-            mchs_date = mchs.get("date", "")
-            # Проверяем что данные не старше 7 дней
-            if mchs_date:
-                mchs_dt = datetime.strptime(mchs_date, "%Y-%m-%d")
-                if (datetime.now() - mchs_dt).days <= 7:
-                    mchs_peak = mchs.get("peak_forecast_cm", "?")
-                    mchs_peak_date = mchs.get("peak_forecast_date", "?")
-                    mchs_source = mchs.get("source", "ЦУГМС")
-                    our_peak = pb_level or "?"
-                    our_date = pb_date or "?"
-                    mchs_html = (
-                        '<div class="mchs-compare">'
-                        '<h4>📋 Прогноз ЦУГМС vs Наша модель</h4>'
-                        '<table>'
-                        '<tr><th></th><th>ЦУГМС</th><th>Наша модель</th></tr>'
-                        f'<tr><td>Пик</td><td>{mchs_peak} см</td><td>{our_peak} см</td></tr>'
-                        f'<tr><td>Дата</td><td>{mchs_peak_date}</td><td>{our_date}</td></tr>'
-                        '</table>'
-                        f'<p class="mchs-source">Источник: {mchs_source}</p>'
-                        '</div>'
-                    )
-    except Exception:
-        mchs_html = ""
-
-    # ══════════════════════════════════════════════════════════════════════
     # Погода сейчас (базовый блок)
     # ══════════════════════════════════════════════════════════════════════
 
@@ -2027,86 +1452,6 @@ def generate_html(levels, analytics, weather, history, wext=None,
             f'<div>💦 {whm}%</div>'
             '</div></div>'
         )
-
-    # ══════════════════════════════════════════════════════════════════════
-    # БЛОК 13: ACTION BLOCK (рекомендации для жителей)
-    # ══════════════════════════════════════════════════════════════════════
-
-    action_icon, action_title, action_text = generate_action_block(analytics, wext)
-    # Цвет border по alert_level
-    action_color = alert_color
-    action_html = (
-        f'<div class="action-block" style="border-left:4px solid {action_color}">'
-        f'<h3>{action_icon} {action_title}</h3>'
-        f'<p>{action_text}</p>'
-        f'<p class="action-meta">Обновлено: {now_str}</p>'
-        '</div>'
-    )
-
-    # ══════════════════════════════════════════════════════════════════════
-    # БЛОК 12: ИНСТРУКЦИЯ С НУЛЯ
-    # ══════════════════════════════════════════════════════════════════════
-
-    instruction_html = '''<div class="instruction-block">
-  <h2>📖 Как читать эту страницу — инструкция с нуля</h2>
-
-  <div class="instr-section">
-    <h4>🌊 Что это за система?</h4>
-    <p>OkaFloodMonitor — автоматическая система мониторинга паводка на реке Оке
-    в районе Серпухова. Работает 24/7, данные обновляются 4 раза в день
-    (08:00, 12:00, 17:00, 20:00 МСК). Автор — Егор Мельников.</p>
-  </div>
-
-  <div class="instr-section">
-    <h4>📊 Откуда берутся данные?</h4>
-    <p><b>Уровни воды</b> — с 7 гидропостов Росгидромета (fishingsib.ru): Орёл, Белёв,
-    Калуга, Щукина/Алексин, Серпухов, Кашира, Коломна. Это реальные показания
-    автоматических уровнемеров.</p>
-    <p><b>Погода</b> — Open-Meteo API: температура, осадки, снежный покров, ветер.
-    Факт за 4 дня + прогноз на 4 дня.</p>
-    <p><b>PDF-бюллетени</b> — официальные сводки ЦУГМС (Центральное управление
-    гидрометеорологической службы).</p>
-  </div>
-
-  <div class="instr-section">
-    <h4>🔢 Что означают цифры?</h4>
-    <p><b>Уровень (см)</b> — высота воды над нулём водомерного поста.
-    Серпухов — ключевой пост. При 645 см затапливается пойма.
-    При 800 см — дачные участки. При 945 см — вода у фундамента дома.</p>
-    <p><b>Δ/сут</b> — изменение уровня за последние 24 часа.
-    Положительное = вода поднимается. Отрицательное = вода спадает.</p>
-    <p><b>Опасность %</b> — насколько текущий уровень близок к критической
-    отметке 945 см (0% = далеко, 100% = достигнут).</p>
-  </div>
-
-  <div class="instr-section">
-    <h4>🌡 Паводковый индекс погоды</h4>
-    <p>Комплексный показатель от 0 до 4, учитывающий: температуру (днём и ночью),
-    осадки, снежный покров и Rain-on-Snow (дождь на снег — самый опасный фактор).
-    СТАБИЛЬНЫЙ → УМЕРЕННЫЙ → ПОВЫШЕННЫЙ → ВЫСОКИЙ → КРИТИЧЕСКИЙ.</p>
-  </div>
-
-  <div class="instr-section">
-    <h4>🌊 Паводковая волна</h4>
-    <p>Вода движется от верховья к низовью. Если в Орле уровень начал падать —
-    значит волна прошла через него и через ~96 часов дойдёт до Серпухова.
-    Калуга — промежуточный индикатор (~48 ч до Серпухова).</p>
-  </div>
-
-  <div class="instr-section">
-    <h4>📈 Три сценария пика</h4>
-    <p><b>Оптимистичный</b> — если потепление замедлится и осадков не будет.
-    <b>Базовый</b> — при текущем темпе роста.
-    <b>Пессимистичный</b> — если потепление усилится + Rain-on-Snow.</p>
-  </div>
-
-  <div class="instr-section">
-    <h4>📱 Как получать уведомления?</h4>
-    <p>1️⃣ Группа «Ока Паводок 🌊» в Telegram — присоединяйтесь.
-    2️⃣ Бот @OkaFlood2026EMbot — можно добавить в любую группу.
-    3️⃣ Личная рассылка — напишите Егору, добавит в список.</p>
-  </div>
-</div>'''
 
     # ══════════════════════════════════════════════════════════════════════
     # ПОЛНЫЙ HTML
@@ -2138,7 +1483,7 @@ h3 {{ color: #79c0ff; margin: 12px 0 6px; }}
 /* ═══ GAUGE CARDS ═══ */
 .gauges {{ display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }}
 .gauge-card {{ background: #161b22; border: 1px solid #30363d; border-radius: 8px;
-               padding: 12px 16px; min-width: 120px; text-align: center; flex: 1; }}
+               padding: 12px 16px; min-width: 120px; text-align: center; }}
 .gauge-card.main {{ border: 2px solid {alert_color}; background: #1c2128; }}
 .gauge-name {{ font-size: .8em; color: #8b949e; margin-bottom: 4px; }}
 .gauge-level {{ font-size: 2em; font-weight: 700; color: #e6edf3; }}
@@ -2150,13 +1495,6 @@ h3 {{ color: #79c0ff; margin: 12px 0 6px; }}
 .danger-bar {{ height: 10px; background: #21262d; border-radius: 5px; margin: 12px 0; }}
 .danger-fill {{ height: 10px; border-radius: 5px;
                 background: linear-gradient(90deg, #3fb950, #d29922, #db6d28, #f85149); }}
-
-/* ═══ ACTION BLOCK (Блок 13) ═══ */
-.action-block {{ background: rgba(255,255,255,0.03); border-radius: 0 8px 8px 0;
-                padding: 14px 18px; margin: 16px 0; }}
-.action-block h3 {{ margin: 0 0 8px; font-size: 1.05em; color: #e6edf3; }}
-.action-block p {{ color: #bdc3c7; font-size: 0.9em; margin: 4px 0; line-height: 1.5; }}
-.action-meta {{ color: #6e7681; font-size: 0.8em; }}
 
 /* ═══ TABLES ═══ */
 table {{ width: 100%; border-collapse: collapse; font-size: .82em; }}
@@ -2171,7 +1509,7 @@ td {{ padding: 5px 8px; border-bottom: 1px solid #21262d; }}
 
 /* ═══ SCENARIO CARDS ═══ */
 .scenario-cards {{ display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0; }}
-.sc-card {{ background: #161b22; border-radius: 8px; padding: 12px; min-width: 120px; text-align: center; flex: 1; }}
+.sc-card {{ background: #161b22; border-radius: 8px; padding: 12px; min-width: 120px; text-align: center; }}
 .sc-card.green {{ border-left: 3px solid #3fb950; }}
 .sc-card.yellow {{ border-left: 3px solid #d29922; }}
 .sc-card.red {{ border-left: 3px solid #f85149; }}
@@ -2215,18 +1553,6 @@ td.forecast-col, th.forecast-col {{ background: rgba(52,152,219,0.08);
 .deltas-block {{ background: #161b22; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }}
 .deltas-block p {{ margin: 4px 0; font-size: 0.9em; }}
 
-/* ═══ REGRESSION BLOCK (ML) ═══ */
-.regression-block {{ background: rgba(56,139,253,0.08); border-left: 3px solid #388bfd;
-                    border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; }}
-.regression-block h4 {{ color: #79c0ff; margin: 0 0 6px; font-size: 0.9em; }}
-.regression-block p {{ color: #bdc3c7; font-size: 0.88em; margin: 3px 0; }}
-
-/* ═══ MCHS COMPARE ═══ */
-.mchs-compare {{ background: rgba(211,153,34,0.08); border-left: 3px solid #d29922;
-                border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; }}
-.mchs-compare h4 {{ color: #e3b341; margin: 0 0 8px; font-size: 0.95em; }}
-.mchs-source {{ color: #6e7681; font-size: 0.75em; margin-top: 8px; }}
-
 /* ═══ PDF REPORT CARDS ═══ */
 .reports-grid {{ display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0; }}
 .report-card {{ background: #161b22; border: 1px solid #30363d; border-radius: 8px;
@@ -2236,37 +1562,9 @@ td.forecast-col, th.forecast-col {{ background: rgba(52,152,219,0.08);
 .report-date {{ font-size: .75em; color: #6e7681; margin-bottom: 8px; }}
 .report-card a {{ color: #388bfd; text-decoration: none; font-size: .85em; }}
 
-/* ═══ INSTRUCTION BLOCK (Блок 12) ═══ */
-.instruction-block {{ background: var(--card); border-radius: 12px; padding: 20px 24px;
-                     margin: 20px 0; border: 1px solid var(--border); }}
-.instruction-block h2 {{ color: #79c0ff; margin-top: 0; font-size: 1.2em; }}
-.instr-section {{ margin: 16px 0; }}
-.instr-section h4 {{ color: #e3b341; margin: 0 0 6px; font-size: 0.95em; }}
-.instr-section p {{ color: #bdc3c7; font-size: 0.88em; margin: 4px 0; line-height: 1.5; }}
-
 /* ═══ LINKS & FOOTER ═══ */
 a {{ color: #388bfd; }}
 footer {{ color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }}
-
-/* ═══ МОБИЛЬНАЯ АДАПТАЦИЯ ═══ */
-@media (max-width: 768px) {{
-  .gauges {{ flex-direction: column; }}
-  .gauge-card {{ min-width: 100%; }}
-  .scenario-cards {{ flex-direction: column; }}
-  .sc-card {{ min-width: 100%; }}
-  .reports-grid {{ flex-direction: column; }}
-  .report-card {{ min-width: 100%; }}
-  h1 {{ font-size: 1.1em; padding: 14px 12px; }}
-  .container {{ padding: 8px; }}
-  .weather-flood-index {{ padding: 10px 12px; }}
-  .wfi-value {{ font-size: 1.3em; }}
-  .instruction-block {{ padding: 14px 12px; }}
-}}
-@media (max-width: 480px) {{
-  .gauge-level {{ font-size: 1.5em; }}
-  .sc-level {{ font-size: 1.3em; }}
-  .weather-table {{ font-size: 0.75em; }}
-}}
 </style>
 </head>
 <body>
@@ -2284,8 +1582,6 @@ footer {{ color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }}
 <div class="gauges">
 {gauges_html}
 </div>
-{river_map_html}
-{tributaries_html}
 <div class="explainer">
   <b>Что означают цифры?</b> Уровень воды (см) на 7 гидропостах Оки —
   от Орла (верховье) до Коломны (низовье). Паводковая волна идёт сверху вниз:
@@ -2295,9 +1591,6 @@ footer {{ color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }}
 
 <!-- ═══ БЛОК 2: DANGER BAR ═══ -->
 <div class="danger-bar"><div class="danger-fill" style="width:{pct}%"></div></div>
-
-<!-- ═══ БЛОК 13: ACTION BLOCK (ЧТО ДЕЛАТЬ ПРЯМО СЕЙЧАС) ═══ -->
-{action_html}
 
 <!-- ═══ БЛОК 3: ПОРОГИ КИМ ═══ -->
 <h3>🚨 Пороги КИМ (Серпухов)</h3>
@@ -2331,12 +1624,6 @@ footer {{ color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }}
 <h3>🧠 Аналитика</h3>
 <ul>{ins_html}</ul>
 
-<!-- ═══ ML-РЕГРЕССИЯ ═══ -->
-{regression_html}
-
-<!-- ═══ СРАВНЕНИЕ С МЧС ═══ -->
-{mchs_html}
-
 <!-- ═══ БЛОК 9: ДЕЛЬТЫ И РАССТОЯНИЯ ═══ -->
 {deltas_html}
 
@@ -2358,9 +1645,6 @@ footer {{ color: #6e7681; font-size: .8em; text-align: center; padding: 20px; }}
 <!-- ═══ БЛОК 11: PDF-АРХИВ ОТЧЁТОВ ═══ -->
 {reports_html}
 
-<!-- ═══ БЛОК 12: ИНСТРУКЦИЯ С НУЛЯ ═══ -->
-{instruction_html}
-
 <!-- ═══ FOOTER ═══ -->
 <footer>
 OkaFloodMonitor v5.0 | 54.834050, 37.742901<br>
@@ -2374,7 +1658,7 @@ OkaFloodMonitor v5.0 | 54.834050, 37.742901<br>
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 23. MAIN
+# 19. MAIN
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def main():
@@ -2391,21 +1675,12 @@ def main():
     wext    = fetch_weather_extended()
     history = load_history()
     alerts  = load_alerts()
-    ref_2024 = load_2024_ref()
-
-    # 1a. Притоки (если настроены)
-    extra_levels = {}
-    if EXTRA_STATIONS:
-        extra_levels = fetch_extra_levels()
 
     # 2. Аналитика
     analytics = compute_analytics(levels, history, weather)
     printf("alert=%s, ds24=%s, days945=%s, danger=%.1f%%",
            analytics.get("alert_level"), analytics.get("ds24"),
            analytics.get("days_to_945"), analytics.get("danger_pct", 0))
-
-    # 2a. ML-регрессия
-    regression = compute_simple_regression(history)
 
     # 3. Сохраняем историю (CSV с 26 колонками)
     now_iso = datetime.now(timezone.utc).isoformat()
@@ -2463,45 +1738,13 @@ def main():
             alerts[key] = datetime.now().isoformat()
             save_alerts(alerts)
 
-    # Watchdog TOTAL: все 7 = None (НОВОЕ v5!)
-    all_none = all(levels.get(k) is None for k in STATION_KEYS)
-    if all_none:
-        key = "WATCHDOG_TOTAL"
-        if should_send_alert(alerts, key, cooldown_h=6):
-            tg_send(CHAT_ADMIN,
-                    "🚨 <b>WATCHDOG TOTAL</b>: Все 7 станций не отвечают!\n"
-                    "Возможен сбой источника данных fishingsib.ru.\n"
-                    "Проверьте вручную: https://allrivers.info")
-            alerts[key] = datetime.now().isoformat()
-            save_alerts(alerts)
-
-    # Превентивный погодный алерт (НОВОЕ v5!)
-    if wext and serp_val is not None and serp_val < NORM_LEVEL:
-        fi = wext.get("flood_index", 0)
-        if fi >= 3:
-            key = f"WEATHER_ALERT_{fi}"
-            if should_send_alert(alerts, key, cooldown_h=12):
-                label = wext.get("flood_label", "")
-                summary = wext.get("flood_summary", "")
-                msg = (f"🌧️ <b>[ПРОГНОЗ ПОГОДЫ]</b> Паводковый индекс: "
-                       f"<b>{label}</b> ({fi}/4)\n\n"
-                       f"{summary}\n\n"
-                       "⚠️ Вода пока спокойна, но погодные условия "
-                       "указывают на возможный резкий подъём уровня "
-                       "в ближайшие 2–3 дня.\n\n"
-                       "Следите за обновлениями!")
-                tg_send(CHAT_ADMIN, msg)
-                tg_send(CHAT_MY_GROUP, msg)
-                alerts[key] = datetime.now().isoformat()
-                save_alerts(alerts)
-
     # 5. Heartbeat → ADMIN + MY_GROUP
     heartbeat = format_heartbeat(levels, analytics, weather, wext)
     printf("Heartbeat: %s…", heartbeat[:100].replace("\n", " "))
     tg_send(CHAT_ADMIN, heartbeat)
     tg_send(CHAT_MY_GROUP, heartbeat)
 
-    # 6. Digest → ADMIN (всегда)
+    # 6. Digest → ADMIN (всегда) + условно MY_GROUP + NEIGHBORS
     digest = format_digest(levels, analytics, weather, history, wext)
     printf("Digest: %s…", digest[:100].replace("\n", " "))
     tg_send(CHAT_ADMIN, digest)
@@ -2511,27 +1754,19 @@ def main():
        analytics.get("alert_level") in ("ORANGE", "RED", "CRITICAL"):
         tg_send(CHAT_MY_GROUP, digest)
 
-    # NEIGHBORS: УПРОЩЁННЫЙ digest в 08 и 20 MSK (НОВОЕ v5!)
+    # NEIGHBORS: полный digest в 08 и 20 MSK
     msk_hour = (datetime.now(timezone.utc) + timedelta(hours=3)).hour
-    neighbors_digest = format_neighbors_digest(levels, analytics, weather, wext)
     if CHAT_NEIGHBORS and msk_hour in (8, 20):
-        tg_send(CHAT_NEIGHBORS, neighbors_digest)
+        tg_send(CHAT_NEIGHBORS, digest)
 
-    # Персональная рассылка (НОВОЕ v5!)
-    if msk_hour in (8, 20):
-        for cid in load_mailing_list():
-            tg_send(cid, neighbors_digest)
-
-    # 7. Group draft (ПЕРЕПИСАН — от первого лица Егора + wext)
-    group_draft = format_group_draft(levels, analytics, wext)
+    # 7. Group draft
+    group_draft = format_group_draft(levels, analytics)
     with open(GROUP_DRAFT, "w", encoding="utf-8") as f:
         f.write(group_draft)
     printf("Group draft → %s", GROUP_DRAFT)
 
     # 8. HTML + JSON
-    html = generate_html(levels, analytics, weather, history, wext,
-                         ref_2024=ref_2024, regression=regression,
-                         extra_levels=extra_levels)
+    html = generate_html(levels, analytics, weather, history, wext)
     with open(INDEX_HTML, "w", encoding="utf-8") as f:
         f.write(html)
     printf("HTML → %s (%d bytes)", INDEX_HTML, len(html))
@@ -2558,7 +1793,6 @@ def main():
                 "flood_summary", "snow_depth_cm", "commentary",
             )
         } if wext else None,
-        "regression": regression,
     }
     with open(DATA_JSON, "w", encoding="utf-8") as f:
         json.dump(data_out, f, ensure_ascii=False, indent=2)

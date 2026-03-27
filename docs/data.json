@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "updated": "2026-03-27T11:31:06.405427+00:00",
-=======
-  "updated": "2026-03-27T13:23:19.264260+00:00",
->>>>>>> ecdcf16 (feat: v5.0 — full rewrite with weather block, PDF archive, explainers)
+  "updated": "2026-03-27T14:34:22.529190+00:00",
   "levels": {
     "orel": 413,
     "belev": 112,
@@ -31,49 +27,34 @@
     "peak_pess_date": null,
     "wave_msg": "🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч",
     "insights": [
-      "☀️ Активное дневное таяние (+8.1°C)",
       "🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч"
     ],
     "serp_2024": null,
     "vs_2024": null
   },
   "weather": {
-<<<<<<< HEAD
-    "temp": 7.9,
+    "temp": 7.8,
     "humidity": 55,
-    "wind_ms": 6.1,
-    "wind_dir": 3,
-    "clouds": null,
-    "precip_mm": 1.1,
-    "snow_depth": 0.15,
-    "weather": "Open-Meteo",
-    "temp_max": 8.0,
-=======
-    "temp": 8.1,
-    "humidity": 55,
-    "wind_ms": 3.7,
-    "wind_dir": 11,
+    "wind_ms": 4.6,
+    "wind_dir": 18,
     "clouds": null,
     "precip_mm": 4.2,
     "weather": "Open-Meteo",
     "temp_max": 9.2,
->>>>>>> ecdcf16 (feat: v5.0 — full rewrite with weather block, PDF archive, explainers)
     "temp_min": 3.1,
-    "wind_max": 7.6
+    "wind_max": 8.3
   },
-<<<<<<< HEAD
-  "weather_ext": {
+  "weather_extended": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Все факторы против нас: тепло, дождь, снег. Максимально быстрый рост уровня.",
+    "flood_color": "#8e0000",
+    "flood_summary": "Активное таяние + осадки. Все факторы против нас. Максимально быстрый рост уровня.",
     "snow_depth_cm": 15.0,
     "commentary": [
-      "⚠️ Значительный снежный покров: 17 см — серьёзный вклад в паводок при потеплении и дожде.",
+      "🟡 Через 1 дн. умеренный дождь (4мм) при плюсе — дополнительная нагрузка на реку.",
+      "⚠️ Значительный снежный покров: 17 см (Δ4 дня: -8 см) — серьёзный вклад в паводок при потеплении. РИСК ПАВОДКА.",
       "🌡 Последние ночи с морозом (4/4), прогноз — потепление: таяние ускорится.",
-      "🌡 Ночные температуры стабильно минусовые — таяние только днём."
+      "🌡 Ночные температуры устойчиво выше нуля — снег тает круглосуточно."
     ]
   }
-=======
-  "weather_extended": null
->>>>>>> ecdcf16 (feat: v5.0 — full rewrite with weather block, PDF archive, explainers)
 }
