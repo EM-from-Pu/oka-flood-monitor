@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-27T16:39:14.298571+00:00",
+  "updated": "2026-03-27T19:32:56.681280+00:00",
   "levels": {
     "orel": 413,
     "belev": 112,
@@ -33,10 +33,10 @@
     "vs_2024": null
   },
   "weather": {
-    "temp": 7.3,
+    "temp": 5.9,
     "humidity": 55,
-    "wind_ms": 3.1,
-    "wind_dir": 36,
+    "wind_ms": 2.9,
+    "wind_dir": 360,
     "clouds": null,
     "precip_mm": 0.9,
     "weather": "Open-Meteo",
