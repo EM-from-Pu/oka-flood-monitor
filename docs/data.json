@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-28T07:36:31.818568+00:00",
+  "updated": "2026-03-28T10:04:27.335105+00:00",
   "levels": {
     "orel": 413,
     "belev": 112,
@@ -11,7 +11,7 @@
   },
   "analytics": {
     "ds24": 0,
-    "ds48": null,
+    "ds48": 0.0,
     "do24": 0,
     "dk24": 0,
     "alert_level": "GREEN",
@@ -27,22 +27,23 @@
     "peak_pess_date": null,
     "wave_msg": "🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч",
     "insights": [
+      "☀️ Активное дневное таяние (+9.8°C)",
       "🌊 Орёл 413 ↓0 → волна в Серпухов ~96ч"
     ],
     "serp_2024": null,
     "vs_2024": null
   },
   "weather": {
-    "temp": 6.5,
+    "temp": 9.8,
     "humidity": 90,
-    "wind_ms": 7.7,
-    "wind_dir": 28,
+    "wind_ms": 7.9,
+    "wind_dir": 60,
     "clouds": null,
-    "precip_mm": 0.1,
+    "precip_mm": 0.2,
     "weather": "Open-Meteo",
-    "temp_max": 10.5,
+    "temp_max": 11.1,
     "temp_min": 4.8,
-    "wind_max": 10.5
+    "wind_max": 9.2
   },
   "weather_extended": {
     "flood_index": 4,
