@@ -3,811 +3,1610 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="OkaFloodMonitor — мониторинг паводка на реке Ока в районе Серпухова. Данные обновляются 4 раза в день.">
-  <title>OkaFloodMonitor — Паводок Ока 2026</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <meta name="description" content="OkaFloodMonitor — мониторинг паводка на реке Ока у Серпухова. Данные обновляются 4 раза в день.">
+  <title>OkaFloodMonitor — Серпухов / Жерновка</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <style>
-  
+/* ═══════════════════════════════════════════════════════════════
+   OkaFloodMonitor v7 Design System — Glassmorphism Dark Theme
+   ═══════════════════════════════════════════════════════════════ */
 :root {
-    --bg: #0f1923; --card: #1a2635; --border: #2d3748;
-    --text: #e6edf3; --text-muted: #8b949e; --text-dim: #6e7681;
-    --blue: #388bfd; --green: #3fb950; --yellow: #d29922;
-    --orange: #db6d28; --red: #f85149; --critical: #8e0000;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg); color: var(--text); margin: 0; padding: 0;
-    line-height: 1.5;
-}
-a { color: var(--blue); text-decoration: none; }
-a:hover { text-decoration: underline; }
-h1 { color: #fff; margin: 0; padding: 20px 24px; font-size: 1.6em; }
-h2 { color: #79c0ff; margin: 20px 0 10px; font-size: 1.2em; }
-h3 { color: #79c0ff; margin: 14px 0 8px; font-size: 1.05em; }
-h4 { color: #e3b341; margin: 10px 0 5px; font-size: 0.95em; }
-.container { max-width: 1200px; margin: 0 auto; padding: 16px; }
-/* ═══ НАВИГАЦИЯ ═══ */
-.top-nav {
-    position: sticky; top: 0; z-index: 100;
-    background: #0d1117; border-bottom: 1px solid #21262d;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 16px; gap: 12px; flex-wrap: wrap;
-}
-.nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
-.nav-btn {
-    padding: 6px 14px; border-radius: 6px; font-size: 0.85em;
-    text-decoration: none; color: #8b949e;
-    background: #161b22; border: 1px solid #30363d; transition: background 0.2s;
-}
-.nav-btn:hover, .nav-btn.active { background: #1f6feb; color: #fff; border-color: var(--blue); }
-.nav-widget { display: flex; align-items: center; gap: 10px; }
-.nav-time { font-size: 0.8em; color: #79c0ff; font-family: monospace; }
-.nav-weather { font-size: 0.8em; color: var(--text-muted); }
-/* ═══ HERO БЛОК ═══ */
-.hero-block {
-    background: var(--card); border-radius: 16px;
-    padding: 28px 24px; text-align: center; margin: 16px 0;
-    border: 2px solid var(--border);
-}
-.hero-level { font-size: 5em; font-weight: 900; line-height: 1; letter-spacing: -2px; }
-.hero-unit { font-size: 0.25em; color: var(--text-muted); vertical-align: super; }
-.hero-delta { font-size: 1.4em; margin: 10px 0; font-weight: 600; }
-.hero-delta.rising { color: var(--red); }
-.hero-delta.falling { color: var(--green); }
-.hero-delta.stable { color: var(--text-muted); }
-.hero-abs { font-size: 0.9em; color: var(--text-muted); margin-bottom: 20px; }
-.threshold-bars { margin-top: 16px; text-align: left; max-width: 500px; margin: 16px auto 0; }
-.tbar-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
-.tbar-label { font-size: 0.8em; color: var(--text-muted); min-width: 160px; }
-.tbar-track { flex: 1; height: 8px; background: #21262d; border-radius: 4px; overflow: hidden; }
-.tbar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
-.nya-fill { background: linear-gradient(90deg, var(--green), var(--yellow)); }
-.oya-fill { background: linear-gradient(90deg, var(--green), var(--yellow), var(--red)); }
-.tbar-val { font-size: 0.85em; color: var(--text); min-width: 60px; text-align: right; font-weight: 600; }
-/* ═══ КАРТОЧКИ СТАНЦИЙ ═══ */
-.station-cards { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
-.station-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
-    padding: 14px 16px; min-width: 120px; flex: 1; text-align: center;
-    transition: border-color 0.2s;
-}
-.station-card.main-station { border: 2px solid #388bfd; background: #1c2128; min-width: 200px; flex: 2; }
-.st-name { font-size: 0.9em; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.st-river { font-size: 0.72em; color: var(--text-dim); margin-bottom: 8px; }
-.st-level { font-size: 1.7em; font-weight: 800; margin-bottom: 4px; }
-.level-green { color: var(--green); }
-.level-yellow { color: var(--yellow); }
-.level-orange { color: var(--orange); }
-.level-red { color: var(--red); }
-.level-unknown { color: var(--text-dim); font-size: 0.75em; font-weight: 400; }
-.st-change { font-size: 0.85em; color: var(--text-muted); margin-bottom: 4px; }
-.st-status { font-size: 0.8em; margin-bottom: 4px; }
-.st-source { font-size: 0.65em; color: var(--text-dim); }
-/* ═══ ДИСКЛЕЙМЕР / АККОРДЕОН ═══ */
-.disclaimer-block {
-    background: rgba(255,255,255,0.02); border: 1px solid #30363d;
-    border-radius: 8px; margin: 12px 0;
-}
-.disclaimer-header {
-    padding: 12px 16px; cursor: pointer; font-size: 0.9em; color: var(--text-muted);
-    display: flex; justify-content: space-between; align-items: center;
-}
-.disclaimer-header:hover { color: var(--text); }
-.disclaimer-body { padding: 0 16px 16px; display: none; }
-.disclaimer-alert {
-    background: rgba(248,81,73,0.08); border-left: 3px solid var(--red);
-    padding: 8px 12px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 0.85em;
-}
-.sources-table { width: 100%; border-collapse: collapse; font-size: 0.82em; margin-top: 10px; }
-.sources-table th { background: #161b22; color: var(--text-muted); padding: 6px 8px; text-align: left; }
-.sources-table td { padding: 5px 8px; border-bottom: 1px solid #21262d; color: var(--text); }
-/* ═══ ПОРОГИ ═══ */
-.thresholds-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.threshold-scale-container { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-.v-scale-wrapper {
-    position: relative; width: 220px; height: 280px;
-    background: linear-gradient(to top, #1a7f37 0%, #d29922 50%, #f85149 85%, #8e0000 100%);
-    border-radius: 8px; overflow: visible; flex-shrink: 0;
-}
-.v-scale-inner {
-    position: absolute; left: 0; top: 0; bottom: 0; right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
-    border-radius: 8px;
-}
-.v-marker {
-    position: absolute; left: 0; right: 0;
-    display: flex; align-items: center; gap: 8px;
-}
-.v-marker-line { height: 2px; background: rgba(255,255,255,0.7); flex: 1; }
-.v-marker-label {
-    font-size: 0.7em; color: #fff; white-space: nowrap;
-    background: rgba(0,0,0,0.5); padding: 1px 5px; border-radius: 3px;
-}
-.v-current-indicator {
-    position: absolute; left: -6px; right: -6px;
-    height: 4px; background: #79c0ff;
-    box-shadow: 0 0 8px #79c0ff;
-}
-.thresh-table { width: 100%; border-collapse: collapse; font-size: 0.88em; flex: 1; }
-.thresh-table th { background: #161b22; color: var(--text-muted); padding: 6px 8px; text-align: left; }
-.thresh-table td { padding: 6px 8px; border-bottom: 1px solid #21262d; }
-.thresh-table tr.row-nya td { background: rgba(210,153,34,0.1); }
-.thresh-table tr.row-oya td { background: rgba(248,81,73,0.1); }
-.thresh-table tr.row-current td { background: rgba(56,139,253,0.1); font-weight: 700; }
-/* ═══ ВОЛНА И ПИК ═══ */
-.wave-section, .peak-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.wave-cards { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
-.wave-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
-    padding: 12px 14px; min-width: 140px; flex: 1;
-}
-.wave-card.highlight { border-color: #388bfd; background: rgba(56,139,253,0.05); }
-.wave-from { font-size: 0.85em; color: var(--text-muted); margin-bottom: 4px; }
-.wave-time { font-size: 1.2em; font-weight: 700; color: #79c0ff; }
-.wave-dist { font-size: 0.75em; color: var(--text-dim); margin-top: 2px; }
-.wave-dynamic { font-size: 0.88em; color: var(--text-muted); margin: 8px 0; }
-.peak-trend { font-size: 1.05em; font-weight: 600; margin: 8px 0; padding: 10px 14px; border-radius: 6px; background: rgba(255,255,255,0.03); }
-.regression-block { background: rgba(56,139,253,0.05); border: 1px solid #30363d; border-radius: 8px; padding: 12px 14px; margin-top: 10px; font-size: 0.88em; }
-.regression-block p { color: var(--text-muted); margin: 4px 0; }
-/* ═══ ЦУГМС ═══ */
-.cugms-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.cugms-meta { font-size: 0.85em; color: var(--text-muted); margin-bottom: 12px; }
-.cugms-data { display: flex; flex-wrap: wrap; gap: 10px; }
-.cugms-row { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #161b22; border-radius: 6px; min-width: 180px; }
-.cugms-station { font-size: 0.88em; color: var(--text-muted); min-width: 80px; }
-.cugms-value { font-size: 1.05em; font-weight: 700; color: var(--text); }
-.cugms-value.ice { color: #79c0ff; }
-.cugms-forecast {
-    background: rgba(56,139,253,0.05); border-left: 3px solid #388bfd;
-    padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.85em;
-    color: var(--text-muted); margin-top: 10px; width: 100%;
-}
-/* ═══ ИСТОРИЯ ═══ */
-.history-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.history-controls { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-.hist-btn {
-    padding: 5px 12px; border-radius: 6px; font-size: 0.82em;
-    background: #161b22; border: 1px solid #30363d; color: var(--text-muted);
-    cursor: pointer; text-decoration: none; display: inline-block;
-}
-.hist-btn:hover { background: #1f6feb; color: #fff; border-color: var(--blue); }
-.dl-btn { color: var(--blue); }
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 0.82em; }
-th { background: #161b22; color: var(--text-muted); padding: 6px 8px; text-align: left; white-space: nowrap; }
-td { padding: 5px 8px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-.row-GREEN td { background: rgba(13,32,22,0.5); }
-.row-YELLOW td { background: rgba(42,29,0,0.5); }
-.row-ORANGE td { background: rgba(42,20,0,0.5); }
-.row-RED td, .row-CRITICAL td { background: rgba(45,0,0,0.5); }
-/* ═══ ACTION BLOCK ═══ */
-.action-block {
-    background: rgba(255,255,255,0.02); border-radius: 0 8px 8px 0;
-    padding: 16px 20px; margin: 16px 0;
-}
-.action-block h3 { margin: 0 0 8px; font-size: 1.1em; }
-.action-block p { color: var(--text-muted); font-size: 0.9em; margin: 4px 0; line-height: 1.5; }
-.action-meta { color: var(--text-dim); font-size: 0.8em; margin-top: 8px; }
-/* ═══ ПОГОДА ═══ */
-.weather-ext-block { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.weather-flood-index {
-    border: 2px solid; border-radius: 10px; padding: 14px 18px;
-    margin-bottom: 16px; background: rgba(255,255,255,0.03);
-}
-.wfi-label { font-size: 0.85em; color: #95a5a6; display: block; }
-.wfi-value { font-size: 1.6em; font-weight: 900; display: block; margin: 4px 0; }
-.wfi-summary { margin: 0; color: var(--text-muted); font-size: 0.95em; }
-.weather-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-bottom: 12px; }
-.weather-table th, .weather-table td {
-    padding: 6px 8px; text-align: center;
-    border-bottom: 1px solid var(--border); white-space: nowrap;
-}
-.weather-table td:first-child { text-align: left; color: #95a5a6; }
-td.frost { background: rgba(192,57,43,0.25); color: #ff6b6b; font-weight: bold; }
-td.zero { background: rgba(243,156,18,0.20); color: #f39c12; }
-td.warm-night { background: rgba(39,174,96,0.20); color: #27ae60; }
-td.hot { color: #e74c3c; font-weight: bold; }
-td.forecast-col, th.forecast-col {
-    background: rgba(52,152,219,0.08); border-left: 1px dashed #3498db;
-}
-th.forecast-col:first-of-type { border-left: 2px solid #3498db; }
-.weather-commentary ul { list-style: none; padding: 0; }
-.weather-commentary li {
-    padding: 5px 0; border-bottom: 1px solid var(--border);
-    font-size: 0.9em; color: var(--text-muted);
-}
-/* ═══ BADGES ═══ */
-.meta-bar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 16px; background: #0d1117; font-size: 0.82em; color: var(--text-muted);
-    flex-wrap: wrap; gap: 8px;
-}
-.source-badges { display: flex; gap: 6px; }
-.badge { padding: 2px 8px; border-radius: 10px; font-size: 0.75em; }
-.badge.ok { background: #1a7f37; color: #fff; }
-.badge.cached { background: #9a6700; color: #fff; }
-.badge.fail { background: #6e0000; color: #fff; }
-/* ═══ УТИЛИТЫ ═══ */
-.section-card { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.explainer {
-    background: rgba(255,255,255,0.03); border-left: 3px solid #3498db;
-    padding: 10px 14px; margin: 8px 0 16px; font-size: 0.85em;
-    color: var(--text-muted); border-radius: 0 6px 6px 0;
-}
-.explainer b { color: var(--text); }
-.disclaimer-small { font-size: 0.8em; color: var(--text-dim); margin-top: 8px; }
-.no-data { color: var(--text-dim); font-size: 0.9em; font-style: italic; padding: 10px; }
-/* ═══ REPORTS ═══ */
-.reports-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.report-cards { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-.report-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
-    padding: 12px 14px; min-width: 200px; flex: 1;
-}
-.report-card a { font-weight: 600; }
-.report-meta { font-size: 0.75em; color: var(--text-dim); margin-top: 4px; }
-/* ═══ FOOTER ═══ */
-footer {
-    color: var(--text-dim); font-size: 0.8em; text-align: center;
-    padding: 24px 16px; border-top: 1px solid var(--border); margin-top: 24px;
-    line-height: 1.8;
-}
-/* ═══ ИНСТРУКЦИИ ═══ */
-.instr-section { background: var(--card); border-radius: 12px; padding: 16px 20px; margin: 12px 0; }
-.instr-section ul, .instr-section ol { padding-left: 20px; }
-.instr-section li { margin: 5px 0; color: var(--text-muted); }
-.zone-table { margin: 10px 0; }
-.zone-row { padding: 8px 12px; margin: 4px 0; border-radius: 6px; font-size: 0.88em; }
-.zone-row.green  { background: rgba(63,185,80,0.1); border-left: 3px solid var(--green); }
-.zone-row.yellow { background: rgba(210,153,34,0.1); border-left: 3px solid var(--yellow); }
-.zone-row.orange { background: rgba(219,109,40,0.1); border-left: 3px solid var(--orange); }
-.zone-row.red    { background: rgba(248,81,73,0.1);  border-left: 3px solid var(--red); }
-.action-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 10px 0; }
-.action-table th { background: #161b22; padding: 6px 8px; text-align: left; color: var(--text-muted); }
-.action-table td { padding: 7px 8px; border-bottom: 1px solid #21262d; }
-/* ═══ ССЫЛКИ ═══ */
-.links-section { background: var(--card); border-radius: 12px; padding: 16px 20px; margin: 12px 0; }
-.links-section ul { padding-left: 20px; }
-.links-section li { margin: 8px 0; }
-.dead-sources {
-    background: rgba(248,81,73,0.05); border: 1px solid rgba(248,81,73,0.2);
-    border-radius: 8px; padding: 12px 16px; margin-top: 10px;
-}
-/* ═══ CHART.JS WRAPPER ═══ */
-.chart-container { position: relative; height: 280px; margin: 16px 0; }
-/* ═══ АНИМАЦИЯ ═══ */
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-}
-/* ═══ МОБИЛЬНАЯ АДАПТАЦИЯ ═══ */
-@media (max-width: 768px) {
-    .station-cards { flex-direction: column; }
-    .station-card, .station-card.main-station { min-width: 100%; flex: none; }
-    .wave-cards { flex-direction: column; }
-    .wave-card { min-width: 100%; }
-    .top-nav { flex-direction: column; align-items: flex-start; }
-    h1 { font-size: 1.1em; padding: 14px 12px; }
-    .container { padding: 8px; }
-    .hero-level { font-size: 3.5em; }
-    .wfi-value { font-size: 1.3em; }
-    .cugms-data { flex-direction: column; }
-    .threshold-scale-container { flex-direction: column; }
-    .v-scale-wrapper { width: 100%; }
-}
-@media (max-width: 480px) {
-    .hero-level { font-size: 2.8em; }
-    .hero-delta { font-size: 1.1em; }
-    .weather-table { font-size: 0.75em; }
-    .tbar-label { min-width: 110px; font-size: 0.72em; }
-}
-@media (prefers-color-scheme: light) {
-    :root {
-        --bg: #f6f8fa; --card: #ffffff; --border: #d0d7de;
-        --text: #24292f; --text-muted: #57606a; --text-dim: #8c959f;
-    }
-    body { background: var(--bg); color: var(--text); }
-    .station-card, .wave-card { background: #f6f8fa; }
-    th { background: #f6f8fa; }
-    .top-nav { background: #f6f8fa; }
-    .meta-bar { background: #f6f8fa; }
-    .nav-btn { background: #f6f8fa; border-color: #d0d7de; }
-    .hist-btn { background: #f6f8fa; }
-    .report-card { background: #f6f8fa; }
+  --safe:      #10b981;
+  --watch:     #f59e0b;
+  --warning:   #f97316;
+  --danger:    #ef4444;
+  --emergency: #a855f7;
+  --accent:    #3b82f6;
+
+  --bg-primary: #0c1222;
+  --bg-card: rgba(17, 25, 40, 0.75);
+  --bg-card-hover: rgba(17, 25, 40, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.2);
+  --shadow-glow-safe:      0 0 20px rgba(16, 185, 129, 0.25);
+  --shadow-glow-watch:     0 0 20px rgba(245, 158, 11, 0.25);
+  --shadow-glow-warning:   0 0 20px rgba(249, 115, 22, 0.25);
+  --shadow-glow-danger:    0 0 20px rgba(239, 68, 68, 0.25);
+  --shadow-glow-emergency: 0 0 20px rgba(168, 85, 247, 0.25);
 }
 
-  </style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── CARD ────────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+}
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+}
+
+/* ── SCROLL ANIMATIONS ─────────────────────────────────────────── */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── STICKY HEADER ─────────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(12, 18, 34, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.header-logo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+}
+.header-logo span { color: var(--accent); }
+.header-nav {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+}
+.header-nav a {
+  display: block;
+  padding: 6px 14px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.header-nav a:hover, .header-nav a.active {
+  background: var(--bg-glass);
+  color: var(--text-primary);
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+}
+.clock-display {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border: 1px solid;
+}
+.source-badge.ok        { color: var(--safe);    border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.1); }
+.source-badge.cached    { color: var(--watch);   border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.1); }
+.source-badge.unavailable { color: var(--danger); border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.1); }
+
+/* ── HERO SECTION ──────────────────────────────────────────────── */
+.hero-section {
+  position: relative;
+  padding: 40px 24px 32px;
+  overflow: hidden;
+}
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.composite-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.level-display { text-align: center; }
+.level-display .level-number {
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* ── Hero main row: thermometer + center ────────────────────────── */
+.hero-main-row {
+  display: flex;
+  align-items: stretch;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.thermometer-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+  max-width: 90px;
+}
+.hero-center-col {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Термометр ──────────────────────────────────────────────────── */
+.thermometer-wrap {
+  position: relative;
+  height: 280px;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+.therm-bar {
+  width: 28px;
+  height: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.therm-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0 0 14px 14px;
+  transition: height 1s ease;
+}
+.therm-mark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 2;
+}
+.therm-mark-nya { background: var(--warning); }
+.therm-mark-oya { background: var(--danger); }
+.therm-mark-cur { background: var(--text-primary); height: 3px; }
+.therm-labels {
+  position: relative;
+  height: 100%;
+  width: 50px;
+}
+.therm-label {
+  position: absolute;
+  right: 0;
+  transform: translateY(50%);
+  white-space: nowrap;
+}
+.therm-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+.therm-tag.danger  { background: rgba(239,68,68,0.15); color: var(--danger); }
+.therm-tag.warning { background: rgba(249,115,22,0.15); color: var(--warning); }
+.therm-tag.current { background: rgba(99,102,241,0.15); color: #818cf8; }
+.therm-zero {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* ── Пояснения к числам ─────────────────────────────────────────── */
+.level-explain {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 0.2rem;
+  letter-spacing: 0.02em;
+}
+.level-abs {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.15rem;
+  cursor: help;
+}
+.pi-q {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-dim);
+  font-size: 0.6rem;
+  font-weight: 700;
+  cursor: help;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.pi-q:hover { background: var(--text-dim); color: var(--bg-primary); }
+
+/* ── Инфо-карточки ──────────────────────────────────────────────── */
+.info-cards-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.info-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.85rem 0.65rem;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.info-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.ic-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+.ic-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+.ic-unit {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+.ic-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ic-hint {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  margin-top: 0.2rem;
+  line-height: 1.3;
+}
+
+/* ── Адаптив: мобильные ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .hero-main-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .thermometer-col {
+    order: 2;
+    height: auto;
+    min-width: unset;
+    max-width: unset;
+    width: 100%;
+  }
+  .thermometer-wrap {
+    height: 160px;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-center-col { order: 1; }
+  .info-cards-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.level-number.zone-safe      { color: var(--safe);      text-shadow: 0 0 40px rgba(16,185,129,0.5); }
+.level-number.zone-watch     { color: var(--watch);     text-shadow: 0 0 40px rgba(245,158,11,0.5); }
+.level-number.zone-warning   { color: var(--warning);   text-shadow: 0 0 40px rgba(249,115,22,0.5); }
+.level-number.zone-danger    { color: var(--danger);    text-shadow: 0 0 40px rgba(239,68,68,0.5); }
+.level-number.zone-emergency { color: var(--emergency); text-shadow: 0 0 40px rgba(168,85,247,0.5);
+                                animation: pulse-emergency 1.5s infinite; }
+.level-number.zone-unknown   { color: var(--text-dim); }
+
+@keyframes pulse-emergency {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.level-label {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-weight: 500;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sub-indicators {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 800px;
+}
+.sub-indicator {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+.sub-indicator .si-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+.sub-indicator .si-status {
+  font-size: 0.88rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.sub-indicator .si-value {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.verdict-banner {
+  width: 100%;
+  max-width: 800px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  border: 1px solid;
+}
+
+.progress-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 800px;
+}
+.progress-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.progress-item .pi-label {
+  width: 90px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-align: right;
+  white-space: nowrap;
+}
+.progress-bar-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+.progress-bar-fill.nya { background: linear-gradient(90deg, var(--safe), var(--watch)); }
+.progress-bar-fill.oya { background: linear-gradient(90deg, var(--safe), var(--watch), var(--danger)); }
+.progress-item .pi-value {
+  width: 80px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* ── FORECAST HYDROGRAPH ───────────────────────────────────────── */
+.hydrograph-section {
+  padding: 0 24px 32px;
+}
+.hydrograph-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+}
+.hydrograph-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chart-container {
+  position: relative;
+  height: 350px;
+  width: 100%;
+}
+
+/* ── STATION CARDS ─────────────────────────────────────────────── */
+.stations-section {
+  padding: 0 24px 32px;
+}
+.stations-section h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.station-cards-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.station-cards-scroll::-webkit-scrollbar { height: 4px; }
+.station-cards-scroll::-webkit-scrollbar-track { background: transparent; }
+.station-cards-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.station-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  min-width: 140px;
+  max-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.station-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+.station-card.fr-normal  { border-color: rgba(16,185,129,0.4); }
+.station-card.fr-watch   { border-color: rgba(245,158,11,0.4); }
+.station-card.fr-warning { border-color: rgba(249,115,22,0.4); }
+.station-card.fr-danger  { border-color: rgba(239,68,68,0.4); }
+.station-card.fr-unknown { border-color: var(--border); }
+
+.station-card.main-station {
+  border-color: rgba(59,130,246,0.5);
+  box-shadow: 0 0 20px rgba(59,130,246,0.15);
+  min-width: 160px;
+}
+
+.sc-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.sc-river {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+.sc-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.sc-sparkline { line-height: 0; }
+.sc-trend {
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.sc-badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 20px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.sc-badge.fr-normal  { background: rgba(16,185,129,0.15);  color: var(--safe); }
+.sc-badge.fr-watch   { background: rgba(245,158,11,0.15);  color: var(--watch); }
+.sc-badge.fr-warning { background: rgba(249,115,22,0.15);  color: var(--warning); }
+.sc-badge.fr-danger  { background: rgba(239,68,68,0.15);   color: var(--danger); }
+.sc-badge.fr-unknown { background: rgba(100,116,139,0.15); color: var(--text-dim); }
+
+.sc-peak { font-size: 0.7rem; color: var(--text-dim); }
+.sc-travel {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+  padding-top: 5px;
+  margin-top: 2px;
+}
+
+.station-arrow {
+  display: flex;
+  align-items: center;
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ── WAVE ARRIVAL TIMELINE ─────────────────────────────────────── */
+.timeline-section { padding: 0 24px 32px; }
+.timeline-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+}
+.timeline-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.timeline-bar-container {
+  position: relative;
+  padding: 10px 0 40px;
+}
+.timeline-track {
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  position: relative;
+  margin: 20px 0;
+}
+.timeline-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid;
+  background: var(--bg-primary);
+  position: relative;
+  z-index: 1;
+}
+.timeline-dot.current { width: 16px; height: 16px; background: var(--accent); border-color: var(--accent); }
+.timeline-marker-label {
+  position: absolute;
+  top: 14px;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  text-align: center;
+  transform: translateX(-50%);
+  left: 50%;
+}
+.timeline-marker-name {
+  position: absolute;
+  bottom: 14px;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  color: var(--text-dim);
+  text-align: center;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+/* ── ACTION BLOCK ──────────────────────────────────────────────── */
+.action-section { padding: 0 24px 32px; }
+.action-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 24px;
+  border-left: 4px solid;
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+.action-icon { font-size: 2rem; }
+.action-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+.action-text { color: var(--text-secondary); line-height: 1.7; font-size: 0.92rem; }
+
+/* ── WEATHER SECTION ───────────────────────────────────────────── */
+.weather-section { padding: 0 24px 32px; }
+.weather-flood-index {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-left: 3px solid;
+}
+.wfi-label { font-size: 0.82rem; color: var(--text-dim); font-weight: 500; }
+.wfi-value { font-size: 1.1rem; font-weight: 700; }
+.wfi-summary { color: var(--text-secondary); font-size: 0.85rem; flex: 1; min-width: 200px; }
+
+/* ── ACCORDION SECTIONS ────────────────────────────────────────── */
+.accordion-section { padding: 0 24px 8px; }
+.accordion-header {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.accordion-header:hover { background: var(--bg-card-hover); }
+.accordion-body {
+  display: none;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 20px;
+}
+.accordion-body.open { display: block; }
+
+/* ── WEATHER TABLE ─────────────────────────────────────────────── */
+.weather-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+}
+.weather-table th, .weather-table td {
+  padding: 8px 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.weather-table th { color: var(--text-dim); font-weight: 600; font-size: 0.75rem; }
+.weather-table .forecast-col { background: rgba(59,130,246,0.05); }
+.weather-table td:first-child { text-align: left; color: var(--text-secondary); }
+td.frost { background: rgba(192,57,43,0.25); color: #ff6b6b; font-weight: bold; }
+td.zero  { background: rgba(243,156,18,0.20); color: #f39c12; }
+td.warm-night { background: rgba(39,174,96,0.20); color: #27ae60; }
+td.hot { color: #e74c3c; font-weight: bold; }
+
+/* ── HISTORY TABLE ─────────────────────────────────────────────── */
+#histTable { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+#histTable th, #histTable td {
+  padding: 7px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+#histTable th { color: var(--text-dim); font-size: 0.72rem; font-weight: 600; }
+.status-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 20px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+.status-badge.норма     { background: rgba(16,185,129,0.15);  color: var(--safe); }
+.status-badge.внимание  { background: rgba(245,158,11,0.15);  color: var(--watch); }
+.status-badge.опасность { background: rgba(249,115,22,0.15);  color: var(--warning); }
+.status-badge.критично  { background: rgba(239,68,68,0.15);   color: var(--danger); }
+.status-badge.чс        { background: rgba(168,85,247,0.15);  color: var(--emergency); }
+.status-badge.нет-данных { background: rgba(100,116,139,0.15); color: var(--text-dim); }
+
+/* ── THRESHOLD SCALE ───────────────────────────────────────────── */
+.threshold-scale-container { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.thresh-table { width: 100%; border-collapse: collapse; font-size: 0.88em; flex: 1; }
+.thresh-table th { color: var(--text-dim); padding: 6px 8px; text-align: left; font-size: 0.75rem; font-weight: 600; }
+.thresh-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.thresh-table tr.row-nya td { background: rgba(245,158,11,0.1); }
+.thresh-table tr.row-oya td { background: rgba(239,68,68,0.1); }
+.thresh-table tr.row-current td { background: rgba(59,130,246,0.1); font-weight: 700; }
+
+/* ── CUGMS / PEAK SECTION ──────────────────────────────────────── */
+.cugms-meta { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px; }
+.cugms-data { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; }
+.cugms-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 10px; background: var(--bg-glass);
+  border: 1px solid var(--border); border-radius: 6px; min-width: 180px;
+}
+.cugms-station { font-size: 0.88rem; color: var(--text-secondary); min-width: 80px; }
+.cugms-value { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); }
+.cugms-forecast {
+  background: rgba(59,130,246,0.05); border-left: 3px solid var(--accent);
+  padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.85rem;
+  color: var(--text-secondary); margin-top: 10px; width: 100%;
+}
+.peak-trend {
+  font-size: 1.05rem; font-weight: 600; margin: 8px 0;
+  padding: 10px 14px; border-radius: 6px;
+  background: var(--bg-glass); border-left: 3px solid;
+}
+.regression-block {
+  background: rgba(59,130,246,0.05); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 14px; margin-top: 10px; font-size: 0.88rem;
+}
+.regression-block p { color: var(--text-secondary); margin: 4px 0; }
+
+/* ── EXPLAINER ─────────────────────────────────────────────────── */
+.explainer {
+  background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent);
+  padding: 10px 14px; margin: 8px 0 0; font-size: 0.85rem;
+  color: var(--text-secondary); border-radius: 0 6px 6px 0;
+}
+.explainer b { color: var(--text-primary); }
+.disclaimer-small { font-size: 0.8rem; color: var(--text-dim); margin-top: 8px; }
+.no-data { color: var(--text-dim); font-size: 0.9rem; font-style: italic; padding: 10px 0; }
+
+/* ── HISTORY CONTROLS ──────────────────────────────────────────── */
+.history-controls { margin-bottom: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+.hist-btn {
+  padding: 5px 12px; border-radius: 6px; font-size: 0.82rem;
+  background: var(--bg-glass); border: 1px solid var(--border);
+  color: var(--text-secondary); cursor: pointer; text-decoration: none; display: inline-block;
+  transition: all 0.2s ease;
+}
+.hist-btn:hover { background: rgba(59,130,246,0.2); color: var(--text-primary); border-color: var(--accent); }
+.table-wrap { overflow-x: auto; }
+
+/* ── REPORTS ────────────────────────────────────────────────────── */
+.report-cards { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.report-card {
+  background: var(--bg-glass); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 14px; min-width: 200px; flex: 1;
+}
+.report-meta { font-size: 0.75rem; color: var(--text-dim); margin-top: 4px; }
+
+/* ── FOOTER ────────────────────────────────────────────────────── */
+.site-footer {
+  background: rgba(12, 18, 34, 0.8);
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  margin-top: 8px;
+}
+
+/* ── ZONE TABLE (instructions) ─────────────────────────────────── */
+.zone-table { margin: 10px 0; }
+.zone-row { padding: 8px 12px; margin: 4px 0; border-radius: 6px; font-size: 0.88rem; }
+.zone-row.green  { background: rgba(16,185,129,0.1);  border-left: 3px solid var(--safe); }
+.zone-row.yellow { background: rgba(245,158,11,0.1);  border-left: 3px solid var(--watch); }
+.zone-row.orange { background: rgba(249,115,22,0.1);  border-left: 3px solid var(--warning); }
+.zone-row.red    { background: rgba(239,68,68,0.1);   border-left: 3px solid var(--danger); }
+.zone-row.purple { background: rgba(168,85,247,0.1);  border-left: 3px solid var(--emergency); }
+
+/* ── LINKS / INSTRUCTIONS ──────────────────────────────────────── */
+.links-section, .instr-section {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 12px 0;
+}
+.links-section ul, .instr-section ul, .instr-section ol { padding-left: 20px; }
+.links-section li, .instr-section li { margin: 8px 0; color: var(--text-secondary); }
+.dead-sources {
+  background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 8px; padding: 12px 16px; margin-top: 10px;
+}
+.action-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 10px 0; }
+.action-table th { color: var(--text-dim); padding: 6px 8px; text-align: left; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid var(--border); }
+.action-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+
+/* ── CONTAINER ─────────────────────────────────────────────────── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px 32px; }
+
+/* ── SECTION HEADERS ────────────────────────────────────────────── */
+h1, h2, h3, h4 { color: var(--text-primary); }
+h1 { font-size: 1.6rem; padding: 20px 0; }
+h2 { font-size: 1.15rem; margin: 16px 0 8px; }
+h3 { font-size: 1rem; margin: 12px 0 6px; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sub-indicators { grid-template-columns: repeat(2, 1fr); }
+  .hero-section { padding: 24px 16px 20px; }
+  .level-display .level-number { font-size: 3.5rem; }
+  .station-cards-scroll { gap: 8px; }
+  .station-card { min-width: 130px; padding: 12px; }
+  .station-arrow { display: none; }
+  .hydrograph-section, .stations-section, .timeline-section,
+  .action-section, .weather-section { padding-left: 16px; padding-right: 16px; }
+  .accordion-section { padding-left: 16px; padding-right: 16px; }
+}
+
+@media (max-width: 480px) {
+  .sub-indicators { grid-template-columns: 1fr 1fr; }
+  .header-nav { display: none; }
+  .header-right { gap: 6px; }
+}
+</style>
 </head>
 <body>
 
 
-<nav class="top-nav">
-  <div class="nav-links">
-    <a href="index.html" class="nav-btn active">🌊 Дашборд</a>
-<a href="instructions.html" class="nav-btn">📖 Инструкции</a>
-<a href="links.html" class="nav-btn">🔗 Ссылки</a>
+<header class="site-header">
+  <div class="header-logo">🌊 <span>Oka</span>FloodMonitor</div>
 
+  <nav>
+    <ul class="header-nav">
+      <li><a href="index.html" class="active">Главная</a></li>
+      <li><a href="links.html">Ссылки</a></li>
+      <li><a href="instructions.html">Инструкции</a></li>
+    </ul>
+  </nav>
+
+  <div class="header-right">
+    <span class="clock-display" id="clock">--:--:-- МСК</span>
+    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 30.03.2026 00:26</span>
+    <span class="source-badge unavailable">serp</span>
+    <span class="source-badge unavailable">kim</span>
+    <span class="source-badge unavailable">GloFAS</span>
   </div>
-  <div class="nav-widget">
-    <span id="clock" class="nav-time"></span>
-  </div>
-</nav>
+</header>
 
+<main>
+  
+<section class="hero-section">
+  <div class="composite-status">
 
-<h1 style="background: #1a7f37; ">
-  🌊 ПАВОДОК ОКА 2026 &nbsp; 🟢 &nbsp; 251 см &nbsp;|&nbsp; НОРМА
-</h1>
-<div class="meta-bar">
-  <span>Пост д. Лукьяново | serpuhov.ru | обновлено 29.03.2026 21:03 МСК</span>
-  <span class="source-badges">
-    <span class="badge ok" title="serpuhov.ru">serpuhov.ru</span>
-    <span class="badge ok" title="КИМ API">КИМ</span>
-    <span class="badge ok" title="ЦУГМС">ЦУГМС</span>
-  </span>
-</div>
+    <div class="hero-main-row">
 
-<div class="container">
-
-  <!-- HERO BLOCK -->
-  <section class="hero-block" style="border-color: #3fb950;">
-    <div class="hero-level" style="color: #3fb950;">
-      251<span class="hero-unit"> см</span>
-    </div>
-    <div class="hero-delta rising">
-      ↑ +10 см / сут
-    </div>
-    <div class="hero-abs">110.050 м БС</div>
-
-    <div class="threshold-bars">
-      <div class="tbar-row">
-        <span class="tbar-label">До НЯ (пойма)</span>
-        <div class="tbar-track">
-          <div class="tbar-fill nya-fill" style="width: 38.9%;"></div>
+      <!-- Термометр (левая часть) -->
+      <div class="thermometer-col">
+        <div class="thermometer-wrap">
+          <div class="therm-labels">
+            <div class="therm-label therm-oya" style="bottom:90.9%;" title="Опасное явление: уровень 800 см (115.54 м БС)">
+              <span class="therm-tag danger">ОЯ 800</span>
+            </div>
+            <div class="therm-label therm-nya" style="bottom:73.3%;" title="Неблагоприятное явление: уровень 645 см (113.99 м БС)">
+              <span class="therm-tag warning">НЯ 645</span>
+            </div>
+            <div class="therm-label therm-cur" style="bottom:0.0%;">
+              <span class="therm-tag current">0</span>
+            </div>
+          </div>
+          <div class="therm-bar">
+            <div class="therm-fill" style="height:0.0%; background:linear-gradient(to top, #10b981, #10b981);"></div>
+            <div class="therm-mark therm-mark-nya" style="bottom:73.3%;"></div>
+            <div class="therm-mark therm-mark-oya" style="bottom:90.9%;"></div>
+            <div class="therm-mark therm-mark-cur" style="bottom:0.0%;"></div>
+          </div>
+          <div class="therm-zero">0 см</div>
         </div>
-        <span class="tbar-val">3.94 м</span>
       </div>
-      <div class="tbar-row">
-        <span class="tbar-label">До ОЯ (подтопление)</span>
-        <div class="tbar-track">
-          <div class="tbar-fill oya-fill" style="width: 31.4%;"></div>
+
+      <!-- Центральный блок с уровнем -->
+      <div class="hero-center-col">
+        <div class="level-display">
+          <div class="level-number zone-safe" title="Уровень воды от нуля гидропоста д. Лукьяново (нуль поста = 107.54 м БС)">? см</div>
+          <div class="level-explain">уровень от нуля поста д. Лукьяново</div>
+          <div class="level-label">р. Ока | нет данных</div>
+          
         </div>
-        <span class="tbar-val">5.49 м</span>
+
+        <div class="sub-indicators">
+          
+  <div class="sub-indicator">
+    <div class="si-label">Уровень</div>
+    <div class="si-status" style="color:#64748b;">⚪ Нет данных</div>
+    <div class="si-value">—</div>
+  </div>
+  <div class="sub-indicator">
+    <div class="si-label">Тренд</div>
+    <div class="si-status" style="color:#64748b;">⚪ Нет данных</div>
+    <div class="si-value">—</div>
+  </div>
+  <div class="sub-indicator">
+    <div class="si-label">Прогноз GloFAS</div>
+    <div class="si-status" style="color:#64748b;">⚪ Нет данных</div>
+    <div class="si-value">—</div>
+  </div>
+  <div class="sub-indicator">
+    <div class="si-label">Погода</div>
+    <div class="si-status" style="color:#10b981;">🟢 НОРМА</div>
+    <div class="si-value">0/4 — —</div>
+  </div>
+        </div>
+
+        
+<div class="verdict-banner" style="background: #10b98118; border-color: #10b98140; color: #10b981;">
+  🟢 НОРМА
+</div>
+      </div>
+
+    </div>
+
+    <!-- Мини-карточки инфографики -->
+    <div class="info-cards-row">
+      <div class="info-card">
+        <div class="ic-icon">❄️</div>
+        <div class="ic-value">0 <span class="ic-unit">см</span></div>
+        <div class="ic-title">Снежный покров</div>
+        <div class="ic-hint">запас воды в снеге (SWE) по Open-Meteo</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">📈</div>
+        <div class="ic-value">— <span class="ic-unit">см/сут</span></div>
+        <div class="ic-title">Прирост уровня</div>
+        <div class="ic-hint">скорость изменения за последние сутки — стабильно</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">⏳</div>
+        <div class="ic-value">— <span class="ic-unit">дней</span></div>
+        <div class="ic-title">До НЯ</div>
+        <div class="ic-hint">при текущем темпе прироста до уровня 645 см</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">🌧️</div>
+        <div class="ic-value">0/4</div>
+        <div class="ic-title">Паводковый индекс</div>
+        <div class="ic-hint">минимальный — комплексная оценка осадков и таяния</div>
       </div>
     </div>
-  </section>
 
-  <!-- СТАНЦИИ ПО ТЕЧЕНИЮ -->
-  <h3>🗺️ Станции по течению (верховье → низовье)</h3>
-  <div class="station-cards">
-
-  <div class="station-card">
-    <div class="st-name">Орёл</div>
-    <div class="st-river">р. Ока</div>
-    <div class="st-level level-unknown">нет данных</div>
-    <div class="st-change">→ —</div>
-    <div class="st-status">⚪</div>
-    <div class="st-source">нет данных</div>
-  </div>
-
-  <div class="station-card">
-    <div class="st-name">Белёв</div>
-    <div class="st-river">р. Ока</div>
-    <div class="st-level level-unknown">нет данных</div>
-    <div class="st-change">→ —</div>
-    <div class="st-status">⚪</div>
-    <div class="st-source">ЦУГМС (прирост)</div>
-  </div>
-
-  <div class="station-card">
-    <div class="st-name">Калуга</div>
-    <div class="st-river">р. Ока</div>
-    <div class="st-level level-unknown">нет данных</div>
-    <div class="st-change">→ —</div>
-    <div class="st-status">⚪</div>
-    <div class="st-source">КИМ API</div>
-  </div>
-
-  <div class="station-card main-station">
-    <div class="st-name">Серпухов</div>
-    <div class="st-river">р. Ока</div>
-    <div class="st-level level-green">251 см</div>
-    <div class="st-change">↑ +10 см</div>
-    <div class="st-status">✅</div>
-    <div class="st-source">serpuhov.ru / д. Лукьяново</div>
-  </div>
-
-  <div class="station-card">
-    <div class="st-name">Кашира</div>
-    <div class="st-river">р. Ока</div>
-    <div class="st-level level-unknown">нет данных</div>
-    <div class="st-change">→ —</div>
-    <div class="st-status">⚪</div>
-    <div class="st-source">КИМ + ЦУГМС</div>
-  </div>
-
-  <div class="station-card">
-    <div class="st-name">Коломна</div>
-    <div class="st-river">р. Ока</div>
-    <div class="st-level level-unknown">нет данных</div>
-    <div class="st-change">↑ +55 см</div>
-    <div class="st-status">⚪</div>
-    <div class="st-source">КИМ / ЦУГМС (прирост)</div>
-  </div>
-
-  <div class="station-card">
-    <div class="st-name">Рязань</div>
-    <div class="st-river">р. Ока</div>
-    <div class="st-level level-unknown">нет данных</div>
-    <div class="st-change">→ —</div>
-    <div class="st-status">⚪</div>
-    <div class="st-source">КИМ API</div>
-  </div>
-</div>
-
-
-  <!-- ДИСКЛЕЙМЕР / ИСТОЧНИКИ -->
-  <div class="disclaimer-block">
-    <div class="disclaimer-header" onclick="toggleDisclaimer()">
-      ⚠️ О данных и источниках
-      <span class="toggle-icon">▼</span>
+    <!-- Прогресс-бары -->
+    <div class="progress-bars">
+      <div class="progress-item">
+        <div class="pi-label" title="Неблагоприятное явление: уровень 645 см (113.99 м БС)">До НЯ 645 см <span class="pi-q" title="Неблагоприятное гидрологическое явление — подтопление пойменных территорий">?</span></div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill nya" style="width:0.0%;"></div>
+        </div>
+        <div class="pi-value">нет данных</div>
+      </div>
+      <div class="progress-item">
+        <div class="pi-label" title="Опасное явление: уровень 800 см (115.54 м БС)">До ОЯ 800 см <span class="pi-q" title="Опасное гидрологическое явление — затопление дорог и построек">?</span></div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill oya" style="width:0.0%;"></div>
+        </div>
+        <div class="pi-value">нет данных</div>
+      </div>
     </div>
-    <div id="disclaimer-body" class="disclaimer-body">
-      <p class="disclaimer-alert">
-        <b>⚠️ Росгидромет не публикует оперативные данные гидропостов в открытом доступе.</b>
-        Сервис агрегирует данные из открытых источников.
-      </p>
-      <table class="sources-table">
-        <thead><tr><th>Источник</th><th>Данные</th><th>Обновление</th><th>Ограничения</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><a href="https://serpuhov.ru/bezopasnost/pavodkovaya-obstanovka/" target="_blank" rel="noopener">serpuhov.ru</a></td>
-            <td>Абсолютный уровень, пост д. Лукьяново</td>
-            <td>ежедневно ~09:00</td>
-            <td>Только 1 пост, данные за прошедшие сутки</td>
-          </tr>
-          <tr>
-            <td><a href="https://ris.kim-online.ru/" target="_blank" rel="noopener">КИМ API</a></td>
-            <td>Абсолютные уровни Кашира, Калуга, Рязань</td>
-            <td>несколько раз в день</td>
-            <td>Серпухов — данные 2022, не используется</td>
-          </tr>
-          <tr>
-            <td><a href="https://cugms.ru/gidrologiya/vesennee-polovode-i-dozhdevye-pavodki-2026/" target="_blank" rel="noopener">ЦУГМС</a></td>
-            <td>Суточные приросты, ледовая обстановка, прогнозы</td>
-            <td>ежедневно (весенний период)</td>
-            <td>Только приросты, без абсолютных уровней</td>
-          </tr>
-          <tr>
-            <td><a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></td>
-            <td>Погода, снежный покров (snow_depth_max), прогноз</td>
-            <td>несколько раз в день</td>
-            <td>—</td>
-          </tr>
-        </tbody>
-      </table>
+
+  </div>
+</section>
+
+  <div class="fade-in-section">
+    
+<section class="hydrograph-section fade-in-section">
+  <div class="hydrograph-card">
+    <h3>📈 Гидрограф: история + прогноз</h3>
+    <div class="chart-container">
+      <canvas id="hydrograph"></canvas>
     </div>
   </div>
+</section>
 
-  <!-- ACTION BLOCK: ЧТО ДЕЛАТЬ -->
-  <div class="action-block" style="border-left: 4px solid #1a7f37;">
-    <h3>✅ СИТУАЦИЯ НОРМАЛЬНАЯ</h3>
-    <p>Уровень 251 см — в пределах нормы. Обновления 4 раза в день. Следите за динамикой. ⚠️ Погодный индекс паводковой опасности: 4/5 — возможен быстрый подъём в ближайшие дни.</p>
-    <p class="action-meta">Обновлено: 29.03.2026 21:03 МСК</p>
-  </div>
-
-  <!-- ПОГОДА -->
-  <div class="weather-ext-block">
-    <h3>🌦 Расширенный прогноз погоды</h3>
-    
-<div class="weather-flood-index" style="border-color:#f85149;">
-  <span class="wfi-label">Паводковый индекс погоды (0–4)</span>
-  <span class="wfi-value" style="color:#f85149;">КРИТИЧЕСКИЙ (4/4)</span>
-  <p class="wfi-summary">Активное таяние + осадки. Все факторы против нас. Максимально быстрый рост уровня.</p>
-  <p style="font-size:0.82em; color:var(--text-muted); margin-top:4px;">Снежный покров: 8 см</p>
-</div>
-    
-<div class="table-wrap">
-<table class="weather-table">
-  <thead>
-    <tr><th>Показатель</th><th class="">Ср 25.03</th><th class="">Чт 26.03</th><th class="">Пт 27.03</th><th class="">Сб 28.03</th><th class="">Вс 29.03</th><th class=" forecast-col">Пн 30.03</th><th class=" forecast-col">Вт 31.03</th><th class=" forecast-col">Ср 01.04</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Тmax °C</td><td class="">12°</td><td class="">12°</td><td class="">9°</td><td class="">11°</td><td class="">15°</td><td class=" forecast-col">14°</td><td class=" forecast-col">14°</td><td class=" forecast-col">14°</td></tr>
-    <tr><td>Tmin °C</td><td class="" class="zero">-2°</td><td class="" class="zero">-2°</td><td class="" class="warm-night">3°</td><td class="" class="warm-night">5°</td><td class="" class="warm-night">5°</td><td class=" forecast-col" class="warm-night">5°</td><td class=" forecast-col" class="warm-night">4°</td><td class=" forecast-col" class="warm-night">8°</td></tr>
-    <tr><td>Осадки, мм</td><td class="">0.0</td><td class="">0.0</td><td class="">0.9</td><td class="">0.1</td><td class="">0.0</td><td class=" forecast-col">0.0</td><td class=" forecast-col">0.0</td><td class=" forecast-col">4.9</td></tr>
-    <tr><td>Снег, см</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td></tr>
-    <tr><td>Ветер, м/с</td><td class="">2</td><td class="">3</td><td class="">2</td><td class="">3</td><td class="">3</td><td class=" forecast-col">3</td><td class=" forecast-col">2</td><td class=" forecast-col">2</td></tr>
-    <tr><td>Погода</td><td class="">облачно</td><td class="">облачно</td><td class="">дождь</td><td class="">облачно</td><td class="">облачно</td><td class=" forecast-col">облачно</td><td class=" forecast-col">облачно</td><td class=" forecast-col">гроза</td></tr>
-  </tbody>
-</table>
-</div>
-
-    
-<div class="chart-container">
-<canvas id="levelChart"></canvas>
-</div>
 <script>
 (function() {
-var ctx = document.getElementById('levelChart');
-if (!ctx) return;
-var labels = ["2026-03-29", "2026-03-29", "2026-03-29", "2026-03-29", "2026-03-29"];
-var values = [203.0, 203.0, 203.0, 251.0, 251.0];
-var refLabels = [];
-var refValues = [];
-var datasets = [{
-    label: '2026 (Серпухов, см)',
-    data: values,
-    borderColor: '#388bfd',
-    backgroundColor: 'rgba(56,139,253,0.12)',
-    tension: 0.3,
-    fill: true,
-    pointRadius: 3,
-}];
-if (refValues.length > 0) {
-    datasets.push({
-        label: '2024 (справочно)',
-        data: refValues,
-        borderColor: '#8b949e',
-        borderDash: [4,4],
-        tension: 0.3,
-        fill: false,
-        pointRadius: 2,
+  var ctx = document.getElementById('hydrograph');
+  if (!ctx) return;
+
+  var histLabels   = ["2026-03-29T01:49:22", "2026-03-29T07:56:51", "2026-03-29T10:04:55", "2026-03-29T15:05:04", "2026-03-29T18:03:10"];
+  var histValues   = [203.0, 203.0, 203.0, 251.0, 251.0];
+  var glofasLabels = ["2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12"];
+  var glofasValues = [271.4, 285.68, 295.217, 301.1126, 304.2446375, 305.30953024999997, 304.85695083125, 303.31818080749997, 301.02926039717187, 298.24985704177345, 295.1786163340581, 291.96562605521757, 288.72251399251286, 285.53060896237713];
+  var refLabels    = [];
+  var refValues    = [];
+  var NYA          = 645.0;
+  var OYA          = 800.0;
+  var todayLabel   = "2026-03-29";
+
+  var allLabels = Array.from(new Set([].concat(histLabels, glofasLabels))).sort();
+
+  function alignValues(labels, dataLabels, dataValues) {
+    return labels.map(function(l) {
+      var idx = dataLabels.indexOf(l);
+      return idx >= 0 ? dataValues[idx] : null;
     });
-}
-new Chart(ctx, {
+  }
+
+  var histAligned   = alignValues(allLabels, histLabels, histValues);
+  var glofasAligned = alignValues(allLabels, glofasLabels, glofasValues);
+  var refAligned    = refLabels.length ? alignValues(allLabels, refLabels, refValues) : [];
+
+  var nowPlugin = {
+    id: 'nowLine',
+    afterDraw: function(chart) {
+      var idx = allLabels.indexOf(todayLabel);
+      if (idx < 0) return;
+      var x = chart.scales.x.getPixelForValue(idx);
+      var ctx2 = chart.ctx;
+      var top    = chart.chartArea.top;
+      var bottom = chart.chartArea.bottom;
+      ctx2.save();
+      ctx2.strokeStyle = 'rgba(255,255,255,0.4)';
+      ctx2.lineWidth   = 1.5;
+      ctx2.setLineDash([6, 4]);
+      ctx2.beginPath();
+      ctx2.moveTo(x, top);
+      ctx2.lineTo(x, bottom);
+      ctx2.stroke();
+      ctx2.setLineDash([]);
+      ctx2.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx2.font = '11px Inter, sans-serif';
+      ctx2.textAlign = 'center';
+      ctx2.fillText('СЕЙЧАС', x, top - 4);
+      ctx2.restore();
+    }
+  };
+
+  var datasets = [
+    {
+      label: 'Уровень (см) — serpuhov.ru',
+      data: histAligned,
+      borderColor: '#3b82f6',
+      backgroundColor: 'rgba(59,130,246,0.08)',
+      borderWidth: 2.5,
+      tension: 0.3,
+      fill: true,
+      pointRadius: 2,
+      spanGaps: false,
+    }
+  ];
+
+  if (glofasAligned.some(function(v) { return v !== null; })) {
+    datasets.push({
+      label: 'Прогноз GloFAS (тренд)',
+      data: glofasAligned,
+      borderColor: '#a855f7',
+      backgroundColor: 'transparent',
+      borderWidth: 2,
+      borderDash: [6, 4],
+      tension: 0.3,
+      fill: false,
+      pointRadius: 1,
+      spanGaps: false,
+      yAxisID: 'y2',
+    });
+  }
+
+  if (refAligned.length && refAligned.some(function(v) { return v !== null; })) {
+    datasets.push({
+      label: '2024 (справочно)',
+      data: refAligned,
+      borderColor: 'rgba(100,116,139,0.5)',
+      backgroundColor: 'transparent',
+      borderDash: [3, 3],
+      borderWidth: 1.5,
+      tension: 0.3,
+      fill: false,
+      pointRadius: 0,
+      spanGaps: false,
+    });
+  }
+
+  new Chart(ctx, {
     type: 'line',
-    data: { labels: labels, datasets: datasets },
+    data: { labels: allLabels, datasets: datasets },
+    plugins: [nowPlugin],
     options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-            legend: { labels: { color: '#8b949e' } },
-            tooltip: { mode: 'index', intersect: false },
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { color: '#94a3b8', font: { size: 11, family: 'Inter' } } },
+        tooltip: {
+          backgroundColor: 'rgba(17,25,40,0.95)',
+          borderColor: 'rgba(255,255,255,0.08)',
+          borderWidth: 1,
+          titleColor: '#f1f5f9',
+          bodyColor: '#94a3b8',
         },
-        scales: {
-            x: { ticks: { color: '#8b949e', maxTicksLimit: 7 }, grid: { color: '#21262d' } },
-            y: { ticks: { color: '#8b949e' }, grid: { color: '#21262d' },
-                  title: { display: true, text: 'см', color: '#8b949e' } },
+        annotation: {
+          annotations: {
+            nyaLine: {
+              type: 'line', yMin: NYA, yMax: NYA,
+              borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [8, 4],
+              label: { content: 'НЯ ' + NYA + ' см', display: true,
+                        backgroundColor: 'rgba(245,158,11,0.15)', color: '#f59e0b',
+                        font: { size: 10 } }
+            },
+            oyaLine: {
+              type: 'line', yMin: OYA, yMax: OYA,
+              borderColor: '#ef4444', borderWidth: 1.5, borderDash: [8, 4],
+              label: { content: 'ОЯ ' + OYA + ' см', display: true,
+                        backgroundColor: 'rgba(239,68,68,0.15)', color: '#ef4444',
+                        font: { size: 10 } }
+            },
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#64748b',
+            maxTicksLimit: 10,
+            maxRotation: 45,
+            callback: function(value, index) {
+              var label = allLabels[value];
+              if (!label) return '';
+              if (label.length > 10) {
+                // ISO datetime: HH:MM для последних 2 дней, DD.MM для старых
+                var dt = new Date(label + 'Z');
+                var now = new Date();
+                var diffDays = (now - dt) / 86400000;
+                if (diffDays < 2) {
+                  return String(dt.getUTCHours()).padStart(2,'0') + ':' + String(dt.getUTCMinutes()).padStart(2,'0');
+                } else {
+                  return dt.getUTCDate() + '.' + String(dt.getUTCMonth()+1).padStart(2,'0');
+                }
+              }
+              // ISO date: DD.MM
+              var parts = label.split('-');
+              return parts.length === 3 ? parts[2] + '.' + parts[1] : label;
+            }
+          },
+          grid: { color: 'rgba(255,255,255,0.04)' },
         },
+        y: {
+          position: 'left',
+          ticks: { color: '#64748b' },
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          title: { display: true, text: 'Уровень, см', color: '#64748b', font: { size: 11 } },
+        },
+        y2: {
+          position: 'right',
+          ticks: { color: '#a855f7' },
+          grid: { display: false },
+          title: { display: true, text: 'Расход, м³/с (GloFAS)', color: '#a855f7', font: { size: 11 } },
+        },
+      },
     },
-});
+  });
 })();
 </script>
+  </div>
 
-    
-<div class="weather-commentary">
-  <h4>📝 Аналитика погодных факторов</h4>
-  <ul><li>❄️ Снежный покров: 12 см (Δ4 дня: -7 см). Прогноз — постепенное таяние.</li>
-<li>🌡 Последние 2 ночи с морозом, прогноз — потепление: таяние ускорится.</li>
-<li>📈 Ночи теплеют (+3°C за прогноз), выше нуля — ускорение таяния.</li>
-<li>☀️ Затяжная оттепель: 5 дней подряд &gt;+10°C — интенсивное снеготаяние, УСКОРЕНИЕ.</li></ul>
+  <section class="stations-section fade-in-section">
+<h2>↑ Бассейн Оки по течению</h2>
+<div class="station-cards-scroll">
+
+<div class="station-card">
+  <div class="sc-name">Orel</div>
+  <div class="sc-river">р. Ока</div>
+  <div class="sc-value" style="color: var(--text-primary);">
+    нет данных
+  </div>
+  <div class="sc-sparkline"></div>
+  <div class="sc-trend">
+    ?
+    <span class="sc-badge fr-unknown">недоступно</span>
+  </div>
+  
+  <div class="sc-travel">7 дн до Серпухова</div>
 </div>
-  </div>
+<div class="station-arrow">›</div>
 
-  <!-- ПОРОГОВЫЕ ЗНАЧЕНИЯ -->
-  
-<section class="thresholds-section">
-  <h3>📏 Пороговые отметки (пост д. Лукьяново)</h3>
-  <div class="threshold-scale-container">
-    <div class="v-scale-wrapper" style="position:relative; height:280px; width:220px; background:linear-gradient(to top, #1a7f37 0%, #d29922 55%, #db6d28 80%, #f85149 100%); border-radius:8px; overflow:visible;">
-      <div style="position:absolute; left:0; top:0; bottom:0; right:0; background:linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%); border-radius:8px;"></div>
-      <!-- НЯ marker -->
-      <div style="position:absolute; bottom:80.6%; left:0; right:0; display:flex; align-items:center; gap:4px; padding: 0 8px;">
-        <div style="height:2px; background:rgba(255,220,100,0.9); flex:1;"></div>
-        <span style="font-size:0.68em; color:#fff; background:rgba(0,0,0,0.55); padding:1px 5px; border-radius:3px; white-space:nowrap;">НЯ 113.99 м</span>
-      </div>
-      <!-- ОЯ marker -->
-      <div style="position:absolute; bottom:96%; left:0; right:0; display:flex; align-items:center; gap:4px; padding: 0 8px;">
-        <div style="height:2px; background:rgba(255,120,100,0.9); flex:1;"></div>
-        <span style="font-size:0.68em; color:#fff; background:rgba(0,0,0,0.55); padding:1px 5px; border-radius:3px; white-space:nowrap;">ОЯ 115.54 м</span>
-      </div>
-      <!-- Текущий уровень -->
-      <div style="position:absolute; bottom:31.4%; left:-6px; right:-6px; height:4px; background:#79c0ff; box-shadow:0 0 8px #79c0ff; border-radius:2px;"></div>
-      <div style="position:absolute; bottom:31.4%; left:8px; transform:translateY(50%);">
-        <span style="font-size:0.72em; color:#79c0ff; font-weight:700; background:rgba(0,0,0,0.7); padding:2px 6px; border-radius:3px; white-space:nowrap;">▶ 110.050 м БС</span>
-      </div>
-      <!-- Нуль поста -->
-      <div style="position:absolute; bottom:2px; left:8px;">
-        <span style="font-size:0.65em; color:rgba(255,255,255,0.7); white-space:nowrap;">Нуль ~107.54 м</span>
-      </div>
-    </div>
-    <table class="thresh-table">
-      <thead><tr><th>Отметка</th><th>м БС</th><th>Значение</th><th>Статус</th></tr></thead>
-      <tbody>
-        <tr>
-          <td>Нуль поста</td><td>~107.54</td>
-          <td>База измерения (приблиз.)</td><td>—</td>
-        </tr>
-        <tr class="row-nya">
-          <td>НЯ</td><td>113.99</td>
-          <td>Выход на пойму</td><td>не достигнут (до порога 3.94 м)</td>
-        </tr>
-        <tr class="row-oya">
-          <td>ОЯ</td><td>115.54</td>
-          <td>Подтопление НП</td><td>не достигнут (до порога 5.49 м)</td>
-        </tr>
-        <tr class="row-current">
-          <td><b>Текущий</b></td><td><b>110.050</b></td>
-          <td>Прямо сейчас</td><td><b>110.050 м БС</b></td>
-        </tr>
-      </tbody>
-    </table>
+<div class="station-card">
+  <div class="sc-name">Mtsensk</div>
+  <div class="sc-river">р. Ока</div>
+  <div class="sc-value" style="color: var(--text-primary);">
+    нет данных
   </div>
-  <p class="explainer">
-    <b>НЯ</b> — неблагоприятное явление (выход воды на пойму).
-    <b>ОЯ</b> — опасное явление (подтопление населённых пунктов).
-    Пост д. Лукьяново — официальный наблюдательный пункт на р. Ока у г. Серпухова.
-    Нуль поста ~107.54 м БС (значение приблизительное).
-  </p>
+  <div class="sc-sparkline"></div>
+  <div class="sc-trend">
+    ?
+    <span class="sc-badge fr-unknown">недоступно</span>
+  </div>
+  
+  <div class="sc-travel">5–6 дн до Серпухова</div>
+</div>
+<div class="station-arrow">›</div>
+
+<div class="station-card">
+  <div class="sc-name">Belev</div>
+  <div class="sc-river">р. Ока</div>
+  <div class="sc-value" style="color: var(--text-primary);">
+    нет данных
+  </div>
+  <div class="sc-sparkline"></div>
+  <div class="sc-trend">
+    ?
+    <span class="sc-badge fr-unknown">недоступно</span>
+  </div>
+  
+  <div class="sc-travel">4–5 дн до Серпухова</div>
+</div>
+<div class="station-arrow">›</div>
+
+<div class="station-card">
+  <div class="sc-name">Kaluga</div>
+  <div class="sc-river">р. Ока</div>
+  <div class="sc-value" style="color: var(--text-primary);">
+    нет данных
+  </div>
+  <div class="sc-sparkline"></div>
+  <div class="sc-trend">
+    ?
+    <span class="sc-badge fr-unknown">недоступно</span>
+  </div>
+  
+  <div class="sc-travel">2–3 дн до Серпухова</div>
+</div>
+<div class="station-arrow">›</div>
+
+<div class="station-card">
+  <div class="sc-name">Aleksin</div>
+  <div class="sc-river">р. Ока</div>
+  <div class="sc-value" style="color: var(--text-primary);">
+    нет данных
+  </div>
+  <div class="sc-sparkline"></div>
+  <div class="sc-trend">
+    ?
+    <span class="sc-badge fr-unknown">недоступно</span>
+  </div>
+  
+  <div class="sc-travel">1–2 дн до Серпухова</div>
+</div>
+<div class="station-arrow">›</div>
+
+<div class="station-card">
+  <div class="sc-name">Tarusa</div>
+  <div class="sc-river">р. Ока</div>
+  <div class="sc-value" style="color: var(--text-primary);">
+    нет данных
+  </div>
+  <div class="sc-sparkline"></div>
+  <div class="sc-trend">
+    ?
+    <span class="sc-badge fr-unknown">недоступно</span>
+  </div>
+  
+  <div class="sc-travel">0.5–1 дн до Серпухова</div>
+</div>
+<div class="station-arrow">›</div>
+
+<div class="station-card main-station">
+  <div class="sc-name">СЕРПУХОВ</div>
+  <div class="sc-river">р. Ока</div>
+  <div class="sc-value" style="color: var(--accent);">
+    нет данных
+  </div>
+  <div class="sc-sparkline"></div>
+  <div class="sc-trend">
+    →
+    <span class="sc-badge fr-unknown">serpuhov.ru</span>
+  </div>
+  
+  
+</div>
+<div class="station-arrow">›</div>
+
+<div class="station-card">
+  <div class="sc-name">Кашира</div>
+  <div class="sc-river">р. Ока</div>
+  <div class="sc-value" style="color: var(--text-primary);">
+    нет данных
+  </div>
+  <div class="sc-sparkline"></div>
+  <div class="sc-trend">
+    →
+    <span class="sc-badge fr-unknown">КИМ API</span>
+  </div>
+  
+  <div class="sc-travel">↓ ниже по течению</div>
+</div>
+</div>
 </section>
 
-
-  <!-- ПРОГНОЗ ВОЛНЫ -->
   
-<section class="wave-section">
-  <h3>🌊 Прогноз прихода паводковой волны</h3>
-  <div class="wave-cards">
-    <div class="wave-card">
-      <div class="wave-from">Орёл → Серпухов</div>
-      <div class="wave-time">≈ 5–7 дней</div>
-      <div class="wave-dist">~600 км</div>
-    </div>
-    <div class="wave-card">
-      <div class="wave-from">Калуга → Серпухов</div>
-      <div class="wave-time">≈ 2–3 дня</div>
-      <div class="wave-dist">~180 км</div>
-    </div>
-    <div class="wave-card">
-      <div class="wave-from">Алексин → Серпухов</div>
-      <div class="wave-time">≈ 1–2 дня</div>
-      <div class="wave-dist">~90 км</div>
-    </div>
-    <div class="wave-card highlight">
-      <div class="wave-from">Серпухов → Жерновка</div>
-      <div class="wave-time">≈ 6–12 часов</div>
-      <div class="wave-dist">~8 км ниже Пущино</div>
-    </div>
+
+  <div class="fade-in-section">
+    
+<section class="action-section">
+  <div class="action-card" style="border-left-color: #10b981;">
+    <div class="action-icon">🟢</div>
+    <div class="action-title" style="color: #10b981;">Норма — Плановое наблюдение</div>
+    <div class="action-text">Уровень воды в норме. Продолжайте следить за дашбордом 1–2 раза в день. При приближении к НЯ — перейдите в режим бдительности. Проверьте наличие насоса, убедитесь в доступности дачи.</div>
   </div>
-  <p class="wave-dynamic">Данных по движению волны недостаточно. Следите за обновлениями.</p>
-  <p class="disclaimer-small">
-    ⚠️ Оценочные данные на основе расстояния и типичной скорости течения.
-    Реальное время зависит от уклона реки, заторов и осадков.
-  </p>
 </section>
-
-
-  <!-- ПРОГНОЗ ПИКА -->
-  
-<section class="peak-section">
-  <h3>📈 Прогноз пика</h3>
-  <div class="peak-trend" style="color: #8b949e; border-left: 3px solid #8b949e;">
-    Стабильный рост: +10 см/сут
   </div>
-  
-  <p class="disclaimer-small">⚠️ Модель приблизительная. Реальный пик зависит от погоды и таяния снега.</p>
-</section>
 
-
-  <!-- ОБЗОР ЦУГМС -->
   
-<section class="cugms-section">
-  <h3>📋 Последний обзор ЦУГМС <span class="badge ok" style="vertical-align:middle;"></span></h3>
-  <div class="cugms-meta">
-    Обзор №20 от 29.03.2026
-    <a href="https://cugms.ru/obzor-%e2%84%9620-razvitiya-vesennego-polovodya-na-rekah-i-vodoemah-moskvy-i-moskovskoj-oblasti-29-marta-2026-goda/" target="_blank" rel="noopener">→ Полный текст</a>
-  </div>
-  
-  <div class="cugms-data">
-    <div class="cugms-row">
-      <span class="cugms-station">Серпухов:</span>
-      <span class="cugms-value">-21 см/сут</span>
-    </div>
-    <div class="cugms-row">
-      <span class="cugms-station">Кашира:</span>
-      <span class="cugms-value">нет данных</span>
-    </div>
-    <div class="cugms-row">
-      <span class="cugms-station">Коломна:</span>
-      <span class="cugms-value ice">+55 см/сут</span>
-    </div>
-    <div class="cugms-forecast"><b>Прогноз ():</b> Прогноз погоды Общий прогноз НМУ Метеобюллетень (МиМО) Метеобюллетень (Центральное УГМС) Пожароопасность Климат региона Климат Москвы Язык погоды Гидрология Введение в гидрологию региона Наблюдения на реках и водоемах Воднобалансовая станция Гидрологические прогнозы Весеннее половодье и дождевые паводки-2026 Весеннее половодье и дождевые паводки-20…</div>
-  </div>
-  <p class="explainer">
-    ЦУГМС публикует только суточные приросты и качественные данные.
-    Абсолютные уровни в см — платная услуга Росгидромета.
-  </p>
-</section>
 
-
-  <!-- ИСТОРИЯ -->
   
-<section class="history-section">
-  <h3>📊 История наблюдений</h3>
-  <div class="history-controls">
-    <button onclick="filterHistory(7)" class="hist-btn">7 дней</button>
-    <button onclick="filterHistory(30)" class="hist-btn">30 дней</button>
-    <button onclick="filterHistory(0)" class="hist-btn">Всё</button>
-    <a href="history.csv" download class="hist-btn dl-btn">⬇ CSV</a>
-  </div>
-  <div class="table-wrap">
-    <table id="histTable">
-      <thead>
-        <tr>
-          <th>Дата/время</th>
-          <th>Уровень (см)</th>
-          <th>Изменение</th>
-          <th>м БС</th>
-          <th>Кашира</th>
-          <th>Калуга</th>
-          <th>ЦУГМС см/сут</th>
-          <th>Снег (см)</th>
-          <th>Статус</th>
-          <th>Источник</th>
-        </tr>
-      </thead>
-      <tbody>
+<section style="padding: 0 24px 24px;">
+  <div style="display:flex; flex-direction:column; gap:8px;">
+
+    <div class="accordion-section">
+      <div class="accordion-header" onclick="toggleAccordion('threshAcc')">
+        📏 Пороговые отметки
+        <span class="toggle-icon" id="threshAcc-icon">▼</span>
+      </div>
+      <div class="accordion-body" id="threshAcc">
         
-<tr class="row-GREEN">
+<div class="threshold-scale-container">
+  <div style="position:relative; width:200px; height:260px;
+    background:linear-gradient(to top, #10b981 0%, #f59e0b 50%, #f97316 75%, #ef4444 90%, #a855f7 100%);
+    border-radius:8px; overflow:visible; flex-shrink:0;">
+    <div style="position:absolute; left:0; top:0; bottom:0; right:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%); border-radius:8px;"></div>
+    <!-- НЯ marker -->
+    <div style="position:absolute; bottom:80.6%; left:0; right:0; display:flex; align-items:center; gap:4px; padding:0 8px;">
+      <div style="height:2px; background:rgba(245,220,100,0.9); flex:1;"></div>
+      <span style="font-size:0.65em; color:#fff; background:rgba(0,0,0,0.6); padding:1px 5px; border-radius:3px; white-space:nowrap;">НЯ 113.99 м</span>
+    </div>
+    <!-- ОЯ marker -->
+    <div style="position:absolute; bottom:96%; left:0; right:0; display:flex; align-items:center; gap:4px; padding:0 8px;">
+      <div style="height:2px; background:rgba(255,100,100,0.9); flex:1;"></div>
+      <span style="font-size:0.65em; color:#fff; background:rgba(0,0,0,0.6); padding:1px 5px; border-radius:3px; white-space:nowrap;">ОЯ 115.54 м</span>
+    </div>
+    <!-- Текущий уровень -->
+    <div style="position:absolute; bottom:0.0%; left:-6px; right:-6px; height:4px; background:#3b82f6; box-shadow:0 0 8px #3b82f6; border-radius:2px;"></div>
+    <div style="position:absolute; bottom:0.0%; left:8px; transform:translateY(50%);">
+      <span style="font-size:0.7em; color:#3b82f6; font-weight:700; background:rgba(0,0,0,0.7); padding:2px 6px; border-radius:3px; white-space:nowrap;">▶ ? м БС</span>
+    </div>
+    <div style="position:absolute; bottom:2px; left:8px;">
+      <span style="font-size:0.6em; color:rgba(255,255,255,0.6); white-space:nowrap;">Нуль ~107.54 м</span>
+    </div>
+  </div>
+  <table class="thresh-table">
+    <thead><tr><th>Отметка</th><th>м БС</th><th>Значение</th><th>Статус</th></tr></thead>
+    <tbody>
+      <tr><td>Нуль поста</td><td>~107.54</td><td>База измерения</td><td>—</td></tr>
+      <tr class="row-nya">
+        <td>НЯ</td><td>113.99</td>
+        <td>Выход на пойму</td><td>нет данных</td>
+      </tr>
+      <tr class="row-oya">
+        <td>ОЯ</td><td>115.54</td>
+        <td>Подтопление НП</td><td>нет данных</td>
+      </tr>
+      <tr class="row-current">
+        <td><b>Текущий</b></td><td><b>?</b></td>
+        <td>Прямо сейчас</td><td><b>нет данных</b></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p class="explainer">
+  <b>НЯ</b> — неблагоприятное явление (выход воды на пойму).
+  <b>ОЯ</b> — опасное явление (подтопление населённых пунктов).
+  Пост д. Лукьяново — официальный наблюдательный пункт на р. Ока у г. Серпухова.
+</p>
+      </div>
+    </div>
+
+    <div class="accordion-section">
+      <div class="accordion-header" onclick="toggleAccordion('cugmsAcc')">
+        📋 Последний обзор ЦУГМС
+        <span class="toggle-icon" id="cugmsAcc-icon">▼</span>
+      </div>
+      <div class="accordion-body" id="cugmsAcc">
+        
+<div class="no-data">Данные ЦУГМС временно недоступны. Проверьте вручную:
+  <a href="https://cugms.ru/gidrologiya/vesennee-polovode-i-dozhdevye-pavodki-2026/" target="_blank">
+  cugms.ru</a>
+</div>
+      </div>
+    </div>
+
+    <div class="accordion-section">
+      <div class="accordion-header" onclick="toggleAccordion('peakAcc')">
+        📈 Прогноз пика
+        <span class="toggle-icon" id="peakAcc-icon">▼</span>
+      </div>
+      <div class="accordion-body" id="peakAcc">
+        
+<div class="peak-trend" style="color: #94a3b8; border-left-color: #94a3b8;">
+  Стабильный рост: +10 см/сут
+</div>
+
+<div class="regression-block">
+  <div style="font-size:0.85rem; font-weight:600; color:var(--accent); margin-bottom:6px;">
+    🤖 Линейная регрессия (R²=0.74, 5 точек)
+  </div>
+  <p>Тренд: рост 86.0 см/сут (R²=0.74)</p>
+  <p>Прогноз: через 3 дня ≈ <b>507 см</b> | через 7 дней ≈ <b>851 см</b></p>
+  <p style='color:var(--text-secondary); margin:4px 0;'>При текущем темпе НЯ (645 см) может быть достигнута ~03.04.2026</p>
+</div>
+<p class="disclaimer-small">⚠️ Модель приблизительная. Реальный пик зависит от погоды и таяния снега.</p>
+      </div>
+    </div>
+
+    <div class="accordion-section fade-in-section">
+      <div class="accordion-header" onclick="toggleAccordion('histAcc')">
+        📊 История наблюдений
+        <span class="toggle-icon" id="histAcc-icon">▼</span>
+      </div>
+      <div class="accordion-body" id="histAcc">
+        
+<div class="history-controls">
+  <button onclick="filterHistory(7)"  class="hist-btn">7 дней</button>
+  <button onclick="filterHistory(30)" class="hist-btn">30 дней</button>
+  <button onclick="filterHistory(0)"  class="hist-btn">Всё</button>
+  <a href="history.csv" download class="hist-btn">⬇ CSV</a>
+</div>
+<div class="table-wrap">
+  <table id="histTable">
+    <thead>
+      <tr>
+        <th>Дата/время</th>
+        <th>Уровень (см)</th>
+        <th>Δ см/сут</th>
+        <th>м БС</th>
+        <th>Кашира</th>
+        <th>Белёв (м³/с)</th>
+        <th>Пик GloFAS</th>
+        <th>Снег (см)</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+<tr>
+  <td>2026-03-29 21:26:14</td>
+  <td>—</td>
+  <td >—</td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td><span class="status-badge нет данных">НЕТ ДАННЫХ</span></td>
+</tr>
+<tr>
   <td>2026-03-29 18:03:10</td>
   <td>251</td>
-  <td style="color:#f85149;">+10 см</td>
+  <td style="color:var(--danger);">+10 см</td>
   <td>110.050</td>
   <td>—</td>
   <td>—</td>
-  <td>-21.0</td>
+  <td>—</td>
   <td>8</td>
-  <td>GREEN</td>
-  <td>ok</td>
+  <td><span class="status-badge норма">НОРМА</span></td>
 </tr>
-<tr class="row-GREEN">
+<tr>
   <td>2026-03-29 15:05:04</td>
   <td>251</td>
-  <td style="color:#f85149;">+10 см</td>
+  <td style="color:var(--danger);">+10 см</td>
   <td>110.050</td>
   <td>—</td>
   <td>—</td>
-  <td>-21.0</td>
+  <td>—</td>
   <td>8</td>
-  <td>GREEN</td>
-  <td>ok</td>
+  <td><span class="status-badge норма">НОРМА</span></td>
 </tr>
-<tr class="row-GREEN">
+<tr>
   <td>2026-03-29 10:04:55</td>
   <td>203</td>
-  <td style="color:#f85149;">+49 см</td>
+  <td style="color:var(--danger);">+49 см</td>
   <td>109.570</td>
   <td>—</td>
   <td>—</td>
-  <td>-21.0</td>
+  <td>—</td>
   <td>8</td>
-  <td>GREEN</td>
-  <td>ok</td>
+  <td><span class="status-badge норма">НОРМА</span></td>
 </tr>
-<tr class="row-GREEN">
+<tr>
   <td>2026-03-29 07:56:51</td>
   <td>203</td>
-  <td style="color:#f85149;">+49 см</td>
+  <td style="color:var(--danger);">+49 см</td>
   <td>109.570</td>
   <td>—</td>
   <td>—</td>
-  <td>-21.0</td>
+  <td>—</td>
   <td>8</td>
-  <td>GREEN</td>
-  <td>ok</td>
+  <td><span class="status-badge норма">НОРМА</span></td>
 </tr>
-<tr class="row-GREEN">
+<tr>
   <td>2026-03-29 01:49:22</td>
   <td>203</td>
-  <td style="color:#f85149;">+49 см</td>
+  <td style="color:var(--danger);">+49 см</td>
   <td>109.570</td>
   <td>—</td>
   <td>—</td>
-  <td>208.0</td>
+  <td>—</td>
   <td>8</td>
-  <td>GREEN</td>
-  <td>ok</td>
+  <td><span class="status-badge норма">НОРМА</span></td>
 </tr>
-<tr class="row-GREEN">
+<tr>
   <td></td>
   <td>—</td>
   <td >—</td>
@@ -816,65 +1615,88 @@ new Chart(ctx, {
   <td>—</td>
   <td>—</td>
   <td>—</td>
-  <td>GREEN</td>
-  <td></td>
+  <td><span class="status-badge —">—</span></td>
 </tr>
-      </tbody>
-    </table>
+    </tbody>
+  </table>
+</div>
+      </div>
+    </div>
+
+    
+
   </div>
 </section>
+</main>
 
 
-  <!-- PDF-АРХИВ -->
-  
-
-</div>
-
-<footer>
-  OkaFloodMonitor v6.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
-  Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo<br>
+<footer class="site-footer">
+  OkaFloodMonitor v7.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
+  Обновлено: 30.03.2026 00:26 МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
 </footer>
 
 <script>
 
+// ── CLOCK ──────────────────────────────────────────────────────────────
 function updateClock() {
-    var now = new Date();
-    var msk = new Date(now.getTime() + (3 * 60 - now.getTimezoneOffset()) * 60000);
-    var h = String(msk.getUTCHours()).padStart(2,'0');
-    var m = String(msk.getUTCMinutes()).padStart(2,'0');
-    var s = String(msk.getUTCSeconds()).padStart(2,'0');
-    var el = document.getElementById('clock');
-    if (el) el.textContent = h + ':' + m + ':' + s + ' МСК';
+  var now = new Date();
+  var msk = new Date(now.getTime() + (3 * 60 - now.getTimezoneOffset()) * 60000);
+  var h = String(msk.getUTCHours()).padStart(2,'0');
+  var m = String(msk.getUTCMinutes()).padStart(2,'0');
+  var s = String(msk.getUTCSeconds()).padStart(2,'0');
+  var el = document.getElementById('clock');
+  if (el) el.textContent = h + ':' + m + ':' + s + ' МСК';
 }
 setInterval(updateClock, 1000);
 updateClock();
 
-
-function toggleDisclaimer() {
-    var body = document.getElementById('disclaimer-body');
-    var icon = document.querySelector('.toggle-icon');
-    if (!body) return;
-    if (body.style.display === 'none' || body.style.display === '') {
-        body.style.display = 'block';
-        if (icon) icon.textContent = '▲';
-    } else {
-        body.style.display = 'none';
-        if (icon) icon.textContent = '▼';
-    }
+// ── ACCORDION ─────────────────────────────────────────────────────────
+function toggleAccordion(id) {
+  var body = document.getElementById(id);
+  var icon = document.getElementById(id + '-icon');
+  if (!body) return;
+  var isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if (icon) icon.textContent = isOpen ? '▼' : '▲';
 }
 
-
+// ── HISTORY FILTER ───────────────────────────────────────────────────
 function filterHistory(days) {
-    var rows = document.querySelectorAll('#histTable tbody tr');
-    var cutoff = days > 0 ? new Date(Date.now() - days * 86400000) : null;
-    rows.forEach(function(row) {
-        if (!cutoff) { row.style.display = ''; return; }
-        var dateStr = row.cells[0] ? row.cells[0].textContent.trim() : '';
-        var d = new Date(dateStr);
-        row.style.display = (!isNaN(d) && d >= cutoff) ? '' : 'none';
-    });
+  var rows = document.querySelectorAll('#histTable tbody tr');
+  var cutoff = days > 0 ? new Date(Date.now() - days * 86400000) : null;
+  rows.forEach(function(row) {
+    if (!cutoff) { row.style.display = ''; return; }
+    var dateStr = row.cells[0] ? row.cells[0].textContent.trim() : '';
+    var d = new Date(dateStr.replace(' ', 'T') + 'Z');
+    row.style.display = (!isNaN(d) && d >= cutoff) ? '' : 'none';
+  });
 }
+
+// ── SCROLL ANIMATIONS (IntersectionObserver) ─────────────────────────
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-in-section').forEach(function(s) {
+  observer.observe(s);
+});
+
+// ── PROGRESS BAR ANIMATION ───────────────────────────────────────────
+window.addEventListener('load', function() {
+  document.querySelectorAll('.progress-bar-fill').forEach(function(bar) {
+    var targetWidth = bar.style.width;
+    bar.style.width = '0%';
+    setTimeout(function() {
+      bar.style.width = targetWidth;
+    }, 300);
+  });
+});
 
 </script>
 

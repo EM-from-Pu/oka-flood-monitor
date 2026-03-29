@@ -4,344 +4,109 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ссылки — OkaFloodMonitor</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-  
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 :root {
-    --bg: #0f1923; --card: #1a2635; --border: #2d3748;
-    --text: #e6edf3; --text-muted: #8b949e; --text-dim: #6e7681;
-    --blue: #388bfd; --green: #3fb950; --yellow: #d29922;
-    --orange: #db6d28; --red: #f85149; --critical: #8e0000;
+  --safe:      #10b981;
+  --watch:     #f59e0b;
+  --warning:   #f97316;
+  --danger:    #ef4444;
+  --emergency: #a855f7;
+  --accent:    #3b82f6;
+  --bg-primary: #0c1222;
+  --bg-card: rgba(17, 25, 40, 0.75);
+  --bg-card-hover: rgba(17, 25, 40, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 body {
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg); color: var(--text); margin: 0; padding: 0;
-    line-height: 1.5;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  font-size: 15px;
 }
-a { color: var(--blue); text-decoration: none; }
+a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
-h1 { color: #fff; margin: 0; padding: 20px 24px; font-size: 1.6em; }
-h2 { color: #79c0ff; margin: 20px 0 10px; font-size: 1.2em; }
-h3 { color: #79c0ff; margin: 14px 0 8px; font-size: 1.05em; }
-h4 { color: #e3b341; margin: 10px 0 5px; font-size: 0.95em; }
-.container { max-width: 1200px; margin: 0 auto; padding: 16px; }
-/* ═══ НАВИГАЦИЯ ═══ */
-.top-nav {
-    position: sticky; top: 0; z-index: 100;
-    background: #0d1117; border-bottom: 1px solid #21262d;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 16px; gap: 12px; flex-wrap: wrap;
+h1 { font-size: 1.8rem; font-weight: 800; padding: 20px 24px; }
+h2 { font-size: 1.2rem; font-weight: 600; color: var(--text-secondary); margin: 24px 0 12px; }
+h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px 40px; }
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12, 18, 34, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
-.nav-btn {
-    padding: 6px 14px; border-radius: 6px; font-size: 0.85em;
-    text-decoration: none; color: #8b949e;
-    background: #161b22; border: 1px solid #30363d; transition: background 0.2s;
+.header-logo { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); white-space: nowrap; letter-spacing: -0.02em; }
+.header-logo span { color: var(--accent); }
+.header-nav { display: flex; gap: 4px; list-style: none; }
+.header-nav a {
+  display: block; padding: 6px 14px; border-radius: 8px;
+  color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease;
 }
-.nav-btn:hover, .nav-btn.active { background: #1f6feb; color: #fff; border-color: var(--blue); }
-.nav-widget { display: flex; align-items: center; gap: 10px; }
-.nav-time { font-size: 0.8em; color: #79c0ff; font-family: monospace; }
-.nav-weather { font-size: 0.8em; color: var(--text-muted); }
-/* ═══ HERO БЛОК ═══ */
-.hero-block {
-    background: var(--card); border-radius: 16px;
-    padding: 28px 24px; text-align: center; margin: 16px 0;
-    border: 2px solid var(--border);
+.header-nav a:hover, .header-nav a.active { background: var(--bg-glass); color: var(--text-primary); }
+.card {
+  background: var(--bg-card); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: 16px; margin-bottom: 16px; padding: 20px;
 }
-.hero-level { font-size: 5em; font-weight: 900; line-height: 1; letter-spacing: -2px; }
-.hero-unit { font-size: 0.25em; color: var(--text-muted); vertical-align: super; }
-.hero-delta { font-size: 1.4em; margin: 10px 0; font-weight: 600; }
-.hero-delta.rising { color: var(--red); }
-.hero-delta.falling { color: var(--green); }
-.hero-delta.stable { color: var(--text-muted); }
-.hero-abs { font-size: 0.9em; color: var(--text-muted); margin-bottom: 20px; }
-.threshold-bars { margin-top: 16px; text-align: left; max-width: 500px; margin: 16px auto 0; }
-.tbar-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
-.tbar-label { font-size: 0.8em; color: var(--text-muted); min-width: 160px; }
-.tbar-track { flex: 1; height: 8px; background: #21262d; border-radius: 4px; overflow: hidden; }
-.tbar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
-.nya-fill { background: linear-gradient(90deg, var(--green), var(--yellow)); }
-.oya-fill { background: linear-gradient(90deg, var(--green), var(--yellow), var(--red)); }
-.tbar-val { font-size: 0.85em; color: var(--text); min-width: 60px; text-align: right; font-weight: 600; }
-/* ═══ КАРТОЧКИ СТАНЦИЙ ═══ */
-.station-cards { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
-.station-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
-    padding: 14px 16px; min-width: 120px; flex: 1; text-align: center;
-    transition: border-color 0.2s;
-}
-.station-card.main-station { border: 2px solid #388bfd; background: #1c2128; min-width: 200px; flex: 2; }
-.st-name { font-size: 0.9em; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.st-river { font-size: 0.72em; color: var(--text-dim); margin-bottom: 8px; }
-.st-level { font-size: 1.7em; font-weight: 800; margin-bottom: 4px; }
-.level-green { color: var(--green); }
-.level-yellow { color: var(--yellow); }
-.level-orange { color: var(--orange); }
-.level-red { color: var(--red); }
-.level-unknown { color: var(--text-dim); font-size: 0.75em; font-weight: 400; }
-.st-change { font-size: 0.85em; color: var(--text-muted); margin-bottom: 4px; }
-.st-status { font-size: 0.8em; margin-bottom: 4px; }
-.st-source { font-size: 0.65em; color: var(--text-dim); }
-/* ═══ ДИСКЛЕЙМЕР / АККОРДЕОН ═══ */
-.disclaimer-block {
-    background: rgba(255,255,255,0.02); border: 1px solid #30363d;
-    border-radius: 8px; margin: 12px 0;
-}
-.disclaimer-header {
-    padding: 12px 16px; cursor: pointer; font-size: 0.9em; color: var(--text-muted);
-    display: flex; justify-content: space-between; align-items: center;
-}
-.disclaimer-header:hover { color: var(--text); }
-.disclaimer-body { padding: 0 16px 16px; display: none; }
-.disclaimer-alert {
-    background: rgba(248,81,73,0.08); border-left: 3px solid var(--red);
-    padding: 8px 12px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 0.85em;
-}
-.sources-table { width: 100%; border-collapse: collapse; font-size: 0.82em; margin-top: 10px; }
-.sources-table th { background: #161b22; color: var(--text-muted); padding: 6px 8px; text-align: left; }
-.sources-table td { padding: 5px 8px; border-bottom: 1px solid #21262d; color: var(--text); }
-/* ═══ ПОРОГИ ═══ */
-.thresholds-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.threshold-scale-container { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-.v-scale-wrapper {
-    position: relative; width: 220px; height: 280px;
-    background: linear-gradient(to top, #1a7f37 0%, #d29922 50%, #f85149 85%, #8e0000 100%);
-    border-radius: 8px; overflow: visible; flex-shrink: 0;
-}
-.v-scale-inner {
-    position: absolute; left: 0; top: 0; bottom: 0; right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
-    border-radius: 8px;
-}
-.v-marker {
-    position: absolute; left: 0; right: 0;
-    display: flex; align-items: center; gap: 8px;
-}
-.v-marker-line { height: 2px; background: rgba(255,255,255,0.7); flex: 1; }
-.v-marker-label {
-    font-size: 0.7em; color: #fff; white-space: nowrap;
-    background: rgba(0,0,0,0.5); padding: 1px 5px; border-radius: 3px;
-}
-.v-current-indicator {
-    position: absolute; left: -6px; right: -6px;
-    height: 4px; background: #79c0ff;
-    box-shadow: 0 0 8px #79c0ff;
-}
-.thresh-table { width: 100%; border-collapse: collapse; font-size: 0.88em; flex: 1; }
-.thresh-table th { background: #161b22; color: var(--text-muted); padding: 6px 8px; text-align: left; }
-.thresh-table td { padding: 6px 8px; border-bottom: 1px solid #21262d; }
-.thresh-table tr.row-nya td { background: rgba(210,153,34,0.1); }
-.thresh-table tr.row-oya td { background: rgba(248,81,73,0.1); }
-.thresh-table tr.row-current td { background: rgba(56,139,253,0.1); font-weight: 700; }
-/* ═══ ВОЛНА И ПИК ═══ */
-.wave-section, .peak-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.wave-cards { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
-.wave-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
-    padding: 12px 14px; min-width: 140px; flex: 1;
-}
-.wave-card.highlight { border-color: #388bfd; background: rgba(56,139,253,0.05); }
-.wave-from { font-size: 0.85em; color: var(--text-muted); margin-bottom: 4px; }
-.wave-time { font-size: 1.2em; font-weight: 700; color: #79c0ff; }
-.wave-dist { font-size: 0.75em; color: var(--text-dim); margin-top: 2px; }
-.wave-dynamic { font-size: 0.88em; color: var(--text-muted); margin: 8px 0; }
-.peak-trend { font-size: 1.05em; font-weight: 600; margin: 8px 0; padding: 10px 14px; border-radius: 6px; background: rgba(255,255,255,0.03); }
-.regression-block { background: rgba(56,139,253,0.05); border: 1px solid #30363d; border-radius: 8px; padding: 12px 14px; margin-top: 10px; font-size: 0.88em; }
-.regression-block p { color: var(--text-muted); margin: 4px 0; }
-/* ═══ ЦУГМС ═══ */
-.cugms-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.cugms-meta { font-size: 0.85em; color: var(--text-muted); margin-bottom: 12px; }
-.cugms-data { display: flex; flex-wrap: wrap; gap: 10px; }
-.cugms-row { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #161b22; border-radius: 6px; min-width: 180px; }
-.cugms-station { font-size: 0.88em; color: var(--text-muted); min-width: 80px; }
-.cugms-value { font-size: 1.05em; font-weight: 700; color: var(--text); }
-.cugms-value.ice { color: #79c0ff; }
-.cugms-forecast {
-    background: rgba(56,139,253,0.05); border-left: 3px solid #388bfd;
-    padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.85em;
-    color: var(--text-muted); margin-top: 10px; width: 100%;
-}
-/* ═══ ИСТОРИЯ ═══ */
-.history-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.history-controls { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-.hist-btn {
-    padding: 5px 12px; border-radius: 6px; font-size: 0.82em;
-    background: #161b22; border: 1px solid #30363d; color: var(--text-muted);
-    cursor: pointer; text-decoration: none; display: inline-block;
-}
-.hist-btn:hover { background: #1f6feb; color: #fff; border-color: var(--blue); }
-.dl-btn { color: var(--blue); }
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 0.82em; }
-th { background: #161b22; color: var(--text-muted); padding: 6px 8px; text-align: left; white-space: nowrap; }
-td { padding: 5px 8px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-.row-GREEN td { background: rgba(13,32,22,0.5); }
-.row-YELLOW td { background: rgba(42,29,0,0.5); }
-.row-ORANGE td { background: rgba(42,20,0,0.5); }
-.row-RED td, .row-CRITICAL td { background: rgba(45,0,0,0.5); }
-/* ═══ ACTION BLOCK ═══ */
-.action-block {
-    background: rgba(255,255,255,0.02); border-radius: 0 8px 8px 0;
-    padding: 16px 20px; margin: 16px 0;
-}
-.action-block h3 { margin: 0 0 8px; font-size: 1.1em; }
-.action-block p { color: var(--text-muted); font-size: 0.9em; margin: 4px 0; line-height: 1.5; }
-.action-meta { color: var(--text-dim); font-size: 0.8em; margin-top: 8px; }
-/* ═══ ПОГОДА ═══ */
-.weather-ext-block { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.weather-flood-index {
-    border: 2px solid; border-radius: 10px; padding: 14px 18px;
-    margin-bottom: 16px; background: rgba(255,255,255,0.03);
-}
-.wfi-label { font-size: 0.85em; color: #95a5a6; display: block; }
-.wfi-value { font-size: 1.6em; font-weight: 900; display: block; margin: 4px 0; }
-.wfi-summary { margin: 0; color: var(--text-muted); font-size: 0.95em; }
-.weather-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-bottom: 12px; }
-.weather-table th, .weather-table td {
-    padding: 6px 8px; text-align: center;
-    border-bottom: 1px solid var(--border); white-space: nowrap;
-}
-.weather-table td:first-child { text-align: left; color: #95a5a6; }
-td.frost { background: rgba(192,57,43,0.25); color: #ff6b6b; font-weight: bold; }
-td.zero { background: rgba(243,156,18,0.20); color: #f39c12; }
-td.warm-night { background: rgba(39,174,96,0.20); color: #27ae60; }
-td.hot { color: #e74c3c; font-weight: bold; }
-td.forecast-col, th.forecast-col {
-    background: rgba(52,152,219,0.08); border-left: 1px dashed #3498db;
-}
-th.forecast-col:first-of-type { border-left: 2px solid #3498db; }
-.weather-commentary ul { list-style: none; padding: 0; }
-.weather-commentary li {
-    padding: 5px 0; border-bottom: 1px solid var(--border);
-    font-size: 0.9em; color: var(--text-muted);
-}
-/* ═══ BADGES ═══ */
-.meta-bar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 16px; background: #0d1117; font-size: 0.82em; color: var(--text-muted);
-    flex-wrap: wrap; gap: 8px;
-}
-.source-badges { display: flex; gap: 6px; }
-.badge { padding: 2px 8px; border-radius: 10px; font-size: 0.75em; }
-.badge.ok { background: #1a7f37; color: #fff; }
-.badge.cached { background: #9a6700; color: #fff; }
-.badge.fail { background: #6e0000; color: #fff; }
-/* ═══ УТИЛИТЫ ═══ */
-.section-card { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.explainer {
-    background: rgba(255,255,255,0.03); border-left: 3px solid #3498db;
-    padding: 10px 14px; margin: 8px 0 16px; font-size: 0.85em;
-    color: var(--text-muted); border-radius: 0 6px 6px 0;
-}
-.explainer b { color: var(--text); }
-.disclaimer-small { font-size: 0.8em; color: var(--text-dim); margin-top: 8px; }
-.no-data { color: var(--text-dim); font-size: 0.9em; font-style: italic; padding: 10px; }
-/* ═══ REPORTS ═══ */
-.reports-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
-.report-cards { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-.report-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
-    padding: 12px 14px; min-width: 200px; flex: 1;
-}
-.report-card a { font-weight: 600; }
-.report-meta { font-size: 0.75em; color: var(--text-dim); margin-top: 4px; }
-/* ═══ FOOTER ═══ */
-footer {
-    color: var(--text-dim); font-size: 0.8em; text-align: center;
-    padding: 24px 16px; border-top: 1px solid var(--border); margin-top: 24px;
-    line-height: 1.8;
-}
-/* ═══ ИНСТРУКЦИИ ═══ */
-.instr-section { background: var(--card); border-radius: 12px; padding: 16px 20px; margin: 12px 0; }
-.instr-section ul, .instr-section ol { padding-left: 20px; }
-.instr-section li { margin: 5px 0; color: var(--text-muted); }
-.zone-table { margin: 10px 0; }
+.section-card { background: var(--bg-card); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.explainer { background: rgba(59,130,246,0.05); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 8px 0 16px; font-size: 0.88em; color: var(--text-secondary); border-radius: 0 6px 6px 0; }
 .zone-row { padding: 8px 12px; margin: 4px 0; border-radius: 6px; font-size: 0.88em; }
-.zone-row.green  { background: rgba(63,185,80,0.1); border-left: 3px solid var(--green); }
-.zone-row.yellow { background: rgba(210,153,34,0.1); border-left: 3px solid var(--yellow); }
-.zone-row.orange { background: rgba(219,109,40,0.1); border-left: 3px solid var(--orange); }
-.zone-row.red    { background: rgba(248,81,73,0.1);  border-left: 3px solid var(--red); }
+.zone-row.green  { background: rgba(16,185,129,0.1); border-left: 3px solid var(--safe); }
+.zone-row.yellow { background: rgba(245,158,11,0.1); border-left: 3px solid var(--watch); }
+.zone-row.orange { background: rgba(249,115,22,0.1); border-left: 3px solid var(--warning); }
+.zone-row.red    { background: rgba(239,68,68,0.1);  border-left: 3px solid var(--danger); }
 .action-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 10px 0; }
-.action-table th { background: #161b22; padding: 6px 8px; text-align: left; color: var(--text-muted); }
-.action-table td { padding: 7px 8px; border-bottom: 1px solid #21262d; }
-/* ═══ ССЫЛКИ ═══ */
-.links-section { background: var(--card); border-radius: 12px; padding: 16px 20px; margin: 12px 0; }
-.links-section ul { padding-left: 20px; }
-.links-section li { margin: 8px 0; }
-.dead-sources {
-    background: rgba(248,81,73,0.05); border: 1px solid rgba(248,81,73,0.2);
-    border-radius: 8px; padding: 12px 16px; margin-top: 10px;
+.action-table th { background: rgba(255,255,255,0.04); padding: 6px 8px; text-align: left; color: var(--text-dim); }
+.action-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+.dead-sources { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 12px 16px; margin-top: 10px; }
+.dead-sources ul { padding-left: 20px; }
+.dead-sources li { margin: 5px 0; color: var(--text-secondary); font-size: 0.9em; }
+.site-footer {
+  background: rgba(12, 18, 34, 0.8); border-top: 1px solid var(--border);
+  padding: 20px 24px; text-align: center; color: var(--text-dim); font-size: 0.78rem;
 }
-/* ═══ CHART.JS WRAPPER ═══ */
-.chart-container { position: relative; height: 280px; margin: 16px 0; }
-/* ═══ АНИМАЦИЯ ═══ */
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-}
-/* ═══ МОБИЛЬНАЯ АДАПТАЦИЯ ═══ */
-@media (max-width: 768px) {
-    .station-cards { flex-direction: column; }
-    .station-card, .station-card.main-station { min-width: 100%; flex: none; }
-    .wave-cards { flex-direction: column; }
-    .wave-card { min-width: 100%; }
-    .top-nav { flex-direction: column; align-items: flex-start; }
-    h1 { font-size: 1.1em; padding: 14px 12px; }
-    .container { padding: 8px; }
-    .hero-level { font-size: 3.5em; }
-    .wfi-value { font-size: 1.3em; }
-    .cugms-data { flex-direction: column; }
-    .threshold-scale-container { flex-direction: column; }
-    .v-scale-wrapper { width: 100%; }
-}
-@media (max-width: 480px) {
-    .hero-level { font-size: 2.8em; }
-    .hero-delta { font-size: 1.1em; }
-    .weather-table { font-size: 0.75em; }
-    .tbar-label { min-width: 110px; font-size: 0.72em; }
-}
-@media (prefers-color-scheme: light) {
-    :root {
-        --bg: #f6f8fa; --card: #ffffff; --border: #d0d7de;
-        --text: #24292f; --text-muted: #57606a; --text-dim: #8c959f;
-    }
-    body { background: var(--bg); color: var(--text); }
-    .station-card, .wave-card { background: #f6f8fa; }
-    th { background: #f6f8fa; }
-    .top-nav { background: #f6f8fa; }
-    .meta-bar { background: #f6f8fa; }
-    .nav-btn { background: #f6f8fa; border-color: #d0d7de; }
-    .hist-btn { background: #f6f8fa; }
-    .report-card { background: #f6f8fa; }
-}
-
-  </style>
+@media (max-width: 768px) { .header-nav { display: none; } }
+</style>
 </head>
 <body>
 
-<nav class="top-nav">
-  <div class="nav-links">
-    <a href="index.html" class="nav-btn">🌊 Дашборд</a>
-<a href="instructions.html" class="nav-btn">📖 Инструкции</a>
-<a href="links.html" class="nav-btn active">🔗 Ссылки</a>
-
-  </div>
-  <div class="nav-widget">
-    <span id="clock" class="nav-time"></span>
-  </div>
-</nav>
+<header class="site-header">
+  <div class="header-logo">🌊 <span>Oka</span>FloodMonitor</div>
+  <nav><ul class="header-nav">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="links.html" class="active">Ссылки</a></li>
+    <li><a href="instructions.html">Инструкции</a></li>
+  </ul></nav>
+</header>
 
 <div class="container">
 <h1>🔗 Полезные ссылки</h1>
 
-<section class="links-section">
+<div class="section-card">
   <h2>🌊 Данные о паводке на Оке</h2>
-  <ul>
+  <ul style="padding-left:20px; color: var(--text-secondary); line-height:2;">
     <li>
       <a href="https://serpuhov.ru/bezopasnost/pavodkovaya-obstanovka/" target="_blank" rel="noopener">
         serpuhov.ru — Паводковая обстановка Серпухова</a>
       — ежедневные данные о уровне воды у д. Лукьяново
-      <span class="badge ok" style="vertical-align:middle; margin-left:6px;">ok</span>
+      <span class="source-badge unavailable" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:600;border:1px solid;margin-left:6px;">unavailable</span>
     </li>
     <li>
       <a href="https://cugms.ru/gidrologiya/vesennee-polovode-i-dozhdevye-pavodki-2026/" target="_blank" rel="noopener">
@@ -357,12 +122,17 @@ footer {
         КИМ — уровни воды по гидропостам</a>
       — API для Каширы, Калуги, Рязани
     </li>
+    <li>
+      <a href="https://flood-api.open-meteo.com/v1/flood" target="_blank" rel="noopener">
+        GloFAS Flood API (Open-Meteo)</a>
+      — расход воды на 7 станциях верховий Оки, прогноз 16 дней
+    </li>
   </ul>
-</section>
+</div>
 
-<section class="links-section">
+<div class="section-card">
   <h2>🌦 Погода</h2>
-  <ul>
+  <ul style="padding-left:20px; color: var(--text-secondary); line-height:2;">
     <li><a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>
       — погода и снежный покров (бесплатный API, используется в мониторинге)</li>
     <li><a href="https://meteoinfo.ru/" target="_blank" rel="noopener">Meteoinfo.ru</a>
@@ -370,13 +140,13 @@ footer {
     <li><a href="https://rp5.ru/" target="_blank" rel="noopener">rp5.ru</a>
       — подробный прогноз для Серпухова</li>
   </ul>
-</section>
+</div>
 
-<section class="links-section">
+<div class="section-card">
   <h2>🚨 Экстренные службы</h2>
-  <ul>
-    <li><b>Единый номер экстренных служб:</b> 112</li>
-    <li><b>МЧС России (бесплатно):</b> 8-800-775-17-17</li>
+  <ul style="padding-left:20px; color: var(--text-secondary); line-height:2;">
+    <li><b style="color:var(--text-primary);">Единый номер экстренных служб:</b> 112</li>
+    <li><b style="color:var(--text-primary);">МЧС России (бесплатно):</b> 8-800-775-17-17</li>
     <li><a href="https://mchs.gov.ru/" target="_blank" rel="noopener">mchs.gov.ru</a>
       — официальный сайт МЧС России</li>
     <li><a href="https://serpuhov.ru/bezopasnost/grazhdanskaya-oborona/" target="_blank" rel="noopener">
@@ -384,11 +154,11 @@ footer {
     <li><a href="https://serpuhov.ru" target="_blank" rel="noopener">serpuhov.ru</a>
       — Администрация г.о. Серпухов</li>
   </ul>
-</section>
+</div>
 
-<section class="links-section">
+<div class="section-card">
   <h2>📱 Местные ресурсы</h2>
-  <ul>
+  <ul style="padding-left:20px; color: var(--text-secondary); line-height:2;">
     <li><a href="https://vk.com/selodedinovo" target="_blank" rel="noopener">ВКонтакте — село Дединово</a>
       — уровни воды у Луховиц (#Уровень_воды_Ока)</li>
     <li>
@@ -397,12 +167,12 @@ footer {
       — основная страница мониторинга
     </li>
   </ul>
-</section>
+</div>
 
-<section class="links-section">
+<div class="section-card">
   <h2>⚠️ Почему нет других источников?</h2>
   <div class="dead-sources">
-    <p>Следующие ресурсы <b>прекратили публикацию данных</b> и не используются:</p>
+    <p style="color:var(--text-secondary); margin-bottom:8px;">Следующие ресурсы <b style="color:var(--danger);">прекратили публикацию данных</b> и не используются:</p>
     <ul>
       <li>fishingsib.ru — последние данные по Оке: март 2024</li>
       <li>allrivers.info/gauge/oka-serpuhov — последние данные: май 2024</li>
@@ -410,27 +180,27 @@ footer {
       <li>КИМ API (Серпухов) — последние данные: ноябрь 2022 (используется только для Каширы, Калуги, Рязани)</li>
     </ul>
   </div>
-</section>
+</div>
 
-<section class="links-section">
+<div class="section-card">
   <h2>📂 Публичные данные мониторинга</h2>
-  <ul>
-    <li><a href="history.csv" download>history.csv</a> — история уровней воды в формате CSV</li>
-    <li><a href="data.json" target="_blank">data.json</a> — текущие данные в формате JSON</li>
+  <ul style="padding-left:20px; color: var(--text-secondary); line-height:2;">
+    <li><a href="history.csv" download>history.csv</a> — история уровней воды (CSV)</li>
+    <li><a href="data.json" target="_blank">data.json</a> — текущие данные (JSON)</li>
   </ul>
-</section>
+</div>
 
 </div>
 
-<footer>
-  OkaFloodMonitor v6.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
-  Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo<br>
+<footer class="site-footer">
+  OkaFloodMonitor v7.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS<br>
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
 </footer>
 
 <script>
-
-function updateClock() {
+(function() {
+  function updateClock() {
     var now = new Date();
     var msk = new Date(now.getTime() + (3 * 60 - now.getTimezoneOffset()) * 60000);
     var h = String(msk.getUTCHours()).padStart(2,'0');
@@ -438,10 +208,10 @@ function updateClock() {
     var s = String(msk.getUTCSeconds()).padStart(2,'0');
     var el = document.getElementById('clock');
     if (el) el.textContent = h + ':' + m + ':' + s + ' МСК';
-}
-setInterval(updateClock, 1000);
-updateClock();
-
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+})();
 </script>
 </body>
 </html>

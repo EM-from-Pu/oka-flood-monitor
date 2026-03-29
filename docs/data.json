@@ -1,63 +1,88 @@
 {
-  "timestamp": "2026-03-29T18:03:12.344386+00:00",
+  "generated_at": "2026-03-29T21:26:14.051297+00:00",
   "serpuhov": {
-    "level_cm": 251.0,
-    "level_m": 2.51,
-    "daily_change_cm": 10.0,
-    "abs_m_bs": 110.05,
+    "level_cm": null,
+    "level_m": null,
+    "daily_change_cm": null,
+    "abs_level_m_bs": null,
+    "water_status": "нет данных",
     "nya_m_bs": 113.99,
     "oya_m_bs": 115.54,
-    "water_status": "—",
-    "source": "serpuhov.ru",
-    "source_status": "ok",
+    "source_status": "unavailable",
     "cache_age_h": 0.0
+  },
+  "analytics": {
+    "alert_level": "НЕТ ДАННЫХ",
+    "days_to_nya": null,
+    "days_to_oya": null,
+    "nya_remaining_m": null,
+    "oya_remaining_m": null
+  },
+  "composite_status": {
+    "level": {
+      "zone": "unknown",
+      "label": "Нет данных",
+      "value": "—",
+      "color": "#64748b"
+    },
+    "trend": {
+      "zone": "unknown",
+      "label": "Нет данных",
+      "value": "—",
+      "color": "#64748b"
+    },
+    "glofas": {
+      "zone": "unknown",
+      "label": "Нет данных",
+      "value": "—",
+      "color": "#64748b"
+    },
+    "weather": {
+      "zone": "safe",
+      "label": "НОРМА",
+      "value": "0/4 — —",
+      "color": "#10b981"
+    },
+    "verdict": {
+      "zone": "safe",
+      "label": "🟢 НОРМА",
+      "color": "#10b981",
+      "emoji": "🟢"
+    }
+  },
+  "glofas": {
+    "status": "unavailable",
+    "stations": {},
+    "wave_arrival_serpukhov": null
+  },
+  "weather": {
+    "flood_index": null,
+    "flood_label": null,
+    "flood_summary": null,
+    "snow_depth_cm": null
   },
   "kim": {
     "kashira_cm": null,
     "kaluga_cm": null,
     "ryazan_cm": null,
-    "api_status": "ok"
+    "api_status": "unavailable"
   },
   "cugms": {
-    "review_number": 20,
-    "review_date": "29.03.2026",
-    "serpuhov_change_cm": -21.0,
-    "kashira_change_cm": null,
-    "forecast_intensity": null,
-    "dangerous_expected": false,
-    "source_status": "ok"
+    "review_number": null,
+    "review_date": null,
+    "serpuhov_change_cm": null,
+    "forecast_text": null,
+    "source_status": "unavailable"
   },
-  "weather": {
-    "flood_index": 4,
-    "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние + осадки. Все факторы против нас. Максимально быстрый рост уровня.",
-    "snow_depth_cm": 8.0
-  },
-  "analytics": {
-    "alert_level": "GREEN",
-    "days_to_nya": 39.4,
-    "days_to_oya": 54.9,
-    "nya_remaining_m": 3.9399999999999977,
-    "oya_remaining_m": 5.490000000000009,
-    "nya_fill_pct": 38.9,
-    "oya_fill_pct": 31.4,
-    "wave_dynamic_text": "Данных по движению волны недостаточно. Следите за обновлениями.",
-    "peak_prediction": {
-      "trend": "stable",
-      "trend_text": "Стабильный рост: +10 см/сут",
-      "decel_days": 1,
-      "est_peak_days": null,
-      "regression": null,
-      "disclaimer": "Модель приблизительная. Реальный пик зависит от погоды и таяния снега."
-    },
-    "notes": "Паводковый индекс 4/4"
-  },
-  "regression": null,
-  "sources_ok": [
-    "serpuhov.ru",
-    "kim",
-    "cugms",
-    "weather"
-  ],
-  "sources_failed": []
+  "history_count": 7,
+  "sources": {
+    "ok": [],
+    "failed": [
+      "serpuhov.ru",
+      "kim",
+      "cugms",
+      "weather",
+      "glofas"
+    ]
+  }
 }

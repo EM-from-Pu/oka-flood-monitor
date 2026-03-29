@@ -121,5 +121,33 @@
     "days_to_nya": 39.4,
     "days_to_oya": 54.9,
     "notes": "Паводковый индекс 4/4"
+  },
+  {
+    "datetime": "2026-03-29T21:26:14.047408+00:00",
+    "serp_level_m": null,
+    "serp_level_cm": null,
+    "serp_daily_change_cm": null,
+    "serp_abs_m_bs": null,
+    "serp_source": "unavailable",
+    "kim_kashira_cm": null,
+    "kim_kaluga_cm": null,
+    "kim_ryazan_cm": null,
+    "cugms_serp_change_cm": null,
+    "cugms_kashira_change_cm": null,
+    "cugms_review_number": null,
+    "temp": null,
+    "precip_mm": null,
+    "snow_depth_cm": null,
+    "flood_weather_index": null,
+    "alert_level": "НЕТ ДАННЫХ",
+    "days_to_nya": null,
+    "days_to_oya": null,
+    "glofas_belev_discharge": null,
+    "glofas_kaluga_discharge": null,
+    "glofas_tarusa_discharge": null,
+    "glofas_peak_station": null,
+    "glofas_peak_date": null,
+    "glofas_serpukhov_arrival": null,
+    "notes": ""
   }
 ]
