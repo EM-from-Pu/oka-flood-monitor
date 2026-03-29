@@ -55,5 +55,27 @@
     "days_to_nya": 9.0,
     "days_to_oya": 12.2,
     "notes": "Паводковый индекс 4/4"
+  },
+  {
+    "datetime": "2026-03-29T10:04:55.005278+00:00",
+    "serp_level_m": 2.03,
+    "serp_level_cm": 203.0,
+    "serp_daily_change_cm": 49.0,
+    "serp_abs_m_bs": 109.57,
+    "serp_source": "ok",
+    "kim_kashira_cm": null,
+    "kim_kaluga_cm": null,
+    "kim_ryazan_cm": null,
+    "cugms_serp_change_cm": -21.0,
+    "cugms_kashira_change_cm": null,
+    "cugms_review_number": 20,
+    "temp": 14.0,
+    "precip_mm": 0,
+    "snow_depth_cm": 8.0,
+    "flood_weather_index": 4,
+    "alert_level": "GREEN",
+    "days_to_nya": 9.0,
+    "days_to_oya": 12.2,
+    "notes": "Паводковый индекс 4/4"
   }
 ]
