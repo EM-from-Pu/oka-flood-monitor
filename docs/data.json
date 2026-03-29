@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-29T15:05:07.360483+00:00",
+  "timestamp": "2026-03-29T18:03:12.344386+00:00",
   "serpuhov": {
     "level_cm": 251.0,
     "level_m": 2.51,
@@ -43,9 +43,9 @@
     "oya_fill_pct": 31.4,
     "wave_dynamic_text": "Данных по движению волны недостаточно. Следите за обновлениями.",
     "peak_prediction": {
-      "trend": "accelerating",
-      "trend_text": "Активный рост: +49 см/сут",
-      "decel_days": 0,
+      "trend": "stable",
+      "trend_text": "Стабильный рост: +10 см/сут",
+      "decel_days": 1,
       "est_peak_days": null,
       "regression": null,
       "disclaimer": "Модель приблизительная. Реальный пик зависит от погоды и таяния снега."

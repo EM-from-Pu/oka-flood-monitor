@@ -339,7 +339,7 @@ footer {
   🌊 ПАВОДОК ОКА 2026 &nbsp; 🟢 &nbsp; 251 см &nbsp;|&nbsp; НОРМА
 </h1>
 <div class="meta-bar">
-  <span>Пост д. Лукьяново | serpuhov.ru | обновлено 29.03.2026 18:05 МСК</span>
+  <span>Пост д. Лукьяново | serpuhov.ru | обновлено 29.03.2026 21:03 МСК</span>
   <span class="source-badges">
     <span class="badge ok" title="serpuhov.ru">serpuhov.ru</span>
     <span class="badge ok" title="КИМ API">КИМ</span>
@@ -493,7 +493,7 @@ footer {
   <div class="action-block" style="border-left: 4px solid #1a7f37;">
     <h3>✅ СИТУАЦИЯ НОРМАЛЬНАЯ</h3>
     <p>Уровень 251 см — в пределах нормы. Обновления 4 раза в день. Следите за динамикой. ⚠️ Погодный индекс паводковой опасности: 4/5 — возможен быстрый подъём в ближайшие дни.</p>
-    <p class="action-meta">Обновлено: 29.03.2026 18:05 МСК</p>
+    <p class="action-meta">Обновлено: 29.03.2026 21:03 МСК</p>
   </div>
 
   <!-- ПОГОДА -->
@@ -513,12 +513,12 @@ footer {
     <tr><th>Показатель</th><th class="">Ср 25.03</th><th class="">Чт 26.03</th><th class="">Пт 27.03</th><th class="">Сб 28.03</th><th class="">Вс 29.03</th><th class=" forecast-col">Пн 30.03</th><th class=" forecast-col">Вт 31.03</th><th class=" forecast-col">Ср 01.04</th></tr>
   </thead>
   <tbody>
-    <tr><td>Тmax °C</td><td class="">12°</td><td class="">12°</td><td class="">9°</td><td class="">11°</td><td class="">15°</td><td class=" forecast-col">14°</td><td class=" forecast-col">14°</td><td class=" forecast-col">15°</td></tr>
-    <tr><td>Tmin °C</td><td class="" class="zero">-2°</td><td class="" class="zero">-2°</td><td class="" class="warm-night">3°</td><td class="" class="warm-night">5°</td><td class="" class="warm-night">5°</td><td class=" forecast-col" class="warm-night">4°</td><td class=" forecast-col" class="warm-night">4°</td><td class=" forecast-col" class="warm-night">8°</td></tr>
-    <tr><td>Осадки, мм</td><td class="">0.0</td><td class="">0.0</td><td class="">0.9</td><td class="">0.1</td><td class="">0.0</td><td class=" forecast-col">0.0</td><td class=" forecast-col">0.0</td><td class=" forecast-col">0.6</td></tr>
+    <tr><td>Тmax °C</td><td class="">12°</td><td class="">12°</td><td class="">9°</td><td class="">11°</td><td class="">15°</td><td class=" forecast-col">14°</td><td class=" forecast-col">14°</td><td class=" forecast-col">14°</td></tr>
+    <tr><td>Tmin °C</td><td class="" class="zero">-2°</td><td class="" class="zero">-2°</td><td class="" class="warm-night">3°</td><td class="" class="warm-night">5°</td><td class="" class="warm-night">5°</td><td class=" forecast-col" class="warm-night">5°</td><td class=" forecast-col" class="warm-night">4°</td><td class=" forecast-col" class="warm-night">8°</td></tr>
+    <tr><td>Осадки, мм</td><td class="">0.0</td><td class="">0.0</td><td class="">0.9</td><td class="">0.1</td><td class="">0.0</td><td class=" forecast-col">0.0</td><td class=" forecast-col">0.0</td><td class=" forecast-col">4.9</td></tr>
     <tr><td>Снег, см</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td></tr>
     <tr><td>Ветер, м/с</td><td class="">2</td><td class="">3</td><td class="">2</td><td class="">3</td><td class="">3</td><td class=" forecast-col">3</td><td class=" forecast-col">2</td><td class=" forecast-col">2</td></tr>
-    <tr><td>Погода</td><td class="">облачно</td><td class="">облачно</td><td class="">дождь</td><td class="">облачно</td><td class="">облачно</td><td class=" forecast-col">облачно</td><td class=" forecast-col">облачно</td><td class=" forecast-col">ливень</td></tr>
+    <tr><td>Погода</td><td class="">облачно</td><td class="">облачно</td><td class="">дождь</td><td class="">облачно</td><td class="">облачно</td><td class=" forecast-col">облачно</td><td class=" forecast-col">облачно</td><td class=" forecast-col">гроза</td></tr>
   </tbody>
 </table>
 </div>
@@ -531,8 +531,8 @@ footer {
 (function() {
 var ctx = document.getElementById('levelChart');
 if (!ctx) return;
-var labels = ["2026-03-29", "2026-03-29", "2026-03-29", "2026-03-29"];
-var values = [203.0, 203.0, 203.0, 251.0];
+var labels = ["2026-03-29", "2026-03-29", "2026-03-29", "2026-03-29", "2026-03-29"];
+var values = [203.0, 203.0, 203.0, 251.0, 251.0];
 var refLabels = [];
 var refValues = [];
 var datasets = [{
@@ -680,8 +680,8 @@ new Chart(ctx, {
   
 <section class="peak-section">
   <h3>📈 Прогноз пика</h3>
-  <div class="peak-trend" style="color: #f85149; border-left: 3px solid #f85149;">
-    Активный рост: +49 см/сут
+  <div class="peak-trend" style="color: #8b949e; border-left: 3px solid #8b949e;">
+    Стабильный рост: +10 см/сут
   </div>
   
   <p class="disclaimer-small">⚠️ Модель приблизительная. Реальный пик зависит от погоды и таяния снега.</p>
@@ -747,6 +747,18 @@ new Chart(ctx, {
       </thead>
       <tbody>
         
+<tr class="row-GREEN">
+  <td>2026-03-29 18:03:10</td>
+  <td>251</td>
+  <td style="color:#f85149;">+10 см</td>
+  <td>110.050</td>
+  <td>—</td>
+  <td>—</td>
+  <td>-21.0</td>
+  <td>8</td>
+  <td>GREEN</td>
+  <td>ok</td>
+</tr>
 <tr class="row-GREEN">
   <td>2026-03-29 15:05:04</td>
   <td>251</td>
