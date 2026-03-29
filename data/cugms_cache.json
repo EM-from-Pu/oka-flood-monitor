@@ -1,21 +1,19 @@
 {
-  "review_number": 19,
-  "review_date": "28.03.2026",
-  "serpuhov_change_cm": 208.0,
-  "kashira_change_cm": 208.0,
-  "kolomna_change_cm": 208.0,
+  "review_number": 20,
+  "review_date": "29.03.2026",
+  "serpuhov_change_cm": -21.0,
+  "kashira_change_cm": null,
+  "kolomna_change_cm": 55.0,
   "kaluga_change_cm": null,
   "belev_change_cm": null,
   "ice_status": {
-    "Серпухов": "ледоход",
-    "Кашира": "ледоход",
-    "Коломна": "ледоход"
+    "Серпухов": "забереги"
   },
   "forecast_text": "Прогноз погоды Общий прогноз НМУ Метеобюллетень (МиМО) Метеобюллетень (Центральное УГМС) Пожароопасность Климат региона Климат Москвы Язык погоды Гидрология Введение в гидрологию региона Наблюдения на реках и водоемах Воднобалансовая станция Гидрологические прогнозы Весеннее половодье и дождевые паводки-2026 Весеннее половодье и дождевые паводки-2025 ГИС Затопления Публикации о воде Библиотека Сло",
   "forecast_intensity_mps": null,
   "dangerous_expected": false,
-  "source_url": "https://cugms.ru/obzor-%e2%84%9619-razvitiya-vesennego-polovodya-na-rekah-i-vodoemah-moskvy-i-moskovskoj-oblasti-28-marta-2026-goda/",
+  "source_url": "https://cugms.ru/obzor-%e2%84%9620-razvitiya-vesennego-polovodya-na-rekah-i-vodoemah-moskvy-i-moskovskoj-oblasti-29-marta-2026-goda/",
   "source": "cugms.ru",
   "source_status": "ok",
-  "_timestamp": "2026-03-29T01:49:22.291305+00:00"
+  "_timestamp": "2026-03-29T18:03:10.972472+00:00"
 }
