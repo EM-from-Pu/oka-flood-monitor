@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-monitor.py v7.2 — OkaFloodMonitor
+monitor.py v7.0 — OkaFloodMonitor
 HTML-генерация + аналитика + Telegram-оповещения
 Источники: serpuhov.ru (PRIMARY) | КИМ API | ЦУГМС | Open-Meteo | GloFAS
 
@@ -96,7 +96,6 @@ DATA_JSON         = os.path.join(DOCS_DIR, "data.json")
 INDEX_HTML        = os.path.join(DOCS_DIR, "index.html")
 LINKS_HTML        = os.path.join(DOCS_DIR, "links.html")
 INSTRUCTIONS_HTML = os.path.join(DOCS_DIR, "instructions.html")
-HISTORY_HTML      = os.path.join(DOCS_DIR, "history.html")
 ALERTS_FILE       = os.path.join(DATA_DIR, "alerts_sent.json")   # НЕ в docs/!
 MAILING_LIST      = os.path.join(DATA_DIR, "mailing_list.json")
 REF_2024          = os.path.join(DATA_DIR, "2024_ref.json")
@@ -557,77 +556,9 @@ def compute_composite_status(serp: dict, wext, glofas: dict, analytics: dict) ->
     }
 
 
-# ── Вспомогательные функции для v7.2 аналитики ─────────────────────────────
-
-def _compute_weighted_change_v72(history, key="serp_daily_change_cm"):
-    """Взвешенное среднее прироста за 3 дня (вес 2:1:0.5)."""
-    vals = []
-    for row in reversed(history[-5:]):
-        c = row.get(key)
-        if c is None:
-            c = row.get("cugms_serp_change_cm")
-        if c is not None:
-            try:
-                vals.append(float(c))
-            except (ValueError, TypeError):
-                pass
-        if len(vals) >= 3:
-            break
-    if not vals:
-        return None
-    weights = [2.0, 1.0, 0.5][:len(vals)]
-    return sum(v * w for v, w in zip(vals, weights)) / sum(weights)
-
-
-def _compute_flood_phase_v72(level_cm, change_3d_cm, today_date):
-    """
-    Определяет текущую фазу паводкового цикла.
-    Возвращает (phase_code, phase_label, phase_icon).
-    """
-    if level_cm is None:
-        return ("unknown", "Нет данных", "⚪")
-
-    if level_cm >= 645:  # НЯ
-        if change_3d_cm is not None and change_3d_cm > 10:
-            return ("peak_zone", "Зона НЯ — рост", "🔴")
-        if change_3d_cm is not None and change_3d_cm < -10:
-            return ("recession", "Спад после пика", "⬇️")
-        return ("peak", "Пик / зона НЯ", "🔴")
-
-    if change_3d_cm is not None and change_3d_cm < -10 and level_cm > 300:
-        return ("recession", "Спад", "⬇️")
-
-    if change_3d_cm is not None:
-        if change_3d_cm >= 80:
-            return ("rapid_rise", "Быстрый рост!", "🚨")
-        if change_3d_cm >= 20:
-            return ("active_rise", "Активный разгон", "⬆️")
-        if change_3d_cm >= 5:
-            return ("early_rise", "Начальный подъём", "📊")
-
-    mo, dy = today_date.month, today_date.day
-    if level_cm < 150:
-        if mo < 3 or (mo == 3 and dy < 15):
-            return ("before", "До паводка", "🌨️")
-        return ("early_start", "Ранний старт", "🌤️")
-
-    return ("early_rise", "Начальный подъём", "📊")
-
-
-NYA_SCENARIOS_DEF = [
-    {"key": "calm",    "emoji": "🟢", "label": "Слабый",
-     "rate_cm_day": 12.5, "note": "маловероятно (как 2020, 2022)"},
-    {"key": "typical", "emoji": "🟡", "label": "Типичный",
-     "rate_cm_day": 50.0, "note": "как 2023–2024"},
-    {"key": "extreme", "emoji": "🔴", "label": "Экстремальный",
-     "rate_cm_day": 100.0, "note": "как 2013"},
-]
-
-
 def compute_analytics(serp: dict, kim: dict, cugms: dict, history: list, wext) -> dict:
     """
     Собирает всю аналитику в один словарь.
-    v7.2: добавлены сценарии до НЯ, фаза паводка, 3-дневный тренд.
     """
     level_cm  = serp.get("level_cm")
     change_cm = serp.get("daily_change_cm")
@@ -645,68 +576,13 @@ def compute_analytics(serp: dict, kim: dict, cugms: dict, history: list, wext) -
         nya_remaining_m = None
         oya_remaining_m = None
 
-    # Дней до порогов (линейная оценка — для обратной совместимости)
+    # Дней до порогов
     days_to_nya = None
     days_to_oya = None
     if change_cm and change_cm > 0 and nya_remaining_m is not None:
         change_m_per_day = change_cm / 100.0
         days_to_nya = round(nya_remaining_m / change_m_per_day, 1) if change_m_per_day > 0 else None
         days_to_oya = round(oya_remaining_m / change_m_per_day, 1) if change_m_per_day > 0 else None
-
-    # v7.2: Взвешенный 3-дневный тренд
-    change_3d_cm = _compute_weighted_change_v72(history)
-
-    # v7.2: Ускорение / замедление тренда
-    change_acceleration = None
-    if change_3d_cm is not None and len(history) >= 7:
-        change_7d = _compute_weighted_change_v72(history[-7:])
-        if change_7d and change_7d != 0:
-            ratio = change_3d_cm / change_7d
-            if ratio > 1.2:
-                change_acceleration = "accelerating"
-            elif ratio < 0.8:
-                change_acceleration = "decelerating"
-            else:
-                change_acceleration = "stable"
-
-    # v7.2: Детектор противоречия источников
-    source_conflict = False
-    cugms_change = cugms.get("serpukhov_change_cm") or cugms.get("serp_change_cm")
-    if change_cm is not None and cugms_change is not None:
-        try:
-            if abs(float(change_cm) - float(cugms_change)) > 15:
-                source_conflict = True
-        except (ValueError, TypeError):
-            pass
-
-    # v7.2: Сценарии до НЯ
-    nya_scenarios = []
-    if nya_remaining_m is not None and nya_remaining_m > 0:
-        today = date_cls.today()
-        nya_remaining_cm = nya_remaining_m * 100
-        for sc in NYA_SCENARIOS_DEF:
-            days = round(nya_remaining_cm / sc["rate_cm_day"], 0)
-            try:
-                arrival = today + timedelta(days=int(days))
-                realistic = arrival <= date_cls(today.year, 4, 26)
-                arrival_str = arrival.strftime("%d %b")
-            except (ValueError, OverflowError):
-                realistic = False
-                arrival_str = "—"
-            nya_scenarios.append({
-                "key":      sc["key"],
-                "emoji":    sc["emoji"],
-                "label":    sc["label"],
-                "days":     int(days),
-                "arrival":  arrival_str,
-                "note":     sc["note"],
-                "realistic": realistic,
-            })
-
-    # v7.2: Фаза паводка
-    flood_phase, flood_phase_label, flood_phase_icon = _compute_flood_phase_v72(
-        level_cm, change_3d_cm, date_cls.today()
-    )
 
     # Уровень опасности
     zone_name, _, _, _, _ = get_level_zone(level_cm)
@@ -741,10 +617,9 @@ def compute_analytics(serp: dict, kim: dict, cugms: dict, history: list, wext) -
     notes = "; ".join(notes_parts)
 
     return {
-        # Существующие поля (обратная совместимость)
         "alert_level":      alert_level,
-        "days_to_nya":      days_to_nya,      # DEPRECATED — линейная оценка
-        "days_to_oya":      days_to_oya,      # DEPRECATED — линейная оценка
+        "days_to_nya":      days_to_nya,
+        "days_to_oya":      days_to_oya,
         "nya_remaining_m":  nya_remaining_m,
         "oya_remaining_m":  oya_remaining_m,
         "nya_fill_pct":     round(nya_fill_pct, 1),
@@ -752,15 +627,6 @@ def compute_analytics(serp: dict, kim: dict, cugms: dict, history: list, wext) -
         "wave_dynamic_text": wave_text,
         "peak_prediction":  peak,
         "notes":            notes,
-        # НОВЫЕ поля v7.2
-        "nya_scenarios":           nya_scenarios,
-        "flood_phase":             flood_phase,
-        "flood_phase_label":       flood_phase_label,
-        "flood_phase_icon":        flood_phase_icon,
-        "change_3d_cm":            change_3d_cm,
-        "change_acceleration":     change_acceleration,
-        "source_conflict":         source_conflict,
-        "cugms_change_cm":         cugms_change,
     }
 
 
@@ -978,58 +844,51 @@ def generate_action_block(level_cm, flood_index: int, composite: dict = None) ->
         "safe": (
             "🟢",
             "Норма — Плановое наблюдение",
-            "Уровень воды в норме. "
-            "<br>• <b>Что происходит:</b> река в пределах типичного весеннего диапазона, паводковая угроза минимальна."
-            "<br>• <b>Что делать:</b> проверьте наличие насоса и дренажной системы; убедитесь в доступности дачи; уточните прогноз ЦУГМС раз в день."
-            "<br>• <b>Совет:</b> Ока, как и положено великой реке, не любит спешить — но лучше подготовиться заранее, чем торопиться потом.",
+            "Уровень воды в норме. Продолжайте следить за дашбордом 1–2 раза в день. "
+            "При приближении к НЯ — перейдите в режим бдительности. "
+            "Проверьте наличие насоса, убедитесь в доступности дачи.",
             "#10b981",
         ),
         "watch": (
             "🟡",
             "Бдительность — Готовность к действиям",
             "Уровень повышается или GloFAS фиксирует рост выше по течению. "
-            "<br>• <b>Что происходит:</b> начало паводковой фазы; вода пока в русле, но тенденция к росту очевидна."
-            "<br>• <b>Что делать:</b> следите за дашбордом каждые 3–4 часа; составьте список имущества для эвакуации; проверьте насос и дренаж; уточните прогноз ЦУГМС."
-            "<br>• <b>Когда обновление:</b> мониторинг обновляется каждые 6 часов автоматически."
-            "<br>• <i>Если ваш погреб ещё не подготовлен — самое время это исправить. Вода ждать не будет.</i>",
+            "Следите за дашбордом каждые 3–4 часа. Подготовьте список имущества для эвакуации. "
+            "Проверьте насос и дренажную систему. Уточните прогноз ЦУГМС.",
             "#f59e0b",
         ),
         "warning": (
             "🟠",
             "Опасность — Подготовьтесь немедленно",
             "Уровень быстро растёт и/или GloFAS прогнозирует пик в ближайшие дни. "
-            "<br>• <b>Что происходит:</b> паводковая волна в активной фазе, до НЯ остаётся меньше метра."
-            "<br>• <b>Что делать:</b> вывезите ценные вещи с нижнего этажа; подготовьте дом к затоплению; договоритесь о временном жилье; зарядите телефон; подготовьте документы и аптечку."
-            "<br>• <b>Мониторинг:</b> проверяйте дашборд каждый час; подпишитесь на Telegram-оповещения."
-            "<br>• <b>Когда звонить в МЧС:</b> если уровень превысит НЯ (645 см) — звоните на 112.",
+            "Вывезите ценные вещи с нижнего этажа. Подготовьте дом к затоплению. "
+            "Договоритесь о временном жилье. Мониторинг каждый час. "
+            "Зарядите телефон, подготовьте документы.",
             "#f97316",
         ),
         "danger": (
             "🔴",
             "Критично — Действуйте прямо сейчас",
             "Уровень достиг критических значений. Высокий риск затопления. "
-            "<br>• <b>Что происходит:</b> уровень превысил НЯ, вода вышла на пойму, подтопление строений вероятно."
-            "<br>• <b>Что делать:</b> немедленно эвакуируйте людей, животных, ценное имущество; отключите электричество на даче; перекройте газ и воду."
-            "<br>• <b>Связь:</b> свяжитесь с соседями; следите за Telegram-каналом; звоните в ЕДДС Серпухова."
-            "<br>• <b>Не рискуйте:</b> не пытайтесь добраться до залитой дачи в одиночку.",
+            "Немедленно эвакуируйте людей, животных, ценное имущество. "
+            "Отключите электричество на даче. Свяжитесь с соседями. "
+            "Следите за каналом соседей в Telegram. Будьте готовы к полному подтоплению.",
             "#ef4444",
         ),
         "emergency": (
             "🟣",
             "ЧРЕЗВЫЧАЙНАЯ СИТУАЦИЯ",
-            "Уровень превысил ОЯ (800 см). Массовое затопление пойменных территорий. "
-            "<br>• <b>Что происходит:</b> вода затопила дороги и строения, ситуация чрезвычайная."
-            "<br>• <b>Что делать:</b> все должны быть эвакуированы; не пытайтесь добраться до дачи без необходимости; звоните 112."
-            "<br>• <b>Документируйте:</b> фиксируйте ущерб фото/видео для страховки и компенсаций."
-            "<br>• <b>Следите:</b> ждите официальных сводок МЧС России и администрации Серпухова.",
+            "Уровень превысил ОЯ (394 см). Массовое затопление. "
+            "Все должны быть эвакуированы. Не пытайтесь добраться до дачи без необходимости. "
+            "Звоните 112. Фиксируйте ущерб фото/видео для страховки. "
+            "Ждите официальных сводок от МЧС.",
             "#a855f7",
         ),
         "unknown": (
             "⚪",
             "Нет данных",
-            "Данные временно недоступны. "
-            "<br>• <b>Что делать:</b> проверьте serpuhov.ru вручную; при необходимости позвоните в ЕДДС Серпухова."
-            "<br>• <b>Следующее обновление:</b> мониторинг повторит попытку через 6 часов.",
+            "Данные временно недоступны. Проверьте serpuhov.ru вручную. "
+            "При необходимости позвоните в ЕДДС Серпухова.",
             "#64748b",
         ),
     }
@@ -1717,7 +1576,7 @@ a:hover { text-decoration: underline; }
 
 .level-display { text-align: center; }
 .level-display .level-number {
-  font-size: clamp(4rem, 9.5vw, 7rem);
+  font-size: clamp(3.5rem, 8vw, 6rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
@@ -1842,7 +1701,7 @@ a:hover { text-decoration: underline; }
 /* ── Инфо-карточки ──────────────────────────────────────────────── */
 .info-cards-row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
@@ -1884,47 +1743,6 @@ a:hover { text-decoration: underline; }
   margin-top: 0.2rem;
   line-height: 1.3;
 }
-
-/* ── v7.2: Новые стили карточек ──────────────────────────── */
-.info-card {
-  cursor: pointer;
-}
-a.info-card { text-decoration: none; display: block; }
-a.info-card:hover { text-decoration: none; }
-.ic-title-colored { font-size: 0.72rem; font-weight: 600; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.04em; }
-.info-card-scenarios { min-height: 130px; }
-.ic-scenarios { margin: 4px 0; font-size: 0.75em; line-height: 1.7; text-align: left; }
-.sc-row { padding: 1px 0; }
-.sc-row.sc-dim { opacity: 0.45; font-style: italic; }
-.sc-note { color: var(--text-dim); font-size: 0.78em; }
-.info-card-conflict { border-color: #f59e0b !important; }
-.ic-conflict { color: #f59e0b; font-size: 0.68em; margin-top: 4px; text-align: left; }
-.ic-basin { font-size: 0.62em; color: var(--text-dim); margin-top: 4px; text-align: left; }
-.pi-hist { font-size: 0.7em; color: var(--text-dim); margin-top: 2px; }
-/* Кирпичная кладка прихода волны */
-.wave-brick { display: flex; flex-wrap: wrap; gap: 8px 12px; padding: 8px 0; }
-.wave-brick-item { display: flex; flex-direction: column; align-items: center; min-width: 90px; }
-.wave-brick-item:nth-child(odd)  { margin-top: 0; }
-.wave-brick-item:nth-child(even) { margin-top: -24px; }
-.wave-brick-name { font-size: 0.75rem; font-weight: 600; color: var(--text-primary); }
-.wave-brick-time { font-size: 0.65rem; color: var(--text-dim); }
-.wave-brick-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); margin-bottom: 4px; }
-/* Скроллябельная таблица истории */
-.history-scroll-wrap { max-height: 500px; overflow-y: auto; }
-.history-scroll-wrap::-webkit-scrollbar { width: 4px; }
-.history-scroll-wrap::-webkit-scrollbar-track { background: transparent; }
-.history-scroll-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-/* Инфографика исторических пиков */
-.hist-peaks-bar { display: flex; gap: 16px; align-items: flex-end; padding: 12px 0; justify-content: center; flex-wrap: wrap; }
-.hist-peak-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.hist-peak-bar { width: 36px; border-radius: 4px 4px 0 0; background: var(--accent); opacity: 0.8; }
-.hist-peak-year { font-size: 0.72rem; color: var(--text-dim); font-weight: 600; }
-.hist-peak-val  { font-size: 0.7rem;  color: var(--text-secondary); }
-/* Глобальные карточки крупнее */
-.glofas-station-card { padding: 16px; }
-.glofas-abs-q { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin: 4px 0; }
-.glofas-trend-label { font-size: 0.78rem; color: var(--text-secondary); }
-.glofas-pool-equiv { font-size: 0.7rem; color: var(--text-dim); }
 
 /* ── Адаптив: мобильные ─────────────────────────────────────────── */
 @media (max-width: 600px) {
@@ -1975,7 +1793,7 @@ a.info-card:hover { text-decoration: none; }
 
 .sub-indicators {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   width: 100%;
   max-width: 800px;
@@ -2526,13 +2344,12 @@ def _generate_header_v7(serp: dict, kim: dict, cugms: dict, glofas: dict,
 
     return f"""
 <header class="site-header">
-  <a class="header-logo" href="#" onclick="window.scrollTo({{top:0,behavior:'smooth'}});return false;" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
+  <div class="header-logo">🌊 <span>Oka</span>FloodMonitor</div>
 
   <nav>
     <ul class="header-nav">
       <li><a href="index.html" class="active">Главная</a></li>
       <li><a href="links.html">Ссылки</a></li>
-      <li><a href="history.html">История паводков</a></li>
       <li><a href="instructions.html">Инструкции</a></li>
     </ul>
   </nav>
@@ -2620,98 +2437,17 @@ def _generate_hero_v7(serp: dict, analytics: dict, composite: dict,
     water_st = serp.get("water_status", "—") or "—"
     water_str = "" if water_st in ("—", "-", "") else f" | {water_st}"
 
-    # ── Данные для мини-карточек (v7.2) ───────────────────────────
+    # ── Данные для мини-карточек ─────────────────────────────────
     snow_cm   = (wext or {}).get("snow_depth_cm", 0) or 0
     change_cm = serp.get("daily_change_cm")
     change_str = f"{change_cm:+.0f}" if change_cm is not None else "—"
     change_lbl = "рост" if change_cm and change_cm > 0 else ("спад" if change_cm and change_cm < 0 else "стабильно")
 
+    days_nya_val = analytics.get("days_to_nya")
+    days_nya_card = f"{days_nya_val:.0f}" if days_nya_val and days_nya_val < 200 else "—"
+
     fl_idx = (wext or {}).get("flood_index", 0) or 0
     fl_label_short = {0: "минимальный", 1: "низкий", 2: "умеренный", 3: "высокий", 4: "экстремальный"}.get(fl_idx, "?")
-
-    # v7.2: данные для карточек
-    change_3d   = analytics.get("change_3d_cm")
-    change_3d_str = f"{change_3d:+.0f}" if change_3d is not None else change_str
-    accel       = analytics.get("change_acceleration")
-    cugms_ch    = analytics.get("cugms_change_cm")
-    conflict    = analytics.get("source_conflict", False)
-    accel_labels = {
-        "accelerating": "↑ ускоряется",
-        "decelerating": "↓ замедляется",
-        "stable":       "→ стабильно",
-    }
-    accel_str = accel_labels.get(accel, "")
-    if conflict and cugms_ch is not None:
-        try:
-            conflict_html = f'<div class="ic-conflict">⚠️ ЦУГМС: {float(cugms_ch):+.0f} см/сут — источники противоречат</div>'
-        except (ValueError, TypeError):
-            conflict_html = f'<div class="ic-conflict">⚠️ ЦУГМС: {_h(str(cugms_ch))} — данные противоречат</div>'
-    else:
-        conflict_html = ""
-
-    # v7.2: Сценарии до НЯ
-    scenarios = analytics.get("nya_scenarios", [])
-    sc_rows = ""
-    for sc in scenarios:
-        dim_class = " sc-dim" if not sc.get("realistic") else ""
-        sc_rows += (
-            f'<div class="sc-row{dim_class}">'
-            f'{sc["emoji"]} <b>{_h(sc["label"])}:</b> '
-            f'~{sc["days"]} дн → <b>{_h(sc["arrival"])}</b>'
-            f'<span class="sc-note"> ({_h(sc["note"])})</span>'
-            f'</div>'
-        )
-    if not sc_rows:
-        sc_rows = '<div class="sc-row">Нет данных для расчёта</div>'
-
-    # v7.2: Фаза паводка
-    phase_code  = analytics.get("flood_phase", "unknown")
-    phase_lbl   = analytics.get("flood_phase_label", "—")
-    phase_icon  = analytics.get("flood_phase_icon", "⚪")
-    PHASE_HINTS = {
-        "before":       "Паводок ещё не начался. Следите за температурой и снегом.",
-        "early_start":  "Ранний старт. Следите за динамикой.",
-        "early_rise":   "Уровень растёт медленно. Ожидается ускорение через 5–10 дней.",
-        "active_rise":  "Активный рост! Принимайте защитные меры.",
-        "rapid_rise":   "Экстремальный рост! Немедленные действия.",
-        "peak_zone":    "Зона НЯ. Уровень на пике и продолжает расти.",
-        "peak":         "Уровень на пике. Спад ожидается в течение 1–3 дней.",
-        "recession":    "Уровень снижается. Паводок проходит.",
-        "return_to_channel": "Возврат в русло. Паводок завершён.",
-        "unknown":      "Недостаточно данных для определения фазы.",
-    }
-    phase_hint = PHASE_HINTS.get(phase_code, "")
-
-    # v7.2: цвет заголовка карточки по зоне параметра
-    ZONE_COLOR_MAP = {
-        "safe":      "#10b981",
-        "watch":     "#f59e0b",
-        "warning":   "#f97316",
-        "danger":    "#ef4444",
-        "emergency": "#a855f7",
-        "unknown":   "#64748b",
-    }
-    snow_zone_card = "safe" if snow_cm < 20 else ("watch" if snow_cm < 50 else "warning")
-    trend_zone_card = "safe"
-    if change_3d is not None:
-        if change_3d >= 50:   trend_zone_card = "danger"
-        elif change_3d >= 20: trend_zone_card = "warning"
-        elif change_3d >= 5:  trend_zone_card = "watch"
-        elif change_3d < -10: trend_zone_card = "safe"
-    weather_zone_card = "safe" if fl_idx < 2 else ("watch" if fl_idx < 3 else ("warning" if fl_idx < 4 else "danger"))
-    phase_zone_card = {
-        "before": "safe", "early_start": "watch", "early_rise": "watch",
-        "active_rise": "warning", "rapid_rise": "danger", "peak_zone": "danger",
-        "peak": "danger", "recession": "safe", "return_to_channel": "safe", "unknown": "unknown",
-    }.get(phase_code, "unknown")
-    snow_title_color    = ZONE_COLOR_MAP.get(snow_zone_card, "#94a3b8")
-    trend_title_color   = ZONE_COLOR_MAP.get(trend_zone_card, "#94a3b8")
-    weather_title_color = ZONE_COLOR_MAP.get(weather_zone_card, "#94a3b8")
-    phase_title_color   = ZONE_COLOR_MAP.get(phase_zone_card, "#94a3b8")
-
-    # v7.2: типичный сценарий для прогресс-бара
-    typical_sc = next((s for s in scenarios if s.get("key") == "typical"), None)
-    typical_str = f" | Типичный сценарий: ~{typical_sc['arrival']}" if typical_sc else ""
 
     # ── Термометр: расчёт позиций ────────────────────────────────
     # Шкала от 0 до ОЯ+10%
@@ -2771,7 +2507,6 @@ def _generate_hero_v7(serp: dict, analytics: dict, composite: dict,
           <div class="level-number {zone_css}" title="Уровень воды от нуля гидропоста д. Лукьяново (нуль поста = {LUKYANNOVO_ZERO_M_BS:.2f} м БС)">{_h(level_str)}</div>
           <div class="level-explain">уровень от нуля поста д. Лукьяново</div>
           <div class="level-label">р. Ока{_h(water_str)}</div>
-          <div style="font-size:0.68rem; color:var(--text-dim); margin-top:4px; line-height:1.4;">от д. Лукьяново до Пущино ≈ 17 км по реке (~4–5 ч волны), до Жерновки ≈ 28 км (~7 ч волны)</div>
           {f'<div class="level-abs" title="Абсолютная отметка уровня в Балтийской системе высот">{_h(abs_str)}</div>' if abs_str else ''}
         </div>
 
@@ -2784,57 +2519,49 @@ def _generate_hero_v7(serp: dict, analytics: dict, composite: dict,
 
     </div>
 
-    <!-- Мини-карточки инфографики v7.2 -->
+    <!-- Мини-карточки инфографики -->
     <div class="info-cards-row">
-      <a class="info-card" href="#weatherAcc">
+      <div class="info-card">
         <div class="ic-icon">❄️</div>
         <div class="ic-value">{snow_cm:.0f} <span class="ic-unit">см</span></div>
-        <div class="ic-title-colored" style="color:{snow_title_color};">Снег у Серпухова</div>
-        <div class="ic-hint">глубина снега по Open-Meteo (локально)</div>
-      </a>
-      <a class="info-card{'  info-card-conflict' if conflict else ''}" href="#cugmsAcc">
+        <div class="ic-title">Снежный покров</div>
+        <div class="ic-hint">запас воды в снеге (SWE) по Open-Meteo</div>
+      </div>
+      <div class="info-card">
         <div class="ic-icon">📈</div>
-        <div class="ic-value">{change_3d_str} <span class="ic-unit">см/сут</span></div>
-        <div class="ic-title-colored" style="color:{trend_title_color};">Тренд (3 дня) {accel_str}</div>
-        <div class="ic-hint">Сейчас: {change_str} см/сут (serpuhov.ru)</div>
-        {conflict_html}
-      </a>
-      <a class="info-card info-card-scenarios" href="#threshAcc">
+        <div class="ic-value">{change_str} <span class="ic-unit">см/сут</span></div>
+        <div class="ic-title">Прирост уровня</div>
+        <div class="ic-hint">скорость изменения за последние сутки — {change_lbl}</div>
+      </div>
+      <div class="info-card">
         <div class="ic-icon">⏳</div>
-        <div class="ic-title-colored" style="color:#f59e0b;">Сценарии до НЯ</div>
-        <div class="ic-scenarios">{sc_rows}</div>
-        <div class="ic-hint">История: пик обычно 1–20 апр. Линейная оценка неприменима.</div>
-      </a>
-      <a class="info-card" href="#weatherAcc">
+        <div class="ic-value">{days_nya_card} <span class="ic-unit">дней</span></div>
+        <div class="ic-title">До НЯ</div>
+        <div class="ic-hint">при текущем темпе прироста до уровня {nya_cm:.0f} см</div>
+      </div>
+      <div class="info-card">
         <div class="ic-icon">🌧️</div>
         <div class="ic-value">{fl_idx}/4</div>
-        <div class="ic-title-colored" style="color:{weather_title_color};">Паводковый индекс</div>
-        <div class="ic-hint">{fl_label_short} — осадки и таяние</div>
-      </a>
-      <a class="info-card" href="#peakAcc">
-        <div class="ic-icon">{phase_icon}</div>
-        <div class="ic-value" style="font-size:0.95rem;">{_h(phase_lbl)}</div>
-        <div class="ic-title-colored" style="color:{phase_title_color};">Фаза паводка</div>
-        <div class="ic-hint">{_h(phase_hint)}</div>
-      </a>
+        <div class="ic-title">Паводковый индекс</div>
+        <div class="ic-hint">{fl_label_short} — комплексная оценка осадков и таяния</div>
+      </div>
     </div>
 
-    <!-- Прогресс-бары v7.2 -->
+    <!-- Прогресс-бары -->
     <div class="progress-bars">
       <div class="progress-item">
         <div class="pi-label" title="{_h(nya_explained)}">До НЯ {nya_cm:.0f} см <span class="pi-q" title="Неблагоприятное гидрологическое явление — подтопление пойменных территорий">?</span></div>
         <div class="progress-bar-track">
           <div class="progress-bar-fill nya" style="width:{nya_fill_pct:.1f}%;"></div>
         </div>
-        <div class="pi-value">{_h(nya_rem_str)}{_h(typical_str)}</div>
-        <div class="pi-hist">Исторически: пик 1–20 апр | рекорд 23 апр 2013</div>
+        <div class="pi-value">{_h(nya_rem_str)}{_h(nya_days_str)}</div>
       </div>
       <div class="progress-item">
         <div class="pi-label" title="{_h(oya_explained)}">До ОЯ {oya_cm:.0f} см <span class="pi-q" title="Опасное гидрологическое явление — затопление дорог и построек">?</span></div>
         <div class="progress-bar-track">
           <div class="progress-bar-fill oya" style="width:{oya_fill_pct:.1f}%;"></div>
         </div>
-        <div class="pi-value">{_h(oya_rem_str)}</div>
+        <div class="pi-value">{_h(oya_rem_str)}{_h(oya_days_str)}</div>
       </div>
     </div>
 
@@ -3360,34 +3087,16 @@ def _generate_wave_timeline(glofas: dict) -> str:
     if not events:
         return ""
 
-    # ── v7.2 brick layout: сортируем по позиции, чередуем верх/низ ──
-    events.sort(key=lambda e: e["pct"])
-
     markers_html = ""
-    for idx, ev in enumerate(events):
-        dot_size = "14px" if ev["type"] == "arrival" else "10px"
-        bg_style = f"background:{ev['color']};" if ev["type"] == "arrival" else ""
-        # Brick layout: 3 уровня чередования для максимального разнесения
-        tier = idx % 3
-        if tier == 0:
-            label_style = "bottom: 20px;"
-            name_style  = "bottom: 36px;"
-        elif tier == 1:
-            label_style = "top: 20px;"
-            name_style  = "top: 36px;"
-        else:
-            label_style = "bottom: 40px;"
-            name_style  = "bottom: 56px;"
+    for ev in events:
+        dot_size   = "16px" if ev["type"] == "arrival" else "10px"
+        bg_style   = f"background:{ev['color']};" if ev["type"] == "arrival" else ""
         markers_html += f"""
 <div class="timeline-marker" style="left:{ev['pct']:.1f}%;">
   <div class="timeline-dot" style="width:{dot_size}; height:{dot_size};
     border-color:{ev['color']}; {bg_style}"></div>
-  <div style="position:absolute; {label_style} font-size:0.62rem;
-    white-space:nowrap; color:{ev['color']}; text-align:center;
-    transform:translateX(-50%); left:50%;">{_h(ev['label'])}</div>
-  <div style="position:absolute; {name_style} font-size:0.58rem;
-    white-space:nowrap; color:var(--text-dim); text-align:center;
-    transform:translateX(-50%); left:50%;">{_h(ev['name'])}</div>
+  <div class="timeline-marker-label" style="color:{ev['color']};">{_h(ev['label'])}</div>
+  <div class="timeline-marker-name">{_h(ev['name'])}</div>
 </div>"""
 
     date_labels = ""
@@ -3396,7 +3105,7 @@ def _generate_wave_timeline(glofas: dict) -> str:
         pct = i / total_range_days * 100
         date_labels += f"""
 <div style="position:absolute; left:{pct:.1f}%; transform:translateX(-50%);
-  font-size:0.62rem; color:var(--text-dim); bottom:-50px; white-space:nowrap;">
+  font-size:0.65rem; color:var(--text-dim); bottom:-20px; white-space:nowrap;">
   {d.day}.{d.month:02d}
 </div>"""
 
@@ -3404,13 +3113,13 @@ def _generate_wave_timeline(glofas: dict) -> str:
 <section class="timeline-section fade-in-section">
   <div class="timeline-card">
     <h3>⏱ Прогноз прихода волны в Серпухов</h3>
-    <div class="timeline-bar-container" style="padding: 70px 20px 70px;">
+    <div class="timeline-bar-container">
       <div class="timeline-track" style="position:relative;">
         {markers_html}
         {date_labels}
       </div>
     </div>
-    <p style="font-size:0.75rem; color:var(--text-dim); margin-top:8px;">
+    <p style="font-size:0.75rem; color:var(--text-dim); margin-top:28px;">
       🟢 зелёные маркеры = расчётное прибытие волны в Серпухов | серые/цветные = пик на станции
     </p>
   </div>
@@ -3422,13 +3131,13 @@ def _generate_wave_timeline(glofas: dict) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _generate_action_section(icon: str, title: str, text: str, color: str) -> str:
-    """Генерирует action block в glassmorphism стиле. v7.2: поддерживает HTML в тексте."""
+    """Генерирует action block в glassmorphism стиле."""
     return f"""
-<section class="action-section" id="vigilance-section">
+<section class="action-section">
   <div class="action-card" style="border-left-color: {color};">
     <div class="action-icon">{icon}</div>
     <div class="action-title" style="color: {color};">{_h(title)}</div>
-    <div class="action-text">{text}</div>
+    <div class="action-text">{_h(text)}</div>
   </div>
 </section>"""
 
@@ -3456,7 +3165,7 @@ def _generate_weather_section(wext) -> str:
     <span class="wfi-value" style="color:{fl_color};">{fl_label} ({fl_idx}/4)</span>
   </div>
   <div class="wfi-summary">{fl_summary}</div>
-  <div style="font-size:0.82rem; color:var(--text-dim);">Глубина снега (локально): {snow_d:.0f} см — глубина снежного покрова по Open-Meteo (не SWE)</div>
+  <div style="font-size:0.82rem; color:var(--text-dim);">Снежный покров: {snow_d:.0f} см</div>
 </div>"""
 
     weather_table_html = _generate_weather_table(wext)
@@ -3814,12 +3523,6 @@ def _generate_history_section(history: list) -> str:
   <td><span class="status-badge {al_lower}">{_h(al_rus)}</span></td>
 </tr>"""
 
-    empty_note = ""
-    if len(rows) < 5:
-        empty_note = """<div style="padding:12px; background:rgba(59,130,246,0.05); border-left:3px solid var(--accent); border-radius:0 6px 6px 0; margin-bottom:12px; font-size:0.85rem; color:var(--text-secondary);">
-  📊 Мониторинг запущен 29.03.2026. Полная ретроспектива будет доступна через неделю — Ока, как и положено великой реке, не торопится заполнять таблицы.
-</div>"""
-
     return f"""
 <div class="history-controls">
   <button onclick="filterHistory(7)"  class="hist-btn">7 дней</button>
@@ -3827,8 +3530,6 @@ def _generate_history_section(history: list) -> str:
   <button onclick="filterHistory(0)"  class="hist-btn">Всё</button>
   <a href="history.csv" download class="hist-btn">⬇ CSV</a>
 </div>
-{empty_note}
-<div class="history-scroll-wrap">
 <div class="table-wrap">
   <table id="histTable">
     <thead>
@@ -3848,7 +3549,6 @@ def _generate_history_section(history: list) -> str:
       {rows_html}
     </tbody>
   </table>
-</div>
 </div>"""
 
 
@@ -3978,7 +3678,7 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// ── ACCORDION v7.2: по умолчанию открыты ──────────────────────────
+// ── ACCORDION ─────────────────────────────────────────────────────────
 function toggleAccordion(id) {
   var body = document.getElementById(id);
   var icon = document.getElementById(id + '-icon');
@@ -3987,15 +3687,6 @@ function toggleAccordion(id) {
   body.classList.toggle('open', !isOpen);
   if (icon) icon.textContent = isOpen ? '▼' : '▲';
 }
-// Открыть все аккордеоны при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-  var allBodies = document.querySelectorAll('.accordion-body');
-  allBodies.forEach(function(body) {
-    body.classList.add('open');
-    var icon = document.getElementById(body.id + '-icon');
-    if (icon) icon.textContent = '▲';
-  });
-});
 
 // ── HISTORY FILTER ───────────────────────────────────────────────────
 function filterHistory(days) {
@@ -4043,7 +3734,7 @@ def _generate_footer(now_msk: str) -> str:
     """Генерирует footer."""
     return f"""
 <footer class="site-footer">
-  OkaFloodMonitor v7.2 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
   Обновлено: {_h(now_msk)} МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
@@ -4053,42 +3744,6 @@ def _generate_footer(now_msk: str) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 # HTML: ГЛАВНЫЙ ГЕНЕРАТОР
 # ══════════════════════════════════════════════════════════════════════════════
-
-def _generate_hist_peaks_infographic() -> str:
-    """Генерирует инфографику исторических пиков на главной странице. v7.2."""
-    peaks = [
-        {"year": "2013", "val": 843, "color": "#f97316"},
-        {"year": "2023", "val": 780, "color": "#f59e0b"},
-        {"year": "2024", "val": 850, "color": "#ef4444"},
-    ]
-    max_val = max(p["val"] for p in peaks)
-    bars_html = ""
-    for p in peaks:
-        bar_h = int(p["val"] / max_val * 80)
-        bars_html += f"""
-<div class="hist-peak-col">
-  <div class="hist-peak-val">{p["val"]} см</div>
-  <div class="hist-peak-bar" style="height:{bar_h}px; background:{p["color"]};"></div>
-  <div class="hist-peak-year">{p["year"]}</div>
-</div>"""
-
-    return f"""
-<section style="padding: 0 24px 8px;">
-  <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px 20px;">
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
-      <div>
-        <h3 style="font-size:0.95rem; font-weight:700; margin-bottom:4px;">📊 Исторические пики у Серпухова</h3>
-        <div style="font-size:0.8rem; color:var(--text-dim);">НЯ = 645 см | ОЯ = 800 см | Рекорд 1908 г.: 1256 см</div>
-      </div>
-      <a href="history.html" style="font-size:0.82rem; color:var(--accent); white-space:nowrap;">Полная история паводков →</a>
-    </div>
-    <div class="hist-peaks-bar">{bars_html}</div>
-    <div style="font-size:0.75rem; color:var(--text-dim); text-align:center; margin-top:4px;">
-      Ока, как и положено великой реке, не любит спешить — но когда решается, удивляет даже бывалых.
-    </div>
-  </div>
-</section>"""
-
 
 def generate_html(data: dict, analytics: dict, history: list, wext,
                   regression, ref_2024) -> str:
@@ -4136,7 +3791,6 @@ def generate_html(data: dict, analytics: dict, history: list, wext,
     details_html      = _generate_detail_accordions(data, analytics, history, regression, wext)
     footer_html       = _generate_footer(now_msk)
     js_html           = _generate_all_js()
-    hist_peaks_html   = _generate_hist_peaks_infographic()
 
     return f"""<!DOCTYPE html>
 <html lang="ru">
@@ -4172,8 +3826,6 @@ def generate_html(data: dict, analytics: dict, history: list, wext,
   </div>
 
   {weather_html}
-
-  {hist_peaks_html}
 
   {details_html}
 </main>
@@ -4273,313 +3925,6 @@ h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
 """
 
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# ИСТОРИЯ ПАВОДКОВ: history.html
-# ══════════════════════════════════════════════════════════════════════════════
-
-def generate_history_page() -> None:
-    """
-    Генерирует docs/history.html — страница истории паводков Оки.
-    v7.2: контент взят из oka_flood_history.md, вбит хардкодом в HTML.
-    """
-    css = _generate_links_css()
-    now_msk = (datetime.now(timezone.utc) + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M")
-
-    html = f"""<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="История паводков реки Оки от Орла до Коломны — 1908, 1970, 2013, 2023, 2024. OkaFloodMonitor.">
-  <title>История паводков Оки — OkaFloodMonitor</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    {css}
-    .hist-section {{ margin-bottom: 32px; }}
-    .hist-section h2 {{ font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; border-left: 3px solid var(--accent); padding-left: 12px; }}
-    .hist-section h3 {{ font-size: 1.05rem; font-weight: 600; color: var(--text-secondary); margin: 16px 0 8px; }}
-    .hist-section p {{ color: var(--text-secondary); line-height: 1.7; margin-bottom: 10px; font-size: 0.9rem; }}
-    .hist-table {{ width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 12px 0; }}
-    .hist-table th {{ background: rgba(255,255,255,0.04); padding: 8px 10px; text-align: left; color: var(--text-dim); font-size: 0.76rem; font-weight: 600; }}
-    .hist-table td {{ padding: 8px 10px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }}
-    .hist-table tr:hover td {{ background: var(--bg-glass); }}
-    .fact-card {{ background: rgba(59,130,246,0.05); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 10px 16px; margin: 8px 0; font-size: 0.88rem; color: var(--text-secondary); }}
-    .year-badge {{ display: inline-block; background: var(--accent); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; margin-right: 8px; }}
-    .toc-nav {{ display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }}
-    .toc-nav a {{ padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px; font-size: 0.83rem; color: var(--text-secondary); text-decoration: none; transition: all 0.2s; }}
-    .toc-nav a:hover {{ border-color: var(--accent); color: var(--accent); }}
-  </style>
-</head>
-<body>
-
-<header class="site-header">
-  <a class="header-logo" href="index.html" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
-  <nav><ul class="header-nav">
-    <li><a href="index.html">Главная</a></li>
-    <li><a href="links.html">Ссылки</a></li>
-    <li><a href="history.html" class="active">История паводков</a></li>
-    <li><a href="instructions.html">Инструкции</a></li>
-  </ul></nav>
-</header>
-
-<div class="container">
-<h1>📜 История паводков реки Оки</h1>
-<p style="color:var(--text-secondary); margin-bottom:16px;">
-  Ока — крупнейший правый приток Волги. Длина 1498 км, бассейн 245 тысяч км².
-  Половодье здесь — явление весеннее и снеговое: когда многоснежная зима сменяется
-  дружной весной без ночных заморозков, река демонстрирует всё, на что способна.
-</p>
-
-<nav class="toc-nav">
-  <a href="#flood-1908">1908 — Великий</a>
-  <a href="#flood-1970">1970 — Советский</a>
-  <a href="#flood-2013">2013 — Рекорд XXI в.</a>
-  <a href="#flood-2023">2023 — Ранний</a>
-  <a href="#flood-2024">2024 — Новый рекорд</a>
-  <a href="#dams">Плотины</a>
-  <a href="#records-table">Таблица рекордов</a>
-</nav>
-
-<div class="section-card hist-section" id="flood-1908">
-  <h2><span class="year-badge">1908</span>Великий паводок — Абсолютный рекорд</h2>
-  <p>В апреле 1908 года Ока решила напомнить жителям, кто здесь настоящий хозяин.
-  Зима задалась необычно многоснежной и морозной, а потом вдруг — в один день —
-  обернулась тёплой, почти летней весной. Ни ночных заморозков, ни медленного
-  постепенного таяния. Всё сразу. «Идеальный шторм» по всем параметрам.</p>
-
-  <table class="hist-table">
-    <thead><tr><th>Город</th><th>Уровень</th><th>Дата пика</th><th>Примечания</th></tr></thead>
-    <tbody>
-      <tr><td>Орёл</td><td>908–1005 см*</td><td>Апрель</td><td>Дома на «Стрелке» по первый этаж в воде</td></tr>
-      <tr><td>Белёв</td><td>Очень высокий</td><td>8–9 апреля</td><td>Купец Сабинин — убыток 10 тыс. руб.</td></tr>
-      <tr><td>Калуга</td><td>16 м 77 см над летним горизонтом</td><td>25 апреля</td><td>Абсолютный рекорд за всё время наблюдений</td></tr>
-      <tr><td>Таруса</td><td>Очень высокий</td><td>Апрель</td><td>Вода залила полы Петропавловского собора</td></tr>
-      <tr><td><b>Серпухов</b></td><td><b>1256 см</b></td><td>Апрель</td><td>Абсолютный исторический рекорд</td></tr>
-    </tbody>
-  </table>
-  <div class="fact-card">
-    *Данные по Орлу расходятся: orelvkartinkax.ru даёт 908 см, другие источники — 1005 см.
-    Без архивных первоисточников разрешить расхождение невозможно.
-  </div>
-  <p>В Москве паводок 1908 года поднял воду на 8,9 м, затопил около 16 км² столицы
-  и повредил около 25&nbsp;000 сооружений. Причина повсюду одна — аномально
-  многоснежная зима, дружная весна без заморозков, дожди в период таяния.</p>
-</div>
-
-<div class="section-card hist-section" id="flood-1970">
-  <h2><span class="year-badge">1970</span>Советский паводок — Второй по величине</h2>
-  <p>Весной 1970 года советский Орёл готовился к 100-летию со дня рождения Ленина.
-  Первомайские транспаранты уже печатали, речи репетировали. Ока, однако, о юбилее не слышала.</p>
-
-  <p><b>5 апреля 1970 года</b> вода в Орле перевалила за <b>10 метров</b> (1010 см).
-  По улицам пошёл лёд с Оки. В городе ввели чрезвычайное положение.
-  Орловский обком КПСС написал в ЦК письмо — просил отменить праздничные мероприятия.
-  ЦК ответил уже после того, как торжества прошли. Водная стихия оказалась
-  более оперативной, чем советская бюрократия.</p>
-
-  <table class="hist-table">
-    <thead><tr><th>Показатель</th><th>Данные</th></tr></thead>
-    <tbody>
-      <tr><td>Орёл — уровень</td><td>1010 см (абсолютный рекорд для Орла)</td></tr>
-      <tr><td>Орёл — подтоплено домов</td><td>913 домов, 29 улиц, 21 предприятие</td></tr>
-      <tr><td>Орёл — эвакуировано</td><td>1195 человек</td></tr>
-      <tr><td>Калуга</td><td>15 м 25 см (второй по высоте рекорд)</td></tr>
-      <tr><td><b>Серпухов</b></td><td><b>1208 см</b> — второй исторический рекорд</td></tr>
-    </tbody>
-  </table>
-
-  <div class="fact-card">
-    🐀 <b>Крысы как сигнализация:</b> в ночь перед наводнением один загулявший орловец
-    наткнулся на сотни крыс, покрывших его путь живым серым ковром. Они мчали из нижних
-    хибар наверх, в Егорьевскую горку. Через час хибары были залиты. Крысы оказались
-    точнее гидрологического прогноза.
-  </div>
-  <div class="fact-card">
-    🐄 <b>Спасение коровы:</b> дородную бурёнку, растопырившую копыта по льдине,
-    народ кинулся спасать. Льдину прибило к берегу у завода гладильных прессов.
-    Корове накинули на рога верёвку и под общие аплодисменты вывели на сухое.
-    Она, спасённая, подогнула колени и полчаса лежала без сил.
-  </div>
-
-  <p>Причина: запасы воды в снеге вдвое выше нормы + позднее и дружное снеготаяние +
-  большие осадки в период половодья (в 1,5–2,0 раза выше нормы). После 1970 года
-  обветшавшие домишки по берегам Оки и Орлика были снесены, набережные забетонированы —
-  и последующие паводки уже не причиняли столь сильных разрушений.</p>
-</div>
-
-<div class="section-card hist-section" id="flood-2013">
-  <h2><span class="year-badge">2013</span>Рекорд XXI века — Апрельский</h2>
-  <p>В апреле 2013 года Ока поставила новый инструментальный рекорд — первый в XXI веке,
-  заставивший вспомнить о «стариках» 1908 и 1970. Паводковая волна шла сверху вниз с
-  задержкой в 1–2 дня на каждый крупный гидропост.</p>
-
-  <table class="hist-table">
-    <thead><tr><th>Гидропост</th><th>Максимум</th><th>Дата пика</th></tr></thead>
-    <tbody>
-      <tr><td>Калуга</td><td>919 см</td><td>21 апреля</td></tr>
-      <tr><td>Алексин (Щукина)</td><td>1069 см</td><td>21 апреля</td></tr>
-      <tr><td>Серпухов</td><td><b>843 см</b></td><td>23 апреля</td></tr>
-      <tr><td>Кашира</td><td>792 см</td><td>23 апреля</td></tr>
-      <tr><td>Коломна</td><td>633 см</td><td>24 апреля</td></tr>
-    </tbody>
-  </table>
-
-  <p>В Серпухове 23 апреля 2013 года уровень достиг 843 см — максимум за всё время
-  современных инструментальных наблюдений (XXI век). Строения в пойме подтапливались
-  при отметке выше 800 см (ОЯ). На гидроузле «Белоомут» вода поднялась более чем
-  на 4 метра от нормы.</p>
-</div>
-
-<div class="section-card hist-section" id="flood-2023">
-  <h2><span class="year-badge">2023</span>Аномально ранний паводок</h2>
-  <p>Половодье-2023 отличилось тем, чем удивить непросто — оно пришло в
-  <b>середине марта</b>, почти на месяц раньше привычных апрельских сроков.
-  В Серпухове за одну неделю (с 14 марта) вода поднялась на 1,6 метра.</p>
-
-  <table class="hist-table">
-    <thead><tr><th>Показатель</th><th>Данные</th></tr></thead>
-    <tbody>
-      <tr><td>Серпухов — пик</td><td><b>780 см</b> (1 апреля)</td></tr>
-      <tr><td>Калуга</td><td>775 см</td></tr>
-      <tr><td>Алексин</td><td>705–775 см</td></tr>
-      <tr><td>Белёв</td><td>685 см (максимум 2021–2024)</td></tr>
-      <tr><td>Кашира</td><td>524 см</td></tr>
-      <tr><td>Коломна</td><td>577 см</td></tr>
-      <tr><td>Запасы снега</td><td>120% нормы</td></tr>
-      <tr><td>Температура</td><td>+3°C выше нормы</td></tr>
-    </tbody>
-  </table>
-
-  <div class="fact-card">
-    📅 Пик паводка прошёл почти на месяц раньше исторических сроков — тренд к более
-    ранним паводкам фиксируется с 2010-х годов.
-  </div>
-</div>
-
-<div class="section-card hist-section" id="flood-2024">
-  <h2><span class="year-badge">2024</span>Новый рекорд XXI века в Серпухове</h2>
-  <p>2024 год переписал рекордную книгу XXI века для Серпухова. Уровень достиг
-  <b>~850 см</b>, превысив рекорд 2013 года (843 см). Официально подтверждено
-  администрацией Серпухова.</p>
-
-  <table class="hist-table">
-    <thead><tr><th>Показатель</th><th>Данные</th></tr></thead>
-    <tbody>
-      <tr><td><b>Серпухов — пик</b></td><td><b>~850 см</b> (новый рекорд XXI в.)</td></tr>
-      <tr><td>Калуга</td><td>&gt;781 см (3 апреля)</td></tr>
-      <tr><td>Кашира</td><td>634 см</td></tr>
-      <tr><td>Коломна</td><td>~536 см</td></tr>
-      <tr><td>Рекорд суточного прироста (Калуга)</td><td>+132 см/сут (27 марта)</td></tr>
-      <tr><td>Глубина затопления поймы</td><td>от 135 см</td></tr>
-    </tbody>
-  </table>
-
-  <div class="fact-card">
-    🏖️ <b>«Серпуховские Мальдивы»:</b> в 2024 году местные жители окрестили затопленную
-    пойму под Серпуховом «Серпуховскими Мальдивами» — за живописные виды разлива.
-    Название подхватили СМИ. МЧС юмора не оценило.
-  </div>
-</div>
-
-<div class="section-card hist-section" id="dams">
-  <h2>🏗️ Плотины и человеческий фактор</h2>
-
-  <h3>Кузьминский гидроузел</h3>
-  <p>Первый Кузьминский гидроузел построен в 1911–1915 годах по проекту инженера
-  Нестора Пузыревского — вместе с Белоомутским. Главная задача — поддерживать
-  необходимые для судоходства глубины.</p>
-  <p>В 2014–2015 годах рядом с деревней Аксёново построен <b>Новый Кузьминский
-  гидроузел</b>. Старая плотина оказалась частично затоплена. За год паводка вода
-  промыла яму глубиной <b>11 метров</b> — вовремя заметили и успели принять меры.
-  Своеобразное «плотинозамещение».</p>
-
-  <h3>Белоомутский гидроузел</h3>
-  <p>Построен в 1911–1915 годах. В 2015 году началась комплексная реконструкция.
-  В апреле 2018 года на строительной площадке под давлением паводковых вод
-  разошлась шпунтовая стенка — котлован был затоплен. Видео разошлось по интернету,
-  породив панику. Однако, как пояснили представители «Канала имени Москвы», затопление
-  строительного котлована было предусмотрено проектом — опасной ситуации не было.</p>
-  <p>Старая плотина к тому моменту находилась в аварийном состоянии. В 2015 году
-  государство выделило 5,54 млрд рублей на реконструкцию. Генподрядчик объявил
-  о банкротстве, не завершив работ.</p>
-</div>
-
-<div class="section-card hist-section" id="records-table">
-  <h2>📊 Сводная таблица рекордов</h2>
-  <table class="hist-table">
-    <thead>
-      <tr>
-        <th>Гидропост</th>
-        <th>Абс. максимум</th>
-        <th>Год</th>
-        <th>Порог НЯ</th>
-        <th>Координаты</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Орёл</td><td>~1005–1010 см*</td><td>1970 (1908)</td><td>880 см</td><td>52.938°N, 36.066°E</td></tr>
-      <tr><td>Мценск (р.Зуша)</td><td>1275 см*</td><td>н/д</td><td>900 см</td><td>н/д</td></tr>
-      <tr><td>Белёв</td><td>~1250 см (1994)* / 1100 см (2003)</td><td>1994/2003</td><td>1155 см</td><td>53.806°N, 36.146°E</td></tr>
-      <tr><td>Калуга</td><td>919 см (совр.) / 1677 см (1908, от межени)</td><td>2013/1908</td><td>1100 см</td><td>54.498°N, 36.258°E</td></tr>
-      <tr><td>Алексин (Щукина)</td><td>1069 см</td><td>2013</td><td>1120 см</td><td>54.480°N, 37.010°E</td></tr>
-      <tr><td><b>Серпухов (Лукьяново)</b></td><td><b>843 см (XXI в.) / 1256 см (1908, ист.)</b></td><td>2013/1908</td><td>645 см (НЯ), 800 см (ОЯ)</td><td>54.878°N, 37.432°E</td></tr>
-      <tr><td>Кашира</td><td>792 см</td><td>2013</td><td>918 см</td><td>54.844°N, 38.148°E</td></tr>
-      <tr><td>Коломна</td><td>633 см</td><td>2013</td><td>615 см</td><td>55.071°N, 38.831°E</td></tr>
-    </tbody>
-  </table>
-  <p style="font-size:0.78rem; color:var(--text-dim);">
-    *Данные из исторических и краеведческих источников, не из современного гидрологического архива.
-    Современный архив: <a href="https://allrivers.info/river/oka" target="_blank" rel="noopener">allrivers.info</a>
-  </p>
-
-  <h3>Закономерности</h3>
-  <div class="fact-card">
-    🌊 <b>Паводковая волна движется сверху вниз</b> со скоростью около 1–2 суток на 100 км.
-    Пик в Калуге — примерно 21 апреля, в Серпухове — 23 апреля, в Кашире — 23–24 апреля,
-    в Коломне — 24–25 апреля (данные 2013 года).
-  </div>
-  <div class="fact-card">
-    📅 <b>Тренд к более ранним паводкам:</b> исторически пик приходился на конец апреля;
-    в 2023 году — 1 апреля в Серпухове. Сроки сдвигаются.
-  </div>
-  <div class="fact-card">
-    ⚠️ <b>XXI век обновляет рекорды:</b> паводок 2013 года поставил современные
-    инструментальные рекорды на большинстве постов. Паводок 2024 года в Серпухове
-    превысил рекорд 2013 года.
-  </div>
-</div>
-
-<div class="section-card" style="text-align:center; margin-top:16px;">
-  <p style="color:var(--text-dim); font-size:0.82rem;">
-    Документ составлен: март 2026 года.<br>
-    Основные источники:
-    <a href="https://allrivers.info/river/oka" target="_blank" rel="noopener">allrivers.info</a> |
-    <a href="https://www.orelvkartinkax.ru/bigwater.htm" target="_blank" rel="noopener">orelvkartinkax.ru</a> |
-    <a href="https://regions.ru/serpuhov/" target="_blank" rel="noopener">regions.ru</a> |
-    <a href="https://serpuhov.ru/" target="_blank" rel="noopener">serpuhov.ru</a> |
-    <a href="https://snegochistka.ru/articles/iz_letopisi_katastrof_kaluzhskoi_oblasti" target="_blank" rel="noopener">snegochistka.ru</a>
-  </p>
-</div>
-
-</div>
-
-<footer class="site-footer">
-  OkaFloodMonitor v7.2 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
-  Обновлено: {now_msk} МСК | <a href="index.html">Мониторинг</a> | <a href="links.html">Ссылки</a>
-</footer>
-
-</body>
-</html>"""
-
-    os.makedirs(DOCS_DIR, exist_ok=True)
-    with open(HISTORY_HTML, "w", encoding="utf-8") as f:
-        f.write(html)
-    print(f"[HTML] history.html сохранён ({len(html)} символов)")
-
-
 def generate_links_page(data: dict = None) -> str:
     """Генерирует docs/links.html."""
     serp = (data or {}).get("serpuhov", {}) if data else {}
@@ -4601,11 +3946,10 @@ def generate_links_page(data: dict = None) -> str:
 <body>
 
 <header class="site-header">
-  <a class="header-logo" href="#" onclick="window.scrollTo({{top:0,behavior:'smooth'}});return false;" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
+  <div class="header-logo">🌊 <span>Oka</span>FloodMonitor</div>
   <nav><ul class="header-nav">
     <li><a href="index.html">Главная</a></li>
     <li><a href="links.html" class="active">Ссылки</a></li>
-    <li><a href="history.html">История паводков</a></li>
     <li><a href="instructions.html">Инструкции</a></li>
   </ul></nav>
 </header>
@@ -4707,7 +4051,7 @@ def generate_links_page(data: dict = None) -> str:
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.2 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS<br>
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
 </footer>
@@ -4757,11 +4101,10 @@ def generate_instructions_page() -> str:
 <body>
 
 <header class="site-header">
-  <a class="header-logo" href="#" onclick="window.scrollTo({{top:0,behavior:'smooth'}});return false;" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
+  <div class="header-logo">🌊 <span>Oka</span>FloodMonitor</div>
   <nav><ul class="header-nav">
     <li><a href="index.html">Главная</a></li>
     <li><a href="links.html">Ссылки</a></li>
-    <li><a href="history.html">История паводков</a></li>
     <li><a href="instructions.html" class="active">Инструкции</a></li>
   </ul></nav>
 </header>
@@ -4880,7 +4223,7 @@ def generate_instructions_page() -> str:
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.2 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS<br>
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
 </footer>
@@ -5030,7 +4373,7 @@ def git_push() -> None:
 
 def main() -> None:
     """
-    Точка входа monitor.py v7.2.
+    Точка входа monitor.py v7.0.
 
     Порядок:
     1.  Загружаем данные (5 источников параллельно)
@@ -5046,7 +4389,7 @@ def main() -> None:
     """
     print(
         f"[{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC] "
-        f"OkaFloodMonitor v7.2 START"
+        f"OkaFloodMonitor v7.0 START"
     )
 
     # ─── 1. ДАННЫЕ ───────────────────────────────────────────────────────────
@@ -5094,7 +4437,6 @@ def main() -> None:
 
     generate_links_page(data)
     generate_instructions_page()
-    generate_history_page()
 
     # ─── 7. DATA.JSON ───────────────────────────────────────────────────────
     data_json_obj = generate_data_json(data, analytics, history, composite, wext)
@@ -5176,7 +4518,7 @@ def main() -> None:
     git_push()
 
     print(
-        f"✅ OkaFloodMonitor v7.2 DONE | Серпухов: {serp.get('level_cm')} см | "
+        f"✅ OkaFloodMonitor v7.0 DONE | Серпухов: {serp.get('level_cm')} см | "
         f"Статус: {verdict_label} | "
         f"Источники OK: {data.get('sources_ok')}"
     )
