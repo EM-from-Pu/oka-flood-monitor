@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Инструкции — OkaFloodMonitor</title>
+  <style>
+  
+:root {
+    --bg: #0f1923; --card: #1a2635; --border: #2d3748;
+    --text: #e6edf3; --text-muted: #8b949e; --text-dim: #6e7681;
+    --blue: #388bfd; --green: #3fb950; --yellow: #d29922;
+    --orange: #db6d28; --red: #f85149; --critical: #8e0000;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg); color: var(--text); margin: 0; padding: 0;
+    line-height: 1.5;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { color: #fff; margin: 0; padding: 20px 24px; font-size: 1.6em; }
+h2 { color: #79c0ff; margin: 20px 0 10px; font-size: 1.2em; }
+h3 { color: #79c0ff; margin: 14px 0 8px; font-size: 1.05em; }
+h4 { color: #e3b341; margin: 10px 0 5px; font-size: 0.95em; }
+.container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+/* ═══ НАВИГАЦИЯ ═══ */
+.top-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #0d1117; border-bottom: 1px solid #21262d;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 16px; gap: 12px; flex-wrap: wrap;
+}
+.nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.nav-btn {
+    padding: 6px 14px; border-radius: 6px; font-size: 0.85em;
+    text-decoration: none; color: #8b949e;
+    background: #161b22; border: 1px solid #30363d; transition: background 0.2s;
+}
+.nav-btn:hover, .nav-btn.active { background: #1f6feb; color: #fff; border-color: var(--blue); }
+.nav-widget { display: flex; align-items: center; gap: 10px; }
+.nav-time { font-size: 0.8em; color: #79c0ff; font-family: monospace; }
+.nav-weather { font-size: 0.8em; color: var(--text-muted); }
+/* ═══ HERO БЛОК ═══ */
+.hero-block {
+    background: var(--card); border-radius: 16px;
+    padding: 28px 24px; text-align: center; margin: 16px 0;
+    border: 2px solid var(--border);
+}
+.hero-level { font-size: 5em; font-weight: 900; line-height: 1; letter-spacing: -2px; }
+.hero-unit { font-size: 0.25em; color: var(--text-muted); vertical-align: super; }
+.hero-delta { font-size: 1.4em; margin: 10px 0; font-weight: 600; }
+.hero-delta.rising { color: var(--red); }
+.hero-delta.falling { color: var(--green); }
+.hero-delta.stable { color: var(--text-muted); }
+.hero-abs { font-size: 0.9em; color: var(--text-muted); margin-bottom: 20px; }
+.threshold-bars { margin-top: 16px; text-align: left; max-width: 500px; margin: 16px auto 0; }
+.tbar-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+.tbar-label { font-size: 0.8em; color: var(--text-muted); min-width: 160px; }
+.tbar-track { flex: 1; height: 8px; background: #21262d; border-radius: 4px; overflow: hidden; }
+.tbar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+.nya-fill { background: linear-gradient(90deg, var(--green), var(--yellow)); }
+.oya-fill { background: linear-gradient(90deg, var(--green), var(--yellow), var(--red)); }
+.tbar-val { font-size: 0.85em; color: var(--text); min-width: 60px; text-align: right; font-weight: 600; }
+/* ═══ КАРТОЧКИ СТАНЦИЙ ═══ */
+.station-cards { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.station-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 14px 16px; min-width: 120px; flex: 1; text-align: center;
+    transition: border-color 0.2s;
+}
+.station-card.main-station { border: 2px solid #388bfd; background: #1c2128; min-width: 200px; flex: 2; }
+.st-name { font-size: 0.9em; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.st-river { font-size: 0.72em; color: var(--text-dim); margin-bottom: 8px; }
+.st-level { font-size: 1.7em; font-weight: 800; margin-bottom: 4px; }
+.level-green { color: var(--green); }
+.level-yellow { color: var(--yellow); }
+.level-orange { color: var(--orange); }
+.level-red { color: var(--red); }
+.level-unknown { color: var(--text-dim); font-size: 0.75em; font-weight: 400; }
+.st-change { font-size: 0.85em; color: var(--text-muted); margin-bottom: 4px; }
+.st-status { font-size: 0.8em; margin-bottom: 4px; }
+.st-source { font-size: 0.65em; color: var(--text-dim); }
+/* ═══ ДИСКЛЕЙМЕР / АККОРДЕОН ═══ */
+.disclaimer-block {
+    background: rgba(255,255,255,0.02); border: 1px solid #30363d;
+    border-radius: 8px; margin: 12px 0;
+}
+.disclaimer-header {
+    padding: 12px 16px; cursor: pointer; font-size: 0.9em; color: var(--text-muted);
+    display: flex; justify-content: space-between; align-items: center;
+}
+.disclaimer-header:hover { color: var(--text); }
+.disclaimer-body { padding: 0 16px 16px; display: none; }
+.disclaimer-alert {
+    background: rgba(248,81,73,0.08); border-left: 3px solid var(--red);
+    padding: 8px 12px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 0.85em;
+}
+.sources-table { width: 100%; border-collapse: collapse; font-size: 0.82em; margin-top: 10px; }
+.sources-table th { background: #161b22; color: var(--text-muted); padding: 6px 8px; text-align: left; }
+.sources-table td { padding: 5px 8px; border-bottom: 1px solid #21262d; color: var(--text); }
+/* ═══ ПОРОГИ ═══ */
+.thresholds-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.threshold-scale-container { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.v-scale-wrapper {
+    position: relative; width: 220px; height: 280px;
+    background: linear-gradient(to top, #1a7f37 0%, #d29922 50%, #f85149 85%, #8e0000 100%);
+    border-radius: 8px; overflow: visible; flex-shrink: 0;
+}
+.v-scale-inner {
+    position: absolute; left: 0; top: 0; bottom: 0; right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+    border-radius: 8px;
+}
+.v-marker {
+    position: absolute; left: 0; right: 0;
+    display: flex; align-items: center; gap: 8px;
+}
+.v-marker-line { height: 2px; background: rgba(255,255,255,0.7); flex: 1; }
+.v-marker-label {
+    font-size: 0.7em; color: #fff; white-space: nowrap;
+    background: rgba(0,0,0,0.5); padding: 1px 5px; border-radius: 3px;
+}
+.v-current-indicator {
+    position: absolute; left: -6px; right: -6px;
+    height: 4px; background: #79c0ff;
+    box-shadow: 0 0 8px #79c0ff;
+}
+.thresh-table { width: 100%; border-collapse: collapse; font-size: 0.88em; flex: 1; }
+.thresh-table th { background: #161b22; color: var(--text-muted); padding: 6px 8px; text-align: left; }
+.thresh-table td { padding: 6px 8px; border-bottom: 1px solid #21262d; }
+.thresh-table tr.row-nya td { background: rgba(210,153,34,0.1); }
+.thresh-table tr.row-oya td { background: rgba(248,81,73,0.1); }
+.thresh-table tr.row-current td { background: rgba(56,139,253,0.1); font-weight: 700; }
+/* ═══ ВОЛНА И ПИК ═══ */
+.wave-section, .peak-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.wave-cards { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+.wave-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    padding: 12px 14px; min-width: 140px; flex: 1;
+}
+.wave-card.highlight { border-color: #388bfd; background: rgba(56,139,253,0.05); }
+.wave-from { font-size: 0.85em; color: var(--text-muted); margin-bottom: 4px; }
+.wave-time { font-size: 1.2em; font-weight: 700; color: #79c0ff; }
+.wave-dist { font-size: 0.75em; color: var(--text-dim); margin-top: 2px; }
+.wave-dynamic { font-size: 0.88em; color: var(--text-muted); margin: 8px 0; }
+.peak-trend { font-size: 1.05em; font-weight: 600; margin: 8px 0; padding: 10px 14px; border-radius: 6px; background: rgba(255,255,255,0.03); }
+.regression-block { background: rgba(56,139,253,0.05); border: 1px solid #30363d; border-radius: 8px; padding: 12px 14px; margin-top: 10px; font-size: 0.88em; }
+.regression-block p { color: var(--text-muted); margin: 4px 0; }
+/* ═══ ЦУГМС ═══ */
+.cugms-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.cugms-meta { font-size: 0.85em; color: var(--text-muted); margin-bottom: 12px; }
+.cugms-data { display: flex; flex-wrap: wrap; gap: 10px; }
+.cugms-row { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #161b22; border-radius: 6px; min-width: 180px; }
+.cugms-station { font-size: 0.88em; color: var(--text-muted); min-width: 80px; }
+.cugms-value { font-size: 1.05em; font-weight: 700; color: var(--text); }
+.cugms-value.ice { color: #79c0ff; }
+.cugms-forecast {
+    background: rgba(56,139,253,0.05); border-left: 3px solid #388bfd;
+    padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.85em;
+    color: var(--text-muted); margin-top: 10px; width: 100%;
+}
+/* ═══ ИСТОРИЯ ═══ */
+.history-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.history-controls { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.hist-btn {
+    padding: 5px 12px; border-radius: 6px; font-size: 0.82em;
+    background: #161b22; border: 1px solid #30363d; color: var(--text-muted);
+    cursor: pointer; text-decoration: none; display: inline-block;
+}
+.hist-btn:hover { background: #1f6feb; color: #fff; border-color: var(--blue); }
+.dl-btn { color: var(--blue); }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.82em; }
+th { background: #161b22; color: var(--text-muted); padding: 6px 8px; text-align: left; white-space: nowrap; }
+td { padding: 5px 8px; border-bottom: 1px solid #21262d; white-space: nowrap; }
+.row-GREEN td { background: rgba(13,32,22,0.5); }
+.row-YELLOW td { background: rgba(42,29,0,0.5); }
+.row-ORANGE td { background: rgba(42,20,0,0.5); }
+.row-RED td, .row-CRITICAL td { background: rgba(45,0,0,0.5); }
+/* ═══ ACTION BLOCK ═══ */
+.action-block {
+    background: rgba(255,255,255,0.02); border-radius: 0 8px 8px 0;
+    padding: 16px 20px; margin: 16px 0;
+}
+.action-block h3 { margin: 0 0 8px; font-size: 1.1em; }
+.action-block p { color: var(--text-muted); font-size: 0.9em; margin: 4px 0; line-height: 1.5; }
+.action-meta { color: var(--text-dim); font-size: 0.8em; margin-top: 8px; }
+/* ═══ ПОГОДА ═══ */
+.weather-ext-block { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.weather-flood-index {
+    border: 2px solid; border-radius: 10px; padding: 14px 18px;
+    margin-bottom: 16px; background: rgba(255,255,255,0.03);
+}
+.wfi-label { font-size: 0.85em; color: #95a5a6; display: block; }
+.wfi-value { font-size: 1.6em; font-weight: 900; display: block; margin: 4px 0; }
+.wfi-summary { margin: 0; color: var(--text-muted); font-size: 0.95em; }
+.weather-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-bottom: 12px; }
+.weather-table th, .weather-table td {
+    padding: 6px 8px; text-align: center;
+    border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.weather-table td:first-child { text-align: left; color: #95a5a6; }
+td.frost { background: rgba(192,57,43,0.25); color: #ff6b6b; font-weight: bold; }
+td.zero { background: rgba(243,156,18,0.20); color: #f39c12; }
+td.warm-night { background: rgba(39,174,96,0.20); color: #27ae60; }
+td.hot { color: #e74c3c; font-weight: bold; }
+td.forecast-col, th.forecast-col {
+    background: rgba(52,152,219,0.08); border-left: 1px dashed #3498db;
+}
+th.forecast-col:first-of-type { border-left: 2px solid #3498db; }
+.weather-commentary ul { list-style: none; padding: 0; }
+.weather-commentary li {
+    padding: 5px 0; border-bottom: 1px solid var(--border);
+    font-size: 0.9em; color: var(--text-muted);
+}
+/* ═══ BADGES ═══ */
+.meta-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 16px; background: #0d1117; font-size: 0.82em; color: var(--text-muted);
+    flex-wrap: wrap; gap: 8px;
+}
+.source-badges { display: flex; gap: 6px; }
+.badge { padding: 2px 8px; border-radius: 10px; font-size: 0.75em; }
+.badge.ok { background: #1a7f37; color: #fff; }
+.badge.cached { background: #9a6700; color: #fff; }
+.badge.fail { background: #6e0000; color: #fff; }
+/* ═══ УТИЛИТЫ ═══ */
+.section-card { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.explainer {
+    background: rgba(255,255,255,0.03); border-left: 3px solid #3498db;
+    padding: 10px 14px; margin: 8px 0 16px; font-size: 0.85em;
+    color: var(--text-muted); border-radius: 0 6px 6px 0;
+}
+.explainer b { color: var(--text); }
+.disclaimer-small { font-size: 0.8em; color: var(--text-dim); margin-top: 8px; }
+.no-data { color: var(--text-dim); font-size: 0.9em; font-style: italic; padding: 10px; }
+/* ═══ REPORTS ═══ */
+.reports-section { background: var(--card); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.report-cards { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.report-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    padding: 12px 14px; min-width: 200px; flex: 1;
+}
+.report-card a { font-weight: 600; }
+.report-meta { font-size: 0.75em; color: var(--text-dim); margin-top: 4px; }
+/* ═══ FOOTER ═══ */
+footer {
+    color: var(--text-dim); font-size: 0.8em; text-align: center;
+    padding: 24px 16px; border-top: 1px solid var(--border); margin-top: 24px;
+    line-height: 1.8;
+}
+/* ═══ ИНСТРУКЦИИ ═══ */
+.instr-section { background: var(--card); border-radius: 12px; padding: 16px 20px; margin: 12px 0; }
+.instr-section ul, .instr-section ol { padding-left: 20px; }
+.instr-section li { margin: 5px 0; color: var(--text-muted); }
+.zone-table { margin: 10px 0; }
+.zone-row { padding: 8px 12px; margin: 4px 0; border-radius: 6px; font-size: 0.88em; }
+.zone-row.green  { background: rgba(63,185,80,0.1); border-left: 3px solid var(--green); }
+.zone-row.yellow { background: rgba(210,153,34,0.1); border-left: 3px solid var(--yellow); }
+.zone-row.orange { background: rgba(219,109,40,0.1); border-left: 3px solid var(--orange); }
+.zone-row.red    { background: rgba(248,81,73,0.1);  border-left: 3px solid var(--red); }
+.action-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 10px 0; }
+.action-table th { background: #161b22; padding: 6px 8px; text-align: left; color: var(--text-muted); }
+.action-table td { padding: 7px 8px; border-bottom: 1px solid #21262d; }
+/* ═══ ССЫЛКИ ═══ */
+.links-section { background: var(--card); border-radius: 12px; padding: 16px 20px; margin: 12px 0; }
+.links-section ul { padding-left: 20px; }
+.links-section li { margin: 8px 0; }
+.dead-sources {
+    background: rgba(248,81,73,0.05); border: 1px solid rgba(248,81,73,0.2);
+    border-radius: 8px; padding: 12px 16px; margin-top: 10px;
+}
+/* ═══ CHART.JS WRAPPER ═══ */
+.chart-container { position: relative; height: 280px; margin: 16px 0; }
+/* ═══ АНИМАЦИЯ ═══ */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+/* ═══ МОБИЛЬНАЯ АДАПТАЦИЯ ═══ */
+@media (max-width: 768px) {
+    .station-cards { flex-direction: column; }
+    .station-card, .station-card.main-station { min-width: 100%; flex: none; }
+    .wave-cards { flex-direction: column; }
+    .wave-card { min-width: 100%; }
+    .top-nav { flex-direction: column; align-items: flex-start; }
+    h1 { font-size: 1.1em; padding: 14px 12px; }
+    .container { padding: 8px; }
+    .hero-level { font-size: 3.5em; }
+    .wfi-value { font-size: 1.3em; }
+    .cugms-data { flex-direction: column; }
+    .threshold-scale-container { flex-direction: column; }
+    .v-scale-wrapper { width: 100%; }
+}
+@media (max-width: 480px) {
+    .hero-level { font-size: 2.8em; }
+    .hero-delta { font-size: 1.1em; }
+    .weather-table { font-size: 0.75em; }
+    .tbar-label { min-width: 110px; font-size: 0.72em; }
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #f6f8fa; --card: #ffffff; --border: #d0d7de;
+        --text: #24292f; --text-muted: #57606a; --text-dim: #8c959f;
+    }
+    body { background: var(--bg); color: var(--text); }
+    .station-card, .wave-card { background: #f6f8fa; }
+    th { background: #f6f8fa; }
+    .top-nav { background: #f6f8fa; }
+    .meta-bar { background: #f6f8fa; }
+    .nav-btn { background: #f6f8fa; border-color: #d0d7de; }
+    .hist-btn { background: #f6f8fa; }
+    .report-card { background: #f6f8fa; }
+}
+
+  </style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-links">
+    <a href="index.html" class="nav-btn">🌊 Дашборд</a>
+<a href="instructions.html" class="nav-btn active">📖 Инструкции</a>
+<a href="links.html" class="nav-btn">🔗 Ссылки</a>
+
+  </div>
+  <div class="nav-widget">
+    <span id="clock" class="nav-time"></span>
+  </div>
+</nav>
+
+<div class="container">
+<h1>📖 Инструкция по использованию мониторинга</h1>
+
+<section class="instr-section">
+  <h2>🌊 Что такое OkaFloodMonitor?</h2>
+  <p>Автоматическая система мониторинга паводка на реке Оке в районе Серпухова.
+  Работает 24/7, данные обновляются 4 раза в день (08:00, 12:00, 17:00, 20:00 МСК).</p>
+  <p>Система агрегирует данные из нескольких открытых источников:
+  официальный сайт г. Серпухова, навигационный сервис КИМ, ежедневные обзоры ЦУГМС
+  и метеорологический сервис Open-Meteo.</p>
+</section>
+
+<section class="instr-section">
+  <h2>📊 Откуда берутся данные?</h2>
+  <p><b>Уровень воды в Серпухове</b> — сайт администрации г. Серпухова
+  (<a href="https://serpuhov.ru/bezopasnost/pavodkovaya-obstanovka/" target="_blank" rel="noopener">serpuhov.ru</a>),
+  пост наблюдения д. Лукьяново на р. Ока.
+  Публикуется ежедневно в ~09:00. Данные: подъём воды в метрах
+  относительно нуля поста и суточное изменение.</p>
+
+  <p><b>Другие станции (Кашира, Калуга, Рязань)</b> — API навигационного
+  сервиса <a href="https://ris.kim-online.ru/" target="_blank" rel="noopener">КИМ</a>.
+  Абсолютные уровни воды в сантиметрах от нуля соответствующего поста
+  (<em>не сравниваются напрямую с Серпуховом: у каждого поста свой нуль!</em>).</p>
+
+  <p><b>Суточные приросты и прогнозы</b> —
+  <a href="https://cugms.ru/" target="_blank" rel="noopener">Центральное УГМС (ЦУГМС)</a>,
+  ежедневные обзоры развития весеннего половодья. Только качественные данные
+  (приросты и ледовая обстановка), без абсолютных уровней.</p>
+
+  <p><b>Погода и снежный покров</b> —
+  <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a> (бесплатный).
+  Температура, осадки, глубина снежного покрова (snow_depth_max, в метрах×100=см).</p>
+</section>
+
+<section class="instr-section">
+  <h2>🔢 Как читать данные?</h2>
+  <h3>Уровень воды (см)</h3>
+  <p>Высота воды над нулём водомерного поста д. Лукьяново.
+  Нуль поста ≈ 107.54 м БС (Балтийская система высот, значение приблизительное).
+  Формула: <b>абсолютный уровень = 107.54 + уровень_м</b></p>
+
+  <div class="zone-table">
+    <div class="zone-row green">
+      &lt; 400 см — <b>Норма</b>. Паводковый сезон в начальной фазе.
+    </div>
+    <div class="zone-row yellow">
+      400–600 см — <b>Внимание</b>. Пойма начинает заполняться.
+    </div>
+    <div class="zone-row orange">
+      600–800 см — <b>Опасность</b>. Пойма затоплена, приближаемся к НЯ.
+    </div>
+    <div class="zone-row red">
+      &gt; 800 см — <b>Критический уровень</b>. Немедленно следите за сводками.
+    </div>
+  </div>
+
+  <h3>НЯ и ОЯ</h3>
+  <p><b>НЯ (113.99 м БС, ≈645 см от нуля поста)</b> —
+  «неблагоприятное явление» — уровень выхода воды на пойму.
+  При достижении этой отметки пойменные луга затопляются.</p>
+
+  <p><b>ОЯ (115.54 м БС, ≈800 см от нуля поста)</b> —
+  «опасное явление» — уровень подтопления населённых пунктов.
+  Вода начинает угрожать постройкам.</p>
+
+  <h3>Изменение за сутки</h3>
+  <p>Знак «+» означает рост уровня, «–» — спад.
+  Интенсивный рост (&gt; 30 см/сут) — признак активного таяния снега или дождевого паводка.</p>
+
+  <h3>Разные нули постов</h3>
+  <p>Данные КИМ (Кашира, Калуга, Рязань) измеряются в сантиметрах
+  <em>от нуля поста КИМ</em>, который отличается от нуля поста Лукьяново.
+  Не сравнивайте уровни напрямую между разными станциями!</p>
+</section>
+
+<section class="instr-section">
+  <h2>🌡 Паводковый индекс погоды</h2>
+  <p>Комплексный показатель риска подъёма воды (0–4), вычисляется по данным Open-Meteo:</p>
+  <ul>
+    <li><b>0 — СТАБИЛЬНЫЙ</b>: морозы сдерживают таяние</li>
+    <li><b>1 — УМЕРЕННЫЙ</b>: незначительное таяние</li>
+    <li><b>2 — ПОВЫШЕННЫЙ</b>: снег тает, осадки умеренные</li>
+    <li><b>3 — ВЫСОКИЙ</b>: значительный риск подъёма</li>
+    <li><b>4 — КРИТИЧЕСКИЙ</b>: активное таяние + осадки + возможен Rain-on-Snow</li>
+  </ul>
+  <p><b>Rain-on-Snow</b> — дождь на снег при температуре выше 0°С — самый опасный фактор
+  паводка: одновременно таяние снега + добавление дождевой воды.</p>
+</section>
+
+<section class="instr-section">
+  <h2>🚨 Что делать при разных уровнях?</h2>
+  <table class="action-table">
+    <tr><th>Уровень (см)</th><th>Статус</th><th>Рекомендации</th></tr>
+    <tr><td>&lt; 400</td><td>🟢 Норма</td><td>Следите за динамикой. Обновления 4 раза в день.</td></tr>
+    <tr><td>400–600</td><td>🟡 Внимание</td><td>Проверьте дачный участок. Уберите ценности с низких мест.</td></tr>
+    <tr><td>600–800</td><td>🟠 Опасность</td><td>Подготовьтесь к возможной эвакуации. Насосы наготове.</td></tr>
+    <tr><td>&gt; 800</td><td>🔴 Критично</td><td>Немедленно вывезите ценные вещи. Свяжитесь с ЕДДС Серпухова.</td></tr>
+  </table>
+</section>
+
+<section class="instr-section">
+  <h2>📞 Контакты экстренных служб</h2>
+  <ul>
+    <li>Единый номер экстренных служб: <b>112</b></li>
+    <li>МЧС России (бесплатно): <b>8-800-775-17-17</b></li>
+    <li>Администрация Серпухова:
+      <a href="https://serpuhov.ru" target="_blank" rel="noopener">serpuhov.ru</a></li>
+    <li>Официальная информация о паводке:
+      <a href="https://serpuhov.ru/bezopasnost/pavodkovaya-obstanovka/" target="_blank" rel="noopener">
+      serpuhov.ru/bezopasnost/pavodkovaya-obstanovka/</a></li>
+  </ul>
+</section>
+
+<section class="instr-section">
+  <h2>📱 Telegram-уведомления</h2>
+  <p>Бот <b>@OkaFlood2026EMbot</b> автоматически отправляет:</p>
+  <ul>
+    <li>Ежедневные сводки в 08:00 и 20:00 МСК</li>
+    <li>Экстренные алерты при пересечении пороговых отметок
+      (400, 600, 800, 900 см)</li>
+    <li>Погодные предупреждения при высоком паводковом индексе (≥3/4)</li>
+    <li>Watchdog-уведомления при недоступности источников данных</li>
+  </ul>
+</section>
+
+<section class="instr-section">
+  <h2>🤖 Линейная регрессия (ML-прогноз)</h2>
+  <p>Система строит простую линейную регрессию уровня за последние 14 дней.
+  Метод наименьших квадратов, без внешних библиотек.
+  Значение R² показывает качество аппроксимации (0–1, чем выше — тем точнее).</p>
+  <p><b>Прогноз приблизительный</b> — реальное поведение реки зависит от темпа
+  таяния снега, осадков и гидрологической обстановки в бассейне.</p>
+</section>
+
+<section class="instr-section">
+  <h2>❓ Часто задаваемые вопросы</h2>
+  <p><b>Почему данные обновляются только раз в день?</b><br>
+  serpuhov.ru публикует данные ежедневно ~09:00 МСК. GitHub Actions запускает
+  скрипт 4 раза в день, но новые данные serpuhov.ru появляются раз в сутки.</p>
+
+  <p><b>Почему нет данных Серпухова в КИМ?</b><br>
+  В КИМ API последние данные по посту Серпухов датируются ноябрём 2022.
+  В v6 Серпухов полностью переведён на serpuhov.ru.</p>
+
+  <p><b>Что такое «Жерновка»?</b><br>
+  Локальное название местности примерно в 8 км ниже Пущино по реке Ока.
+  Паводковая волна от Серпухова доходит туда примерно за 6–12 часов.</p>
+</section>
+
+</div>
+
+<footer>
+  OkaFloodMonitor v6.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo<br>
+  <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
+</footer>
+
+<script>
+
+function updateClock() {
+    var now = new Date();
+    var msk = new Date(now.getTime() + (3 * 60 - now.getTimezoneOffset()) * 60000);
+    var h = String(msk.getUTCHours()).padStart(2,'0');
+    var m = String(msk.getUTCMinutes()).padStart(2,'0');
+    var s = String(msk.getUTCSeconds()).padStart(2,'0');
+    var el = document.getElementById('clock');
+    if (el) el.textContent = h + ':' + m + ':' + s + ' МСК';
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+</script>
+</body>
+</html>
