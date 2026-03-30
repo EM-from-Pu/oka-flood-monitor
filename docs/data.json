@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-30T13:30:15.991861+00:00",
+  "generated_at": "2026-03-30T15:18:01.632837+00:00",
   "serpuhov": {
     "level_cm": 353.0,
     "level_m": 3.53,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -133,13 +133,16 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 134.2,
+        "peak_discharge": 141.2,
+        "peak_date": "2026-03-31",
+        "trend_arrow": "↑",
+        "flood_ratio": 1.21,
+        "wave_arrival": {
+          "earliest": "2026-04-03",
+          "latest": "2026-04-06"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -167,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "ok"
   },
-  "history_count": 12,
+  "history_count": 13,
   "sources": {
     "ok": [
       "serpuhov.ru",
