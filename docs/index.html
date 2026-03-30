@@ -1177,7 +1177,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <div class="header-right">
     <span class="clock-display" id="clock">--:--:-- МСК</span>
     <span class="freshness-dot" id="freshness" title="Проверка свежести данных..."></span>
-    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 30.03.2026 12:58</span>
+    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 30.03.2026 14:24</span>
     <span class="source-badge ok">serp</span>
     <span class="source-badge ok">kim</span>
     <span class="source-badge ok">GloFAS</span>
@@ -1251,8 +1251,8 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   </a>
   <a href="#weatherAcc" style="text-decoration:none; color:inherit; cursor:pointer; display:block;" class="sub-indicator si-link">
     <div class="si-label">Погода</div>
-    <div class="si-status" style="color:#ef4444;">🔴 КРИТИЧЕСКИЙ</div>
-    <div class="si-value">4/4 — КРИТИЧЕСКИЙ</div>
+    <div class="si-status" style="color:#10b981;">🟢 НОРМА</div>
+    <div class="si-value">0/4 — —</div>
   </a>
         </div>
 
@@ -1270,14 +1270,14 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     <div class="info-cards-row">
       <a class="info-card" href="#weatherAcc">
         <div class="ic-icon">❄️</div>
-        <div class="ic-value">5 <span class="ic-unit">см</span></div>
+        <div class="ic-value">0 <span class="ic-unit">см</span></div>
         <div class="ic-title-colored" style="color:#10b981;">Снег у Серпухова</div>
         <div class="ic-hint">глубина снега по Open-Meteo (локально)</div>
       </a>
       <a class="info-card" href="#cugmsAcc">
         <div class="ic-icon">📈</div>
-        <div class="ic-value">+37 <span class="ic-unit">см/сут</span></div>
-        <div class="ic-title-colored" style="color:#f97316;">Тренд (3 дня) → стабильно</div>
+        <div class="ic-value">+50 <span class="ic-unit">см/сут</span></div>
+        <div class="ic-title-colored" style="color:#ef4444;">Тренд (3 дня) → стабильно</div>
         <div class="ic-hint">Сейчас: +57 см/сут (serpuhov.ru)</div>
         
       </a>
@@ -1289,9 +1289,9 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
       </a>
       <a class="info-card" href="#weatherAcc">
         <div class="ic-icon">🌧️</div>
-        <div class="ic-value">4/4</div>
-        <div class="ic-title-colored" style="color:#ef4444;">Паводковый индекс</div>
-        <div class="ic-hint">экстремальный — осадки и таяние</div>
+        <div class="ic-value">0/4</div>
+        <div class="ic-title-colored" style="color:#10b981;">Паводковый индекс</div>
+        <div class="ic-hint">минимальный — осадки и таяние</div>
       </a>
       <a class="info-card" href="#peakAcc">
         <div class="ic-icon">⬆️</div>
@@ -1342,8 +1342,8 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   var ctx = document.getElementById('hydrograph');
   if (!ctx) return;
 
-  var histLabels   = ["2026-03-29T01:49:22", "2026-03-29T07:56:51", "2026-03-29T10:04:55", "2026-03-29T15:05:04", "2026-03-29T18:03:10", "2026-03-30T08:32:46", "2026-03-30T09:58:14"];
-  var histValues   = [203.0, 203.0, 203.0, 251.0, 251.0, 353.0, 353.0];
+  var histLabels   = ["2026-03-29T01:49:22", "2026-03-29T07:56:51", "2026-03-29T10:04:55", "2026-03-29T15:05:04", "2026-03-29T18:03:10", "2026-03-30T08:32:46", "2026-03-30T09:58:14", "2026-03-30T11:24:57"];
+  var histValues   = [203.0, 203.0, 203.0, 251.0, 251.0, 353.0, 353.0, 353.0];
   var glofasLabels = ["2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12", "2026-04-13", "2026-04-14"];
   var glofasValues = [1022.3, 1173.9, 1314.2, 1373.0, 1338.7, 1266.7, 1195.7, 1128.8, 1068.0, 1012.9, 971.8, 932.2, 892.3, 850.1, 917.3];
   var refLabels    = [];
@@ -1630,7 +1630,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   <div class="sc-value" style="color: var(--accent);">
     353 см
   </div>
-  <div class="sc-sparkline"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg"><polyline points="0.0,22.0 16.0,22.0 32.0,15.6 48.0,15.6 64.0,2.0 80.0,2.0" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="sc-sparkline"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg"><polyline points="0.0,22.0 16.0,15.6 32.0,15.6 48.0,2.0 64.0,2.0 80.0,2.0" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   <div class="sc-trend">
     ↑
     <span class="sc-badge fr-unknown">serpuhov.ru</span>
@@ -1835,45 +1835,6 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   </div>
 
   
-<section class="weather-section fade-in-section">
-  <div class="accordion-header" onclick="toggleAccordion('weatherAcc')">
-    ☁️ Погода и паводковый индекс <span class="updated-badge">2026-03-31</span>
-    <span class="toggle-icon" id="weatherAcc-icon">▼</span>
-  </div>
-  <div class="accordion-body" id="weatherAcc" style="border-radius: 0 0 12px 12px;">
-    
-<div class="weather-flood-index" style="border-left-color:#ef4444;">
-  <div>
-    <span class="wfi-label">Паводковый индекс погоды (0–4)</span>
-    <span class="wfi-value" style="color:#ef4444;">КРИТИЧЕСКИЙ (4/4)</span>
-  </div>
-  <div class="wfi-summary">Активное таяние + осадки. Все факторы против нас. Максимально быстрый рост уровня.</div>
-  <div style="font-size:0.82rem; color:var(--text-dim);">Глубина снега (локально): 5 см — глубина снежного покрова по Open-Meteo (не SWE)</div>
-</div>
-    <div class="table-wrap">
-<table class="weather-table">
-  <thead>
-    <tr><th>Показатель</th><th class="">Чт 26.03</th><th class="">Пт 27.03</th><th class="">Сб 28.03</th><th class="">Вс 29.03</th><th class="">Пн 30.03</th><th class=" forecast-col">Вт 31.03</th><th class=" forecast-col">Ср 01.04</th><th class=" forecast-col">Чт 02.04</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Тmax °C</td><td class="">12°</td><td class="">9°</td><td class="">11°</td><td class="">15°</td><td class="">16°</td><td class=" forecast-col">15°</td><td class=" forecast-col">16°</td><td class=" forecast-col">16°</td></tr>
-    <tr><td>Tmin °C</td><td class="" class="zero">-2°</td><td class="" class="warm-night">3°</td><td class="" class="warm-night">5°</td><td class="" class="warm-night">5°</td><td class="" class="warm-night">4°</td><td class=" forecast-col" class="warm-night">4°</td><td class=" forecast-col" class="warm-night">7°</td><td class=" forecast-col" class="warm-night">6°</td></tr>
-    <tr><td>Осадки, мм</td><td class="">0.0</td><td class="">0.9</td><td class="">0.1</td><td class="">0.0</td><td class="">0.0</td><td class=" forecast-col">0.0</td><td class=" forecast-col">0.0</td><td class=" forecast-col">0.0</td></tr>
-    <tr><td>Снег, см</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td></tr>
-    <tr><td>Ветер, м/с</td><td class="">3</td><td class="">2</td><td class="">3</td><td class="">3</td><td class="">3</td><td class=" forecast-col">2</td><td class=" forecast-col">2</td><td class=" forecast-col">2</td></tr>
-    <tr><td>Погода</td><td class="">облачно</td><td class="">дождь</td><td class="">облачно</td><td class="">облачно</td><td class="">облачно</td><td class=" forecast-col">облачно</td><td class=" forecast-col">дождь</td><td class=" forecast-col">дождь</td></tr>
-  </tbody>
-</table></div>
-    
-<div style="margin-top:12px;">
-  <div style="font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:6px;">📝 Аналитика погодных факторов</div>
-  <ul style="list-style:none; padding:0;"><li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>❄️ Снежный покров: 8 см (Δ4 дня: -9 см). Прогноз — постепенное таяние.</li>
-<li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>🌡 Все ночи тёплые — снег тает круглосуточно, таяние ускоряется.</li>
-<li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>🌡 Ночные температуры устойчиво выше нуля — снег тает круглосуточно.</li>
-<li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>☀️ Затяжная оттепель: 6 дней подряд &gt;+10°C — интенсивное снеготаяние, УСКОРЕНИЕ.</li></ul>
-</div>
-  </div>
-</section>
 
   
 <section style="padding: 0 24px 8px;">
@@ -2020,10 +1981,10 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 
 <div class="regression-block">
   <div style="font-size:0.85rem; font-weight:600; color:var(--accent); margin-bottom:6px;">
-    🤖 Линейная регрессия (R²=0.92, 6 точек)
+    🤖 Линейная регрессия (R²=0.95, 7 точек)
   </div>
-  <p>Тренд: рост 126.8 см/сут (R²=0.92)</p>
-  <p>Прогноз: через 3 дня ≈ <b>721 см</b> | через 7 дней ≈ <b>1228 см</b></p>
+  <p>Тренд: рост 129.0 см/сут (R²=0.95)</p>
+  <p>Прогноз: через 3 дня ≈ <b>737 см</b> | через 7 дней ≈ <b>1253 см</b></p>
   <p style='color:var(--text-secondary); margin:4px 0;'>При текущем темпе НЯ (645 см) может быть достигнута ~01.04.2026</p>
 </div>
 <p class="disclaimer-small">⚠️ Модель приблизительная. Реальный пик зависит от погоды и таяния снега.</p>
@@ -2062,6 +2023,17 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     </thead>
     <tbody>
       
+<tr>
+  <td>2026-03-30 11:24:57</td>
+  <td>353</td>
+  <td style="color:var(--danger);">+57 см</td>
+  <td>111.070</td>
+  <td>—</td>
+  <td>244</td>
+  <td>03.04</td>
+  <td>—</td>
+  <td><span class="status-badge норма">НОРМА</span></td>
+</tr>
 <tr>
   <td>2026-03-30 09:58:14</td>
   <td>353</td>
@@ -2214,7 +2186,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <footer class="site-footer">
   OkaFloodMonitor v7.4 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
-  Обновлено: 30.03.2026 12:58 МСК |
+  Обновлено: 30.03.2026 14:24 МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
   <div style="margin-top:8px;font-size:0.65rem;color:var(--text-dim);opacity:0.5;">
     <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fem-from-pu.github.io%2Foka-flood-monitor&count_bg=%23555555&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F&edge_flat=true"
