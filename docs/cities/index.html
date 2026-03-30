@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Города на реке Ока — от Орла до Коломны. Гидрологические посты, паводки, зоны риска. OkaFloodMonitor.">
+  <title>Города на Оке — OkaFloodMonitor</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    
+:root {
+  --safe:      #10b981;
+  --watch:     #f59e0b;
+  --warning:   #f97316;
+  --danger:    #ef4444;
+  --emergency: #a855f7;
+  --accent:    #3b82f6;
+  --bg-primary: #0c1222;
+  --bg-card: rgba(17, 25, 40, 0.75);
+  --bg-card-hover: rgba(17, 25, 40, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 900px; margin: 0 auto; padding: 24px; }
+.card, .section-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+.card:hover, .section-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+}
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12, 18, 34, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.header-logo {
+  font-size: 1.1rem; font-weight: 700; color: var(--text-primary);
+  white-space: nowrap; letter-spacing: -0.02em;
+}
+.header-logo span { color: var(--accent); }
+.header-nav { display: flex; gap: 4px; list-style: none; }
+.header-nav a {
+  display: block; padding: 6px 14px; border-radius: 8px;
+  color: var(--text-secondary); text-decoration: none;
+  font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease;
+}
+.header-nav a:hover, .header-nav a.active {
+  background: var(--bg-glass); color: var(--text-primary);
+}
+.site-footer {
+  text-align: center; padding: 32px 24px 24px;
+  color: var(--text-dim); font-size: 0.8rem; line-height: 1.8;
+}
+h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.03em; }
+h2 {
+  font-size: 1.1rem; font-weight: 700; color: var(--text-primary);
+  margin-bottom: 12px; border-left: 3px solid var(--accent); padding-left: 12px;
+}
+h3 { font-size: 0.95rem; font-weight: 600; color: var(--text-secondary); margin: 12px 0 6px; }
+p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-size: 0.9rem; }
+.badge {
+  display: inline-block; font-size: 0.72rem; font-weight: 700;
+  padding: 2px 10px; border-radius: 20px; margin-right: 6px;
+}
+.badge-blue   { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.badge-green  { background: rgba(16,185,129,0.15); color: #34d399; }
+.badge-orange { background: rgba(249,115,22,0.15); color: #fb923c; }
+.badge-red    { background: rgba(239,68,68,0.15);  color: #f87171; }
+.badge-purple { background: rgba(168,85,247,0.15); color: #c084fc; }
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin: 12px 0;
+}
+@media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
+.info-item { }
+.info-label { font-size: 0.72rem; color: var(--text-dim); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+.info-value { font-size: 0.9rem; color: var(--text-primary); font-weight: 500; }
+.flood-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 10px 0; }
+.flood-table th {
+  background: rgba(255,255,255,0.04); padding: 8px 10px;
+  text-align: left; color: var(--text-dim); font-size: 0.76rem; font-weight: 600;
+}
+.flood-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+.flood-table tr:hover td { background: var(--bg-glass); }
+.fact-card {
+  background: rgba(59,130,246,0.05); border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0; padding: 10px 16px; margin: 8px 0;
+  font-size: 0.88rem; color: var(--text-secondary);
+}
+.warn-card {
+  background: rgba(249,115,22,0.05); border-left: 3px solid var(--warning);
+  border-radius: 0 8px 8px 0; padding: 10px 16px; margin: 8px 0;
+  font-size: 0.88rem; color: var(--text-secondary);
+}
+.city-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;
+}
+@media (max-width: 768px) { .city-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .city-grid { grid-template-columns: 1fr; } }
+.city-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 16px 18px; text-decoration: none; color: inherit; display: block;
+  transition: all 0.25s ease;
+}
+.city-card:hover {
+  background: var(--bg-card-hover); border-color: var(--border-hover);
+  transform: translateY(-2px); text-decoration: none;
+}
+.city-card-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+.city-card-river { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 8px; }
+.city-card-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+.city-card-stat { font-size: 0.76rem; color: var(--text-secondary); }
+.city-card-stat span { color: var(--text-primary); font-weight: 600; }
+.river-timeline {
+  position: relative; padding: 12px 0;
+  margin: 20px 0;
+}
+.river-line {
+  position: absolute; left: 24px; top: 0; bottom: 0;
+  width: 3px; background: linear-gradient(to bottom, #1e40af, #3b82f6, #60a5fa);
+  border-radius: 2px;
+}
+.river-city {
+  position: relative; padding: 6px 0 6px 56px; min-height: 36px;
+  display: flex; align-items: center;
+}
+.river-dot {
+  position: absolute; left: 17px;
+  width: 17px; height: 17px; border-radius: 50%;
+  background: var(--bg-primary); border: 2px solid var(--accent);
+  z-index: 2;
+}
+.river-dot.main-dot {
+  border-color: var(--danger); background: rgba(239,68,68,0.2);
+  width: 21px; height: 21px; left: 15px;
+}
+.river-city-name { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); }
+.river-city-meta { font-size: 0.75rem; color: var(--text-dim); margin-left: 8px; }
+.critical-level { color: var(--danger); font-weight: 700; }
+.warning-level  { color: var(--warning); font-weight: 700; }
+
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <a class="header-logo" href="index.html" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
+  <nav><ul class="header-nav">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="index.html" class="active">Города</a></li>
+    <li><a href="history.html">История паводков</a></li>
+    <li><a href="links.html">Ссылки</a></li>
+    <li><a href="instructions.html">Инструкции</a></li>
+  </ul></nav>
+</header>
+
+<div class="container">
+  <h1>🏙️ Города на реке Ока</h1>
+  <p style="color:var(--text-dim); margin-bottom:4px;">От Орла (111 км от истока) до Коломны (645 км). 12 городов и населённых пунктов.</p>
+  <p style="color:var(--text-dim); font-size:0.82rem;">🔴 — основная мониторинговая точка (Жерновка / Серпухов)</p>
+
+  <div style="display:grid; grid-template-columns:2fr 1fr; gap:24px; margin-top:16px;">
+    <div>
+      <div class="city-grid">
+        
+<a class="city-card" href="orel.html">
+  <div class="city-card-name">Орёл</div>
+  <div class="city-card-river">р. Ока (слияние с р. Орлик)</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1566</span></div>
+    <div class="city-card-stat">Нас. <span>289 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>111 км</span></div>
+    <div class="city-card-stat">Пост <span>✅ есть</span></div>
+  </div>
+</a>
+<a class="city-card" href="mtsensk.html">
+  <div class="city-card-name">Мценск</div>
+  <div class="city-card-river">р. Зуша (приток Оки)</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1146</span></div>
+    <div class="city-card-stat">Нас. <span>36 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>—</span></div>
+    <div class="city-card-stat">Пост <span>нет</span></div>
+  </div>
+</a>
+<a class="city-card" href="belev.html">
+  <div class="city-card-name">Белёв</div>
+  <div class="city-card-river">р. Ока</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1147</span></div>
+    <div class="city-card-stat">Нас. <span>12 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>258 км</span></div>
+    <div class="city-card-stat">Пост <span>✅ есть</span></div>
+  </div>
+</a>
+<a class="city-card" href="chekalin.html">
+  <div class="city-card-name">Чекалин</div>
+  <div class="city-card-river">р. Ока</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1565</span></div>
+    <div class="city-card-stat">Нас. <span>935</span></div>
+    <div class="city-card-stat">От истока <span>—</span></div>
+    <div class="city-card-stat">Пост <span>нет</span></div>
+  </div>
+</a>
+<a class="city-card" href="kozelsk.html">
+  <div class="city-card-name">Козельск</div>
+  <div class="city-card-river">р. Жиздра (левый приток Оки)</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1146</span></div>
+    <div class="city-card-stat">Нас. <span>16 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>—</span></div>
+    <div class="city-card-stat">Пост <span>✅ есть</span></div>
+  </div>
+</a>
+<a class="city-card" href="kaluga.html">
+  <div class="city-card-name">Калуга</div>
+  <div class="city-card-river">р. Ока</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1371</span></div>
+    <div class="city-card-stat">Нас. <span>329 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>391 км</span></div>
+    <div class="city-card-stat">Пост <span>✅ есть</span></div>
+  </div>
+</a>
+<a class="city-card" href="aleksin.html">
+  <div class="city-card-name">Алексин</div>
+  <div class="city-card-river">р. Ока</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1348</span></div>
+    <div class="city-card-stat">Нас. <span>60 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>452 км</span></div>
+    <div class="city-card-stat">Пост <span>✅ есть</span></div>
+  </div>
+</a>
+<a class="city-card" href="tarusa.html">
+  <div class="city-card-name">Таруса</div>
+  <div class="city-card-river">р. Ока (при впадении р. Тарусы)</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1246</span></div>
+    <div class="city-card-stat">Нас. <span>8 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>—</span></div>
+    <div class="city-card-stat">Пост <span>нет</span></div>
+  </div>
+</a>
+<a class="city-card" href="serpuhov.html">
+  <div class="city-card-name">Серпухов 🔴</div>
+  <div class="city-card-river">р. Ока (пристань; город — на р. Нара)</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1339</span></div>
+    <div class="city-card-stat">Нас. <span>133 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>522 км</span></div>
+    <div class="city-card-stat">Пост <span>✅ есть</span></div>
+  </div>
+</a>
+<a class="city-card" href="pushchino.html">
+  <div class="city-card-name">Пущино</div>
+  <div class="city-card-river">р. Ока (правый высокий берег)</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1966</span></div>
+    <div class="city-card-stat">Нас. <span>19 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>—</span></div>
+    <div class="city-card-stat">Пост <span>нет</span></div>
+  </div>
+</a>
+<a class="city-card" href="kashira.html">
+  <div class="city-card-name">Кашира</div>
+  <div class="city-card-river">р. Ока</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1356</span></div>
+    <div class="city-card-stat">Нас. <span>44 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>573 км</span></div>
+    <div class="city-card-stat">Пост <span>✅ есть</span></div>
+  </div>
+</a>
+<a class="city-card" href="kolomna.html">
+  <div class="city-card-name">Коломна</div>
+  <div class="city-card-river">р. Ока (слияние с р. Москвой)</div>
+  <div class="city-card-stats">
+    <div class="city-card-stat">Осн. <span>1177</span></div>
+    <div class="city-card-stat">Нас. <span>132 тыс.</span></div>
+    <div class="city-card-stat">От истока <span>645 км</span></div>
+    <div class="city-card-stat">Пост <span>✅ есть</span></div>
+  </div>
+</a>
+      </div>
+    </div>
+    <div>
+      <div class="section-card" style="padding:16px 20px;">
+        <h2 style="border-color:var(--accent);">Ока: от истока к устью</h2>
+        <p style="font-size:0.8rem; color:var(--text-dim); margin-bottom:12px;">Схематичное расположение городов вдоль реки (сверху — ближе к истоку)</p>
+        <div class="river-timeline">
+<div class="river-line"></div>
+
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="orel.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Орёл</span>
+    <span class="river-city-meta">111 км от истока</span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="mtsensk.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Мценск</span>
+    <span class="river-city-meta"></span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="belev.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Белёв</span>
+    <span class="river-city-meta">258 км от истока</span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="chekalin.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Чекалин</span>
+    <span class="river-city-meta"></span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="kozelsk.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Козельск</span>
+    <span class="river-city-meta"></span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="kaluga.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Калуга</span>
+    <span class="river-city-meta">391 км от истока</span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="aleksin.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Алексин</span>
+    <span class="river-city-meta">452 км от истока</span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="tarusa.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Таруса</span>
+    <span class="river-city-meta"></span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot main-dot"></div>
+  <a href="serpuhov.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Серпухов</span>
+    <span class="river-city-meta">522 км от истока</span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="pushchino.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Пущино</span>
+    <span class="river-city-meta"></span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="kashira.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Кашира</span>
+    <span class="river-city-meta">573 км от истока</span>
+  </a>
+</div>
+<div class="river-city">
+  <div class="river-dot"></div>
+  <a href="kolomna.html" style="text-decoration:none; color:inherit; display:flex; align-items:baseline;">
+    <span class="river-city-name">Коломна</span>
+    <span class="river-city-meta">645 км от истока</span>
+  </a>
+</div>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card" style="margin-top:8px;">
+    <h2>О системе мониторинга</h2>
+    <p>Гидрологические посты на Оке образуют единую цепь наблюдений: данные верхних постов
+    (Орёл, Белёв) служат ранним предупреждением для городов ниже по течению.
+    Паводковая волна проходит путь от Орла до Серпухова за 5–7 дней,
+    от Серпухова до Коломны — ещё за 2–4 дня.</p>
+    <p>Не все города имеют официальные гидрологические посты на реке: для части из них
+    мониторинг ведётся через ближайшие посты и региональными службами МЧС.</p>
+    <div style="font-size:0.8rem; color:var(--text-dim); margin-top:8px;">Обновлено: 30.03.2026 11:32 МСК</div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  OkaFloodMonitor v7.2 | Города на Оке | <a href="../index.html">← На главную</a><br>
+  Источники: Росгидромет / Центр регистра и кадастра / Канал имени Москвы / МЧС
+</footer>
+
+</body>
+</html>

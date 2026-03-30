@@ -88,10 +88,12 @@ h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
 <body>
 
 <header class="site-header">
-  <div class="header-logo">🌊 <span>Oka</span>FloodMonitor</div>
+  <a class="header-logo" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
   <nav><ul class="header-nav">
     <li><a href="index.html">Главная</a></li>
     <li><a href="links.html" class="active">Ссылки</a></li>
+    <li><a href="history.html">История паводков</a></li>
+    <li><a href="flood-guide.html">Ликбез</a></li>
     <li><a href="instructions.html">Инструкции</a></li>
   </ul></nav>
 </header>
@@ -193,7 +195,7 @@ h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.2 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS<br>
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
 </footer>
@@ -202,10 +204,11 @@ h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
 (function() {
   function updateClock() {
     var now = new Date();
-    var msk = new Date(now.getTime() + (3 * 60 - now.getTimezoneOffset()) * 60000);
-    var h = String(msk.getUTCHours()).padStart(2,'0');
-    var m = String(msk.getUTCMinutes()).padStart(2,'0');
-    var s = String(msk.getUTCSeconds()).padStart(2,'0');
+    var utcH = now.getUTCHours();
+    var mskH = (utcH + 3) % 24;
+    var h = String(mskH).padStart(2,'0');
+    var m = String(now.getUTCMinutes()).padStart(2,'0');
+    var s = String(now.getUTCSeconds()).padStart(2,'0');
     var el = document.getElementById('clock');
     if (el) el.textContent = h + ':' + m + ':' + s + ' МСК';
   }

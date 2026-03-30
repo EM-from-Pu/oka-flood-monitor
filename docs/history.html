@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="История паводков реки Оки от Орла до Коломны — 1908, 1970, 2013, 2023, 2024. Фото, цифры, мифы о плотинах. OkaFloodMonitor.">
+  <title>История паводков Оки — OkaFloodMonitor</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --safe:      #10b981;
+  --watch:     #f59e0b;
+  --warning:   #f97316;
+  --danger:    #ef4444;
+  --emergency: #a855f7;
+  --accent:    #3b82f6;
+  --bg-primary: #0c1222;
+  --bg-card: rgba(17, 25, 40, 0.75);
+  --bg-card-hover: rgba(17, 25, 40, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 1.8rem; font-weight: 800; padding: 20px 24px; }
+h2 { font-size: 1.2rem; font-weight: 600; color: var(--text-secondary); margin: 24px 0 12px; }
+h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px 40px; }
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12, 18, 34, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.header-logo { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); white-space: nowrap; letter-spacing: -0.02em; }
+.header-logo span { color: var(--accent); }
+.header-nav { display: flex; gap: 4px; list-style: none; }
+.header-nav a {
+  display: block; padding: 6px 14px; border-radius: 8px;
+  color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease;
+}
+.header-nav a:hover, .header-nav a.active { background: var(--bg-glass); color: var(--text-primary); }
+.card {
+  background: var(--bg-card); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: 16px; margin-bottom: 16px; padding: 20px;
+}
+.section-card { background: var(--bg-card); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.explainer { background: rgba(59,130,246,0.05); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 8px 0 16px; font-size: 0.88em; color: var(--text-secondary); border-radius: 0 6px 6px 0; }
+.zone-row { padding: 8px 12px; margin: 4px 0; border-radius: 6px; font-size: 0.88em; }
+.zone-row.green  { background: rgba(16,185,129,0.1); border-left: 3px solid var(--safe); }
+.zone-row.yellow { background: rgba(245,158,11,0.1); border-left: 3px solid var(--watch); }
+.zone-row.orange { background: rgba(249,115,22,0.1); border-left: 3px solid var(--warning); }
+.zone-row.red    { background: rgba(239,68,68,0.1);  border-left: 3px solid var(--danger); }
+.action-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 10px 0; }
+.action-table th { background: rgba(255,255,255,0.04); padding: 6px 8px; text-align: left; color: var(--text-dim); }
+.action-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+.dead-sources { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 12px 16px; margin-top: 10px; }
+.dead-sources ul { padding-left: 20px; }
+.dead-sources li { margin: 5px 0; color: var(--text-secondary); font-size: 0.9em; }
+.site-footer {
+  background: rgba(12, 18, 34, 0.8); border-top: 1px solid var(--border);
+  padding: 20px 24px; text-align: center; color: var(--text-dim); font-size: 0.78rem;
+}
+@media (max-width: 768px) { .header-nav { display: none; } }
+
+    .hist-section { margin-bottom: 32px; }
+    .hist-section h2 { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; border-left: 3px solid var(--accent); padding-left: 12px; }
+    .hist-section h3 { font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin: 16px 0 8px; }
+    .hist-section p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-size: 0.9rem; }
+    .hist-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 12px 0; }
+    .hist-table th { background: rgba(255,255,255,0.04); padding: 8px 10px; text-align: left; color: var(--text-dim); font-size: 0.76rem; font-weight: 600; }
+    .hist-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+    .hist-table tr:hover td { background: var(--bg-glass); }
+    .fact-card { background: rgba(59,130,246,0.05); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 10px 16px; margin: 8px 0; font-size: 0.88rem; color: var(--text-secondary); line-height:1.65; }
+    .year-badge { display: inline-block; background: var(--accent); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; margin-right: 8px; }
+    .toc-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .toc-nav a { padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px; font-size: 0.83rem; color: var(--text-secondary); text-decoration: none; transition: all 0.2s; }
+    .toc-nav a:hover { border-color: var(--accent); color: var(--accent); }
+    .photo-caption { font-size:0.78rem; color:var(--text-dim); margin:-4px 0 12px; font-style:italic; }
+    .myth-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:16px; margin-top:16px; }
+    .myth-card { border-radius:12px; padding:16px; background:var(--bg-card); border:1px solid var(--border); }
+    .myth-card.myth-false { border-left:4px solid #ef5350; }
+    .myth-card.myth-mixed { border-left:4px solid #ffb74d; }
+    .myth-label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px; }
+    .myth-card.myth-false .myth-label { color:#ef5350; }
+    .myth-card.myth-mixed .myth-label { color:#ffb74d; }
+    .myth-card h4 { font-size:0.92rem; font-weight:600; color:var(--text-primary); margin:0 0 10px; line-height:1.4; }
+    .myth-reality { font-size:0.84rem; color:var(--text-secondary); line-height:1.65; }
+    .myth-reality strong { color:#81c784; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="header-logo" href="index.html" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
+  <nav><ul class="header-nav">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="links.html">Ссылки</a></li>
+    <li><a href="history.html" class="active">История паводков</a></li>
+    <li><a href="flood-guide.html">Ликбез</a></li>
+    <li><a href="instructions.html">Инструкции</a></li>
+  </ul></nav>
+</header>
+
+<div class="container">
+<h1>📜 История паводков реки Оки</h1>
+<p style="color:var(--text-secondary); margin-bottom:8px; line-height:1.75;">
+  Ока — крупнейший правый приток Волги. Длина 1498&nbsp;км, бассейн 245 тысяч км² —
+  примерно площадь Румынии. Она берёт начало в деревне Александровка Орловской области,
+  на высоте 226&nbsp;м, и несёт воды через семь регионов до впадения в Волгу у Нижнего Новгорода.
+</p>
+<p style="color:var(--text-secondary); margin-bottom:16px; line-height:1.75;">
+  Половодье здесь — явление весеннее и снеговое. На бассейне Оки каждую зиму накапливается
+  от 60 до 200&nbsp;мм воды в снежном покрове. Когда многоснежная зима сменяется дружной
+  весной без ночных заморозков — река демонстрирует всё, на что способна. Пик половодья в
+  верховьях традиционно приходится на начало апреля, в районе Серпухова — на середину
+  и конец апреля, хотя в 2023&nbsp;году он пришёлся на 1&nbsp;апреля — почти на месяц раньше нормы.
+</p>
+
+<nav class="toc-nav">
+  <a href="#flood-1908">1908 — Великий</a>
+  <a href="#flood-1970">1970 — Советский</a>
+  <a href="#flood-1979">1979 — Девятиэтажки</a>
+  <a href="#flood-1994">1994 — Рекорд Белёва</a>
+  <a href="#flood-2013">2013 — Рекорд XXI в.</a>
+  <a href="#flood-2023">2023 — Ранний</a>
+  <a href="#flood-2024">2024 — Новый рекорд</a>
+  <a href="#dams">Плотины</a>
+  <a href="#curious">Интересные факты</a>
+  <a href="#records-table">Таблица рекордов</a>
+  <a href="#myths">Мифы о плотинах</a>
+</nav>
+
+<!-- ═══════════════════ 1908 ═══════════════════ -->
+<div class="section-card hist-section" id="flood-1908">
+  <h2><span class="year-badge">1908</span>Великий паводок — Абсолютный рекорд</h2>
+  <p>В апреле 1908&nbsp;года Ока решила напомнить жителям, кто здесь настоящий хозяин.
+  Зима задалась необычно многоснежной и морозной — к марту снег лежал плотным покрывалом
+  на всём огромном бассейне. А потом вдруг — в один день — обернулась тёплой,
+  почти летней весной. Ни ночных заморозков, ни медленного постепенного таяния.
+  Всё сразу. Снег таял не по дням, а по часам. Плюс весенние дожди.
+  «Идеальный шторм» по всем гидрологическим параметрам.</p>
+
+  <p>Газета «Раннее утро» от 13 (26) апреля 1908 года писала о Серпухове:
+  <em>«Не меньшее бедствие постигло и побережье реки Оки. Город Серпухов тоже почти весь в воде,
+  все фабричные здания Коншинской мануфактуры, расположенные сравнительно на возвышенной
+  местности, затоплены по второй этаж».</em></p>
+
+  <table class="hist-table">
+    <thead><tr><th>Город</th><th>Уровень</th><th>Дата пика</th><th>Последствия</th></tr></thead>
+    <tbody>
+      <tr><td>Орёл</td><td>908–1005&nbsp;см*</td><td>Апрель</td><td>Дома на «Стрелке» по первый этаж; нижняя часть города под водой</td></tr>
+      <tr><td>Белёв</td><td>Очень высокий</td><td>8–9 апреля</td><td>Ледоход + наводнение ночью; купец Сабинин — убыток 10&nbsp;тыс. руб.</td></tr>
+      <tr><td>Калуга</td><td>16&nbsp;м 77&nbsp;см над летним горизонтом</td><td>25 апреля</td><td>Абсолютный рекорд за всё время наблюдений с 1877&nbsp;года</td></tr>
+      <tr><td>Таруса</td><td>Очень высокий</td><td>Апрель</td><td>Вода залила полы Петропавловского собора, казначейство, торговые ряды</td></tr>
+      <tr><td><b>Серпухов</b></td><td><b>1256&nbsp;см</b></td><td>Апрель</td><td>Абсолютный исторический рекорд; 6 фабрик, 70 домов под водой</td></tr>
+    </tbody>
+  </table>
+
+  <div class="fact-card">
+    *Данные по Орлу расходятся: orelvkartinkax.ru даёт 908&nbsp;см, другие источники — 1005&nbsp;см.
+    Расхождение, по-видимому, объясняется разными привязками к нулю поста. Без архивных первоисточников
+    разрешить его невозможно.
+  </div>
+
+  <p>В Калуге на стене завода КЭМЗ долгие годы висела металлическая табличка с отметкой
+  уровня 1908&nbsp;года. Для рабочих это был живой аргумент в споре «да что за паводок
+  какой-то» — достаточно было показать на эту дощечку в двух метрах над головой.</p>
+
+  <p>В Москве тот же паводок поднял воду на 8,9&nbsp;м, затопил около 16&nbsp;км² столицы
+  и повредил около 25&nbsp;000 сооружений. Причина повсюду одна — аномально
+  многоснежная зима, дружная весна без заморозков, дожди в период таяния. Три кита
+  катастрофического паводка, и все три совпали в один сезон.</p>
+
+  <div class="fact-card">
+    📰 Источники: <a href="https://www.orelvkartinkax.ru/bigwater.htm" target="_blank" rel="noopener">orelvkartinkax.ru</a> — история орловских наводнений;
+    <a href="https://snegochistka.ru/articles/iz_letopisi_katastrof_kaluzhskoi_oblasti" target="_blank" rel="noopener">snegochistka.ru</a> — летопись Калужской области;
+    <a href="https://dzen.ru/b/ZHT6XvNuLircyfDX" target="_blank" rel="noopener">Дзен — фото Серпухова 1908 года</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ 1970 ═══════════════════ -->
+<div class="section-card hist-section" id="flood-1970">
+  <h2><span class="year-badge">1970</span>Советский паводок — Второй по величине</h2>
+  <p>Весной 1970&nbsp;года советский Орёл готовился к 100-летию со дня рождения Ленина.
+  Первомайские транспаранты уже печатали, речи репетировали, концертные программы
+  утверждали. Ока, однако, о юбилее не слышала — у неё было своё расписание.</p>
+
+  <p><b>5&nbsp;апреля 1970&nbsp;года</b> вода в Орле перевалила за <b>10&nbsp;метров</b> (1010&nbsp;см),
+  установив абсолютный рекорд для города. По улицам пошёл лёд с Оки. В городе ввели
+  чрезвычайное положение. Орловский обком КПСС написал в ЦК письмо — просил отменить
+  праздничные мероприятия. ЦК ответил уже после того, как торжества прошли. Водная стихия
+  оказалась более оперативной, чем советская бюрократия.</p>
+
+  <table class="hist-table">
+    <thead><tr><th>Показатель</th><th>Данные</th></tr></thead>
+    <tbody>
+      <tr><td>Орёл — уровень</td><td>1010&nbsp;см (абсолютный рекорд для Орла; 5 апреля)</td></tr>
+      <tr><td>Орёл — подтоплено улиц</td><td>29</td></tr>
+      <tr><td>Орёл — подтоплено домов</td><td>913 жилых домов</td></tr>
+      <tr><td>Орёл — предприятия</td><td>21 предприятие, 3 школы, 3 детских сада, медучилище</td></tr>
+      <tr><td>Орёл — инфраструктура</td><td>16 мостов, 5 водозаборных узлов, КНС</td></tr>
+      <tr><td>Орёл — эвакуировано</td><td>1195 человек</td></tr>
+      <tr><td>Орёл — погибло</td><td>Мать с сыном утонули на улице Свободы, спасая вещи</td></tr>
+      <tr><td>Калуга</td><td>15&nbsp;м 25&nbsp;см (13 апреля) — второй по высоте рекорд</td></tr>
+      <tr><td><b>Серпухов</b></td><td><b>1208&nbsp;см</b> — второй исторический рекорд</td></tr>
+    </tbody>
+  </table>
+
+  <p>По улице Московской в Орле ходили на лодках — мимо универмага и кинотеатра «Родина».
+  По Оке плыли дачные домики, вырванные с корнем деревья. В Калуге, у остановки КЭМЗ,
+  вода достигала крыши троллейбуса — это не метафора, а задокументированный факт на видеозаписи
+  из семейного архива читателя «КП-40» Юрия Уральского, снятой его отцом.</p>
+
+  <div class="fact-card">
+    🐀 <b>Крысы как сигнализация:</b> в ночь перед наводнением один загулявший орловец
+    наткнулся на сотни крыс, покрывших его путь живым серым ковром. Они мчали из нижних
+    хибар наверх, в Егорьевскую горку. Через час хибары были залиты. Крысы оказались
+    точнее любого гидрологического прогноза — и, по правде говоря, их нервная система
+    работала без перебоев в отличие от телефонных линий.
+  </div>
+  <div class="fact-card">
+    🐄 <b>Спасение коровы:</b> дородную бурёнку, растопырившую копыта по льдине,
+    народ кинулся спасать. Льдину прибило к берегу у завода гладильных прессов.
+    Корове накинули на рога верёвку и под общие аплодисменты вывели на сухое.
+    Она, спасённая, подогнула колени и полчаса лежала без сил. Орловские газеты
+    описывали этот эпизод с нескрываемой нежностью.
+  </div>
+
+  <p><b>Причина паводка</b>: запасы воды в снеге вдвое выше нормы + позднее и дружное
+  снеготаяние + большие осадки в период половодья (в 1,5–2,0 раза выше нормы).
+  Всё те же три кита, что и в 1908-м. После 1970&nbsp;года обветшавшие домишки по берегам
+  Оки и Орлика были снесены, набережные забетонированы — и последующие, тоже мощные
+  паводки уже не причиняли столь сильных разрушений. Иными словами, урок был усвоен —
+  хотя и дорогой ценой.</p>
+
+  <div class="fact-card">
+    📰 Источники: <a href="https://www.orelvkartinkax.ru/bigwater.htm" target="_blank" rel="noopener">orelvkartinkax.ru</a>;
+    <a href="https://www.kp40.ru/news/society/89696/" target="_blank" rel="noopener">KP40.ru — уникальное видео разлива 1970 года</a>;
+    <a href="https://newsorel.ru/fn_1644685.html" target="_blank" rel="noopener">newsorel.ru — 55 лет наводнению 1970</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ 1979 ═══════════════════ -->
+<div class="section-card hist-section" id="flood-1979">
+  <h2><span class="year-badge">1979</span>Год отрезанных девятиэтажек</h2>
+  <p>Через девять лет после «великого» советского наводнения Ока нанесла ещё один,
+  хотя и менее катастрофический визит. Уровень в Орле составил <b>985&nbsp;см</b> —
+  третий по величине исторический результат для города.</p>
+
+  <p>Примечательная деталь: к тому времени на улице Революции уже стояли новые
+  девятиэтажные панельные дома, возведённые взамен снесённых после 1970&nbsp;года лачуг.
+  В 1979&nbsp;году жители этих девятиэтажек оказались отрезаны от мира — вода окружила
+  дома со всех сторон. Продукты и почту доставляли на лодках прямо к подъездам,
+  на первый этаж. Советская плановая экономика не предусмотрела в бюджете статью
+  «доставка хлеба на вёслах», но жизнь оказалась изобретательнее планировщиков.</p>
+
+  <div class="fact-card">
+    📰 Источник: <a href="https://istoki.tv/news/istoricheskiy-orel/istoriya-orlovskikh-navodneniy/" target="_blank" rel="noopener">Истоки.ТВ — история орловских наводнений</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ 1994 ═══════════════════ -->
+<div class="section-card hist-section" id="flood-1994">
+  <h2><span class="year-badge">1994</span>Рекорд верховьев — последний крупный паводок XX&nbsp;века</h2>
+  <p>1994&nbsp;год стал последним по-настоящему крупным паводком XX&nbsp;века для верхней
+  части бассейна. По ряду показателей он превзошёл все предыдущие — по крайней мере
+  в официально измеренных данных.</p>
+
+  <table class="hist-table">
+    <thead><tr><th>Гидропост</th><th>Уровень</th><th>Порог НЯ</th><th>Примечания</th></tr></thead>
+    <tbody>
+      <tr><td>Белёв</td><td>~1250&nbsp;см*</td><td>1155&nbsp;см</td><td>Предполагаемый абсолютный рекорд у Белёва</td></tr>
+      <tr><td>Алексин (Щукина)</td><td>~1155&nbsp;см</td><td>1120&nbsp;см</td><td>НЯ превышен</td></tr>
+      <tr><td>Орёл</td><td>935&nbsp;см</td><td>880&nbsp;см</td><td>29 улиц, 654 дома, 2 школы</td></tr>
+      <tr><td>Орёл — зона затопления</td><td>—</td><td>—</td><td>3120 человек в зоне затопления, эвакуировано 65</td></tr>
+    </tbody>
+  </table>
+
+  <p>Вода дошла до дорожного полотна улицы Городской в Орле. Это уже не поэзия —
+  это конкретная городская артерия, по которой в обычное время ездят машины.
+  После 1994&nbsp;года следующие 18–20 лет Ока у Серпухова практически не выходила
+  на пойму — малоснежные зимы сделали своё дело. Именно в эти тихие годы многие
+  дачники и купили участки в пойме, не подозревая, что «обычное» половодье —
+  это исторически ненормальное затишье.</p>
+
+  <div class="fact-card">
+    📰 Источники: <a href="https://www.tula.kp.ru/daily/27248/4377180/" target="_blank" rel="noopener">КП-Тула</a>;
+    <a href="https://www.orelvkartinkax.ru/bigwater.htm" target="_blank" rel="noopener">orelvkartinkax.ru</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ 2013 ═══════════════════ -->
+<div class="section-card hist-section" id="flood-2013">
+  <h2><span class="year-badge">2013</span>Рекорд XXI века — Апрельское возвращение Оки</h2>
+  <p>В апреле 2013&nbsp;года Ока поставила новый инструментальный рекорд — первый в XXI&nbsp;веке,
+  заставивший вспомнить о «стариках» 1908 и 1970. Паводковая волна шла сверху вниз
+  с задержкой в 1–2 дня между гидропостами — наглядная демонстрация того, что паводок
+  это не цунами, а медленная, неотвратимая волна.</p>
+
+  <table class="hist-table">
+    <thead><tr><th>Гидропост</th><th>Максимум</th><th>Дата пика</th><th>Примечания</th></tr></thead>
+    <tbody>
+      <tr><td>Калуга</td><td>919&nbsp;см</td><td>21 апреля</td><td>Набережная затоплена; нижний ярус под водой</td></tr>
+      <tr><td>Алексин (Щукина)</td><td>1069&nbsp;см</td><td>21 апреля</td><td>Рекорд для поста</td></tr>
+      <tr><td>Серпухов</td><td><b>843&nbsp;см</b></td><td>23 апреля</td><td>Рекорд XXI века для Серпухова (до 2024 года)</td></tr>
+      <tr><td>Кашира</td><td>792&nbsp;см</td><td>23 апреля</td><td>Рекорд для поста</td></tr>
+      <tr><td>Коломна</td><td>633&nbsp;см</td><td>24 апреля</td><td>Рекорд для поста; выше порога НЯ (615 см)</td></tr>
+      <tr><td>Белоомут (нижний бьеф)</td><td>905&nbsp;см</td><td>29 апреля</td><td>Серьёзное испытание для старой плотины</td></tr>
+    </tbody>
+  </table>
+
+  <p>Наглядный маршрут паводковой волны 2013: Калуга → Серпухов → Кашира → Коломна,
+  каждый раз с задержкой в 1–2 суток и небольшим затуханием высоты. В Коломне уровень
+  633&nbsp;см превысил порог НЯ (615&nbsp;см) и оказался абсолютным рекордом за весь период
+  цифровых наблюдений.</p>
+
+  <p>В Калуге уровень 692&nbsp;см (18 апреля) рос со скоростью +91&nbsp;см/сутки —
+  за двое суток набережная ушла под воду. На гидроузле «Белоомут» вода поднялась
+  более чем на 4&nbsp;метра от нормы — серьёзное испытание для старой плотины,
+  которой на тот момент было почти 100&nbsp;лет.</p>
+
+  <div class="fact-card">
+    📰 Источники:
+    <a href="https://allrivers.info/gauge/oka-serpuhov/waterlevel/" target="_blank" rel="noopener">allrivers.info — Серпухов</a>;
+    <a href="https://kaluga24.tv/news/001330" target="_blank" rel="noopener">Калуга24 — апрель 2013</a>;
+    <a href="https://ya-kraeved.ru/pavodok-na-oke-dostig-svoego-pika/" target="_blank" rel="noopener">ya-kraeved.ru — паводок на Оке 2013</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ 2023 ═══════════════════ -->
+<div class="section-card hist-section" id="flood-2023">
+  <h2><span class="year-badge">2023</span>Аномально ранний паводок — март вместо апреля</h2>
+  <p>Половодье-2023 отличилось тем, чем удивить непросто — оно пришло в
+  <b>середине марта</b>, почти на месяц раньше привычных апрельских сроков.
+  В Серпухове за одну неделю (с 14&nbsp;марта) вода поднялась на 1,6&nbsp;метра.
+  Даже у Рязани — на 250&nbsp;км ниже по течению — пик зафиксирован 31&nbsp;марта:
+  уровень 5&nbsp;м 22&nbsp;см, что выше пика 2022&nbsp;года (5&nbsp;м 10&nbsp;см).</p>
+
+  <table class="hist-table">
+    <thead><tr><th>Показатель</th><th>Данные</th></tr></thead>
+    <tbody>
+      <tr><td>Серпухов — пик</td><td><b>780&nbsp;см</b> (1 апреля; ранний рекорд)</td></tr>
+      <tr><td>Калуга</td><td>775&nbsp;см (максимум 2021–2024&nbsp;гг.)</td></tr>
+      <tr><td>Алексин</td><td>705–775&nbsp;см</td></tr>
+      <tr><td>Белёв</td><td>685&nbsp;см (максимум 2021–2024&nbsp;гг.)</td></tr>
+      <tr><td>Кашира</td><td>524&nbsp;см</td></tr>
+      <tr><td>Коломна</td><td>577&nbsp;см (рекорд 2021–2024; 25–26 марта — 426–490 см, рекорд на эту дату за 20 лет)</td></tr>
+      <tr><td>Запасы снега (бассейн)</td><td>120% нормы</td></tr>
+      <tr><td>Температура</td><td>+3°C выше нормы (март 2023)</td></tr>
+    </tbody>
+  </table>
+
+  <p>Январь 2023&nbsp;года тоже удивил: необычный зимний паводок — уровень воды выше
+  летнего. Очевидцы называли это явление небывалым: снег залёг на пресыщенную влагой
+  почву после тёплого ноября–декабря, а потом затяжная оттепель согнала воду прямо
+  в реку ещё до настоящей весны.</p>
+
+  <div class="fact-card">
+    📅 Пик паводка прошёл почти на месяц раньше исторических сроков. Изменение климата
+    сдвигает сроки весенних паводков: если раньше Ока выходила на пойму в конце апреля,
+    то 2023 и 2024&nbsp;годы показали пик уже в начале апреля и даже конце марта.
+  </div>
+
+  <div class="fact-card">
+    📰 Источники:
+    <a href="https://www.oka.fm/new/read/social/Oka-v-Serpuhove-pokazyvaet-bystryj-podem-vody/" target="_blank" rel="noopener">oka.fm — Серпухов 2023</a>;
+    <a href="https://www.kp40.ru/news/society/99119/" target="_blank" rel="noopener">KP40.ru — нейросеть раскрасила фото разлива 2023</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ 2024 ═══════════════════ -->
+<div class="section-card hist-section" id="flood-2024">
+  <h2><span class="year-badge">2024</span>Новый рекорд XXI века — Серпухов, 850 сантиметров</h2>
+  <p>2024&nbsp;год переписал рекордную книгу XXI&nbsp;века для Серпухова. Уровень достиг
+  <b>~850&nbsp;см</b> — побив рекорд 2013&nbsp;года (843&nbsp;см). Официально подтверждено
+  главой Серпуховского округа Алексеем Шимко: «В 2024 году паводок достиг максимальной
+  отметки в 850&nbsp;см, но благодаря заблаговременной подготовке последствия удалось
+  минимизировать без происшествий».</p>
+
+  <table class="hist-table">
+    <thead><tr><th>Показатель</th><th>Данные</th></tr></thead>
+    <tbody>
+      <tr><td><b>Серпухов — пик</b></td><td><b>~850&nbsp;см</b> (новый рекорд XXI в.; апрель 2024)</td></tr>
+      <tr><td>Серпухов — глубина затопления поймы</td><td>от 135&nbsp;см (мкр. Слобода, Заборье)</td></tr>
+      <tr><td>Калуга</td><td>&gt;781&nbsp;см (3 апреля); +75&nbsp;см/сутки в пиковые дни</td></tr>
+      <tr><td>Кашира</td><td>634&nbsp;см (3 апреля)</td></tr>
+      <tr><td>Коломна</td><td>~536&nbsp;см (критический уровень 420&nbsp;см превышен)</td></tr>
+      <tr><td>Рекорд суточного прироста (Калуга)</td><td>+132&nbsp;см/сутки (27 марта) — рекорд сезона</td></tr>
+      <tr><td>Жиздра / Угра</td><td>+35&nbsp;см/сутки; Жиздра — рекордные 866&nbsp;см</td></tr>
+      <tr><td>Ранова у с. Троица (Рязанская обл.)</td><td>+108&nbsp;см/сутки — рекордный прирост</td></tr>
+    </tbody>
+  </table>
+
+  <p>При уровне 8,5&nbsp;м в Серпухове начинается подтопление частного сектора в мкр. Слобода
+  и Заборье, предприятий на улицах Тульской и 2-й Московской. В Калуге затопило набережную —
+  нижний ярус, дорога к пляжу, зоны отдыха у Гагаринского моста. Паводок 2024&nbsp;года в
+  Рязанской области отрезал деревни от «большой земли»: в Тарусском районе на дороге
+  Залужье стояло 200&nbsp;метров воды, организована круглосуточная переправа.</p>
+
+  <img src="https://msk1.ru/wp-content/uploads/2024/04/05/serpuhov_park_flood_2024.jpg"
+       alt="Затопленный Принарский парк в Серпухове, апрель 2024"
+       loading="lazy"
+       style="max-width:100%;border-radius:12px;margin:12px 0;"
+       onerror="this.style.display='none'">
+  <p class="photo-caption">Принарский парк в Серпухове под водой, апрель 2024.
+    Источник: <a href="https://msk1.ru/text/incidents/2024/04/05/73430921/" target="_blank" rel="noopener">MSK1.ru</a></p>
+
+  <div class="fact-card">
+    🏖️ <b>«Серпуховские Мальдивы»:</b> городской пляж, открытый летом 2023&nbsp;года —
+    белый песок, шезлонги, детские площадки — полностью ушёл под воду. Местные жители
+    окрестили затопленную пойму «Серпуховскими Мальдивами» — за живописные виды разлива.
+    Название подхватили СМИ. Рабочие потом долго убирали мусор и восстанавливали
+    инфраструктуру. МЧС юмора не оценило.
+  </div>
+
+  <div class="fact-card">
+    📰 Источники:
+    <a href="https://regions.ru/serpuhov/proisshestvie/rekordnyy-pavodok-2024-oka-zatopila-serpuhovskie-maldivy" target="_blank" rel="noopener">REGIONS.ru — рекордный паводок 2024</a>;
+    <a href="https://msk1.ru/text/incidents/2024/04/05/73430921/" target="_blank" rel="noopener">MSK1.ru — Серпухов апрель 2024</a>;
+    <a href="https://kalugafoto.net/kaluga/krasivaya-kaluga/3776-razliv-oki-naberezhnaya-oki-v-kaluge-2-aprelya-2024" target="_blank" rel="noopener">kalugafoto.net — набережная Калуги 2 апреля 2024</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ ПЛОТИНЫ ═══════════════════ -->
+<div class="section-card hist-section" id="dams">
+  <h2>🏗️ Плотины и человеческий фактор</h2>
+
+  <h3>Кузьминский гидроузел: история и судьба</h3>
+  <p>Первый Кузьминский гидроузел был построен в <b>1911–1915&nbsp;годах</b> по проекту
+  выдающегося гидротехника Нестора Пузыревского — вместе с Белоомутским. Единственная
+  цель: поддерживать необходимые для судоходства глубины на участке Оки до Коломны.
+  Никаких противопаводковых функций изначально не предусматривалось.</p>
+
+  <p>К 2000-м годам старый гидроузел пришёл в аварийное состояние: с 1981 по 2015&nbsp;год
+  он не удерживал нормальный подпорный уровень, что создавало мелководье для судов.
+  В <b>2013–2015&nbsp;годах</b> рядом с деревней Аксёново построен <b>Новый Кузьминский
+  гидроузел</b>, введённый в эксплуатацию 16&nbsp;октября 2015&nbsp;года. После его ввода
+  старая плотина оказалась частично затоплена. За год паводка вода промыла яму глубиной
+  <b>11&nbsp;метров</b> — вовремя заметили и успели принять меры. Своеобразное «плотинозамещение».</p>
+
+  <h3>Белоомутский гидроузел: долгострой с приключениями</h3>
+  <p>Построен в 1911–1915&nbsp;годах одновременно с Кузьминским. В 2015&nbsp;году началась
+  комплексная реконструкция стоимостью 5,54&nbsp;млрд рублей. И тут начались приключения.</p>
+
+  <p><b>Инцидент апреля 2018&nbsp;года:</b> 9&nbsp;апреля 2018&nbsp;года на строительной площадке
+  под давлением паводковых вод разошлась шпунтовая стенка — специальное ограждение
+  монтажного котлована. Котлован был затоплен. Видео разошлось по интернету, породив
+  настоящую панику у жителей ниже по течению. Однако, как позже объяснили представители
+  «Канала имени Москвы», затопление строительного котлована было <em>предусмотрено
+  проектом</em> — гидроузел является затапливаемым, паводковые воды проходят через
+  все его сооружения. Реальной угрозы прорыва не было.</p>
+
+  <p>Тем не менее старая плотина к тому моменту находилась в аварийном состоянии:
+  бетон устоев трескался, более 10% ферм требовали срочной замены, плотина второй год
+  находилась в поднятом положении — опустить её было невозможно из-за риска, что
+  не поднимут обратно. А генподрядчик реконструкции тем временем объявил о банкротстве,
+  не завершив работ. Стройка была заброшена. Ввод в эксплуатацию переносился несколько раз.</p>
+
+  <p>В 2018&nbsp;году произошёл также прорыв дамбы между старой и новой камерой шлюзов.
+  В зону подтопления попали сёла Окское, Ловцы, Любичи и Слемские Борки — небольшие,
+  но от этого не менее потопленные.</p>
+
+  <div class="fact-card">
+    📰 Источники:
+    <a href="https://www.mk.ru/social/2019/07/04/stroyka-na-oke-grozit-paralichom-sudokhodstva-i-proryvom-plotiny.html" target="_blank" rel="noopener">МК — стройка на Оке, 2019</a>;
+    <a href="https://cruiseinform.ru/info/news/11/" target="_blank" rel="noopener">cruiseinform.ru — Белоомут 2018</a>;
+    <a href="https://ru.wikipedia.org/wiki/%D0%9A%D1%83%D0%B7%D1%8C%D0%BC%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D0%B9_%D0%B3%D0%B8%D0%B4%D1%80%D0%BE%D1%83%D0%B7%D0%B5%D0%BB" target="_blank" rel="noopener">Кузьминский гидроузел — Википедия</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ ЛЮБОПЫТНЫЕ ФАКТЫ ═══════════════════ -->
+<div class="section-card hist-section" id="curious">
+  <h2>🎲 Интересные факты и рекорды</h2>
+
+  <h3>Рекорды суточного подъёма</h3>
+  <table class="hist-table">
+    <thead><tr><th>Место</th><th>Прирост</th><th>Дата</th></tr></thead>
+    <tbody>
+      <tr><td>Ранова у с. Троица</td><td>+108&nbsp;см/сутки</td><td>30 марта 2024</td></tr>
+      <tr><td>Калуга</td><td>+132&nbsp;см/сутки</td><td>27 марта 2024</td></tr>
+      <tr><td>Серпухов</td><td>+39&nbsp;см/сутки</td><td>март 2023</td></tr>
+      <tr><td>Луховицкий р-н (2026)</td><td>+75&nbsp;см за 2 суток</td><td>март 2026</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Рекорды ранних паводков в Орле</h3>
+  <div class="fact-card">
+    📅 Исторически самый ранний ледоход в Орле — <b>12 февраля</b>. Самый поздний — <b>24 апреля</b>.
+    Паводок 2023&nbsp;года начался в середине марта — на месяц раньше средних сроков.
+    Паводок 2016&nbsp;года в Орле тоже был ранним: мост на Гати затопило уже 5&nbsp;марта.
+  </div>
+
+  <h3>Летопись катастроф: цитата XVII века</h3>
+  <div class="fact-card">
+    🏰 В XVII&nbsp;веке из Орла писали воеводе:
+    <em>«Старый город Орел поставлен в низком месте... в полую воду казенный погреб заливает
+    и зелейную казну во все годы от воды выносят вон на городскую стену».</em>
+    Прошло 400&nbsp;лет — проблема паводков никуда не делась.
+  </div>
+
+  <h3>Обмеление Оки — парадокс</h3>
+  <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.75;">
+    За последние десятилетия Ока значительно обмелела в межень — причина: добыча
+    песка и гравия земснарядами начиная с 1960-х годов. На участке Коломна—Половское
+    изъято более <b>40&nbsp;млн м³</b> русловых отложений. Меженный уровень упал на
+    0,5–2,1&nbsp;м. Парадокс: река стала глубже (3–13&nbsp;м в ямах), но воды в ней
+    стало меньше. Судоходство деградировало. Паводки, однако, никуда не делись —
+    потому что определяются объёмом снеготаяния в бассейне, а не глубиной русла.
+  </p>
+
+  <h3>Белёвская «Робинзонада», 1903</h3>
+  <div class="fact-card">
+    🚣 В 1903&nbsp;году трое приятелей в Белёве, «хорошенько повеселившись», отправились
+    на лодке по разлившейся Оке. Гребец уронил вёсла. Лодку унесло на пойменный остров.
+    Пришлось ждать спасателей — несколько часов, которые, по воспоминаниям участников,
+    показались значительно дольше.
+  </div>
+
+  <h3>Ледоход как 14-летний фотопроект</h3>
+  <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.75;">
+    Местный житель Ступина вёл фотоархив ледохода на Оке на протяжении <b>14 лет подряд</b> —
+    с 2012 по 2026&nbsp;год, фиксируя дату начала каждый год.
+    В 2026&nbsp;году ледоход в Ступине начался 24&nbsp;марта — в пределах нормы.
+    (<a href="https://regions.ru/stupino/socialnaya_sfera/fotoohota-dlinoj-v-14-let-zhitel-stupina-dokazal-chto-ledohod-2026-na-oke-ne-pobil-rekord" target="_blank" rel="noopener">regions.ru</a>)
+  </p>
+</div>
+
+<!-- ═══════════════════ ТАБЛИЦА РЕКОРДОВ ═══════════════════ -->
+<div class="section-card hist-section" id="records-table">
+  <h2>📊 Сводная таблица рекордов</h2>
+  <table class="hist-table">
+    <thead>
+      <tr>
+        <th>Гидропост</th>
+        <th>Абс. максимум</th>
+        <th>Год</th>
+        <th>Порог НЯ</th>
+        <th>Нуль поста (БС)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Орёл</td><td>~1005–1010&nbsp;см*</td><td>1970 (1908)</td><td>880&nbsp;см</td><td>146.31&nbsp;м</td></tr>
+      <tr><td>Мценск (р.Зуша)</td><td>1275&nbsp;см*</td><td>н/д</td><td>900&nbsp;см</td><td>н/д</td></tr>
+      <tr><td>Белёв</td><td>~1250&nbsp;см (1994)* / 1100&nbsp;см (2003)</td><td>1994/2003</td><td>1155&nbsp;см</td><td>127.15&nbsp;м</td></tr>
+      <tr><td>Калуга</td><td>919&nbsp;см (совр.) / 1677&nbsp;см (1908, от межени)</td><td>2013/1908</td><td>1100&nbsp;см</td><td>116.72&nbsp;м</td></tr>
+      <tr><td>Алексин (Щукина)</td><td>1069&nbsp;см</td><td>2013</td><td>1120&nbsp;см</td><td>111.19&nbsp;м</td></tr>
+      <tr><td><b>Серпухов (Лукьяново)</b></td><td><b>850&nbsp;см (XXI&nbsp;в.) / 1256&nbsp;см (1908, ист.)</b></td><td>2024/1908</td><td>645&nbsp;см (НЯ), 800&nbsp;см (ОЯ)</td><td>107.54&nbsp;м</td></tr>
+      <tr><td>Кашира</td><td>792&nbsp;см</td><td>2013</td><td>918&nbsp;см</td><td>103.82&nbsp;м</td></tr>
+      <tr><td>Коломна</td><td>633&nbsp;см</td><td>2013</td><td>615&nbsp;см</td><td>100.26&nbsp;м</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.78rem; color:var(--text-dim);">
+    *Данные из исторических и краеведческих источников, не из современного гидрологического архива.
+    Современный цифровой архив: <a href="https://allrivers.info/river/oka" target="_blank" rel="noopener">allrivers.info</a>
+  </p>
+
+  <h3>Ключевые закономерности</h3>
+  <div class="fact-card">
+    🌊 <b>Паводковая волна движется сверху вниз</b> со скоростью около 1–2 суток на 100&nbsp;км.
+    Пик в Калуге — примерно 21&nbsp;апреля, в Серпухове — 23&nbsp;апреля, в Кашире — 23–24&nbsp;апреля,
+    в Коломне — 24–25&nbsp;апреля (данные 2013&nbsp;года).
+  </div>
+  <div class="fact-card">
+    🌡️ <b>Главные условия катастрофического паводка:</b> снежный запас в 1,5–2 раза выше нормы
+    + резкое потепление без ночных заморозков + осадки в период таяния. Именно это сочеталось
+    в 1908, 1970 и 2013&nbsp;годах.
+  </div>
+  <div class="fact-card">
+    📅 <b>Тренд к более ранним паводкам:</b> исторически пик приходился на конец апреля;
+    в 2023&nbsp;году — 1&nbsp;апреля в Серпухове. Изменение климата сдвигает сроки.
+  </div>
+  <div class="fact-card">
+    ⚠️ <b>XXI&nbsp;век обновляет рекорды:</b> паводок 2013&nbsp;года поставил современные
+    инструментальные рекорды на большинстве постов. Паводок 2024&nbsp;года в Серпухове
+    превысил рекорд 2013&nbsp;года.
+  </div>
+  <div class="fact-card">
+    📉 <b>Обмеление vs паводки:</b> несмотря на общее обмеление Оки в межень (добыча песка),
+    паводковые уровни остаются высокими — потому что определяются объёмом снеготаяния
+    в бассейне, а не глубиной русла в спокойное время.
+  </div>
+</div>
+
+<!-- ═══════════════════ МИФЫ ═══════════════════ -->
+<div class="section-card hist-section" id="myths">
+  <h2>🔍 Мифы о дамбах и паводках: разбор по пунктам</h2>
+  <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:4px;">
+    Каждую весну в чатах и на форумах расцветает целая мифология о плотинах, водохранилищах
+    и «злых умыслах». Разбираем семь главных заблуждений — с фактами и ссылками.
+  </p>
+
+  <div class="myth-grid">
+
+    <div class="myth-card myth-false">
+      <div class="myth-label">❌ МИФ</div>
+      <h4>«Кузьминскую плотину открыли/закрыли — вот из-за этого и затопило»</h4>
+      <div class="myth-reality">
+        <strong>Реальность:</strong> Кузьминский гидроузел находится в 250+ км <em>ниже</em>
+        Серпухова по течению — у сёл Константиново и Аксёново в Рязанской области.
+        Он физически не способен влиять на уровень воды <em>выше</em> себя. В половодье
+        все затворы полностью открываются — гидроузел просто пропускает паводковый расход
+        насквозь. Подъём воды у Серпухова в 2024 году до 850 см определялся количеством снега,
+        темпом таяния и водоотдачей бассейна, но не Кузьминской плотиной.
+        (<a href="https://ru.wikipedia.org/wiki/%D0%9A%D1%83%D0%B7%D1%8C%D0%BC%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D0%B9_%D0%B3%D0%B8%D0%B4%D1%80%D0%BE%D1%83%D0%B7%D0%B5%D0%BB" target="_blank" rel="noopener">Кузьминский гидроузел — Википедия</a>)
+      </div>
+    </div>
+
+    <div class="myth-card myth-mixed">
+      <div class="myth-label">⚠️ ПОЛУПРАВДА</div>
+      <h4>«Водохранилища специально сбросили воду на дачи»</h4>
+      <div class="myth-reality">
+        <strong>Реальность:</strong> Водохранилища действительно производят сбросы в паводок —
+        но это <em>вынужденная мера безопасности</em>, а не злой умысел. Когда водохранилище
+        грозит переполниться, не открыть затворы значит допустить неконтролируемый перелив.
+        Водохранилища системы «Канала имени Москвы» в целом <em>снижают</em> паводок,
+        поглощая часть весеннего стока. На участке Серпухов–Таруса крупных водохранилищ
+        прямо на Оке вообще нет.
+        (<a href="https://aif.ru/society/nature/1025160" target="_blank" rel="noopener">АиФ — история волжских наводнений</a>)
+      </div>
+    </div>
+
+    <div class="myth-card myth-false">
+      <div class="myth-label">❌ МИФ</div>
+      <h4>«Раньше таких паводков не было — это из-за плотин»</h4>
+      <div class="myth-reality">
+        <strong>Реальность:</strong> Рекордные паводки фиксировались задолго до любых плотин.
+        1908 год — 1256 см у Серпухова, весь город почти под водой. В 1970 году вода
+        доходила до крыши троллейбуса в Калуге. Паводок 1908 года в 1,5 раза превысил
+        рекорд 2024 года. Именно строительство водохранилищ на Москве-реке <em>предотвратило</em>
+        катастрофические паводки столицы после 1931 года.
+        (<a href="https://www.orelvkartinkax.ru/bigwater.htm" target="_blank" rel="noopener">orelvkartinkax.ru</a>)
+      </div>
+    </div>
+
+    <div class="myth-card myth-false">
+      <div class="myth-label">❌ МИФ</div>
+      <h4>«Если бы плотину отремонтировали, паводка бы не было»</h4>
+      <div class="myth-reality">
+        <strong>Реальность:</strong> В районе Серпухова, Тарусы, Пущино плотин нет вообще.
+        Кузьминский гидроузел (который действительно реконструировали в 2013–2015 годах)
+        расположен ниже по течению и не влияет на уровень воды в этих местах.
+        Реконструкция решала задачи судоходства, а не защиты от паводков.
+        (<a href="https://7dogs.livejournal.com/855011.html" target="_blank" rel="noopener">7dogs.livejournal.com — история Кузьминского гидроузла</a>)
+      </div>
+    </div>
+
+    <div class="myth-card myth-mixed">
+      <div class="myth-label">⚠️ НЕТОЧНО</div>
+      <h4>«Каждый год всё сильнее топит — климат меняется, скоро совсем зальёт»</h4>
+      <div class="myth-reality">
+        <strong>Реальность:</strong> Статистика не подтверждает нарастающего тренда.
+        2015–2022 годы — серия слабых паводков: Ока у Серпухова не выходила на пойму.
+        2023 год — сильный паводок (780 см) после многих слабых лет. 2024 год — рекорд XXI века
+        (850 см), но в 1,5 раза слабее 1908 и 1970 годов. Истинная причина варьирования —
+        погодные условия конкретной зимы.
+        (<a href="https://ya-kraeved.ru/pavodok-na-oke-dostig-svoego-pika/" target="_blank" rel="noopener">ya-kraeved.ru</a>)
+      </div>
+    </div>
+
+    <div class="myth-card myth-false">
+      <div class="myth-label">❌ ЗАБЛУЖДЕНИЕ</div>
+      <h4>«Дача в пойме — нормально, нас должны защитить»</h4>
+      <div class="myth-reality">
+        <strong>Реальность:</strong> Пойма реки — это зона, <em>предназначенная природой
+        для затопления</em>. В период 1994–2012 годов Ока у Серпухова почти не разливалась
+        на пойму из-за аномально малоснежных зим — это создало ложное ощущение безопасности.
+        Заместитель серпуховского комитета по благоустройству о ежегодном затоплении парка:
+        «Это не стихийное бедствие, а обычный природный фактор. На этапе проектирования
+        это уже было предусмотрено».
+        (<a href="https://msk1.ru/text/incidents/2024/04/05/73430921/" target="_blank" rel="noopener">MSK1.ru</a>)
+      </div>
+    </div>
+
+    <div class="myth-card myth-false">
+      <div class="myth-label">❌ МИФ</div>
+      <h4>«На реке есть ГЭС — она сдерживает воду, а потом разом сбрасывает»</h4>
+      <div class="myth-reality">
+        <strong>Реальность:</strong> Кузьминская ГЭС (построена в 1945 году) закрыта в
+        1970-е годы. Сам гидроузел предназначен для судоходства, а не для выработки
+        электроэнергии. На участке Серпухов–Таруса–Пущино никаких действующих ГЭС нет.
+        Если дача расположена в пойме Нары или притока Оки — затопление там является штатным
+        природным явлением каждого года, независимо от любых плотин.
+        (<a href="https://cruiseinform.ru/catalog/06/oka/kuzminskiy-shlyuz/" target="_blank" rel="noopener">cruiseinform.ru</a>)
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ ПОДВАЛ ═══════════════════ -->
+<div class="section-card" style="text-align:center; margin-top:16px;">
+  <p style="color:var(--text-dim); font-size:0.82rem;">
+    Документ составлен: март 2026 года. Данные актуальны на дату составления.<br>
+    Основные источники:
+    <a href="https://allrivers.info/river/oka" target="_blank" rel="noopener">allrivers.info</a> |
+    <a href="https://www.orelvkartinkax.ru/bigwater.htm" target="_blank" rel="noopener">orelvkartinkax.ru</a> |
+    <a href="https://regions.ru/serpuhov/" target="_blank" rel="noopener">regions.ru</a> |
+    <a href="https://serpuhov.ru/" target="_blank" rel="noopener">serpuhov.ru</a> |
+    <a href="https://snegochistka.ru/articles/iz_letopisi_katastrof_kaluzhskoi_oblasti" target="_blank" rel="noopener">snegochistka.ru</a> |
+    <a href="https://www.kp40.ru/news/society/89696/" target="_blank" rel="noopener">KP40.ru</a>
+  </p>
+  <p style="margin-top:12px;">
+    <a href="flood-guide.html" style="color:var(--accent); font-size:0.88rem;">📚 Перейти к ликбезу по физике паводка &rarr;</a>
+  </p>
+</div>
+
+</div>
+
+<footer class="site-footer">
+  OkaFloodMonitor v7.3 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  Обновлено: 30.03.2026 11:32 МСК | <a href="index.html">Мониторинг</a> | <a href="links.html">Ссылки</a>
+</footer>
+
+</body>
+</html>

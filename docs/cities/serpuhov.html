@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Серпухов на реке Ока — гидрологический пост, паводки, зоны риска. OkaFloodMonitor.">
+  <title>Серпухов — города на Оке — OkaFloodMonitor</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    
+:root {
+  --safe:      #10b981;
+  --watch:     #f59e0b;
+  --warning:   #f97316;
+  --danger:    #ef4444;
+  --emergency: #a855f7;
+  --accent:    #3b82f6;
+  --bg-primary: #0c1222;
+  --bg-card: rgba(17, 25, 40, 0.75);
+  --bg-card-hover: rgba(17, 25, 40, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 900px; margin: 0 auto; padding: 24px; }
+.card, .section-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+.card:hover, .section-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+}
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12, 18, 34, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.header-logo {
+  font-size: 1.1rem; font-weight: 700; color: var(--text-primary);
+  white-space: nowrap; letter-spacing: -0.02em;
+}
+.header-logo span { color: var(--accent); }
+.header-nav { display: flex; gap: 4px; list-style: none; }
+.header-nav a {
+  display: block; padding: 6px 14px; border-radius: 8px;
+  color: var(--text-secondary); text-decoration: none;
+  font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease;
+}
+.header-nav a:hover, .header-nav a.active {
+  background: var(--bg-glass); color: var(--text-primary);
+}
+.site-footer {
+  text-align: center; padding: 32px 24px 24px;
+  color: var(--text-dim); font-size: 0.8rem; line-height: 1.8;
+}
+h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.03em; }
+h2 {
+  font-size: 1.1rem; font-weight: 700; color: var(--text-primary);
+  margin-bottom: 12px; border-left: 3px solid var(--accent); padding-left: 12px;
+}
+h3 { font-size: 0.95rem; font-weight: 600; color: var(--text-secondary); margin: 12px 0 6px; }
+p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-size: 0.9rem; }
+.badge {
+  display: inline-block; font-size: 0.72rem; font-weight: 700;
+  padding: 2px 10px; border-radius: 20px; margin-right: 6px;
+}
+.badge-blue   { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.badge-green  { background: rgba(16,185,129,0.15); color: #34d399; }
+.badge-orange { background: rgba(249,115,22,0.15); color: #fb923c; }
+.badge-red    { background: rgba(239,68,68,0.15);  color: #f87171; }
+.badge-purple { background: rgba(168,85,247,0.15); color: #c084fc; }
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin: 12px 0;
+}
+@media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
+.info-item { }
+.info-label { font-size: 0.72rem; color: var(--text-dim); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+.info-value { font-size: 0.9rem; color: var(--text-primary); font-weight: 500; }
+.flood-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 10px 0; }
+.flood-table th {
+  background: rgba(255,255,255,0.04); padding: 8px 10px;
+  text-align: left; color: var(--text-dim); font-size: 0.76rem; font-weight: 600;
+}
+.flood-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+.flood-table tr:hover td { background: var(--bg-glass); }
+.fact-card {
+  background: rgba(59,130,246,0.05); border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0; padding: 10px 16px; margin: 8px 0;
+  font-size: 0.88rem; color: var(--text-secondary);
+}
+.warn-card {
+  background: rgba(249,115,22,0.05); border-left: 3px solid var(--warning);
+  border-radius: 0 8px 8px 0; padding: 10px 16px; margin: 8px 0;
+  font-size: 0.88rem; color: var(--text-secondary);
+}
+.city-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;
+}
+@media (max-width: 768px) { .city-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .city-grid { grid-template-columns: 1fr; } }
+.city-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 16px 18px; text-decoration: none; color: inherit; display: block;
+  transition: all 0.25s ease;
+}
+.city-card:hover {
+  background: var(--bg-card-hover); border-color: var(--border-hover);
+  transform: translateY(-2px); text-decoration: none;
+}
+.city-card-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+.city-card-river { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 8px; }
+.city-card-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+.city-card-stat { font-size: 0.76rem; color: var(--text-secondary); }
+.city-card-stat span { color: var(--text-primary); font-weight: 600; }
+.river-timeline {
+  position: relative; padding: 12px 0;
+  margin: 20px 0;
+}
+.river-line {
+  position: absolute; left: 24px; top: 0; bottom: 0;
+  width: 3px; background: linear-gradient(to bottom, #1e40af, #3b82f6, #60a5fa);
+  border-radius: 2px;
+}
+.river-city {
+  position: relative; padding: 6px 0 6px 56px; min-height: 36px;
+  display: flex; align-items: center;
+}
+.river-dot {
+  position: absolute; left: 17px;
+  width: 17px; height: 17px; border-radius: 50%;
+  background: var(--bg-primary); border: 2px solid var(--accent);
+  z-index: 2;
+}
+.river-dot.main-dot {
+  border-color: var(--danger); background: rgba(239,68,68,0.2);
+  width: 21px; height: 21px; left: 15px;
+}
+.river-city-name { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); }
+.river-city-meta { font-size: 0.75rem; color: var(--text-dim); margin-left: 8px; }
+.critical-level { color: var(--danger); font-weight: 700; }
+.warning-level  { color: var(--warning); font-weight: 700; }
+
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <a class="header-logo" href="../index.html" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
+  <nav><ul class="header-nav">
+    <li><a href="../index.html">Главная</a></li>
+    <li><a href="../cities/index.html" class="active">Города</a></li>
+    <li><a href="../history.html">История паводков</a></li>
+    <li><a href="../links.html">Ссылки</a></li>
+    <li><a href="../instructions.html">Инструкции</a></li>
+  </ul></nav>
+</header>
+
+<div class="container">
+  
+<div style="padding: 32px 0 20px;">
+  <div style="font-size:0.8rem; color:var(--text-dim); margin-bottom:8px;">
+    <a href="index.html">← Все города</a>
+  </div>
+  <h1 style="font-size:2.5rem; font-weight:800; letter-spacing:-0.04em; margin-bottom:10px;">Серпухов</h1>
+  <div style="margin-bottom:14px; display:flex; flex-wrap:wrap; gap:6px;">
+    <span class="badge badge-blue">р. Ока (пристань; город — на р. Нара)</span>
+    <span class="badge badge-blue">522 км от истока</span>
+    <span class="badge badge-red">Главная точка мониторинга</span>
+  </div>
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="info-label">Год основания</div>
+      <div class="info-value">1339 г.</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Население</div>
+      <div class="info-value">133 756 чел.</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Берег</div>
+      <div class="info-value">левый берег Оки у устья р. Нары</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Расстояние от истока</div>
+      <div class="info-value">522 км</div>
+    </div>
+  </div>
+</div>
+  
+<div class="section-card">
+  <h2>О городе</h2>
+  <p>Серпухов — главная мониторинговая точка Оки для всей Московской области. Именно здесь расположен пост Лукьяново, данные которого используются для прогнозирования паводка в Кашире и Коломне. Река здесь шириной около 220 метров — уже настоящая, полноводная.</p>
+<p>Сам город стоит на холмах у реки Нары и от прямого затопления Окой защищён рельефом. Зато в пойме южнее — коттеджные посёлки, СНТ, дачи. Среди них и Жерновка, за уровнем воды у которой и следит этот монитор.</p>
+<p>Историческая память о 1908 годе здесь особенно жива: тогда вода поднялась на десять сажен (больше двадцати метров), снесло железнодорожную станцию «Ока», погибли люди. Сегодня критическая отметка — 800 сантиметров; в 2013 году добрались до 843.</p>
+
+</div>
+  
+<div class="section-card">
+  <h2>Гидрологический пост</h2>
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="info-label">Наименование</div>
+      <div class="info-value">г. Серпухов на р. Ока (пост Лукьяново)</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Отметка нуля поста</div>
+      <div class="info-value">107.54 м БС</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Оператор</div>
+      <div class="info-value" style="font-size:0.82rem;">ФГУП «Канал имени Москвы» / ФГБУ «Центральное УГМС»</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Данные на allrivers.info</div>
+      <div class="info-value"><a href="https://allrivers.info" target="_blank" rel="noopener">allrivers.info</a></div>
+    </div>
+  </div>
+  
+<h3>Критические уровни</h3>
+<table class="flood-table">
+  <thead><tr><th>Уровень</th><th>Значение</th></tr></thead>
+  <tbody>
+<tr>
+  <td class="critical-level">645 см</td>
+  <td>неблагоприятное явление — выход воды на пойму</td>
+</tr>
+<tr>
+  <td class="critical-level">800 см</td>
+  <td>опасное явление — подтопление населённых пунктов</td>
+</tr></tbody>
+</table>
+</div>
+  
+<div class="section-card">
+  <h2>GloFAS прогноз</h2>
+  <p>Для Серпухов отдельной станции GloFAS нет.
+  Ближайшая точка наблюдения — <a href="serpuhov.html">пост Серпухов / Лукьяново</a>.</p>
+  <p style="font-size:0.82rem; color:var(--text-dim);">Данные по Оке в целом доступны на
+  <a href="https://global-flood.emergency.copernicus.eu/" target="_blank" rel="noopener">GloFAS (Copernicus)</a>.</p>
+</div>
+  
+<div class="section-card">
+  <h2>Паводковая история</h2>
+  <table class="flood-table">
+    <thead><tr><th>Год</th><th>Уровень</th><th>Последствия</th></tr></thead>
+    <tbody>
+<tr>
+  <td style="font-weight:600; color:var(--warning);">1908</td>
+  <td>~2160 см (10 сажен)</td>
+  <td>Снесло ст. «Ока», погибли люди; крупнейшее в истории</td>
+</tr>
+<tr>
+  <td style="font-weight:600; color:var(--warning);">1999</td>
+  <td>893 см</td>
+  <td>Последний значительный подъём до XXI века</td>
+</tr>
+<tr>
+  <td style="font-weight:600; color:var(--warning);">2013</td>
+  <td>843 см</td>
+  <td>Абсолютный максимум инструментального периода</td>
+</tr></tbody>
+  </table>
+</div>
+  
+<div class="section-card">
+  <h2>Зоны риска</h2>
+  <div class="warn-card">⚠️ «Окская слобода», пойменные СНТ вдоль Оки, Жерновка и окрестные сёла</div>
+  <p style="font-size:0.85rem; color:var(--text-dim); margin-top:8px;">
+    При значительном паводке указанные территории могут оказаться под водой.
+    Следите за данными гидропоста и предупреждениями МЧС.
+  </p>
+</div>
+  
+  
+<div style="display:flex; justify-content:space-between; align-items:center;
+            padding:16px 0; font-size:0.88rem; color:var(--text-secondary);">
+  <div><a href="tarusa.html">← Таруса</a></div>
+  <div><a href="index.html">Все города</a></div>
+  <div><a href="pushchino.html">Пущино →</a></div>
+</div>
+</div>
+
+<footer class="site-footer">
+  OkaFloodMonitor v7.2 | Серпухов, р. Ока (пристань; город — на р. Нара)<br>
+  <a href="../index.html">На главную</a> |
+  <a href="index.html">Все города</a> |
+  Обновлено: 30.03.2026 11:32 МСК
+</footer>
+
+</body>
+</html>

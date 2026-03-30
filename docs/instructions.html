@@ -88,10 +88,12 @@ h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
 <body>
 
 <header class="site-header">
-  <div class="header-logo">🌊 <span>Oka</span>FloodMonitor</div>
+  <a class="header-logo" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
   <nav><ul class="header-nav">
     <li><a href="index.html">Главная</a></li>
     <li><a href="links.html">Ссылки</a></li>
+    <li><a href="history.html">История паводков</a></li>
+    <li><a href="flood-guide.html">Ликбез</a></li>
     <li><a href="instructions.html" class="active">Инструкции</a></li>
   </ul></nav>
 </header>
@@ -183,15 +185,68 @@ h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
   </ul>
 </div>
 
-<div class="section-card">
-  <h2>📱 Telegram-уведомления</h2>
-  <p style="color:var(--text-secondary);">Бот <b style="color:var(--text-primary);">@OkaFlood2026EMbot</b> автоматически отправляет:</p>
-  <ul style="padding-left:20px; color: var(--text-secondary); margin-top:8px; line-height:2;">
-    <li>Ежедневные сводки в 08:00 и 20:00 МСК</li>
-    <li>Экстренные алерты при пересечении пороговых отметок (400, 600, 800, 900 см)</li>
-    <li>Сводки GloFAS с прогнозом прихода волны в Серпухов</li>
-    <li>Watchdog-уведомления при недоступности источников</li>
-  </ul>
+<div class="section-card" id="telegram">
+  <h2>📱 Система Telegram-оповещений</h2>
+
+  <h3 style="color:var(--text-primary); margin:16px 0 8px;">Как работает система</h3>
+  <p style="color:var(--text-secondary);">Мониторинг запускается автоматически <b>4 раза в сутки</b> (08:00, 12:00, 17:00, 20:00 МСК).
+  При каждом запуске скрипт собирает данные из пяти источников, вычисляет аналитику и, если нужно,
+  отправляет уведомление в Telegram. Никакого дежурного человека за пультом нет — только алгоритм и бдительность.</p>
+
+  <h3 style="color:var(--text-primary); margin:16px 0 8px;">Виды уведомлений</h3>
+  <table class="action-table" style="margin-top:0;">
+    <tr><th>Тип</th><th>Когда</th><th>Что содержит</th></tr>
+    <tr>
+      <td style="color:#64b5f6;"><b>💓 Heartbeat</b></td>
+      <td style="color:var(--text-secondary);">Каждый запуск (4×/сут)</td>
+      <td style="color:var(--text-secondary);">Краткий статус: уровень, прирост, источники данных</td>
+    </tr>
+    <tr>
+      <td style="color:#81c784;"><b>📋 Дайджест</b></td>
+      <td style="color:var(--text-secondary);">08:00 и 20:00 МСК</td>
+      <td style="color:var(--text-secondary);">Полный обзор: уровни по всем постам, прогноз, погодный индекс, сводка GloFAS</td>
+    </tr>
+    <tr>
+      <td style="color:#ef5350;"><b>🚨 Алерт</b></td>
+      <td style="color:var(--text-secondary);">При превышении порогов (400, 600 см и выше)</td>
+      <td style="color:var(--text-secondary);">Пороговое предупреждение с уровнем, динамикой и рекомендациями</td>
+    </tr>
+    <tr>
+      <td style="color:#ffb74d;"><b>🌧️ Погодный алерт</b></td>
+      <td style="color:var(--text-secondary);">При паводковом индексе ≥ 3/4</td>
+      <td style="color:var(--text-secondary);">Предупреждение о высоком паводковом риске за 2–3 дня до возможного подъёма</td>
+    </tr>
+  </table>
+
+  <h3 style="color:var(--text-primary); margin:16px 0 8px;">Как подключиться</h3>
+  <p style="color:var(--text-secondary);">В настоящее время уведомления рассылаются по закрытому списку подписчиков.
+  Чтобы попасть в список, напишите администратору в Telegram — ссылка будет добавлена на сайт.
+  Публичный канал находится в разработке.</p>
+
+  <div style="background:rgba(29,155,240,0.07); border:1px solid rgba(29,155,240,0.25); border-radius:12px; padding:16px; margin-top:16px;">
+    <p style="color:var(--text-secondary); margin:0; font-size:0.88rem;">
+      <b style="color:#1d9bf0;">Пример heartbeat-сообщения:</b><br><br>
+      <span style="font-family:monospace; font-size:0.82rem; display:block; white-space:pre-wrap; color:var(--text-secondary);"
+      >💓 OkaFloodMonitor | 30.03.2026 08:00 МСК
+Серпухов: 542 см  (+12 см/сут)  🟡 ВНИМАНИЕ
+Калуга: 389 см | Кашира: 461 см
+GloFAS Таруса: flood ratio 2.1×
+Погода: индекс 2/4 (умеренный)
+Источники: ✅ serpuhov.ru ✅ КИМ ✅ ЦУГМС ✅ GloFAS</span>
+    </p>
+  </div>
+
+  <div style="background:rgba(239,83,80,0.07); border:1px solid rgba(239,83,80,0.25); border-radius:12px; padding:16px; margin-top:12px;">
+    <p style="color:var(--text-secondary); margin:0; font-size:0.88rem;">
+      <b style="color:#ef5350;">Пример алерта:</b><br><br>
+      <span style="font-family:monospace; font-size:0.82rem; display:block; white-space:pre-wrap; color:var(--text-secondary);"
+      >🚨 АЛЕРТ: Уровень превысил порог ОПАСНОСТИ
+Серпухов (пост Лукьяново): 603 см
+Порог ОЯ (800 см) — ещё 197 см до опасного явления
+Динамика: +47 см за последние 24 часа
+Рекомендация: готовьтесь к эвакуации ценных вещей</span>
+    </p>
+  </div>
 </div>
 
 <div class="section-card">
@@ -210,7 +265,7 @@ h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.0 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.2 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS<br>
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
 </footer>
