@@ -11,22 +11,22 @@
   <style>
     
 :root {
-  --safe:      #10b981;
+  --safe:      #22c55e;
   --watch:     #f59e0b;
   --warning:   #f97316;
   --danger:    #ef4444;
   --emergency: #a855f7;
-  --accent:    #3b82f6;
-  --bg-primary: #0c1222;
-  --bg-card: rgba(17, 25, 40, 0.75);
-  --bg-card-hover: rgba(17, 25, 40, 0.9);
-  --bg-glass: rgba(255, 255, 255, 0.04);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.15);
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-dim: #64748b;
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.2);
+  --accent:    #2563eb;
+  --bg-primary: #f7f9fc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-glass: rgba(0, 0, 0, 0.03);
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.16);
+  --text-primary: #1a2332;
+  --text-secondary: #5a6a7a;
+  --text-dim: #8a9ab0;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -37,14 +37,22 @@ body {
   min-height: 100vh;
   line-height: 1.6;
   font-size: 15px;
+  position: relative;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(186,230,253,0.12) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(186,230,253,0.10) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
 }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 900px; margin: 0 auto; padding: 24px; }
 .card, .section-card {
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: 16px;
   box-shadow: var(--shadow-card);
@@ -55,13 +63,14 @@ a:hover { text-decoration: underline; }
 .card:hover, .section-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-hover);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
 }
 .site-header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(12, 18, 34, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e5e7eb;
   padding: 0 24px; height: 56px;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
@@ -70,15 +79,32 @@ a:hover { text-decoration: underline; }
   white-space: nowrap; letter-spacing: -0.02em;
 }
 .header-logo span { color: var(--accent); }
-.header-nav { display: flex; gap: 4px; list-style: none; }
+.header-nav { display: flex; gap: 2px; list-style: none; }
+.header-nav > li { position: relative; }
 .header-nav a {
-  display: block; padding: 6px 14px; border-radius: 8px;
+  display: block; padding: 6px 12px; border-radius: 8px;
   color: var(--text-secondary); text-decoration: none;
-  font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease;
+  font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease; white-space: nowrap;
 }
 .header-nav a:hover, .header-nav a.active {
-  background: var(--bg-glass); color: var(--text-primary);
+  background: rgba(37,99,235,0.08); color: var(--accent);
 }
+.header-nav .dropdown {
+  position: absolute; top: calc(100% + 4px); left: 0;
+  background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12); min-width: 200px; z-index: 1000;
+  opacity: 0; visibility: hidden; transform: translateY(-4px);
+  transition: all 0.15s ease; pointer-events: none; padding: 6px 0;
+}
+.header-nav > li:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+.header-nav .dropdown a { padding: 7px 16px; font-size: 0.83rem; border-radius: 0; }
+.burger-btn { display: none; background: none; border: none; cursor: pointer; font-size: 1.4rem; color: var(--text-primary); padding: 4px 8px; border-radius: 6px; }
+.mobile-nav { display: none; position: fixed; top: 56px; left: 0; right: 0; background: #ffffff; border-bottom: 1px solid #e5e7eb; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 199; padding: 8px 0 16px; }
+.mobile-nav.open { display: block; }
+.mobile-nav a { display: block; padding: 10px 24px; font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; }
+.mobile-nav a:hover, .mobile-nav a.active { background: rgba(37,99,235,0.05); color: var(--accent); border-left-color: var(--accent); }
+.mobile-nav .mobile-nav-sub { padding-left: 40px; font-size: 0.83rem; }
+@media (max-width: 768px) { .header-nav { display: none; } .burger-btn { display: block; } }
 .site-footer {
   text-align: center; padding: 32px 24px 24px;
   color: var(--text-dim); font-size: 0.8rem; line-height: 1.8;
@@ -94,7 +120,7 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
   display: inline-block; font-size: 0.72rem; font-weight: 700;
   padding: 2px 10px; border-radius: 20px; margin-right: 6px;
 }
-.badge-blue   { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.badge-blue   { background: rgba(37,99,235,0.10); color: #2563eb; }
 .badge-green  { background: rgba(16,185,129,0.15); color: #34d399; }
 .badge-orange { background: rgba(249,115,22,0.15); color: #fb923c; }
 .badge-red    { background: rgba(239,68,68,0.15);  color: #f87171; }
@@ -109,11 +135,11 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
 .info-value { font-size: 0.9rem; color: var(--text-primary); font-weight: 500; }
 .flood-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 10px 0; }
 .flood-table th {
-  background: rgba(255,255,255,0.04); padding: 8px 10px;
-  text-align: left; color: var(--text-dim); font-size: 0.76rem; font-weight: 600;
+  background: #f8fafc; padding: 8px 10px;
+  text-align: left; color: var(--text-secondary); font-size: 0.76rem; font-weight: 600;
 }
 .flood-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
-.flood-table tr:hover td { background: var(--bg-glass); }
+.flood-table tr:hover td { background: rgba(37,99,235,0.03); }
 .fact-card {
   background: rgba(59,130,246,0.05); border-left: 3px solid var(--accent);
   border-radius: 0 8px 8px 0; padding: 10px 16px; margin: 8px 0;
@@ -175,20 +201,164 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
 </head>
 <body>
 <header class="site-header">
-  <a class="header-logo" href="index.html" style="text-decoration:none; color:inherit;">🌊 <span>Oka</span>FloodMonitor</a>
-  <nav><ul class="header-nav">
-    <li><a href="index.html">Главная</a></li>
-    <li><a href="index.html" class="active">Города</a></li>
-    <li><a href="history.html">История паводков</a></li>
-    <li><a href="links.html">Ссылки</a></li>
-    <li><a href="instructions.html">Инструкции</a></li>
-  </ul></nav>
+  <a class="header-logo" href="index.html" style="text-decoration:none; color:inherit;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:4px;"><path d="M2 12c1.5-3 4-5 6-5s4 3 6 3 4-5 6-5" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/><path d="M2 18c1.5-3 4-5 6-5s4 3 6 3 4-5 6-5" stroke="#93c5fd" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <span>Oka</span>FloodMonitor
+  </a>
+  <nav>
+    <ul class="header-nav">
+      <li><a href="index.html">Главная</a></li>
+      <li>
+          <ul class="dropdown">
+            <li><a href="cities/index.html">Все города</a></li>
+            <li><a href="cities/orel.html">Орёл</a></li>
+            <li><a href="cities/belev.html">Белёв</a></li>
+            <li><a href="cities/kaluga.html">Калуга</a></li>
+            <li><a href="cities/aleksin.html">Алексин</a></li>
+            <li><a href="cities/tarusa.html">Таруса</a></li>
+            <li><a href="cities/serpuhov.html">Серпухов</a></li>
+            <li><a href="cities/kashira.html">Кашира</a></li>
+            <li><a href="cities/kolomna.html">Коломна</a></li>
+          </ul>
+        <a href="cities/index.html" class="active">Города <span style="font-size:0.7rem;opacity:0.6;">▾</span></a>
+      </li>
+      <li>
+          <ul class="dropdown">
+            <li><a href="history.html#flood-1908">1908 — Великий паводок</a></li>
+            <li><a href="history.html#flood-1970">1970 — Советский рекорд</a></li>
+            <li><a href="history.html#flood-1979">1979 — Год стройки</a></li>
+            <li><a href="history.html#flood-1994">1994 — Рекорд Белёва</a></li>
+            <li><a href="history.html#flood-2013">2013 — Рекорд XXI века</a></li>
+            <li><a href="history.html#flood-2023">2023 — Ранний</a></li>
+            <li><a href="history.html#flood-2024">2024 — Новый рекорд</a></li>
+            <li><a href="history.html#dams">Плотины и мифы</a></li>
+            <li><a href="history.html#records-table">Таблица рекордов</a></li>
+          </ul>
+        <a href="history.html">История паводков <span style="font-size:0.7rem;opacity:0.6;">▾</span></a>
+      </li>
+      <li>
+          <ul class="dropdown">
+            <li><a href="flood-guide.html#s1">Что такое половодье</a></li>
+            <li><a href="flood-guide.html#s2">Скорость волны</a></li>
+            <li><a href="flood-guide.html#s3">Ока от Орла до Коломны</a></li>
+            <li><a href="flood-guide.html#s4">Несколько волн за весну</a></li>
+            <li><a href="flood-guide.html#s5">Пять факторов</a></li>
+            <li><a href="flood-guide.html#s6">Гидропост</a></li>
+            <li><a href="flood-guide.html#s7">НЯ и ОЯ</a></li>
+            <li><a href="flood-guide.html#s8">Плотины</a></li>
+            <li><a href="flood-guide.html#s9">Что делать</a></li>
+          </ul>
+        <a href="flood-guide.html">Физика половодья <span style="font-size:0.7rem;opacity:0.6;">▾</span></a>
+      </li>
+      <li><a href="links.html">Ссылки</a></li>
+      <li><a href="instructions.html">Инструкции</a></li>
+    </ul>
+  </nav>
+  <button class="burger-btn" onclick="toggleMobileNav()" aria-label="Меню">☰</button>
 </header>
+<div class="mobile-nav" id="mobile-nav">
+<a href="index.html">Главная</a><a href="cities/index.html" class="active">Города</a><a href="cities/serpuhov.html" class="mobile-nav-sub">— Серпухов</a><a href="cities/kaluga.html" class="mobile-nav-sub">— Калуга</a><a href="history.html">История паводков</a><a href="history.html#flood-1908" class="mobile-nav-sub">— 1908 Великий</a><a href="history.html#flood-2013" class="mobile-nav-sub">— 2013 Рекорд</a><a href="history.html#flood-2024" class="mobile-nav-sub">— 2024</a><a href="flood-guide.html">Физика половодья</a><a href="links.html">Ссылки</a><a href="instructions.html">Инструкции</a></div>
 
 <div class="container">
   <h1>🏙️ Города на реке Ока</h1>
   <p style="color:var(--text-dim); margin-bottom:4px;">От Орла (111 км от истока) до Коломны (645 км). 12 городов и населённых пунктов.</p>
-  <p style="color:var(--text-dim); font-size:0.82rem;">🔴 — основная мониторинговая точка (Жерновка / Серпухов)</p>
+  <p style="color:var(--text-dim); font-size:0.82rem; margin-bottom:20px;">🔴 — основная мониторинговая точка (Жерновка / Серпухов)</p>
+
+  <div class="section-card" style="margin-bottom:24px; padding:20px; overflow:hidden;">
+  <h2 style="margin-bottom:4px;">Схематичная карта Оки</h2>
+  <p style="font-size:0.8rem; color:var(--text-dim); margin-bottom:12px;">
+    Нажмите на город для подробной информации. Размер точки пропорционален населению.
+  </p>
+  <div style="overflow-x:auto;">
+    <svg viewBox="0 0 760 320" width="100%" style="max-height:320px; min-width:480px; display:block;">
+      <defs>
+        <linearGradient id="rg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#bae6fd"/><stop offset="100%" stop-color="#38bdf8"/>
+        </linearGradient>
+      </defs>
+      <rect width="760" height="320" fill="#f8fafc" rx="8"/>
+      <line x1="148.7" y1="28" x2="148.7" y2="310" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="298.5" y1="28" x2="298.5" y2="310" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="526.2" y1="28" x2="526.2" y2="310" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,3"/>
+      
+      <text x="135" y="22" font-family="Inter,sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Орловская обл.</text>
+  <text x="270" y="22" font-family="Inter,sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Тульская обл.</text>
+  <text x="420" y="22" font-family="Inter,sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Калужская обл.</text>
+  <text x="590" y="22" font-family="Inter,sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Московская обл.</text>
+  
+      <text x="44" y="164" font-family="Inter,sans-serif" font-size="10" fill="#9ca3af">← исток</text>
+      <text x="724" y="164" font-family="Inter,sans-serif" font-size="10" fill="#9ca3af">→ устье</text>
+      <path d="M 60.0,160.0 L 64.8,162.6 L 69.6,165.3 L 74.4,167.9 L 79.2,170.5 L 84.0,173.0 L 88.8,175.6 L 93.6,178.0 L 98.4,180.4 L 103.1,182.7 L 107.9,185.0 L 112.7,187.1 L 117.5,189.2 L 122.3,191.2 L 127.1,193.0 L 131.9,194.8 L 136.7,196.4 L 141.5,197.9 L 146.3,199.2 L 151.1,200.5 L 155.9,201.5 L 160.7,202.5 L 165.5,203.3 L 170.3,203.9 L 175.1,204.4 L 179.9,204.8 L 184.6,205.0 L 189.4,205.0 L 194.2,204.9 L 199.0,204.6 L 203.8,204.2 L 208.6,203.6 L 213.4,202.8 L 218.2,201.9 L 223.0,200.9 L 227.8,199.7 L 232.6,198.4 L 237.4,197.0 L 242.2,195.4 L 247.0,193.7 L 251.8,191.9 L 256.6,190.0 L 261.3,188.0 L 266.1,185.8 L 270.9,183.6 L 275.7,181.3 L 280.5,179.0 L 285.3,176.5 L 290.1,174.1 L 294.9,171.5 L 299.7,168.9 L 304.5,166.3 L 309.3,163.7 L 314.1,161.1 L 318.9,158.4 L 323.7,155.8 L 328.5,153.1 L 333.3,150.5 L 338.1,148.0 L 342.8,145.4 L 347.6,143.0 L 352.4,140.5 L 357.2,138.2 L 362.0,135.9 L 366.8,133.7 L 371.6,131.6 L 376.4,129.6 L 381.2,127.7 L 386.0,125.9 L 390.8,124.3 L 395.6,122.7 L 400.4,121.3 L 405.2,120.0 L 410.0,118.9 L 414.8,117.9 L 419.6,117.0 L 424.3,116.3 L 429.1,115.7 L 433.9,115.3 L 438.7,115.1 L 443.5,115.0 L 448.3,115.1 L 453.1,115.3 L 457.9,115.7 L 462.7,116.2 L 467.5,116.9 L 472.3,117.7 L 477.1,118.7 L 481.9,119.8 L 486.7,121.0 L 491.5,122.4 L 496.3,123.9 L 501.0,125.6 L 505.8,127.3 L 510.6,129.2 L 515.4,131.2 L 520.2,133.3 L 525.0,135.5 L 529.8,137.7 L 534.6,140.1 L 539.4,142.5 L 544.2,144.9 L 549.0,147.5 L 553.8,150.0 L 558.6,152.6 L 563.4,155.2 L 568.2,157.9 L 573.0,160.5 L 577.8,163.2 L 582.5,165.8 L 587.3,168.4 L 592.1,171.0 L 596.9,173.6 L 601.7,176.1 L 606.5,178.5 L 611.3,180.9 L 616.1,183.2 L 620.9,185.4 L 625.7,187.6 L 630.5,189.6 L 635.3,191.5 L 640.1,193.4 L 644.9,195.1 L 649.7,196.7 L 654.5,198.2 L 659.3,199.5 L 664.0,200.7 L 668.8,201.7 L 673.6,202.7 L 678.4,203.4 L 683.2,204.0 L 688.0,204.5 L 692.8,204.8 L 697.6,205.0" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" opacity="0.6"/>
+      <path d="M 60.0,160.0 L 64.8,162.6 L 69.6,165.3 L 74.4,167.9 L 79.2,170.5 L 84.0,173.0 L 88.8,175.6 L 93.6,178.0 L 98.4,180.4 L 103.1,182.7 L 107.9,185.0 L 112.7,187.1 L 117.5,189.2 L 122.3,191.2 L 127.1,193.0 L 131.9,194.8 L 136.7,196.4 L 141.5,197.9 L 146.3,199.2 L 151.1,200.5 L 155.9,201.5 L 160.7,202.5 L 165.5,203.3 L 170.3,203.9 L 175.1,204.4 L 179.9,204.8 L 184.6,205.0 L 189.4,205.0 L 194.2,204.9 L 199.0,204.6 L 203.8,204.2 L 208.6,203.6 L 213.4,202.8 L 218.2,201.9 L 223.0,200.9 L 227.8,199.7 L 232.6,198.4 L 237.4,197.0 L 242.2,195.4 L 247.0,193.7 L 251.8,191.9 L 256.6,190.0 L 261.3,188.0 L 266.1,185.8 L 270.9,183.6 L 275.7,181.3 L 280.5,179.0 L 285.3,176.5 L 290.1,174.1 L 294.9,171.5 L 299.7,168.9 L 304.5,166.3 L 309.3,163.7 L 314.1,161.1 L 318.9,158.4 L 323.7,155.8 L 328.5,153.1 L 333.3,150.5 L 338.1,148.0 L 342.8,145.4 L 347.6,143.0 L 352.4,140.5 L 357.2,138.2 L 362.0,135.9 L 366.8,133.7 L 371.6,131.6 L 376.4,129.6 L 381.2,127.7 L 386.0,125.9 L 390.8,124.3 L 395.6,122.7 L 400.4,121.3 L 405.2,120.0 L 410.0,118.9 L 414.8,117.9 L 419.6,117.0 L 424.3,116.3 L 429.1,115.7 L 433.9,115.3 L 438.7,115.1 L 443.5,115.0 L 448.3,115.1 L 453.1,115.3 L 457.9,115.7 L 462.7,116.2 L 467.5,116.9 L 472.3,117.7 L 477.1,118.7 L 481.9,119.8 L 486.7,121.0 L 491.5,122.4 L 496.3,123.9 L 501.0,125.6 L 505.8,127.3 L 510.6,129.2 L 515.4,131.2 L 520.2,133.3 L 525.0,135.5 L 529.8,137.7 L 534.6,140.1 L 539.4,142.5 L 544.2,144.9 L 549.0,147.5 L 553.8,150.0 L 558.6,152.6 L 563.4,155.2 L 568.2,157.9 L 573.0,160.5 L 577.8,163.2 L 582.5,165.8 L 587.3,168.4 L 592.1,171.0 L 596.9,173.6 L 601.7,176.1 L 606.5,178.5 L 611.3,180.9 L 616.1,183.2 L 620.9,185.4 L 625.7,187.6 L 630.5,189.6 L 635.3,191.5 L 640.1,193.4 L 644.9,195.1 L 649.7,196.7 L 654.5,198.2 L 659.3,199.5 L 664.0,200.7 L 668.8,201.7 L 673.6,202.7 L 678.4,203.4 L 683.2,204.0 L 688.0,204.5 L 692.8,204.8 L 697.6,205.0" fill="none" stroke="#93c5fd" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+      
+  <a href="orel.html" title="Орёл">
+    <circle cx="60.0" cy="160.0" r="18.0" fill="#22c55e" stroke="#15803d" stroke-width="1.5"/>
+    <text x="60.0" y="134.0" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Орёл</text>
+  </a>
+  <a href="mtsensk.html" title="Мценск">
+    <circle cx="106.7" cy="184.4" r="16.4" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+    <text x="106.7" y="214.8" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Мценск</text>
+  </a>
+  <a href="belev.html" title="Белёв">
+    <circle cx="236.2" cy="197.4" r="15.2" fill="#22c55e" stroke="#15803d" stroke-width="1.5"/>
+    <text x="236.2" y="174.1" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Белёв</text>
+  </a>
+  <a href="chekalin.html" title="Чекалин">
+    <circle cx="286.5" cy="175.9" r="12.5" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+    <text x="286.5" y="202.4" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Чекалин</text>
+  </a>
+  <a href="kozelsk.html" title="Козельск">
+    <circle cx="334.5" cy="149.9" r="15.6" fill="#22c55e" stroke="#15803d" stroke-width="1.5"/>
+    <text x="334.5" y="126.3" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Козельск</text>
+  </a>
+  <a href="kaluga.html" title="Калуга">
+    <circle cx="395.6" cy="122.7" r="18.0" fill="#22c55e" stroke="#15803d" stroke-width="1.5"/>
+    <text x="395.6" y="154.7" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Калуга</text>
+  </a>
+  <a href="aleksin.html" title="Алексин">
+    <circle cx="468.7" cy="117.0" r="17.0" fill="#22c55e" stroke="#15803d" stroke-width="1.5"/>
+    <text x="468.7" y="92.1" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Алексин</text>
+  </a>
+  <a href="tarusa.html" title="Таруса">
+    <circle cx="514.2" cy="130.7" r="14.9" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+    <text x="514.2" y="159.6" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Таруса</text>
+  </a>
+  <a href="serpuhov.html" title="Серпухов">
+    <circle cx="552.6" cy="149.4" r="17.8" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+    <text x="552.6" y="123.6" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Серпухов</text>
+  </a>
+  <a href="pushchino.html" title="Пущино">
+    <circle cx="568.2" cy="157.9" r="15.7" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+    <text x="568.2" y="187.6" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Пущино</text>
+  </a>
+  <a href="kashira.html" title="Кашира">
+    <circle cx="613.7" cy="182.0" r="16.4" fill="#22c55e" stroke="#15803d" stroke-width="1.5"/>
+    <text x="613.7" y="157.7" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Кашира</text>
+  </a>
+  <a href="kolomna.html" title="Коломна">
+    <circle cx="700.0" cy="205.0" r="17.9" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+    <text x="700.0" y="236.9" text-anchor="middle"
+      font-family="Inter,sans-serif" font-size="11" fill="#374151" font-weight="500">Коломна</text>
+  </a>
+      <g transform="translate(8,266)">
+        <circle cx="7" cy="7" r="5" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/><text x="16" y="11" font-family="Inter,sans-serif" font-size="10" fill="#374151">Главная точка</text>
+        <circle cx="7" cy="22" r="5" fill="#22c55e" stroke="#15803d" stroke-width="1.5"/><text x="16" y="26" font-family="Inter,sans-serif" font-size="10" fill="#374151">Есть гидропост</text>
+        <circle cx="7" cy="37" r="5" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/><text x="16" y="41" font-family="Inter,sans-serif" font-size="10" fill="#374151">Нет поста</text>
+      </g>
+    </svg>
+  </div>
+</div>
 
   <div style="display:grid; grid-template-columns:2fr 1fr; gap:24px; margin-top:16px;">
     <div>
@@ -421,14 +591,19 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
     от Серпухова до Коломны — ещё за 2–4 дня.</p>
     <p>Не все города имеют официальные гидрологические посты на реке: для части из них
     мониторинг ведётся через ближайшие посты и региональными службами МЧС.</p>
-    <div style="font-size:0.8rem; color:var(--text-dim); margin-top:8px;">Обновлено: 30.03.2026 11:32 МСК</div>
+    <div style="font-size:0.8rem; color:var(--text-dim); margin-top:8px;">Обновлено: 30.03.2026 12:58 МСК</div>
   </div>
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.2 | Города на Оке | <a href="../index.html">← На главную</a><br>
+  OkaFloodMonitor v7.4 | Города на Оке | <a href="../index.html">← На главную</a><br>
   Источники: Росгидромет / Центр регистра и кадастра / Канал имени Москвы / МЧС
 </footer>
 
+
+<script>
+function toggleMobileNav(){var n=document.getElementById('mobile-nav'),b=document.querySelector('.burger-btn');if(!n)return;n.classList.toggle('open');if(b)b.textContent=n.classList.contains('open')?'✕':'☰';}
+document.addEventListener('click',function(e){var n=document.getElementById('mobile-nav'),b=document.querySelector('.burger-btn');if(!n||!b)return;if(!n.contains(e.target)&&!b.contains(e.target)){n.classList.remove('open');if(b)b.textContent='☰';} });
+</script>
 </body>
 </html>
