@@ -12,7 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <style>
 /* ═══════════════════════════════════════════════════════════════
-   OkaFloodMonitor v7.4 Design System — Light Theme
+   OkaFloodMonitor v7.5 Design System — Light Theme
    ═══════════════════════════════════════════════════════════════ */
 :root {
   --safe:      #22c55e;
@@ -22,10 +22,11 @@
   --emergency: #a855f7;
   --accent:    #2563eb;
 
-  --bg-primary: #f7f9fc;
+  --bg-primary: #f0f7ff;
   --bg-card: #ffffff;
   --bg-card-hover: #f8fafc;
   --bg-glass: rgba(0, 0, 0, 0.03);
+  --card-bg: #ffffff;
 
   --border: rgba(0, 0, 0, 0.08);
   --border-hover: rgba(0, 0, 0, 0.16);
@@ -257,13 +258,10 @@ a:hover { text-decoration: underline; }
   position: relative;
   padding: 40px 24px 32px;
   overflow: hidden;
-}
-.hero-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #e0f2fe 0%, rgba(247,249,252,0) 100%);
-  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(224,242,254,0.85) 0%, rgba(247,249,252,0.95) 100%),
+    url('https://geonovosti.terratech.ru/upload/geonovosti/oka/aft.jpg') center/cover no-repeat;
+  background-color: #e0f2fe;
 }
 
 .composite-status {
@@ -278,9 +276,10 @@ a:hover { text-decoration: underline; }
 .level-display { text-align: center; }
 .level-display .level-number {
   font-size: clamp(4rem, 9.5vw, 7rem);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1;
+  opacity: 1;
 }
 
 /* ── Hero main row: thermometer + center ────────────────────────── */
@@ -407,12 +406,13 @@ a:hover { text-decoration: underline; }
   margin-bottom: 1.5rem;
 }
 .info-card {
-  background: var(--card-bg);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 0.85rem 0.65rem;
   text-align: center;
   transition: border-color 0.2s, transform 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .info-card:hover {
   border-color: var(--accent);
@@ -541,12 +541,13 @@ a.info-card:hover { text-decoration: none; }
   max-width: 800px;
 }
 .sub-indicator {
-  background: var(--bg-card);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 12px 14px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   gap: 4px;
   transition: all 0.3s ease;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
@@ -866,13 +867,14 @@ a.info-card:hover { text-decoration: none; }
 /* ── ACCORDION SECTIONS ────────────────────────────────────────── */
 .accordion-section { padding: 0 24px 8px; }
 .accordion-header {
-  background: var(--bg-card);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   cursor: pointer;
   font-weight: 600;
   font-size: 0.95rem;
@@ -883,11 +885,12 @@ a.info-card:hover { text-decoration: none; }
 .accordion-header:hover { background: var(--bg-card-hover); }
 .accordion-body {
   display: none;
-  background: var(--bg-card);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-top: none;
   border-radius: 0 0 12px 12px;
   padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .accordion-body.open { display: block; }
 
@@ -1136,6 +1139,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
             <li><a href="cities/aleksin.html">Алексин</a></li>
             <li><a href="cities/tarusa.html">Таруса</a></li>
             <li><a href="cities/serpuhov.html">Серпухов</a></li>
+            <li><a href="cities/pushchino.html">Пущино</a></li>
             <li><a href="cities/kashira.html">Кашира</a></li>
             <li><a href="cities/kolomna.html">Коломна</a></li>
           </ul>
@@ -1177,14 +1181,14 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <div class="header-right">
     <span class="clock-display" id="clock">--:--:-- МСК</span>
     <span class="freshness-dot" id="freshness" title="Проверка свежести данных..."></span>
-    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 30.03.2026 15:08</span>
+    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 30.03.2026 15:17</span>
     <span class="source-badge ok">serp</span>
     <span class="source-badge ok">kim</span>
     <span class="source-badge ok">GloFAS</span>
   </div>
 </header>
 <div class="mobile-nav" id="mobile-nav">
-<a href="index.html" class="active">Главная</a><a href="cities/index.html">Города</a><a href="cities/serpuhov.html" class="mobile-nav-sub">— Серпухов</a><a href="cities/kaluga.html" class="mobile-nav-sub">— Калуга</a><a href="history.html">История паводков</a><a href="history.html#flood-1908" class="mobile-nav-sub">— 1908 Великий</a><a href="history.html#flood-2013" class="mobile-nav-sub">— 2013 Рекорд</a><a href="history.html#flood-2024" class="mobile-nav-sub">— 2024</a><a href="flood-guide.html">Физика половодья</a><a href="links.html">Ссылки</a><a href="instructions.html">Инструкции</a></div>
+<a href="index.html" class="active">Главная</a><a href="cities/index.html">Города</a><a href="cities/serpuhov.html" class="mobile-nav-sub">— Серпухов</a><a href="cities/pushchino.html" class="mobile-nav-sub">— Пущино</a><a href="cities/kaluga.html" class="mobile-nav-sub">— Калуга</a><a href="history.html">История паводков</a><a href="history.html#flood-1908" class="mobile-nav-sub">— 1908 Великий</a><a href="history.html#flood-2013" class="mobile-nav-sub">— 2013 Рекорд</a><a href="history.html#flood-2024" class="mobile-nav-sub">— 2024</a><a href="flood-guide.html">Физика половодья</a><a href="links.html">Ссылки</a><a href="instructions.html">Инструкции</a></div>
 
 <div id="stale-banner" class="stale-banner" style="display:none;">
   ⚠️ Данные устарели. Автоматическое обновление может быть нарушено.
@@ -1847,7 +1851,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     <span class="wfi-label">Паводковый индекс погоды (0–4)</span>
     <span class="wfi-value" style="color:#ef4444;">КРИТИЧЕСКИЙ (4/4)</span>
   </div>
-  <div class="wfi-summary">Активное таяние + осадки. Все факторы против нас. Максимально быстрый рост уровня.</div>
+  <div class="wfi-summary">Активное таяние, снег 5 см, тёплые ночи (Tmin &gt; 0°C, 7 из 8). Максимально быстрый рост уровня</div>
   <div style="font-size:0.82rem; color:var(--text-dim);">Глубина снега (локально): 5 см — глубина снежного покрова по Open-Meteo (не SWE)</div>
 </div>
     <div class="table-wrap">
@@ -2020,10 +2024,10 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 
 <div class="regression-block">
   <div style="font-size:0.85rem; font-weight:600; color:var(--accent); margin-bottom:6px;">
-    🤖 Линейная регрессия (R²=0.96, 8 точек)
+    🤖 Линейная регрессия (R²=0.96, 9 точек)
   </div>
-  <p>Тренд: рост 127.3 см/сут (R²=0.96)</p>
-  <p>Прогноз: через 3 дня ≈ <b>738 см</b> | через 7 дней ≈ <b>1248 см</b></p>
+  <p>Тренд: рост 125.5 см/сут (R²=0.97)</p>
+  <p>Прогноз: через 3 дня ≈ <b>735 см</b> | через 7 дней ≈ <b>1237 см</b></p>
   <p style='color:var(--text-secondary); margin:4px 0;'>При текущем темпе НЯ (645 см) может быть достигнута ~01.04.2026</p>
 </div>
 <p class="disclaimer-small">⚠️ Модель приблизительная. Реальный пик зависит от погоды и таяния снега.</p>
@@ -2234,9 +2238,9 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.4 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.5 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
-  Обновлено: 30.03.2026 15:08 МСК |
+  Обновлено: 30.03.2026 15:17 МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
   <div style="margin-top:8px;font-size:0.65rem;color:var(--text-dim);opacity:0.5;">
     <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fem-from-pu.github.io%2Foka-flood-monitor&count_bg=%23555555&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F&edge_flat=true"

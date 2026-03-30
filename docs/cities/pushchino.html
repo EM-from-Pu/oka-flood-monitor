@@ -51,6 +51,7 @@ body::before {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 900px; margin: 0 auto; padding: 24px; }
+.city-content { max-width: 900px; margin: 0 auto; padding: 0 24px; }
 .card, .section-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -155,6 +156,7 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
 }
 @media (max-width: 768px) { .city-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 480px) { .city-grid { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { .city-index-grid { grid-template-columns: 1fr !important; } }
 .city-card {
   background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
   padding: 16px 18px; text-decoration: none; color: inherit; display: block;
@@ -217,6 +219,7 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
             <li><a href="../cities/aleksin.html">Алексин</a></li>
             <li><a href="../cities/tarusa.html">Таруса</a></li>
             <li><a href="../cities/serpuhov.html">Серпухов</a></li>
+            <li><a href="../cities/pushchino.html">Пущино</a></li>
             <li><a href="../cities/kashira.html">Кашира</a></li>
             <li><a href="../cities/kolomna.html">Коломна</a></li>
           </ul>
@@ -257,7 +260,7 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
   <button class="burger-btn" onclick="toggleMobileNav()" aria-label="Меню">☰</button>
 </header>
 <div class="mobile-nav" id="mobile-nav">
-<a href="../index.html">Главная</a><a href="../cities/index.html" class="active">Города</a><a href="../cities/serpuhov.html" class="mobile-nav-sub">— Серпухов</a><a href="../cities/kaluga.html" class="mobile-nav-sub">— Калуга</a><a href="../history.html">История паводков</a><a href="../history.html#flood-1908" class="mobile-nav-sub">— 1908 Великий</a><a href="../history.html#flood-2013" class="mobile-nav-sub">— 2013 Рекорд</a><a href="../history.html#flood-2024" class="mobile-nav-sub">— 2024</a><a href="../flood-guide.html">Физика половодья</a><a href="../links.html">Ссылки</a><a href="../instructions.html">Инструкции</a></div>
+<a href="../index.html">Главная</a><a href="../cities/index.html" class="active">Города</a><a href="../cities/serpuhov.html" class="mobile-nav-sub">— Серпухов</a><a href="../cities/pushchino.html" class="mobile-nav-sub">— Пущино</a><a href="../cities/kaluga.html" class="mobile-nav-sub">— Калуга</a><a href="../history.html">История паводков</a><a href="../history.html#flood-1908" class="mobile-nav-sub">— 1908 Великий</a><a href="../history.html#flood-2013" class="mobile-nav-sub">— 2013 Рекорд</a><a href="../history.html#flood-2024" class="mobile-nav-sub">— 2024</a><a href="../flood-guide.html">Физика половодья</a><a href="../links.html">Ссылки</a><a href="../instructions.html">Инструкции</a></div>
 
 <div class="container">
   
@@ -293,9 +296,7 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
   
 <div class="section-card">
   <h2>О городе</h2>
-  <p>Пущино — академический наукоград, построенный на высоком правом берегу Оки в 1956 году именно потому, что место было выбрано с умом: высота рельефа защищает от паводков. Напротив, на левом пойменном берегу, разбит Приокско-Террасный биосферный заповедник — естественный индикатор уровня воды весной.</p>
-<p>Между Серпуховским постом (выше) и Каширским (ниже) Пущино занимает промежуточное положение — здесь удобно отслеживать, как паводковая волна распространяется вниз по течению. Скорость этого процесса — несколько суток.</p>
-<p>Непосредственного затопления самого наукограда история не знает. Но в 2013 году, когда в Серпухове поставили рекорд инструментального периода в 843 сантиметра, пойма левого берега напротив Пущино была полностью под водой. Институты АН РАН с правого берега смотрели на это с научным интересом.</p>
+  <p>Деревня Пущино впервые упоминается в писцовых книгах 1578–79 гг. Город науки с 1966 года — центр биологических исследований АН СССР. Расположен на высоком правом берегу Оки (120–140 м над уровнем моря). Напротив — Приокско-Террасный заповедник (зубры, реликтовые степные растения). Ширина поймы Оки у Пущино — до 3–5 км в половодье. Ближайший гидропост — д. Лукьяново (17 км вверх по реке, ~4–5 ч волны). В 2024 году разлив доходил до корней деревьев у пляжа Пущино. Знаменитый маршрут: пешком по правому берегу Пущино → Кашира (40 км). Зимой из Приокско-Террасного заповедника через замёрзшую Оку переходят лоси, кабаны, зайцы. Легенда про коров на льдине — широко известный фольклорный сюжет на Оке: в 1908 году при катастрофическом разливе 12+ метров у Серпухова смывало целые деревни, скот уносило на льдинах.</p>
 
 </div>
   
@@ -368,7 +369,7 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
   OkaFloodMonitor v7.2 | Пущино, р. Ока (правый высокий берег)<br>
   <a href="../index.html">На главную</a> |
   <a href="index.html">Все города</a> |
-  Обновлено: 30.03.2026 15:08 МСК
+  Обновлено: 30.03.2026 15:17 МСК
 </footer>
 
 
