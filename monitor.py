@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-monitor.py v7.4 — OkaFloodMonitor
+monitor.py v7.5 — OkaFloodMonitor
 HTML-генерация + аналитика + Telegram-оповещения
 Источники: serpuhov.ru (PRIMARY) | КИМ API | ЦУГМС | Open-Meteo | GloFAS
 
-v7.4 changelog:
+v7.5 changelog:
 - Light theme (white/light-grey background, dark text)
 - Water pattern background (CSS radial-gradient)
 - Hero section gradient + SVG wave divider
@@ -87,6 +87,7 @@ TG_TOKEN       = os.environ.get("TG_TOKEN", "")
 CHAT_ADMIN     = os.environ.get("TG_CHAT_ID", "49747475")
 CHAT_MY_GROUP  = os.environ.get("TG_GROUP_ID", "-5234360275")
 CHAT_NEIGHBORS = os.environ.get("TG_NEIGHBORS_ID", "-1001672586477")
+CHAT_ZMSS      = os.environ.get("TG_CHAT_ZMSS", "")   # вторая группа соседей
 
 # ─── ПУТИ ──────────────────────────────────────────────────────────────────────
 BASE_DIR          = os.path.dirname(os.path.abspath(__file__))
@@ -490,17 +491,18 @@ OKA_CITIES = [
             (2013, "(Серпухов: 843 см)", "Высокий берег защитил наукоград; пойма левого берега затоплена"),
         ],
         "description": (
-            "Пущино — академический наукоград, построенный на высоком правом берегу Оки в 1956 году "
-            "именно потому, что место было выбрано с умом: высота рельефа защищает от паводков. "
-            "Напротив, на левом пойменном берегу, разбит Приокско-Террасный биосферный заповедник — "
-            "естественный индикатор уровня воды весной.",
-            "Между Серпуховским постом (выше) и Каширским (ниже) Пущино занимает промежуточное "
-            "положение — здесь удобно отслеживать, как паводковая волна распространяется вниз "
-            "по течению. Скорость этого процесса — несколько суток.",
-            "Непосредственного затопления самого наукограда история не знает. Но в 2013 году, "
-            "когда в Серпухове поставили рекорд инструментального периода в 843 сантиметра, "
-            "пойма левого берега напротив Пущино была полностью под водой. Институты АН РАН "
-            "с правого берега смотрели на это с научным интересом."
+            "Деревня Пущино впервые упоминается в писцовых книгах 1578–79 гг. "
+            "Город науки с 1966 года — центр биологических исследований АН СССР. "
+            "Расположен на высоком правом берегу Оки (120–140 м над уровнем моря). "
+            "Напротив — Приокско-Террасный заповедник (зубры, реликтовые степные растения). "
+            "Ширина поймы Оки у Пущино — до 3–5 км в половодье. "
+            "Ближайший гидропост — д. Лукьяново (17 км вверх по реке, ~4–5 ч волны). "
+            "В 2024 году разлив доходил до корней деревьев у пляжа Пущино. "
+            "Знаменитый маршрут: пешком по правому берегу Пущино → Кашира (40 км). "
+            "Зимой из Приокско-Террасного заповедника через замёрзшую Оку переходят лоси, кабаны, зайцы. "
+            "Легенда про коров на льдине — широко известный фольклорный сюжет на Оке: "
+            "в 1908 году при катастрофическом разливе 12+ метров у Серпухова смывало целые деревни, "
+            "скот уносило на льдинах."
         ),
         "serpuhov_km_river": 51,
         "serpuhov_wave_days": (0.5, 1.5),
@@ -1999,10 +2001,10 @@ def _weather_code_to_desc(code) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _generate_css_v7() -> str:
-    """Возвращает полный CSS v7.4 (Light Theme + Inter + 5-level colors)."""
+    """Возвращает полный CSS v7.5 (Light Theme + Inter + 5-level colors)."""
     return """
 /* ═══════════════════════════════════════════════════════════════
-   OkaFloodMonitor v7.4 Design System — Light Theme
+   OkaFloodMonitor v7.5 Design System — Light Theme
    ═══════════════════════════════════════════════════════════════ */
 :root {
   --safe:      #22c55e;
@@ -2012,10 +2014,11 @@ def _generate_css_v7() -> str:
   --emergency: #a855f7;
   --accent:    #2563eb;
 
-  --bg-primary: #f7f9fc;
+  --bg-primary: #f0f7ff;
   --bg-card: #ffffff;
   --bg-card-hover: #f8fafc;
   --bg-glass: rgba(0, 0, 0, 0.03);
+  --card-bg: #ffffff;
 
   --border: rgba(0, 0, 0, 0.08);
   --border-hover: rgba(0, 0, 0, 0.16);
@@ -2247,13 +2250,10 @@ a:hover { text-decoration: underline; }
   position: relative;
   padding: 40px 24px 32px;
   overflow: hidden;
-}
-.hero-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #e0f2fe 0%, rgba(247,249,252,0) 100%);
-  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(224,242,254,0.85) 0%, rgba(247,249,252,0.95) 100%),
+    url('https://geonovosti.terratech.ru/upload/geonovosti/oka/aft.jpg') center/cover no-repeat;
+  background-color: #e0f2fe;
 }
 
 .composite-status {
@@ -2268,9 +2268,10 @@ a:hover { text-decoration: underline; }
 .level-display { text-align: center; }
 .level-display .level-number {
   font-size: clamp(4rem, 9.5vw, 7rem);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1;
+  opacity: 1;
 }
 
 /* ── Hero main row: thermometer + center ────────────────────────── */
@@ -2397,12 +2398,13 @@ a:hover { text-decoration: underline; }
   margin-bottom: 1.5rem;
 }
 .info-card {
-  background: var(--card-bg);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 0.85rem 0.65rem;
   text-align: center;
   transition: border-color 0.2s, transform 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .info-card:hover {
   border-color: var(--accent);
@@ -2531,12 +2533,13 @@ a.info-card:hover { text-decoration: none; }
   max-width: 800px;
 }
 .sub-indicator {
-  background: var(--bg-card);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 12px 14px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   gap: 4px;
   transition: all 0.3s ease;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
@@ -2856,13 +2859,14 @@ a.info-card:hover { text-decoration: none; }
 /* ── ACCORDION SECTIONS ────────────────────────────────────────── */
 .accordion-section { padding: 0 24px 8px; }
 .accordion-header {
-  background: var(--bg-card);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   cursor: pointer;
   font-weight: 600;
   font-size: 0.95rem;
@@ -2873,11 +2877,12 @@ a.info-card:hover { text-decoration: none; }
 .accordion-header:hover { background: var(--bg-card-hover); }
 .accordion-body {
   display: none;
-  background: var(--bg-card);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-top: none;
   border-radius: 0 0 12px 12px;
   padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .accordion-body.open { display: block; }
 
@@ -3114,7 +3119,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 
 def _generate_header_v7(serp: dict, kim: dict, cugms: dict, glofas: dict,
                          now_msk: str) -> str:
-    """Генерирует sticky header v7.4 с навигацией, часами, бейджами."""
+    """Генерирует sticky header v7.5 с навигацией, часами, бейджами."""
     src_stat    = serp.get("source_status", "unavailable")
     kim_stat    = (kim.get("_api_status") or "unavailable")
     glofas_stat = (glofas or {}).get("_status", "unavailable")
@@ -3222,6 +3227,8 @@ def _generate_hero_v7(serp: dict, analytics: dict, composite: dict,
 
     fl_idx = (wext or {}).get("flood_index", 0) or 0
     fl_label_short = {0: "минимальный", 1: "низкий", 2: "умеренный", 3: "высокий", 4: "экстремальный"}.get(fl_idx, "?")
+    if (wext or {}).get("_cached"):
+        fl_label_short += " (кеш)"
 
     # v7.2: данные для карточек
     change_3d   = analytics.get("change_3d_cm")
@@ -4521,7 +4528,7 @@ def _generate_history_section(history: list) -> str:
 
 
 def _generate_reports_section() -> str:
-    """v7.4: Автосканирует reports/ папку для PDF файлов. Сортирует по дате в имени."""
+    """v7.5: Автосканирует reports/ папку для PDF файлов. Сортирует по дате в имени."""
     import glob as _glob
     import re as _re
 
@@ -4779,10 +4786,10 @@ document.addEventListener('click', function(e) {
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _generate_footer(now_msk: str) -> str:
-    """Генерирует footer v7.4."""
+    """Генерирует footer v7.5."""
     return f"""
 <footer class="site-footer">
-  OkaFloodMonitor v7.4 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.5 | 54.834050, 37.742901 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
   Обновлено: {_h(now_msk)} МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
@@ -4964,7 +4971,7 @@ document.addEventListener('click',function(e){{var n=document.getElementById('mo
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _generate_links_css() -> str:
-    """CSS для страниц links и instructions — использует базовый дизайн v7.4 light."""
+    """CSS для страниц links и instructions — использует базовый дизайн v7.5 light."""
     return """
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -5808,6 +5815,7 @@ def _build_nav(current_page: str = "main", is_subpage: bool = False) -> str:
             <li><a href="{p}cities/aleksin.html">Алексин</a></li>
             <li><a href="{p}cities/tarusa.html">Таруса</a></li>
             <li><a href="{p}cities/serpuhov.html">Серпухов</a></li>
+            <li><a href="{p}cities/pushchino.html">Пущино</a></li>
             <li><a href="{p}cities/kashira.html">Кашира</a></li>
             <li><a href="{p}cities/kolomna.html">Коломна</a></li>
           </ul>"""
@@ -5848,6 +5856,8 @@ def _build_nav(current_page: str = "main", is_subpage: bool = False) -> str:
         elif key == "cities":
             mobile_html += f'<a href="{p}cities/serpuhov.html" class="mobile-nav-sub">— Серпухов</a>'
 
+            mobile_html += f'<a href="{p}cities/pushchino.html" class="mobile-nav-sub">— Пущино</a>'
+
             mobile_html += f'<a href="{p}cities/kaluga.html" class="mobile-nav-sub">— Калуга</a>'
 
 
@@ -5872,9 +5882,8 @@ def _build_nav(current_page: str = "main", is_subpage: bool = False) -> str:
 
 def _city_nav_html(active_slug: str = "") -> str:
     """Обёртка для _build_nav, обратная совместимость."""
-    is_subpage = (active_slug != "" and active_slug != "index")
-    current = "cities"
-    return _build_nav(current, is_subpage=is_subpage)
+    # ВСЕ страницы в cities/ — это subpages, включая index
+    return _build_nav("cities", is_subpage=True)
 
 
 def _city_page_css() -> str:
@@ -5921,6 +5930,7 @@ body::before {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 900px; margin: 0 auto; padding: 24px; }
+.city-content { max-width: 900px; margin: 0 auto; padding: 0 24px; }
 .card, .section-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -6025,6 +6035,7 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
 }
 @media (max-width: 768px) { .city-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 480px) { .city-grid { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { .city-index-grid { grid-template-columns: 1fr !important; } }
 .city-card {
   background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
   padding: 16px 18px; text-decoration: none; color: inherit; display: block;
@@ -6071,7 +6082,7 @@ p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; font-s
 
 
 def _generate_oka_svg_map() -> str:
-    """Генерирует SVG-карту реки Ока с городами v7.4."""
+    """Генерирует SVG-карту реки Ока с городами v7.5."""
     import math as _math
     cities_map = [
         ("Орёл",    111,  True,  False, "orel",     289503),
@@ -6240,7 +6251,7 @@ def generate_city_index_page() -> None:
 
   {_generate_oka_svg_map()}
 
-  <div style="display:grid; grid-template-columns:2fr 1fr; gap:24px; margin-top:16px;">
+  <div class="city-index-grid" style="display:grid; grid-template-columns:2fr 1fr; gap:24px; margin-top:16px;">
     <div>
       <div class="city-grid">
         {cards_html}
@@ -6268,7 +6279,7 @@ def generate_city_index_page() -> None:
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.4 | Города на Оке | <a href="../index.html">← На главную</a><br>
+  OkaFloodMonitor v7.5 | Города на Оке | <a href="../index.html">← На главную</a><br>
   Источники: Росгидромет / Центр регистра и кадастра / Канал имени Москвы / МЧС
 </footer>
 
@@ -7924,6 +7935,31 @@ def git_push() -> None:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# КЕШИРОВАНИЕ ПОГОДЫ ПРИ TIMEOUT
+# ══════════════════════════════════════════════════════════════════════════════
+
+
+def _load_last_weather_from_json():
+    """Загружает последние данные погоды из data/latest.json при timeout."""
+    try:
+        path = os.path.join(DATA_DIR, "latest.json")
+        if os.path.exists(path):
+            with open(path, "r", encoding="utf-8") as f:
+                obj = json.load(f)
+            w = obj.get("weather", {})
+            return {
+                "flood_index": w.get("flood_index"),
+                "flood_label": w.get("flood_label"),
+                "flood_summary": w.get("flood_summary"),
+                "snow_depth_cm": w.get("snow_depth_cm"),
+                "_cached": True,
+            }
+    except Exception:
+        pass
+    return {}
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # ГЛАВНАЯ ФУНКЦИЯ
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -7950,14 +7986,52 @@ def main() -> None:
 
     # ─── 1. ДАННЫЕ ───────────────────────────────────────────────────────────
     data   = fetch_all_data()
-    wext   = data.get("weather")
+    wext   = data.get("weather") or {}
     serp   = data.get("serpuhov", {})
     kim    = data.get("kim", {})
+
+    # v7.5: при timeout погоды — подгружаем кеш из latest.json
+    if not wext.get("flood_index") and not wext.get("days"):
+        cached_w = _load_last_weather_from_json()
+        if cached_w.get("flood_index"):
+            wext.update(cached_w)
+            print(f"[v7] Погода: используем кеш из latest.json (flood_index={cached_w.get('flood_index')})")
     cugms  = data.get("cugms", {})
     glofas = data.get("glofas", {})
 
+    # ── Корректировка flood_summary: текст должен соответствовать реальным факторам ──
+    # Не перезаписывать summary если данные из кеша (нет days)
+    if wext and wext.get("flood_index", 0) >= 3 and not wext.get("_cached"):
+        days = wext.get("days", [])
+        total_precip = sum(d.get("precip", 0) or 0 for d in days)
+        snow_cm = wext.get("snow_depth_cm", 0) or 0
+        warm_nights = sum(1 for d in days if (d.get("tmin", -5) or -5) > 0)
+        hot_days = sum(1 for d in days if (d.get("tmax", 0) or 0) > 10)
+        has_rain = total_precip >= 5
+        has_melt = hot_days >= 3 or warm_nights >= 3
+        # Формируем точное описание
+        factors = []
+        if has_melt:
+            factors.append("активное таяние")
+        if has_rain:
+            factors.append(f"осадки ({total_precip:.0f} мм)")
+        if snow_cm >= 5:
+            factors.append(f"снег {snow_cm:.0f} см")
+        if warm_nights >= 3:
+            factors.append(f"тёплые ночи (Tmin > 0°C, {warm_nights} из 8)")
+        if not has_rain and not has_melt:
+            factors.append("умеренные условия")
+        factors_str = ", ".join(factors) if factors else "Условия паводкоопасные"
+        # Заглавная только для первой буквы (не ломаем Tmin/°C)
+        if factors_str and factors_str[0].islower():
+            factors_str = factors_str[0].upper() + factors_str[1:]
+        verdict = "Максимально быстрый рост уровня" if wext.get("flood_index", 0) >= 4 else "Значительный риск подъёма"
+        summary_text = f"{factors_str}. {verdict}"
+        wext["flood_summary"] = summary_text
+
     print(f"[v7] Источники OK: {data.get('sources_ok')}")
     print(f"[v7] Источники FAILED: {data.get('sources_failed')}")
+    print(f"  Погода: {(wext or {}).get('flood_label', '?')} — {(wext or {}).get('flood_summary', '')}")
     print(f"  serpuhov.ru: {serp.get('level_cm')} см ({serp.get('source_status')})")
     kash_cm = (kim.get("kashira") or {}).get("level_cm")
     kal_cm  = (kim.get("kaluga") or {}).get("level_cm")
@@ -8026,6 +8100,8 @@ def main() -> None:
             tg_send(CHAT_ADMIN, text)
             if (serp.get("level_cm") or 0) >= ALERT_DANGER:
                 tg_send(CHAT_MY_GROUP, text)
+                if CHAT_ZMSS:
+                    tg_send(CHAT_ZMSS, text)
             alerts[key] = datetime.now(timezone.utc).isoformat()
             alerts_changed = True
 
@@ -8062,9 +8138,12 @@ def main() -> None:
             tg_send(CHAT_ADMIN, digest)
 
             # Соседский дайджест — только в 08:00
-            if msk_hour == 8 and CHAT_NEIGHBORS:
+            if msk_hour == 8:
                 neighbors_msg = build_neighbors_digest(data, analytics, composite, glofas, now_msk)
-                tg_send(CHAT_NEIGHBORS, neighbors_msg)
+                if CHAT_NEIGHBORS:
+                    tg_send(CHAT_NEIGHBORS, neighbors_msg)
+                if CHAT_ZMSS:
+                    tg_send(CHAT_ZMSS, neighbors_msg)
 
             # Mailing list
             for cid in load_mailing_list():
@@ -8077,7 +8156,7 @@ def main() -> None:
     git_push()
 
     print(
-        f"✅ OkaFloodMonitor v7.4 DONE | Серпухов: {serp.get('level_cm')} см | "
+        f"✅ OkaFloodMonitor v7.5 DONE | Серпухов: {serp.get('level_cm')} см | "
         f"Статус: {verdict_label} | "
         f"Источники OK: {data.get('sources_ok')}"
     )
