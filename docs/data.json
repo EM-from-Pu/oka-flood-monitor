@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-30T11:24:57.146680+00:00",
+  "generated_at": "2026-03-30T12:08:36.008373+00:00",
   "serpuhov": {
     "level_cm": 353.0,
     "level_m": 3.53,
@@ -38,10 +38,10 @@
       "color": "#10b981"
     },
     "weather": {
-      "zone": "safe",
-      "label": "НОРМА",
-      "value": "0/4 — —",
-      "color": "#10b981"
+      "zone": "danger",
+      "label": "КРИТИЧЕСКИЙ",
+      "value": "4/4 — КРИТИЧЕСКИЙ",
+      "color": "#ef4444"
     },
     "verdict": {
       "zone": "watch",
@@ -152,10 +152,10 @@
     }
   },
   "weather": {
-    "flood_index": null,
-    "flood_label": null,
-    "flood_summary": null,
-    "snow_depth_cm": null
+    "flood_index": 4,
+    "flood_label": "КРИТИЧЕСКИЙ",
+    "flood_summary": "Активное таяние + осадки. Все факторы против нас. Максимально быстрый рост уровня.",
+    "snow_depth_cm": 5.0
   },
   "kim": {
     "kashira_cm": null,
@@ -170,16 +170,15 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "ok"
   },
-  "history_count": 10,
+  "history_count": 11,
   "sources": {
     "ok": [
       "serpuhov.ru",
       "kim",
       "cugms",
+      "weather",
       "glofas"
     ],
-    "failed": [
-      "weather"
-    ]
+    "failed": []
   }
 }
