@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests beautifulsoup4
 
-      - name: Run monitor
+      - name: Run monitor v7
         env:
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
@@ -30,7 +30,7 @@ jobs:
           TG_CHAT_ZMSS: ${{ secrets.TG_CHAT_ZMSS }}
           CHAT_ADMIN: ${{ secrets.CHAT_ADMIN }}
           CHAT_PERSONAL_GROUP: ${{ secrets.CHAT_PERSONAL_GROUP }}
-        run: python monitor.py
+        run: python monitor_v7.py
 
       - name: Commit HTML/data
         run: |
