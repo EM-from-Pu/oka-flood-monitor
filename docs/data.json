@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-31T10:09:06.993094+00:00",
+  "generated_at": "2026-03-31T10:14:49.400406+00:00",
   "serpuhov": {
     "level_cm": 383.0,
     "level_m": 3.83,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Таруса пик 03.04, волна 3.04–5.04",
+      "value": "Калуга пик 03.04, волна 5.04–7.04",
       "color": "#10b981"
     },
     "weather": {
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -94,23 +94,29 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 978.5,
+        "peak_discharge": 1293.2,
+        "peak_date": "2026-04-03",
+        "trend_arrow": "↑",
+        "flood_ratio": 1.03,
+        "wave_arrival": {
+          "earliest": "2026-04-05",
+          "latest": "2026-04-07"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 965.0,
+        "peak_discharge": 1323.3,
+        "peak_date": "2026-04-03",
+        "trend_arrow": "↑",
+        "flood_ratio": 0.99,
+        "wave_arrival": {
+          "earliest": "2026-04-04",
+          "latest": "2026-04-06"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
