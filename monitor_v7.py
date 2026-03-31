@@ -637,15 +637,6 @@ def append_history_row(history: list, data: dict, analytics: dict, wext) -> list
     v7: добавлены GloFAS-поля. Dedup по часу (datetime[:13]).
     """
     serp   = data.get("serpuhov", {})
-    
-    # v7.7.2: Мульти-точечный прогноз осадков
-    weather_multi_data = {}
-    if fetch_multi_weather:
-        try:
-            weather_multi_data = fetch_multi_weather()
-            print(f"  Осадки по бассейну: {weather_multi_data.get('status', 'error')} ({len(weather_multi_data.get('points', []))} точек)")
-        except Exception as e:
-            print(f"  [weather_multi] Ошибка: {e}")
     kim    = data.get("kim", {})
     cugms  = data.get("cugms", {})
     glofas = data.get("glofas", {})
@@ -8721,6 +8712,15 @@ def main() -> None:
     export_history_csv(history)
     print(f"  История: {len(history)} записей сохранено.")
 
+
+    # ─── 5.5 МУЛЬТИ-ТОЧЕЧНАЯ ПОГОДА ────────────────────────────────────────
+    weather_multi_data = {}
+    if fetch_multi_weather:
+        try:
+            weather_multi_data = fetch_multi_weather()
+            print(f"  Осадки по бассейну: {weather_multi_data.get('status', 'error')} ({len(weather_multi_data.get('points', []))} точек)")
+        except Exception as e:
+            print(f"  [weather_multi] Ошибка: {e}")
     # ─── 6. HTML ГЕНЕРАЦИЯ ──────────────────────────────────────────────────
     html_content = generate_html(data, analytics, history, wext, regression, ref_2024, weather_multi_data)
     os.makedirs(DOCS_DIR, exist_ok=True)
