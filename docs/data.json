@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "generated_at": "2026-03-31T11:37:52.355235+00:00",
-=======
-  "generated_at": "2026-03-31T11:54:46.404388+00:00",
->>>>>>> 882a5d7 (v7.7.2: remove Lukyannovo duplicate card)
+  "generated_at": "2026-03-31T11:59:01.288017+00:00",
   "serpuhov": {
     "level_cm": 383.0,
     "level_m": 3.83,
@@ -55,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
