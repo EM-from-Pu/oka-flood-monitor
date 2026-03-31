@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-31T08:10:28.638697+00:00",
+  "generated_at": "2026-03-31T08:15:49.964824+00:00",
   "serpuhov": {
     "level_cm": 383.0,
     "level_m": 3.83,
@@ -38,20 +38,20 @@
       "color": "#10b981"
     },
     "weather": {
-      "zone": "safe",
-      "label": "НОРМА",
-      "value": "0/4 — —",
-      "color": "#10b981"
+      "zone": "danger",
+      "label": "КРИТИЧЕСКИЙ",
+      "value": "4/4 — КРИТИЧЕСКИЙ",
+      "color": "#ef4444"
     },
     "verdict": {
-      "zone": "safe",
-      "label": "🟢 РЕЖИМ: НОРМА",
-      "color": "#10b981",
-      "emoji": "🟢"
+      "zone": "watch",
+      "label": "🟡 РЕЖИМ: БДИТЕЛЬНОСТЬ",
+      "color": "#f59e0b",
+      "emoji": "🟡"
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -133,13 +133,16 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 141.2,
+        "peak_discharge": 140.6,
+        "peak_date": "2026-04-01",
+        "trend_arrow": "↑",
+        "flood_ratio": 1.3,
+        "wave_arrival": {
+          "earliest": "2026-04-04",
+          "latest": "2026-04-07"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -149,10 +152,10 @@
     }
   },
   "weather": {
-    "flood_index": null,
-    "flood_label": null,
-    "flood_summary": null,
-    "snow_depth_cm": null
+    "flood_index": 4,
+    "flood_label": "КРИТИЧЕСКИЙ",
+    "flood_summary": "Активное таяние, осадки (16 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "snow_depth_cm": 3.0
   },
   "kim": {
     "kashira_cm": null,
@@ -173,10 +176,9 @@
       "serpuhov.ru",
       "kim",
       "cugms",
+      "weather",
       "glofas"
     ],
-    "failed": [
-      "weather"
-    ]
+    "failed": []
   }
 }
