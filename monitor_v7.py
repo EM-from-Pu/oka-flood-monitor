@@ -3863,7 +3863,6 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
         ("kaluga",     False),
         ("aleksin",    False),
         ("tarusa",     False),
-        ("lukyanovo", False),   # v7.7.2: гидропост Лукьяново
         ("serpuhov",   True),
         ("kashira",    False),
     ]
@@ -3875,7 +3874,6 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
         "kaluga":     "2–3 дн до Серпухова",
         "aleksin":    "1–2 дн до Серпухова",
         "tarusa":     "0.5–1 дн до Серпухова",
-        "lukyanovo": "2 км выше Серпухова",
         "serpuhov":   "",
         "kashira":    "↓ ниже по течению",
     }
@@ -3945,32 +3943,6 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
             river     = "р. Ока"
 
             # Sparkline из истории
-            from_history = []
-            for row in history[-7:]:
-                v = row.get("serp_level_cm")
-                if v is not None:
-                    try:
-                        from_history.append(float(v))
-                    except (ValueError, TypeError):
-                        pass
-            sparkline = _svg_sparkline(from_history, color="#3b82f6") if len(from_history) >= 2 else ""
-
-        elif slug == "lukyanovo":
-            # v7.7.2: Лукьяново — те же данные что и Серпухов (serpuhov.ru)
-            level_cm  = serp.get("level_cm")
-            change_cm = serp.get("daily_change_cm")
-            val_str   = f"{level_cm:.0f} см" if level_cm is not None else "нет данных"
-            unit_str  = "см от нуля поста"
-            trend_arr = _trend(change_cm)
-            fr        = None
-            fr_cls    = "fr-unknown"
-            fr_label  = "serpuhov.ru"
-            peak_str  = ""
-            src_note  = "Данные гидропоста д. Лукьяново (2 км выше Серпухова)"
-            name      = "Лукьяново"
-            river     = "р. Ока"
-
-            # Sparkline из истории (те же данные)
             from_history = []
             for row in history[-7:]:
                 v = row.get("serp_level_cm")
@@ -4097,10 +4069,7 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
   {src_note_html}
 </div>
 """
-        if slug == "lukyanovo":
-            # v7.7.2: Лукьяново не имеет собственной страницы города
-            html += card_inner
-        elif not is_main:
+        if not is_main:
             html += f'<a href="{city_href}" style="text-decoration:none; color:inherit;" data-tooltip="{city_tooltip}">'
             html += card_inner
             html += '</a>\n'

@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "generated_at": "2026-03-31T11:37:52.355235+00:00",
+=======
+  "generated_at": "2026-03-31T11:54:46.404388+00:00",
+>>>>>>> 882a5d7 (v7.7.2: remove Lukyannovo duplicate card)
   "serpuhov": {
     "level_cm": 383.0,
     "level_m": 3.83,
@@ -107,13 +111,16 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 965.0,
+        "peak_discharge": 1323.3,
+        "peak_date": "2026-04-03",
+        "trend_arrow": "↑",
+        "flood_ratio": 0.99,
+        "wave_arrival": {
+          "earliest": "2026-04-04",
+          "latest": "2026-04-06"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
