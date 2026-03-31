@@ -1,5 +1,13 @@
 {
+<<<<<<< HEAD
   "generated_at": "2026-03-31T08:40:49.210412+00:00",
+=======
+<<<<<<< HEAD
+  "generated_at": "2026-03-31T08:15:49.964824+00:00",
+=======
+  "generated_at": "2026-03-31T08:27:47.170537+00:00",
+>>>>>>> b5f3082 (v7.7.1: real coats + mobile fix)
+>>>>>>> fe20644 (v7.7.1: real coats + mobile fix)
   "serpuhov": {
     "level_cm": 383.0,
     "level_m": 3.83,
@@ -114,6 +122,7 @@
       },
       "tarusa": {
         "name": "Таруса",
+<<<<<<< HEAD
         "current_discharge": 985.3,
         "peak_discharge": 1354.2,
         "peak_date": "2026-04-03",
@@ -124,6 +133,15 @@
           "latest": "2026-04-05"
         },
         "source_status": "ok"
+=======
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
+>>>>>>> b5f3082 (v7.7.1: real coats + mobile fix)
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
