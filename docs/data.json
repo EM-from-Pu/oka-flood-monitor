@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-03-31T06:21:39.122984+00:00",
+  "generated_at": "2026-03-31T07:28:29.593649+00:00",
   "serpuhov": {
-    "level_cm": 353.0,
-    "level_m": 3.53,
-    "daily_change_cm": 57.0,
-    "abs_level_m_bs": 111.07,
+    "level_cm": 383.0,
+    "level_m": 3.83,
+    "daily_change_cm": 30.0,
+    "abs_level_m_bs": 111.37,
     "water_status": "—",
     "nya_m_bs": 113.99,
     "oya_m_bs": 115.54,
@@ -13,28 +13,28 @@
   },
   "analytics": {
     "alert_level": "НОРМА",
-    "days_to_nya": 5.1,
-    "days_to_oya": 7.8,
-    "nya_remaining_m": 2.9200000000000017,
-    "oya_remaining_m": 4.470000000000013
+    "days_to_nya": 8.7,
+    "days_to_oya": 13.9,
+    "nya_remaining_m": 2.6199999999999903,
+    "oya_remaining_m": 4.170000000000002
   },
   "composite_status": {
     "level": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "353 см (до НЯ 292 см)",
+      "value": "383 см (до НЯ 262 см)",
       "color": "#10b981"
     },
     "trend": {
-      "zone": "danger",
-      "label": "КРИТИЧЕСКИЙ РОСТ",
-      "value": "+57 см/сут, 5 д до НЯ",
-      "color": "#ef4444"
+      "zone": "warning",
+      "label": "ТРЕВОГА",
+      "value": "+30 см/сут, 9 д до НЯ",
+      "color": "#f97316"
     },
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 03.04, волна 4.04–6.04",
+      "value": "Калуга пик 03.04, волна 5.04–7.04",
       "color": "#10b981"
     },
     "weather": {
@@ -45,7 +45,7 @@
     },
     "verdict": {
       "zone": "watch",
-      "label": "🟡 РЕЖИМ: БДИТЕЛЬНОСТЬ",
+      "label": "🟡 БДИТЕЛЬНОСТЬ",
       "color": "#f59e0b",
       "emoji": "🟡"
     }
@@ -91,13 +91,16 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 978.5,
+        "peak_discharge": 1293.2,
+        "peak_date": "2026-04-03",
+        "trend_arrow": "↑",
+        "flood_ratio": 1.03,
+        "wave_arrival": {
+          "earliest": "2026-04-05",
+          "latest": "2026-04-07"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -114,16 +117,13 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 985.3,
-        "peak_discharge": 1354.2,
-        "peak_date": "2026-04-03",
-        "trend_arrow": "↑",
-        "flood_ratio": 0.98,
-        "wave_arrival": {
-          "earliest": "2026-04-03",
-          "latest": "2026-04-05"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -140,9 +140,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-04-03",
-      "latest": "2026-04-05",
-      "based_on": "Таруса"
+      "earliest": "2026-04-04",
+      "latest": "2026-04-06",
+      "based_on": "Алексин"
     }
   },
   "weather": {
@@ -158,13 +158,13 @@
     "api_status": "ok"
   },
   "cugms": {
-    "review_number": 20,
-    "review_date": "29.03.2026",
-    "serpuhov_change_cm": -21.0,
+    "review_number": 22,
+    "review_date": "31.03.2026",
+    "serpuhov_change_cm": null,
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "ok"
   },
-  "history_count": 15,
+  "history_count": 16,
   "sources": {
     "ok": [
       "serpuhov.ru",
