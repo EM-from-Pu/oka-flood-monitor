@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-monitor.py v7.7.1 — OkaFloodMonitor
+monitor.py v7.7.2 — OkaFloodMonitor
 HTML-генерация + аналитика + Telegram-оповещения
 Источники: serpuhov.ru (PRIMARY) | КИМ API | ЦУГМС | Open-Meteo | GloFAS
 
@@ -2045,7 +2045,7 @@ def _generate_css_v7() -> str:
     _WATER_PATTERN_PLACEHOLDER = "__WATER_BUBBLES_B64__"
     css = """
 /* ═══════════════════════════════════════════════════════════════
-   OkaFloodMonitor v7.7.1 Design System — Light Theme
+   OkaFloodMonitor v7.7.2 Design System — Light Theme
    ═══════════════════════════════════════════════════════════════ */
 :root {
   --safe:      #22c55e;
@@ -2816,8 +2816,7 @@ a.info-card:hover { text-decoration: none; }
 }
 
 /* ── WAVE ARRIVAL TIMELINE ─────────────────────────────────────── */
-.timeline-section { padding: 0 24px 32px; overflow-x: auto; }
-.timeline-section table { min-width: 600px; }
+.timeline-section { padding: 0 24px 32px; }
 .timeline-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -3045,11 +3044,7 @@ td.hot { color: #e74c3c; font-weight: bold; }
   transition: all 0.2s ease;
 }
 .hist-btn:hover { background: rgba(59,130,246,0.2); color: var(--text-primary); border-color: var(--accent); }
-.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.wave-table, .weather-table, .thresh-table, #histTable { width: 100%; }
-@media (max-width: 768px) {
-  .wave-table, .weather-table, .thresh-table, #histTable { min-width: 500px; }
-}
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 0 16px; }
 
 /* ── REPORTS ────────────────────────────────────────────────────── */
 .report-cards { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
@@ -3111,9 +3106,6 @@ h3 { font-size: 1rem; margin: 12px 0 6px; }
 @media (max-width: 768px) {
   .sub-indicators { grid-template-columns: repeat(2, 1fr); }
   .hero-section { padding: 24px 16px 20px; }
-  .timeline-section { padding: 0 12px 24px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .chart-container { min-height: 200px; max-height: 300px; }
-  .author-forecast-section .info-cards-row { grid-template-columns: 1fr !important; }
   .level-display .level-number { font-size: 3.5rem; }
   .station-cards-scroll { gap: 8px; }
   .station-card { min-width: 130px; padding: 12px; }
@@ -3125,8 +3117,6 @@ h3 { font-size: 1rem; margin: 12px 0 6px; }
 
 @media (max-width: 768px) {
   .header-nav { display: none; }
-  .header-right .source-badges { display: none; }
-  .header-right { gap: 4px; font-size: 0.7rem; }
   .burger-btn { display: block; }
 }
 
@@ -3867,25 +3857,27 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
     kim  = data.get("kim", {})
 
     CARD_ORDER = [
-        ("orel",     False),
-        ("mtsensk",  False),
-        ("belev",    False),
-        ("kaluga",   False),
-        ("aleksin",  False),
-        ("tarusa",   False),
-        ("serpuhov", True),
-        ("kashira",  False),
+        ("orel",       False),
+        ("mtsensk",    False),
+        ("belev",      False),
+        ("kaluga",     False),
+        ("aleksin",    False),
+        ("tarusa",     False),
+        ("lukyanovo", False),   # v7.7.2: гидропост Лукьяново
+        ("serpuhov",   True),
+        ("kashira",    False),
     ]
 
     WAVE_LABELS = {
-        "orel":    "7 дн до Серпухова",
-        "mtsensk": "5–6 дн до Серпухова",
-        "belev":   "4–5 дн до Серпухова",
-        "kaluga":  "2–3 дн до Серпухова",
-        "aleksin": "1–2 дн до Серпухова",
-        "tarusa":  "0.5–1 дн до Серпухова",
-        "serpuhov": "",
-        "kashira": "↓ ниже по течению",
+        "orel":       "7 дн до Серпухова",
+        "mtsensk":    "5–6 дн до Серпухова",
+        "belev":      "4–5 дн до Серпухова",
+        "kaluga":     "2–3 дн до Серпухова",
+        "aleksin":    "1–2 дн до Серпухова",
+        "tarusa":     "0.5–1 дн до Серпухова",
+        "lukyanovo": "2 км выше Серпухова",
+        "serpuhov":   "",
+        "kashira":    "↓ ниже по течению",
     }
 
     def _flood_ratio_class(fr):
@@ -3963,6 +3955,32 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
                         pass
             sparkline = _svg_sparkline(from_history, color="#3b82f6") if len(from_history) >= 2 else ""
 
+        elif slug == "lukyanovo":
+            # v7.7.2: Лукьяново — те же данные что и Серпухов (serpuhov.ru)
+            level_cm  = serp.get("level_cm")
+            change_cm = serp.get("daily_change_cm")
+            val_str   = f"{level_cm:.0f} см" if level_cm is not None else "нет данных"
+            unit_str  = "см от нуля поста"
+            trend_arr = _trend(change_cm)
+            fr        = None
+            fr_cls    = "fr-unknown"
+            fr_label  = "serpuhov.ru"
+            peak_str  = ""
+            src_note  = "Данные гидропоста д. Лукьяново (2 км выше Серпухова)"
+            name      = "Лукьяново"
+            river     = "р. Ока"
+
+            # Sparkline из истории (те же данные)
+            from_history = []
+            for row in history[-7:]:
+                v = row.get("serp_level_cm")
+                if v is not None:
+                    try:
+                        from_history.append(float(v))
+                    except (ValueError, TypeError):
+                        pass
+            sparkline = _svg_sparkline(from_history, color="#3b82f6") if len(from_history) >= 2 else ""
+
         elif slug == "kashira":
             kash      = (kim.get("kashira") or {})
             level_cm  = kash.get("level_cm")
@@ -4017,7 +4035,8 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
                 src_note  = "GloFAS Flood API"
                 card_classes += f" {fr_cls}"
             else:
-                val_str   = "нет данных"
+                # v7.7.2: сохраняем карточку с пометкой "временно недоступно"
+                val_str   = "временно недоступно"
                 unit_str  = "GloFAS"
                 trend_arr = "?"
                 fr        = None
@@ -4025,7 +4044,7 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
                 fr_label  = "недоступно"
                 peak_str  = ""
                 sparkline = ""
-                src_note  = "GloFAS (недоступно)"
+                src_note  = "Данные временно недоступны (GloFAS rate limit). Обычно обновляются в течение суток."
 
         wave_label = WAVE_LABELS.get(slug, "")
 
@@ -4058,6 +4077,9 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
 
         spark_label = '<div style="font-size:0.58rem; color:var(--text-dim); text-align:center;">\u0434\u0438\u043d\u0430\u043c\u0438\u043a\u0430 \u0437\u0430 14 \u0434\u043d\u0435\u0439</div>' if sparkline else ''
 
+        # v7.7.2: подпись источника под карточкой
+        src_note_html = f'<div style="font-size:0.6rem; color:var(--text-dim); margin-top:4px; line-height:1.3;">{_h(src_note)}</div>' if src_note else ''
+
         card_inner = f"""
 <div class="{card_classes}">
   <div class="sc-name">{_h(name)}</div>
@@ -4072,9 +4094,13 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
   </div>
   {peak_display}
   {f'<div class="sc-travel">{_h(wave_label)}</div>' if wave_label else ''}
+  {src_note_html}
 </div>
 """
-        if not is_main:
+        if slug == "lukyanovo":
+            # v7.7.2: Лукьяново не имеет собственной страницы города
+            html += card_inner
+        elif not is_main:
             html += f'<a href="{city_href}" style="text-decoration:none; color:inherit;" data-tooltip="{city_tooltip}">'
             html += card_inner
             html += '</a>\n'
@@ -4117,6 +4143,11 @@ def _generate_station_cards_v7(data: dict, glofas: dict, history: list) -> str:
     html += f'<div style="background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); border-radius:10px; padding:12px 16px; margin:16px 0 8px; font-size:0.85rem; color:var(--text-secondary); line-height:1.6;">\n'
     html += f'  \U0001f4ca <b>\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430:</b> {_h(analytics_text)}\n'
     html += '</div>\n'
+
+    # v7.7.2: Примечание об источниках данных
+    html += '<p style="font-size:0.75rem; color:var(--text-dim); margin:12px 0 4px; line-height:1.5; font-style:italic;">'
+    html += 'Примечание: для Серпухова GloFAS не имеет прямой станции. Данные уровня — с гидропоста Лукьяново (serpuhov.ru). Для Каширы — КИМ API (нестабильно).'
+    html += '</p>\n'
 
     # v7.6.1: Satellite monitoring image
     _sat_b64 = NEW_IMAGES_B64.get('satellite_monitoring', '')
@@ -4227,9 +4258,19 @@ def _generate_wave_timeline(glofas: dict) -> str:
                 except Exception:
                     sub_info = pk[:10]
         elif slug == "serpukhov":
-            sub_info = "гидропост"
+            # v7.7.2: peak date under Серпухов label
+            if latest_arrival_dt:
+                sub_info = f"пик ~{latest_arrival_dt.day:02d}.{latest_arrival_dt.month:02d}"
+            else:
+                sub_info = "гидропост"
         elif slug == "zhernivka":
-            sub_info = "~7ч от Лукьяново"
+            # v7.7.2: peak date under Жерновка label
+            if latest_arrival_dt:
+                _zhern_dt1 = latest_arrival_dt + timedelta(days=1)
+                _zhern_dt2 = latest_arrival_dt + timedelta(days=2)
+                sub_info = f"пик ~{_zhern_dt1.day:02d}\u2013{_zhern_dt2.day:02d}.{_zhern_dt1.month:02d}"
+            else:
+                sub_info = "~7ч от Лукьяново"
 
         # v7.7.1: Улучшенное разнесение подписей — Серпухов/Жерновка разнесены вертикально
         if slug == "serpukhov":
@@ -4270,9 +4311,9 @@ def _generate_wave_timeline(glofas: dict) -> str:
     <h3>\u23f1 Прогноз прихода волны в Серпухов</h3>
 
     <!-- v7.7: Горизонтальная река-лента -->
-    <div style="overflow-x:auto; margin:16px 0 8px; padding:0 8px;">
-      <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;"><div style="position:relative; min-width:700px; height:110px;">
-        <div style="position:absolute; left:0; right:0; top:50%; height:4px; background:linear-gradient(90deg, #3b82f6 0%, #3b82f6 79%, #ef4444 79%, #ef4444 85%, #3b82f6 85%, #3b82f6 100%); border-radius:2px; transform:translateY(-50%);"></div></div>
+    <div style="overflow-x:auto; margin:16px 0 40px; padding:0 8px;">
+      <div style="position:relative; min-width:700px; height:160px;">
+        <div style="position:absolute; left:0; right:0; top:50%; height:4px; background:linear-gradient(90deg, #3b82f6 0%, #3b82f6 79%, #ef4444 79%, #ef4444 85%, #3b82f6 85%, #3b82f6 100%); border-radius:2px; transform:translateY(-50%);"></div>
         {dots_html}
       </div>
     </div>
@@ -4287,7 +4328,8 @@ def _generate_wave_timeline(glofas: dict) -> str:
       предупреждения о наводнениях, часть программы Copernicus.
     </p>
 
-    <div class="table-wrap"><table class="wave-table">
+    <div class="table-wrap">
+    <table class="wave-table">
       <thead>
         <tr>
           <th>Станция</th>
@@ -4299,7 +4341,8 @@ def _generate_wave_timeline(glofas: dict) -> str:
       <tbody>
         {table_rows_html}
       </tbody>
-    </table></div>
+    </table>
+    </div>
     <p style="font-size:0.72rem; color:var(--text-dim); margin-top:8px;">
       * Жерновка расположена на ~40 км ниже гидропоста Лукьяново (ниже Серпухова). Волна доходит до Жерновки примерно через 1 сутки после прибытия в Серпухов.<br>
       Данные GloFAS Flood API. Погрешность \u00b11\u20132 дня.
@@ -4343,13 +4386,15 @@ def _generate_weather_section(wext) -> str:
 
     # v7.7: таблица критериев индекса
     criteria_table = """
+<div class="table-wrap">
 <table style="width:100%; border-collapse:collapse; font-size:0.78rem; margin:10px 0 6px;">
   <tr style="background:#f0fdf4;"><td style="padding:4px 8px; border:1px solid var(--border); font-weight:600; color:#10b981;">0 \u2014 \u041d\u043e\u0440\u043c\u0430</td><td style="padding:4px 8px; border:1px solid var(--border); color:var(--text-secondary);">\u0421\u043d\u0435\u0433 &lt; 5 \u0441\u043c, \u043e\u0441\u0430\u0434\u043a\u0438 \u043c\u0438\u043d\u0438\u043c\u0430\u043b\u044c\u043d\u044b\u0435, \u043d\u043e\u0447\u0438 \u0445\u043e\u043b\u043e\u0434\u043d\u044b\u0435</td></tr>
   <tr style="background:#fefce8;"><td style="padding:4px 8px; border:1px solid var(--border); font-weight:600; color:#10b981;">1 \u2014 \u0412\u043d\u0438\u043c\u0430\u043d\u0438\u0435</td><td style="padding:4px 8px; border:1px solid var(--border); color:var(--text-secondary);">\u041d\u0430\u0447\u0430\u043b\u043e \u0442\u0430\u044f\u043d\u0438\u044f, \u0434\u043d\u0435\u0432\u043d\u044b\u0435 \u0442\u0435\u043c\u043f\u0435\u0440\u0430\u0442\u0443\u0440\u044b &gt; 5\u00b0C</td></tr>
   <tr style="background:#fff7ed;"><td style="padding:4px 8px; border:1px solid var(--border); font-weight:600; color:#f59e0b;">2 \u2014 \u041f\u043e\u0432\u044b\u0448\u0435\u043d\u043d\u044b\u0439</td><td style="padding:4px 8px; border:1px solid var(--border); color:var(--text-secondary);">\u0410\u043a\u0442\u0438\u0432\u043d\u043e\u0435 \u0442\u0430\u044f\u043d\u0438\u0435, \u0441\u043d\u0435\u0433 5\u201315 \u0441\u043c, \u043e\u0441\u0430\u0434\u043a\u0438</td></tr>
   <tr style="background:#fff1f2;"><td style="padding:4px 8px; border:1px solid var(--border); font-weight:600; color:#f97316;">3 \u2014 \u0412\u044b\u0441\u043e\u043a\u0438\u0439</td><td style="padding:4px 8px; border:1px solid var(--border); color:var(--text-secondary);">\u0411\u044b\u0441\u0442\u0440\u043e\u0435 \u0442\u0430\u044f\u043d\u0438\u0435, \u043e\u0441\u0430\u0434\u043a\u0438 &gt; 5 \u043c\u043c/\u0441\u0443\u0442, \u0442\u0451\u043f\u043b\u044b\u0435 \u043d\u043e\u0447\u0438</td></tr>
   <tr style="background:#fef2f2;"><td style="padding:4px 8px; border:1px solid var(--border); font-weight:600; color:#ef4444;">4 \u2014 \u041a\u0420\u0418\u0422\u0418\u0427\u0415\u0421\u041a\u0418\u0419</td><td style="padding:4px 8px; border:1px solid var(--border); color:var(--text-secondary);">\u0421\u043d\u0435\u0433 \u0442\u0430\u0435\u0442 \u043a\u0440\u0443\u0433\u043b\u043e\u0441\u0443\u0442\u043e\u0447\u043d\u043e, \u0432\u0441\u0435 \u043d\u043e\u0447\u0438 &gt; 0\u00b0C, \u0434\u043e\u0436\u0434\u044c \u043d\u0430 \u0441\u043d\u0435\u0433</td></tr>
-</table>"""
+</table>
+</div>"""
 
     flood_index_block = f"""
 <div class="weather-flood-index" style="border-left-color:{fl_color};">
@@ -4389,6 +4434,22 @@ def _generate_weather_section(wext) -> str:
                     deduped.append(c)
                     seen_keys.add(key)
         commentary = deduped
+    # v7.7.2: добавляем "в районе Серпухова" к упоминаниям осадков
+    _precip_keywords = ["дождь", "осадк", "rain-on-snow", "мм)"]
+    if commentary:
+        _updated_commentary = []
+        for c in commentary:
+            c_lower = c.lower()
+            if any(kw in c_lower for kw in _precip_keywords) and "серпухов" not in c_lower:
+                # Добавляем географию перед закрывающим знаком
+                if c.endswith("!"):
+                    c = c[:-1] + " в районе Серпухова!"
+                elif c.endswith("."):
+                    c = c[:-1] + " в районе Серпухова."
+                else:
+                    c = c + " в районе Серпухова"
+            _updated_commentary.append(c)
+        commentary = _updated_commentary
     commentary_html = ""
     if commentary:
         items = "\n".join(f"<li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>{_h(c)}</li>" for c in commentary)
@@ -4429,6 +4490,7 @@ def _generate_weather_section(wext) -> str:
     {flood_index_block}
     <div class="table-wrap">{weather_table_html}</div>
     {commentary_html}
+    <p style="font-size:0.75rem; color:var(--text-dim); margin:12px 0 4px; line-height:1.5; font-style:italic;">Источник: Open-Meteo API (координаты Серпухова). Прогноз осадков для верховий (Орёл, Калуга) может отличаться.</p>
     <div style="margin:20px 0 8px; text-align:center;">
       <img src="data:image/jpeg;base64,{NEW_IMAGES_B64.get('snowmelt_spring', '')}" alt="Весеннее снеготаяние" style="width:100%; max-width:700px; border-radius:12px; margin:8px 0; box-shadow:0 4px 16px rgba(0,0,0,0.12);">
       <div style="font-size:0.78rem; color:var(--text-dim); margin-top:4px; font-style:italic;">Весеннее снеготаяние — начало половодья</div>
@@ -4497,7 +4559,7 @@ def _generate_weather_table(wext) -> str:
         desc_cells   += f'<td class="{fc_cls}">{_h(desc_str)}</td>'
 
     return f"""
-<div class="table-wrap"><table class="weather-table">
+<table class="weather-table">
   <thead>
     <tr><th>Показатель</th>{header_cells}</tr>
   </thead>
@@ -4509,7 +4571,7 @@ def _generate_weather_table(wext) -> str:
     <tr><td>Ветер, м/с</td>{wind_cells}</tr>
     <tr><td>Погода</td>{desc_cells}</tr>
   </tbody>
-</table></div>"""
+</table>"""
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -4572,7 +4634,8 @@ def _generate_threshold_section(serp: dict, analytics: dict) -> str:
       <span style="font-size:0.6em; color:rgba(255,255,255,0.6); white-space:nowrap;">Нуль ~{LUKYANNOVO_ZERO_M_BS} м</span>
     </div>
   </div>
-  <div class="table-wrap"><table class="thresh-table">
+  <div class="table-wrap">
+  <table class="thresh-table">
     <thead><tr><th>Отметка</th><th>м БС</th><th>Значение</th><th>Статус</th></tr></thead>
     <tbody>
       <tr><td>Нуль поста</td><td>~{LUKYANNOVO_ZERO_M_BS}</td><td>База измерения</td><td>—</td></tr>
@@ -4593,7 +4656,8 @@ def _generate_threshold_section(serp: dict, analytics: dict) -> str:
         <td>Прямо сейчас</td><td><b>{_h(cur_status)}</b></td>
       </tr>
     </tbody>
-  </table></div>
+  </table>
+  </div>
 </div>
 <p class="explainer">
   <b>НЯ</b> — неблагоприятное явление (выход воды на пойму).
@@ -5103,7 +5167,7 @@ def _generate_footer(now_msk: str) -> str:
     """Генерирует footer v7.6.1."""
     return f"""
 <footer class="site-footer">
-  OkaFloodMonitor v7.7.1 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.7.2 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
   Обновлено: {_h(now_msk)} МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
@@ -5671,6 +5735,7 @@ def generate_history_page() -> None:
   все фабричные здания Коншинской мануфактуры, расположенные сравнительно на возвышенной
   местности, затоплены по второй этаж».</em></p>
 
+  <div class="table-wrap">
   <table class="hist-table">
     <thead><tr><th>Город</th><th>Уровень</th><th>Дата пика</th><th>Последствия</th></tr></thead>
     <tbody>
@@ -5681,6 +5746,7 @@ def generate_history_page() -> None:
       <tr><td><b>Серпухов</b></td><td><b>1256&nbsp;см</b></td><td>Апрель</td><td>Абсолютный исторический рекорд; 6 фабрик, 70 домов под водой</td></tr>
     </tbody>
   </table>
+  </div>
 
   <div class="fact-card">
     *Данные по Орлу расходятся: orelvkartinkax.ru даёт 908&nbsp;см, другие источники — 1005&nbsp;см.
@@ -5721,6 +5787,7 @@ def generate_history_page() -> None:
   праздничные мероприятия. ЦК ответил уже после того, как торжества прошли. Водная стихия
   оказалась более оперативной, чем советская бюрократия.</p>
 
+  <div class="table-wrap">
   <table class="hist-table">
     <thead><tr><th>Показатель</th><th>Данные</th></tr></thead>
     <tbody>
@@ -5735,6 +5802,7 @@ def generate_history_page() -> None:
       <tr><td><b>Серпухов</b></td><td><b>1208&nbsp;см</b> — второй исторический рекорд</td></tr>
     </tbody>
   </table>
+  </div>
 
   <p>По улице Московской в Орле ходили на лодках — мимо универмага и кинотеатра «Родина».
   По Оке плыли дачные домики, вырванные с корнем деревья. В Калуге, у остановки КЭМЗ,
@@ -5796,6 +5864,7 @@ def generate_history_page() -> None:
   части бассейна. По ряду показателей он превзошёл все предыдущие — по крайней мере
   в официально измеренных данных.</p>
 
+  <div class="table-wrap">
   <table class="hist-table">
     <thead><tr><th>Гидропост</th><th>Уровень</th><th>Порог НЯ</th><th>Примечания</th></tr></thead>
     <tbody>
@@ -5805,6 +5874,7 @@ def generate_history_page() -> None:
       <tr><td>Орёл — зона затопления</td><td>—</td><td>—</td><td>3120 человек в зоне затопления, эвакуировано 65</td></tr>
     </tbody>
   </table>
+  </div>
 
   <p>Вода дошла до дорожного полотна улицы Городской в Орле. Это уже не поэзия —
   это конкретная городская артерия, по которой в обычное время ездят машины.
@@ -5827,6 +5897,7 @@ def generate_history_page() -> None:
   с задержкой в 1–2 дня между гидропостами — наглядная демонстрация того, что паводок
   это не цунами, а медленная, неотвратимая волна.</p>
 
+  <div class="table-wrap">
   <table class="hist-table">
     <thead><tr><th>Гидропост</th><th>Максимум</th><th>Дата пика</th><th>Примечания</th></tr></thead>
     <tbody>
@@ -5838,6 +5909,7 @@ def generate_history_page() -> None:
       <tr><td>Белоомут (нижний бьеф)</td><td>905&nbsp;см</td><td>29 апреля</td><td>Серьёзное испытание для старой плотины</td></tr>
     </tbody>
   </table>
+  </div>
 
   <p>Наглядный маршрут паводковой волны 2013: Калуга → Серпухов → Кашира → Коломна,
   каждый раз с задержкой в 1–2 суток и небольшим затуханием высоты. В Коломне уровень
@@ -5866,6 +5938,7 @@ def generate_history_page() -> None:
   Даже у Рязани — на 250&nbsp;км ниже по течению — пик зафиксирован 31&nbsp;марта:
   уровень 5&nbsp;м 22&nbsp;см, что выше пика 2022&nbsp;года (5&nbsp;м 10&nbsp;см).</p>
 
+  <div class="table-wrap">
   <table class="hist-table">
     <thead><tr><th>Показатель</th><th>Данные</th></tr></thead>
     <tbody>
@@ -5879,6 +5952,7 @@ def generate_history_page() -> None:
       <tr><td>Температура</td><td>+3°C выше нормы (март 2023)</td></tr>
     </tbody>
   </table>
+  </div>
 
   <p>Январь 2023&nbsp;года тоже удивил: необычный зимний паводок — уровень воды выше
   летнего. Очевидцы называли это явление небывалым: снег залёг на пресыщенную влагой
@@ -5911,6 +5985,7 @@ def generate_history_page() -> None:
   отметки в 850&nbsp;см, но благодаря заблаговременной подготовке последствия удалось
   минимизировать без происшествий».</p>
 
+  <div class="table-wrap">
   <table class="hist-table">
     <thead><tr><th>Показатель</th><th>Данные</th></tr></thead>
     <tbody>
@@ -5924,6 +5999,7 @@ def generate_history_page() -> None:
       <tr><td>Ранова у с. Троица (Рязанская обл.)</td><td>+108&nbsp;см/сутки — рекордный прирост</td></tr>
     </tbody>
   </table>
+  </div>
 
   <p>При уровне 8,5&nbsp;м в Серпухове начинается подтопление частного сектора в мкр. Слобода
   и Заборье, предприятий на улицах Тульской и 2-й Московской. В Калуге затопило набережную —
@@ -6011,6 +6087,7 @@ def generate_history_page() -> None:
   <h2>🎲 Интересные факты и рекорды</h2>
 
   <h3>Рекорды суточного подъёма</h3>
+  <div class="table-wrap">
   <table class="hist-table">
     <thead><tr><th>Место</th><th>Прирост</th><th>Дата</th></tr></thead>
     <tbody>
@@ -6020,6 +6097,7 @@ def generate_history_page() -> None:
       <tr><td>Луховицкий р-н (2026)</td><td>+75&nbsp;см за 2 суток</td><td>март 2026</td></tr>
     </tbody>
   </table>
+  </div>
 
   <h3>Рекорды ранних паводков в Орле</h3>
   <div class="fact-card">
@@ -6070,6 +6148,7 @@ def generate_history_page() -> None:
 <!-- ═══════════════════ ТАБЛИЦА РЕКОРДОВ ═══════════════════ -->
 <div class="section-card hist-section" id="records-table">
   <h2>📊 Сводная таблица рекордов</h2>
+  <div class="table-wrap">
   <table class="hist-table">
     <thead>
       <tr>
@@ -6091,6 +6170,7 @@ def generate_history_page() -> None:
       <tr><td>Коломна</td><td>633&nbsp;см</td><td>2013</td><td>615&nbsp;см</td><td>100.26&nbsp;м</td></tr>
     </tbody>
   </table>
+  </div>
   <p style="font-size:0.78rem; color:var(--text-dim);">
     *Данные из исторических и краеведческих источников, не из современного гидрологического архива.
     Современный цифровой архив: <a href="https://allrivers.info/river/oka" target="_blank" rel="noopener">allrivers.info</a>
@@ -6253,7 +6333,7 @@ def generate_history_page() -> None:
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.7.1 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.7.2 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
   Обновлено: {now_msk} МСК | <a href="index.html">Мониторинг</a> | <a href="links.html">Ссылки</a>
 </footer>
 
@@ -6793,7 +6873,7 @@ def generate_city_index_page() -> None:
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.7.1 | Города на Оке | <a href="../index.html">← На главную</a><br>
+  OkaFloodMonitor v7.7.2 | Города на Оке | <a href="../index.html">← На главную</a><br>
   Источники: Росгидромет / Центр регистра и кадастра / Канал имени Москвы / МЧС
 </footer>
 
@@ -6928,10 +7008,12 @@ def generate_city_page(city_data: dict, glofas_data: dict) -> None:
         if crit_rows:
             crit_table = f"""
 <h3>Критические уровни</h3>
+<div class="table-wrap">
 <table class="flood-table">
   <thead><tr><th>Уровень</th><th>Значение</th></tr></thead>
   <tbody>{crit_rows}</tbody>
-</table>"""
+</table>
+</div>"""
 
         zero_str = f"{zero_m_bs:.2f} м БС" if zero_m_bs is not None else "—"
         hydro_html = f"""
@@ -7063,10 +7145,12 @@ def generate_city_page(city_data: dict, glofas_data: dict) -> None:
         floods_html = f"""
 <div class="section-card">
   <h2>Паводковая история</h2>
+  <div class="table-wrap">
   <table class="flood-table">
     <thead><tr><th>Год</th><th>Уровень</th><th>Последствия</th></tr></thead>
     <tbody>{flood_rows}</tbody>
   </table>
+  </div>
 </div>"""
     else:
         floods_html = ""
@@ -7174,7 +7258,7 @@ def generate_city_page(city_data: dict, glofas_data: dict) -> None:
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.7.1 | {_h(name)}, {_h(river)}<br>
+  OkaFloodMonitor v7.7.2 | {_h(name)}, {_h(river)}<br>
   <a href="../index.html">На главную</a> |
   <a href="index.html">Все города</a> |
   Обновлено: {_h(now_msk)} МСК
@@ -7525,6 +7609,7 @@ def generate_flood_guide_page() -> None:
         5/3 ≈ 1,67 означает, что волна бежит <em>быстрее</em> воды примерно в 1,7 раза.
       </p>
       <h3>Факторы, влияющие на скорость волны</h3>
+      <div class="table-wrap">
       <table class="guide-summary-table">
         <thead>
           <tr><th>Фактор</th><th>Влияние на скорость волны</th></tr>
@@ -7537,6 +7622,7 @@ def generate_flood_guide_page() -> None:
           <tr><td><strong>Притоки</strong></td><td>Добавляют воду → волна растёт вниз по течению</td></tr>
         </tbody>
       </table>
+      </div>
       <p>
         На горных реках паводок может нестись со скоростью до 45 км/ч. На равнинных — значительно скромнее:
         <span class="guide-highlight">2–5 км/ч</span>, или <span class="guide-highlight">40–120 км/сутки</span>
@@ -7562,6 +7648,7 @@ def generate_flood_guide_page() -> None:
         Это не трасса М2, а извилистая равнинная река с широкой поймой.
       </p>
       <h3>Типичный временно́й диапазон</h3>
+      <div class="table-wrap">
       <table class="guide-summary-table">
         <thead>
           <tr><th>Участок</th><th>Расстояние (по руслу)</th><th>Время добегания волны</th><th>Скорость волны</th></tr>
@@ -7585,6 +7672,7 @@ def generate_flood_guide_page() -> None:
           </tr>
         </tbody>
       </table>
+      </div>
       <div class="guide-blockquote">
         Если в Орле уровень воды резко пошёл вверх, у жителей Серпухова и Жерновки есть, грубо говоря,
         <em>от одной до двух недель</em> до прихода волны. Точнее скажут только гидрологи, которые знают
@@ -7777,6 +7865,7 @@ def generate_flood_guide_page() -> None:
       </p>
 
       <h3>Система уровней</h3>
+      <div class="table-wrap">
       <table class="guide-summary-table">
         <thead>
           <tr><th>Порог</th><th>Что происходит</th><th>Чьи действия</th></tr>
@@ -7799,6 +7888,7 @@ def generate_flood_guide_page() -> None:
           </tr>
         </tbody>
       </table>
+      </div>
       <p>
         Конкретные пороговые отметки для каждого поста свои — они определены на основании многолетних
         наблюдений. Для Коломны: НЯ — <span class="guide-highlight">615 см</span>, критический —
@@ -7815,6 +7905,7 @@ def generate_flood_guide_page() -> None:
       </ul>
 
       <h3>Исторический ориентир</h3>
+      <div class="table-wrap">
       <table class="guide-summary-table">
         <thead>
           <tr><th>Год</th><th>Орёл</th><th>Калуга</th><th>Примечания</th></tr>
@@ -7830,6 +7921,7 @@ def generate_flood_guide_page() -> None:
           <tr><td><strong>2026</strong></td><td>—</td><td>—</td><td>Луховицкий р-н: +1,5 м за двое суток (март)</td></tr>
         </tbody>
       </table>
+      </div>
       <div class="guide-blockquote">
         Если кто-то говорит «в прошлый раз вода до нас не дошла» — уточните, какой именно год он имеет
         в виду. 1970-й по сей день стоит маяком, и не зря.
@@ -7947,6 +8039,7 @@ def generate_flood_guide_page() -> None:
     <!-- SUMMARY TABLE -->
     <div class="guide-section">
       <h2>📋 Краткая шпаргалка: что важно знать</h2>
+      <div class="table-wrap">
       <table class="guide-summary-table">
         <thead>
           <tr><th>Вопрос</th><th>Ответ</th></tr>
@@ -7963,6 +8056,7 @@ def generate_flood_guide_page() -> None:
           <tr><td>Когда оформлять страховку?</td><td>Осенью или в начале зимы — до паводкового сезона</td></tr>
         </tbody>
       </table>
+      </div>
       <div class="guide-tip">
         ✅ Ока разливается каждую весну — это не катастрофа, а часть её природного ритма. Знать физику
         этого процесса, следить за гидрологическими постами и держать чемодан наготове — задача куда более
@@ -8134,7 +8228,7 @@ def generate_links_page(data: dict = None) -> str:
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.7.1 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.7.2 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS<br>
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
 </footer>
@@ -8257,6 +8351,7 @@ def generate_instructions_page() -> str:
 
 <div class="section-card">
   <h2>🚨 Что делать при разных уровнях?</h2>
+  <div class="table-wrap">
   <table class="action-table">
     <tr><th>Уровень (см)</th><th>Статус</th><th>Рекомендации</th></tr>
     <tr><td>&lt; {ZONE_GREEN_MAX}</td><td>🟢 НОРМА</td><td style="color:var(--text-secondary);">Следите за динамикой. Обновления 4 раза в день.</td></tr>
@@ -8264,6 +8359,7 @@ def generate_instructions_page() -> str:
     <tr><td>{ZONE_YELLOW_MAX}–{ZONE_ORANGE_MAX}</td><td>🟠 ОПАСНОСТЬ</td><td style="color:var(--text-secondary);">Подготовьтесь к эвакуации. Насосы наготове.</td></tr>
     <tr><td>&gt; {ZONE_ORANGE_MAX}</td><td>🔴 КРИТИЧНО</td><td style="color:var(--text-secondary);">Немедленно вывезите ценные вещи. Звоните 112.</td></tr>
   </table>
+  </div>
 </div>
 
 <div class="section-card">
@@ -8287,6 +8383,7 @@ def generate_instructions_page() -> str:
   отправляет уведомление в Telegram. Никакого дежурного человека за пультом нет — только алгоритм и бдительность.</p>
 
   <h3 style="color:var(--text-primary); margin:16px 0 8px;">Виды уведомлений</h3>
+  <div class="table-wrap">
   <table class="action-table" style="margin-top:0;">
     <tr><th>Тип</th><th>Когда</th><th>Что содержит</th></tr>
     <tr>
@@ -8310,6 +8407,7 @@ def generate_instructions_page() -> str:
       <td style="color:var(--text-secondary);">Предупреждение о высоком паводковом риске за 2–3 дня до возможного подъёма</td>
     </tr>
   </table>
+  </div>
 
   <h3 style="color:var(--text-primary); margin:16px 0 8px;">Как подключиться</h3>
   <p style="color:var(--text-secondary);">В настоящее время уведомления рассылаются по закрытому списку подписчиков.
@@ -8360,7 +8458,7 @@ GloFAS Таруса: flood ratio 2.1×
 </div>
 
 <footer class="site-footer">
-  OkaFloodMonitor v7.7.1 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
+  OkaFloodMonitor v7.7.2 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS<br>
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
 </footer>
