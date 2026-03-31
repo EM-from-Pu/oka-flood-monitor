@@ -7,11 +7,7 @@
   "oya_m_bs": 115.54,
   "abs_level_m_bs": 111.37,
   "water_status": "—",
-<<<<<<< HEAD
-  "timestamp": "2026-03-31T10:25:18.919820+00:00",
-=======
-  "timestamp": "2026-03-31T11:35:29.151382+00:00",
->>>>>>> 4c6b3ec (v7.7.2 FINAL: timeline fix, Lukyannovo card, mobile tables, coats)
+  "timestamp": "2026-03-31T11:37:52.060190+00:00",
   "source": "serpuhov.ru",
   "source_status": "ok",
   "cache_age_h": 0.0

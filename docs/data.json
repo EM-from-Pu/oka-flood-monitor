@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "generated_at": "2026-03-31T10:25:19.102365+00:00",
-=======
-  "generated_at": "2026-03-31T11:35:29.682517+00:00",
->>>>>>> 4c6b3ec (v7.7.2 FINAL: timeline fix, Lukyannovo card, mobile tables, coats)
+  "generated_at": "2026-03-31T11:37:52.355235+00:00",
   "serpuhov": {
     "level_cm": 383.0,
     "level_m": 3.83,
@@ -38,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 03.04, волна 4.04–6.04",
+      "value": "Калуга пик 03.04, волна 5.04–7.04",
       "color": "#10b981"
     },
     "weather": {
@@ -85,23 +81,29 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 284.8,
+        "peak_discharge": 471.1,
+        "peak_date": "2026-04-03",
+        "trend_arrow": "↑↑",
+        "flood_ratio": 0.92,
+        "wave_arrival": {
+          "earliest": "2026-04-07",
+          "latest": "2026-04-09"
+        },
+        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 978.5,
+        "peak_discharge": 1293.2,
+        "peak_date": "2026-04-03",
+        "trend_arrow": "↑",
+        "flood_ratio": 1.03,
+        "wave_arrival": {
+          "earliest": "2026-04-05",
+          "latest": "2026-04-07"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -115,13 +117,16 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 985.3,
+        "peak_discharge": 1354.2,
+        "peak_date": "2026-04-03",
+        "trend_arrow": "↑",
+        "flood_ratio": 0.98,
+        "wave_arrival": {
+          "earliest": "2026-04-03",
+          "latest": "2026-04-05"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -138,9 +143,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-04-03",
-      "latest": "2026-04-05",
-      "based_on": "Таруса"
+      "earliest": "2026-04-07",
+      "latest": "2026-04-09",
+      "based_on": "Белёв"
     }
   },
   "weather": {
