@@ -375,7 +375,7 @@
     "notes": "Паводковый индекс 4/4"
   },
   {
-    "datetime": "2026-03-31T07:28:29.574233+00:00",
+    "datetime": "2026-03-31T07:49:44.366150+00:00",
     "serp_level_m": 3.83,
     "serp_level_cm": 383.0,
     "serp_daily_change_cm": 30.0,
@@ -394,12 +394,12 @@
     "alert_level": "НОРМА",
     "days_to_nya": 8.7,
     "days_to_oya": 13.9,
-    "glofas_belev_discharge": null,
+    "glofas_belev_discharge": 284.8,
     "glofas_kaluga_discharge": 978.5,
-    "glofas_tarusa_discharge": null,
-    "glofas_peak_station": "Алексин",
+    "glofas_tarusa_discharge": 985.3,
+    "glofas_peak_station": "Таруса",
     "glofas_peak_date": "2026-04-03",
-    "glofas_serpukhov_arrival": "2026-04-04–2026-04-06",
+    "glofas_serpukhov_arrival": "2026-04-07–2026-04-09",
     "notes": "Паводковый индекс 4/4"
   }
 ]
