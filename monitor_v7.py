@@ -43,6 +43,12 @@ try:
 except ImportError:
     NEW_IMAGES_B64 = {}
 
+try:
+    from weather_multi import fetch_multi_weather, generate_precip_matrix_html
+except ImportError:
+    fetch_multi_weather = None
+    generate_precip_matrix_html = None
+
 # ─── ИМПОРТЫ ИЗ FETCH_MODULE v3.0 ────────────────────────────────────────────
 try:
     from fetch_module import (
@@ -631,6 +637,15 @@ def append_history_row(history: list, data: dict, analytics: dict, wext) -> list
     v7: добавлены GloFAS-поля. Dedup по часу (datetime[:13]).
     """
     serp   = data.get("serpuhov", {})
+    
+    # v7.7.2: Мульти-точечный прогноз осадков
+    weather_multi_data = {}
+    if fetch_multi_weather:
+        try:
+            weather_multi_data = fetch_multi_weather()
+            print(f"  Осадки по бассейну: {weather_multi_data.get('status', 'error')} ({len(weather_multi_data.get('points', []))} точек)")
+        except Exception as e:
+            print(f"  [weather_multi] Ошибка: {e}")
     kim    = data.get("kim", {})
     cugms  = data.get("cugms", {})
     glofas = data.get("glofas", {})
@@ -4341,7 +4356,7 @@ def _generate_action_section(icon: str, title: str, text: str, color: str) -> st
 # HTML: WEATHER SECTION
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _generate_weather_section(wext) -> str:
+def _generate_weather_section(wext, weather_multi_data=None) -> str:
     """Генерирует секцию погоды с glassmorphism стилем."""
     if not wext:
         return ""
@@ -4419,6 +4434,11 @@ def _generate_weather_section(wext) -> str:
                     c = c + " в районе Серпухова"
             _updated_commentary.append(c)
         commentary = _updated_commentary
+    # v7.7.2: Матрица осадков по бассейну
+    precip_matrix_html = ""
+    if generate_precip_matrix_html and weather_multi_data:
+        precip_matrix_html = generate_precip_matrix_html(weather_multi_data)
+    
     commentary_html = ""
     if commentary:
         items = "\n".join(f"<li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>{_h(c)}</li>" for c in commentary)
@@ -4459,6 +4479,7 @@ def _generate_weather_section(wext) -> str:
     {flood_index_block}
     <div class="table-wrap">{weather_table_html}</div>
     {commentary_html}
+    {precip_matrix_html}
     <p style="font-size:0.75rem; color:var(--text-dim); margin:12px 0 4px; line-height:1.5; font-style:italic;">Источник: Open-Meteo API (координаты Серпухова). Прогноз осадков для верховий (Орёл, Калуга) может отличаться.</p>
     <div style="margin:20px 0 8px; text-align:center;">
       <img src="data:image/jpeg;base64,{NEW_IMAGES_B64.get('snowmelt_spring', '')}" alt="Весеннее снеготаяние" style="width:100%; max-width:700px; border-radius:12px; margin:8px 0; box-shadow:0 4px 16px rgba(0,0,0,0.12);">
@@ -5332,7 +5353,7 @@ def _generate_author_forecast(level_cm, change_cm_day, history, glofas, analytic
 
 
 def generate_html(data: dict, analytics: dict, history: list, wext,
-                  regression, ref_2024) -> str:
+                  regression, ref_2024, weather_multi_data=None) -> str:
     """
     Генерирует полную HTML-страницу index.html.
     v7: glassmorphism UI, Composite Status, GloFAS station cards, forecast hydrograph.
@@ -5374,7 +5395,7 @@ def generate_html(data: dict, analytics: dict, history: list, wext,
     timeline_html     = _generate_wave_timeline(glofas)
     author_html       = _generate_author_forecast(level_cm, change_cm, history, glofas, analytics)
     action_html       = _generate_action_section(action_icon, action_title, action_text, action_color)
-    weather_html      = _generate_weather_section(wext)
+    weather_html      = _generate_weather_section(wext, weather_multi_data)
     details_html      = _generate_detail_accordions(data, analytics, history, regression, wext)
     footer_html       = _generate_footer(now_msk)
     js_html           = _generate_all_js()
@@ -8701,7 +8722,7 @@ def main() -> None:
     print(f"  История: {len(history)} записей сохранено.")
 
     # ─── 6. HTML ГЕНЕРАЦИЯ ──────────────────────────────────────────────────
-    html_content = generate_html(data, analytics, history, wext, regression, ref_2024)
+    html_content = generate_html(data, analytics, history, wext, regression, ref_2024, weather_multi_data)
     os.makedirs(DOCS_DIR, exist_ok=True)
     with open(INDEX_HTML, "w", encoding="utf-8") as f:
         f.write(html_content)
