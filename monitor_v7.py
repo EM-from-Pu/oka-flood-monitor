@@ -44,7 +44,7 @@ except ImportError:
     NEW_IMAGES_B64 = {}
 
 try:
-    from weather_multi import fetch_multi_weather, generate_precip_matrix_html
+    from weathermulti import fetch_multi_weather, generate_precip_matrix_html
 except ImportError:
     fetch_multi_weather = None
     generate_precip_matrix_html = None

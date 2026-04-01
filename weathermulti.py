@@ -6,6 +6,7 @@ weather_multi.py — Мульти-точечный прогноз осадков
 v1.0 — 31.03.2026
 """
 
+import time
 import requests
 from datetime import datetime, timezone, timedelta
 
@@ -30,7 +31,7 @@ PRECIP_THRESHOLDS = {
 TEMP_THAW_THRESHOLD = 3.0   # °C — активное таяние при Tmax > 3
 
 
-def fetch_multi_weather(timeout: int = 10) -> dict:
+def fetch_multi_weather(timeout: int = 20) -> dict:
     """
     Запрашивает Open-Meteo для всех точек.
     Возвращает:
@@ -77,11 +78,12 @@ def fetch_multi_weather(timeout: int = 10) -> dict:
             url = (
                 f"https://api.open-meteo.com/v1/forecast?"
                 f"latitude={pt['lat']}&longitude={pt['lon']}"
-                f"&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,snowfall_sum,snow_depth,weathercode"
+                f"&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,snowfall_sum,weathercode"
                 f"&timezone=Europe/Moscow&forecast_days=8"
             )
             resp = requests.get(url, timeout=timeout)
             resp.raise_for_status()
+            time.sleep(1)
             data = resp.json()
             
             daily = data.get("daily", {})
@@ -90,7 +92,7 @@ def fetch_multi_weather(timeout: int = 10) -> dict:
             tmin_arr = daily.get("temperature_2m_min", [])
             precip_arr = daily.get("precipitation_sum", [])
             snow_arr = daily.get("snowfall_sum", [])
-            snow_depth_arr = daily.get("snow_depth", [])
+            snow_depth_arr = daily.get("snowfall_sum", [])  # snow_depth недоступна в daily, используем snowfall_sum
             wcode_arr = daily.get("weathercode", [])
             
             days = []
