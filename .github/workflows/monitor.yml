@@ -36,6 +36,7 @@ jobs:
         run: |
           git config user.name "OkaBot"
           git config user.email "bot@oka.flood"
-          git add docs/ data/ || true
+          git pull --rebase origin main || true
+    git add docs/ data/ || true
           git diff-index --quiet HEAD || git commit -m "update $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push || true
