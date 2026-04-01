@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-01T10:41:23.857764+00:00",
+  "generated_at": "2026-04-01T11:06:40.410519+00:00",
   "serpuhov": {
     "level_cm": 466.0,
     "level_m": 4.66,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Калуга пик 03.04, волна 5.04–7.04",
+      "value": "Алексин пик 04.04, волна 5.04–7.04",
       "color": "#10b981"
     },
     "weather": {
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -94,16 +94,13 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 1078.0,
-        "peak_discharge": 1269.6,
-        "peak_date": "2026-04-03",
-        "trend_arrow": "↑",
-        "flood_ratio": 1.14,
-        "wave_arrival": {
-          "earliest": "2026-04-05",
-          "latest": "2026-04-07"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -133,16 +130,13 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": 140.2,
-        "peak_discharge": 133.9,
-        "peak_date": "2026-04-02",
-        "trend_arrow": "→",
-        "flood_ratio": 1.32,
-        "wave_arrival": {
-          "earliest": "2026-04-05",
-          "latest": "2026-04-08"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       }
     },
     "wave_arrival_serpukhov": {
@@ -170,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "ok"
   },
-  "history_count": 24,
+  "history_count": 25,
   "sources": {
     "ok": [
       "serpuhov.ru",
