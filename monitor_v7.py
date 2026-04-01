@@ -8816,7 +8816,7 @@ def main() -> None:
         print("[TG] TG_TOKEN не установлен, пропускаем.")
 
     # ─── 10. GIT PUSH ───────────────────────────────────────────────────────
-    git_push()
+    # git_push()  # отключено: push делает GitHub Actions "Commit HTML/data" step
 
     print(
         f"✅ OkaFloodMonitor v7.7 DONE | Серпухов: {serp.get('level_cm')} см | "
