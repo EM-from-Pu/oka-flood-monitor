@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-04-02T08:16:03.383466+00:00",
+  "generated_at": "2026-04-02T11:36:04.500559+00:00",
   "serpuhov": {
-    "level_cm": 491.0,
-    "level_m": 4.91,
-    "daily_change_cm": 25.0,
-    "abs_level_m_bs": 112.45,
+    "level_cm": 515.0,
+    "level_m": 5.15,
+    "daily_change_cm": 49.0,
+    "abs_level_m_bs": 112.69,
     "water_status": "—",
     "nya_m_bs": 113.99,
     "oya_m_bs": 115.54,
@@ -13,28 +13,28 @@
   },
   "analytics": {
     "alert_level": "ВНИМАНИЕ",
-    "days_to_nya": 6.2,
-    "days_to_oya": 12.4,
-    "nya_remaining_m": 1.539999999999992,
-    "oya_remaining_m": 3.0900000000000034
+    "days_to_nya": 2.7,
+    "days_to_oya": 5.8,
+    "nya_remaining_m": 1.2999999999999972,
+    "oya_remaining_m": 2.8500000000000085
   },
   "composite_status": {
     "level": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "491 см (до НЯ 154 см)",
+      "value": "515 см (до НЯ 130 см)",
       "color": "#10b981"
     },
     "trend": {
       "zone": "warning",
       "label": "ТРЕВОГА",
-      "value": "+25 см/сут, 6 д до НЯ",
+      "value": "+49 см/сут, 3 д до НЯ",
       "color": "#f97316"
     },
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 04.04, волна 8.04–10.04",
+      "value": "Алексин пик 04.04, волна 5.04–7.04",
       "color": "#10b981"
     },
     "weather": {
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -81,29 +81,23 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 393.5,
-        "peak_discharge": 452.9,
-        "peak_date": "2026-04-04",
-        "trend_arrow": "↑↑",
-        "flood_ratio": 1.21,
-        "wave_arrival": {
-          "earliest": "2026-04-08",
-          "latest": "2026-04-10"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 1157.8,
-        "peak_discharge": 1246.4,
-        "peak_date": "2026-04-04",
-        "trend_arrow": "↑",
-        "flood_ratio": 1.19,
-        "wave_arrival": {
-          "earliest": "2026-04-06",
-          "latest": "2026-04-08"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -146,15 +140,15 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-04-08",
-      "latest": "2026-04-10",
-      "based_on": "Белёв"
+      "earliest": "2026-04-04",
+      "latest": "2026-04-06",
+      "based_on": "Таруса"
     }
   },
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (11 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (9 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -170,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "ok"
   },
-  "history_count": 29,
+  "history_count": 30,
   "sources": {
     "ok": [
       "serpuhov.ru",
