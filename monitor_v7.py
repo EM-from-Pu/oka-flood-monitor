@@ -28,6 +28,22 @@ v7.6.1 changelog:
 - Navigation fixed on ALL pages
 """
 import os
+_YM_BLOCK = (
+    '<script type="text/javascript">'
+    '(function(m,e,t,r,i,k,a){'
+    'm[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};'
+    'm[i].l=1*new Date();'
+    'for(var j=0;j<document.scripts.length;j++)'
+    '{if(document.scripts[j].src===r){return;}}'
+    'k=e.createElement(t),a=e.getElementsByTagName(t)[0],'
+    'k.async=1,k.src=r,a.parentNode.insertBefore(k,a)'
+    '})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");'
+    'ym(108361513,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true});'
+    '</script>'
+    '<noscript><div><img src="https://mc.yandex.ru/watch/108361513"'
+    ' style="position:absolute;left:-9999px;" alt=""/></div></noscript>'
+)
+
 import re
 import json
 import csv
@@ -6307,7 +6323,7 @@ def generate_history_page() -> None:
     <a href="https://www.kp40.ru/news/society/89696/" target="_blank" rel="noopener">KP40.ru</a>
   </p>
   <p style="margin-top:12px;">
-    <a href="flood-guide.html" style="color:var(--accent); font-size:0.88rem;">📚 Физика половодья &rarr;</a>
+    <a href="flood-guide.html" style="color:var(--accent); font-size:0.88rem;">📚 Физика половодья &rarr;</a> <a href="support.html" style="background:#e74c3c;color:#fff;padding:3px 9px;border-radius:4px;text-decoration:none;font-size:0.85rem;font-weight:bold;">❤️ Поддержать</a>
   </p>
 </div>
 
