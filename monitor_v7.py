@@ -5406,15 +5406,6 @@ def generate_html(data: dict, analytics: dict, history: list, wext,
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
   <style>{css}</style>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(108361533, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/108361533" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -5658,15 +5649,6 @@ def generate_history_page() -> None:
     .myth-reality {{ font-size:0.84rem; color:var(--text-secondary); line-height:1.65; }}
     .myth-reality strong {{ color:#81c784; }}
   </style>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(108361533, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/108361533" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -6833,15 +6815,6 @@ def generate_city_index_page() -> None:
   <style>
     {css}
   </style>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(108361533, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/108361533" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 {nav}
@@ -7250,15 +7223,6 @@ def generate_city_page(city_data: dict, glofas_data: dict) -> None:
   <style>
     {css}
   </style>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(108361533, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/108361533" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 {nav}
@@ -7522,15 +7486,6 @@ def generate_flood_guide_page() -> None:
       color: var(--accent);
     }}
   </style>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(108361533, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/108361533" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </head>
 <body>
   {_build_nav('guide')}
@@ -8152,15 +8107,6 @@ def generate_links_page(data: dict = None) -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>{css}</style>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(108361533, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/108361533" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -8315,15 +8261,6 @@ def generate_instructions_page() -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>{css}</style>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(108361533, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/108361533" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
