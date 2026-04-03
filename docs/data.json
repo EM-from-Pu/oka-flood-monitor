@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-03T13:36:24.623491+00:00",
+  "generated_at": "2026-04-03T14:11:01.812996+00:00",
   "serpuhov": {
     "level_cm": 540.0,
     "level_m": 5.4,
@@ -68,13 +68,16 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 174.0,
+        "peak_discharge": 182.7,
+        "peak_date": "2026-04-04",
+        "trend_arrow": "↑↑",
+        "flood_ratio": 1.34,
+        "wave_arrival": {
+          "earliest": "2026-04-09",
+          "latest": "2026-04-11"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
@@ -104,16 +107,13 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 1237.8,
-        "peak_discharge": 1266.7,
-        "peak_date": "2026-04-04",
-        "trend_arrow": "↑",
-        "flood_ratio": 1.24,
-        "wave_arrival": {
-          "earliest": "2026-04-05",
-          "latest": "2026-04-07"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "tarusa": {
         "name": "Таруса",
@@ -130,16 +130,13 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": 126.1,
-        "peak_discharge": 120.6,
-        "peak_date": "2026-04-04",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.17,
-        "wave_arrival": {
-          "earliest": "2026-04-07",
-          "latest": "2026-04-10"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       }
     },
     "wave_arrival_serpukhov": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 37,
+  "history_count": 38,
   "sources": {
     "ok": [
       "serpuhov.ru",
