@@ -4,3 +4,8 @@ __pycache__/
 .DS_Store
 *.bak
 monitor.py.pre_*
+*.bak*
+*.bak_*
+patch_*.py
+__pycache__/
+*.pyc
