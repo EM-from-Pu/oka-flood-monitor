@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-03T08:15:40.497769+00:00",
+  "generated_at": "2026-04-03T08:24:35.708161+00:00",
   "serpuhov": {
     "level_cm": 540.0,
     "level_m": 5.4,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -68,13 +68,16 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 174.0,
+        "peak_discharge": 182.7,
+        "peak_date": "2026-04-04",
+        "trend_arrow": "↑↑",
+        "flood_ratio": 1.35,
+        "wave_arrival": {
+          "earliest": "2026-04-09",
+          "latest": "2026-04-11"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
@@ -104,13 +107,16 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 1237.8,
+        "peak_discharge": 1269.6,
+        "peak_date": "2026-04-04",
+        "trend_arrow": "↑",
+        "flood_ratio": 1.24,
+        "wave_arrival": {
+          "earliest": "2026-04-05",
+          "latest": "2026-04-07"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
