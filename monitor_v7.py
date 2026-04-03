@@ -38,9 +38,9 @@ _YM_BLOCK = (
     'k=e.createElement(t),a=e.getElementsByTagName(t)[0],'
     'k.async=1,k.src=r,a.parentNode.insertBefore(k,a)'
     '})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");'
-    'ym(108361513,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true});'
+    'ym(108377868,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true});'
     '</script>'
-    '<noscript><div><img src="https://mc.yandex.ru/watch/108361513"'
+    '<noscript><div><img src="https://mc.yandex.ru/watch/108377868"'
     ' style="position:absolute;left:-9999px;" alt=""/></div></noscript>'
 )
 
