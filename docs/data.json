@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-03T11:56:59.566944+00:00",
+  "generated_at": "2026-04-03T13:36:24.623491+00:00",
   "serpuhov": {
     "level_cm": 540.0,
     "level_m": 5.4,
@@ -59,7 +59,7 @@
         "peak_discharge": 83.0,
         "peak_date": "2026-04-04",
         "trend_arrow": "→",
-        "flood_ratio": 1.31,
+        "flood_ratio": 1.32,
         "wave_arrival": {
           "earliest": "2026-04-09",
           "latest": "2026-04-12"
@@ -68,21 +68,18 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 174.0,
-        "peak_discharge": 182.7,
-        "peak_date": "2026-04-04",
-        "trend_arrow": "↑↑",
-        "flood_ratio": 1.35,
-        "wave_arrival": {
-          "earliest": "2026-04-09",
-          "latest": "2026-04-11"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "belev": {
         "name": "Белёв",
         "current_discharge": 437.5,
-        "peak_discharge": 447.8,
+        "peak_discharge": 448.8,
         "peak_date": "2026-04-04",
         "trend_arrow": "↑↑",
         "flood_ratio": 1.33,
@@ -108,7 +105,7 @@
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 1237.8,
-        "peak_discharge": 1269.6,
+        "peak_discharge": 1266.7,
         "peak_date": "2026-04-04",
         "trend_arrow": "↑",
         "flood_ratio": 1.24,
@@ -133,13 +130,16 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 126.1,
+        "peak_discharge": 120.6,
+        "peak_date": "2026-04-04",
+        "trend_arrow": "↓",
+        "flood_ratio": 1.17,
+        "wave_arrival": {
+          "earliest": "2026-04-07",
+          "latest": "2026-04-10"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 36,
+  "history_count": 37,
   "sources": {
     "ok": [
       "serpuhov.ru",
