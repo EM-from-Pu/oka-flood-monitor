@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>О проекте — Oka Flood Monitor</title>
+<meta name="description" content="Oka Flood Monitor: дорожная карта, рыночная возможность и перспективы развития от мониторинга одной реки к платформе паводковых рисков для России.">
+<style>
+  :root {
+    --blue: #1a4a7a;
+    --blue-light: #2c7abf;
+    --accent: #e8f4fd;
+    --green: #2e7d32;
+    --text: #1a1a2e;
+    --muted: #4a5568;
+    --border: #dde8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f7fbff;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  nav {
+    background: var(--blue);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 52px;
+    flex-wrap: wrap;
+  }
+  nav a { color: rgba(255,255,255,0.88); text-decoration: none; font-size: 0.88rem; white-space: nowrap; }
+  nav a:hover { color: #fff; text-decoration: underline; }
+  nav .brand { font-weight: 700; font-size: 1rem; color: #fff; margin-right: 8px; }
+  nav .donate-btn {
+    margin-left: auto;
+    background: #2e7d32;
+    color: #fff !important;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #0d2744 0%, #1565c0 100%);
+    color: #fff;
+    padding: 64px 24px 56px;
+    text-align: center;
+  }
+  .hero .eyebrow {
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 14px;
+  }
+  .hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 18px; line-height: 1.28; }
+  .hero p { font-size: 1.05rem; opacity: 0.9; max-width: 680px; margin: 0 auto; }
+  .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.8rem;
+    margin: 18px 4px 0;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 56px 24px; }
+  .section { margin-bottom: 52px; }
+  .section h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .fact-block {
+    background: linear-gradient(135deg, var(--accent) 0%, #dbeeff 100%);
+    border-left: 5px solid var(--blue-light);
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-bottom: 28px;
+    font-size: 1.02rem;
+  }
+  .fact-block strong { color: var(--blue); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 28px; }
+  @media (max-width: 580px) { .two-col { grid-template-columns: 1fr; } }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 18px;
+  }
+  .card h4 { font-size: 0.98rem; margin-bottom: 10px; color: var(--blue); }
+  .card ul { list-style: none; padding: 0; }
+  .card li { padding: 4px 0; font-size: 0.91rem; color: var(--muted); }
+  .card li::before { content: "● "; color: var(--blue-light); font-size: 0.68rem; }
+  .card.problem { border-left: 4px solid #c62828; }
+  .card.opp { border-left: 4px solid var(--green); }
+
+  /* Прецеденты */
+  .prec {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+    display: flex;
+    gap: 16px;
+  }
+  .prec .ico { font-size: 1.8rem; flex-shrink: 0; margin-top: 2px; }
+  .prec h4 { font-size: 0.98rem; color: var(--blue); margin-bottom: 6px; }
+  .prec p { font-size: 0.9rem; color: var(--muted); }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-top: 8px;
+    margin-right: 6px;
+  }
+
+  /* Дорожная карта */
+  .tl { position: relative; padding-left: 30px; }
+  .tl::before {
+    content: '';
+    position: absolute;
+    left: 9px; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .tl-item { position: relative; margin-bottom: 26px; }
+  .tl-dot {
+    position: absolute;
+    left: -26px; top: 5px;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--blue-light);
+  }
+  .tl-dot.done { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+  .tl-dot.future { background: #c8d8e8; box-shadow: 0 0 0 2px #aaa; }
+  .tl-label { font-size: 0.77rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue-light); margin-bottom: 3px; }
+  .tl-label.done { color: var(--green); }
+  .tl-label.future { color: #999; }
+  .tl-item h4 { font-size: 0.99rem; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+  .tl-item p { font-size: 0.9rem; color: var(--muted); }
+  .tl-item ul { list-style: none; padding: 0; margin-top: 6px; }
+  .tl-item li { font-size: 0.89rem; color: var(--muted); padding: 3px 0; }
+  .tl-item li::before { content: "→ "; color: var(--blue-light); }
+
+  /* Рынок */
+  .mkt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  @media (max-width: 580px) { .mkt-grid { grid-template-columns: 1fr; } }
+  .mkt-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 14px;
+    text-align: center;
+  }
+  .mkt-item .big { font-size: 1.75rem; font-weight: 800; color: var(--blue); display: block; }
+  .mkt-item .sub { font-size: 0.8rem; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+  /* Партнёры */
+  .partners-note {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.65;
+  }
+  .partners-note strong { color: var(--text); }
+
+  /* CTA */
+  .cta {
+    background: linear-gradient(135deg, var(--blue) 0%, #1565c0 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 40px 32px;
+    text-align: center;
+  }
+  .cta h3 { font-size: 1.35rem; margin-bottom: 10px; }
+  .cta p { opacity: 0.9; font-size: 0.98rem; margin-bottom: 22px; }
+  .cta-btn {
+    display: inline-block;
+    background: #fff;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.98rem;
+    padding: 13px 30px;
+    border-radius: 28px;
+    text-decoration: none;
+  }
+  .cta-btn:hover { background: var(--accent); }
+
+  footer {
+    background: var(--blue);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 22px;
+    font-size: 0.82rem;
+  }
+  footer a { color: rgba(255,255,255,0.9); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">&#127754; Oka Flood Monitor</span>
+  <a href="index.html">Главная</a>
+  <a href="flood-guide.html">Инструкции</a>
+  <a href="roadmap.html">О проекте</a>
+  <a href="support.html" class="donate-btn">&#10084; Поддержать</a>
+</nav>
+
+<div class="hero">
+  <p class="eyebrow">Oka Flood Monitor &#183; Апрель 2026</p>
+  <h1>От мониторинга одной реки<br>к платформе паводковых рисков</h1>
+  <p>Проект начинался как личный инструмент — мой дом стоит в пойме Оки. Сейчас это работающая система. Вот что дальше.</p>
+  <div>
+    <span class="tag">&#128994; Работает прямо сейчас</span>
+    <span class="tag">7 гидропостов</span>
+    <span class="tag">5 обновлений в день</span>
+    <span class="tag">Telegram-алерты</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ПОЧЕМУ СЕЙЧАС -->
+  <div class="section">
+    <h2>&#127754; Почему это важно прямо сейчас</h2>
+    <div class="fact-block">
+      <strong>Каждый второй покупатель загородной недвижимости</strong> спрашивает о риске подтопления — при этом ни одно объявление о продаже не содержит этих данных. Рынок страхования загородного жилья вырос в 1,3–2,2 раза после паводков 2024 года. Запрос есть. Ответа — нет.
+    </div>
+    <div class="two-col">
+      <div class="card problem">
+        <h4>&#128308; Проблема сегодня</h4>
+        <ul>
+          <li>Госданные о паводках разрознены</li>
+          <li>Нет real-time интерфейса для людей</li>
+          <li>Недвижимость покупается без учёта риска</li>
+          <li>Страховщики работают без исторических данных</li>
+          <li>Прогноз паводка — только у специалистов</li>
+        </ul>
+      </div>
+      <div class="card opp">
+        <h4>&#128994; Что уже работает</h4>
+        <ul>
+          <li>7 гидропостов, данные каждые 3–5 часов</li>
+          <li>Telegram-алерты при превышении порогов KIM</li>
+          <li>Анализ осадков по всему бассейну Оки</li>
+          <li>Автодеплой через GitHub Actions</li>
+          <li>Себестоимость &#8776; 0 &#8381;/мес</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- МИРОВОЙ ПРЕЦЕДЕНТ -->
+  <div class="section">
+    <h2>&#127758; Мировой прецедент: рынок уже есть</h2>
+    <div class="prec">
+      <div class="ico">&#127482;&#127480;</div>
+      <div>
+        <h4>Zillow + First Street (США, 2023–2024)</h4>
+        <p>Крупнейший риэлторский портал интегрировал климатические риски в карточки объявлений. Дома с высоким flood risk продаются в 52% случаев против 71% у домов с низким риском. Информация буквально изменила поведение рынка.</p>
+        <span class="badge">CTR блока: 4–8%</span>
+        <span class="badge">В России: 0 платформ</span>
+      </div>
+    </div>
+    <div class="prec">
+      <div class="ico">&#127462;&#127482;</div>
+      <div>
+        <h4>FloodMapp (Австралия) · First Street (США)</h4>
+        <p>Компании, построившие бизнес на паводковых данных: B2B API для страховщиков, партнёрства с ведущими перестраховщиками. Работающая модель монетизации от потребительского сервиса к институциональным данным. Открытое окно возможностей для России.</p>
+        <span class="badge">Аналогов в РФ нет</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- РЫНОК -->
+  <div class="section">
+    <h2>&#128202; Масштаб возможности</h2>
+    <div class="mkt-grid">
+      <div class="mkt-item">
+        <span class="big">50%</span>
+        <div class="sub">покупателей загородной недвижимости спрашивают о риске подтопления</div>
+      </div>
+      <div class="mkt-item">
+        <span class="big">&#215;2,2</span>
+        <div class="sub">рост спроса на страхование загородного жилья в 2025 г. после паводков 2024</div>
+      </div>
+      <div class="mkt-item">
+        <span class="big">0</span>
+        <div class="sub">платформ в России с паводковым риском в объявлениях о недвижимости</div>
+      </div>
+    </div>
+
+    <div class="partners-note">
+      <strong>Потенциальные партнёры и клиенты.</strong> Данные о паводковых рисках востребованы в нескольких направлениях одновременно: <em>классифайды недвижимости</em> (где интеграция flood-риска в объявления даёт конкурентное преимущество и дополнительный сигнал для покупателей), <em>страховые компании</em> (для андеррайтинга загородных объектов и разработки параметрических продуктов), <em>банки и ипотечные платформы</em> (оценка залогового риска), а также <em>государственные и муниципальные структуры</em>. Экономическое обоснование простое: платформа снижает информационную асимметрию — а это ценность, за которую B2B-клиенты платят.
+    </div>
+  </div>
+
+  <!-- ДОРОЖНАЯ КАРТА -->
+  <div class="section">
+    <h2>&#128506; Дорожная карта</h2>
+    <div class="tl">
+
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-label done">&#10003; Март 2026 — Запущено</div>
+        <h4>MVP: мониторинг Оки работает</h4>
+        <p>7 гидропостов, Telegram-алерты, анализ осадков, автодеплой 5 раз в день. Открытый код.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label">Апрель–Май 2026</div>
+        <h4>Расширение и прогноз</h4>
+        <ul>
+          <li>Новые станции вверх и вниз по Оке</li>
+          <li>Прогноз уровня на 7–10 дней (GloFAS + Open-Meteo)</li>
+          <li>Время добегания волны между постами</li>
+          <li>История максимальных уровней по годам</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label">Q3 2026</div>
+        <h4>Паводковый паспорт участка</h4>
+        <ul>
+          <li>Проверка адреса по координатам: риск подтопления</li>
+          <li>Исторические данные для населённых пунктов бассейна</li>
+          <li>API для профессиональных клиентов</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot future"></div>
+        <div class="tl-label future">2027</div>
+        <h4>Другие реки России</h4>
+        <ul>
+          <li>Масштабирование шаблона: Дон, Волга, Урал, Амур</li>
+          <li>Собственные IoT-датчики уровня воды</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot future"></div>
+        <div class="tl-label future">2027–2028</div>
+        <h4>ML-прогнозы и мобильное приложение</h4>
+        <ul>
+          <li>Обучение модели на исторических данных паводков РФ</li>
+          <li>Параметрическое страхование от паводков</li>
+          <li>Мобильное приложение</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h3>Поддержите развитие</h3>
+    <p>Проект открытый и бесплатный. Любая поддержка помогает двигаться по дорожной карте быстрее.</p>
+    <a href="support.html" class="cta-btn">&#10084; Поддержать проект</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Oka Flood Monitor &nbsp;&#183;&nbsp; <a href="index.html">Главная</a> &nbsp;&#183;&nbsp; <a href="support.html">Поддержать</a></p>
+</footer>
+
+</body>
+</html>
