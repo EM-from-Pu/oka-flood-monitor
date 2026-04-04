@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-04T05:44:50.959834+00:00",
+  "generated_at": "2026-04-04T07:39:58.861751+00:00",
   "serpuhov": {
     "level_cm": 540.0,
     "level_m": 5.4,
@@ -38,10 +38,10 @@
       "color": "#10b981"
     },
     "weather": {
-      "zone": "warning",
-      "label": "ВЫСОКИЙ",
-      "value": "3/4 — ВЫСОКИЙ",
-      "color": "#f97316"
+      "zone": "danger",
+      "label": "КРИТИЧЕСКИЙ",
+      "value": "4/4 — КРИТИЧЕСКИЙ",
+      "color": "#ef4444"
     },
     "verdict": {
       "zone": "watch",
@@ -91,16 +91,13 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 1232.1,
-        "peak_discharge": 1195.7,
-        "peak_date": "2026-04-05",
-        "trend_arrow": "→",
-        "flood_ratio": 1.27,
-        "wave_arrival": {
-          "earliest": "2026-04-07",
-          "latest": "2026-04-09"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -149,9 +146,9 @@
     }
   },
   "weather": {
-    "flood_index": 3,
-    "flood_label": "ВЫСОКИЙ",
-    "flood_summary": "Активное таяние, осадки (14 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Значительный риск подъёма",
+    "flood_index": 4,
+    "flood_label": "КРИТИЧЕСКИЙ",
+    "flood_summary": "Активное таяние, осадки (14 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 41,
+  "history_count": 42,
   "sources": {
     "ok": [
       "serpuhov.ru",
