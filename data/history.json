@@ -1157,5 +1157,33 @@
     "glofas_peak_date": "2026-04-05",
     "glofas_serpukhov_arrival": "2026-04-09–2026-04-11",
     "notes": "Паводковый индекс 4/4"
+  },
+  {
+    "datetime": "2026-04-04T16:00:04.065253+00:00",
+    "serp_level_m": 5.4,
+    "serp_level_cm": 540.0,
+    "serp_daily_change_cm": 25.0,
+    "serp_abs_m_bs": 112.94,
+    "serp_source": "ok",
+    "kim_kashira_cm": null,
+    "kim_kaluga_cm": null,
+    "kim_ryazan_cm": null,
+    "cugms_serp_change_cm": null,
+    "cugms_kashira_change_cm": 94.0,
+    "cugms_review_number": 22,
+    "temp": 15.6,
+    "precip_mm": 0,
+    "snow_depth_cm": 0,
+    "flood_weather_index": 3,
+    "alert_level": "ВНИМАНИЕ",
+    "days_to_nya": 4.2,
+    "days_to_oya": 10.4,
+    "glofas_belev_discharge": 448.8,
+    "glofas_kaluga_discharge": null,
+    "glofas_tarusa_discharge": 1302.2,
+    "glofas_peak_station": "Таруса",
+    "glofas_peak_date": "2026-04-05",
+    "glofas_serpukhov_arrival": "2026-04-09–2026-04-11",
+    "notes": "Паводковый индекс 3/4"
   }
 ]
