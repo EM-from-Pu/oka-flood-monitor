@@ -1204,10 +1204,10 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <div class="header-right">
     <span class="clock-display" id="clock">--:--:-- МСК</span>
     <span class="freshness-dot" id="freshness" title="Проверка свежести данных..."></span>
-    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 06.04.2026 10:13</span>
+    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 06.04.2026 11:58</span>
     <span class="source-badge ok">serp</span>
     <span class="source-badge ok">kim</span>
-    <span class="source-badge cached">GloFAS</span>
+    <span class="source-badge ok">GloFAS</span>
   </div>
 </header>
 <div class="mobile-nav" id="mobile-nav">
@@ -1312,7 +1312,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
       </a>
       <a class="info-card" href="#cugmsAcc" title="Перейти к разделу: ЦУГМС и станции">
         <div class="ic-icon">📈</div>
-        <div class="ic-value">-18 <span class="ic-unit">см/сут</span></div>
+        <div class="ic-value">-29 <span class="ic-unit">см/сут</span></div>
         <div class="ic-title-colored" style="color:#10b981;">Тренд (3 дня) → стабильно</div>
         <div class="ic-hint">Сейчас: -37 см/сут (serpuhov.ru)</div>
         <div class="ic-hint2">Быстрый. В 2013: +46, Калуга 2024: +132</div>
@@ -1381,8 +1381,8 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   var ctx = document.getElementById('hydrograph-level');
   if (!ctx) return;
 
-  var histLabels = ["2026-03-31T19:58:55", "2026-04-01T08:47:58", "2026-04-01T10:32:54", "2026-04-01T11:06:18", "2026-04-01T17:13:56", "2026-04-01T20:01:32", "2026-04-02T07:38:32", "2026-04-02T08:15:53", "2026-04-02T11:35:37", "2026-04-02T17:11:23", "2026-04-02T19:38:58", "2026-04-03T08:15:12", "2026-04-03T09:10:08", "2026-04-03T10:08:08", "2026-04-03T11:56:31", "2026-04-03T13:35:57", "2026-04-03T14:10:34", "2026-04-03T17:02:17", "2026-04-03T20:04:43", "2026-04-04T05:44:41", "2026-04-04T07:39:31", "2026-04-04T11:04:29", "2026-04-04T16:00:04", "2026-04-04T19:56:50", "2026-04-05T06:19:37", "2026-04-05T08:00:19", "2026-04-05T11:05:31", "2026-04-05T16:03:04", "2026-04-05T19:59:13", "2026-04-06T07:12:45"];
-  var histValues = [447.0, 466.0, 466.0, 466.0, 466.0, 466.0, 491.0, 491.0, 515.0, 515.0, 515.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 530.0, 530.0, 530.0, 493.0];
+  var histLabels = ["2026-04-01T08:47:58", "2026-04-01T10:32:54", "2026-04-01T11:06:18", "2026-04-01T17:13:56", "2026-04-01T20:01:32", "2026-04-02T07:38:32", "2026-04-02T08:15:53", "2026-04-02T11:35:37", "2026-04-02T17:11:23", "2026-04-02T19:38:58", "2026-04-03T08:15:12", "2026-04-03T09:10:08", "2026-04-03T10:08:08", "2026-04-03T11:56:31", "2026-04-03T13:35:57", "2026-04-03T14:10:34", "2026-04-03T17:02:17", "2026-04-03T20:04:43", "2026-04-04T05:44:41", "2026-04-04T07:39:31", "2026-04-04T11:04:29", "2026-04-04T16:00:04", "2026-04-04T19:56:50", "2026-04-05T06:19:37", "2026-04-05T08:00:19", "2026-04-05T11:05:31", "2026-04-05T16:03:04", "2026-04-05T19:59:13", "2026-04-06T07:12:45", "2026-04-06T08:58:07"];
+  var histValues = [466.0, 466.0, 466.0, 466.0, 466.0, 491.0, 491.0, 515.0, 515.0, 515.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 530.0, 530.0, 530.0, 493.0, 493.0];
   var refLabels  = [];
   var refValues  = [];
   var NYA        = 645.0;
@@ -1522,7 +1522,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   if (!ctx2) return;
 
   var gLabels = ["2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-18", "2026-04-19", "2026-04-20", "2026-04-21"];
-  var gValues = [1136.6, 1113.3, 1095.5, 1073.0, 1046.1, 1017.6, 989.8, 969.5, 956.2, 943.1, 936.6, 930.1, 906.8, 884.1, 795.2];
+  var gValues = [1173.9, 1147.2, 1128.8, 1105.6, 1078.0, 1048.5, 1022.3, 996.7, 983.0, 971.8, 960.6, 954.0, 934.4, 911.0, 819.4];
 
   new Chart(ctx2, {
     type: 'line',
@@ -1629,7 +1629,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 </div><div style="position:absolute; left:72.1%; top:50%; transform:translate(-50%,-50%);">
   <div style="width:10px; height:10px; border-radius:50%; background:#3b82f6; border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,0.15);"></div>
   <div style="position:absolute; bottom:22px; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:0.68rem; font-weight:500; color:#3b82f6;">Таруса</div>
-  
+  <div style="position:absolute; top:22px; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:0.58rem; color:var(--text-dim);">пик 07.04</div>
 </div><div style="position:absolute; left:80.2%; top:50%; transform:translate(-50%,-50%);">
   <div style="width:14px; height:14px; border-radius:50%; background:#ef4444; border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,0.15);"></div>
   <div style="position:absolute; bottom:26px; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:0.68rem; font-weight:700; color:#ef4444;">Серпухов</div>
@@ -1671,7 +1671,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
         </tr>
       </thead>
       <tbody>
-        <tr><td class="col-station">Орёл</td><td>07.04</td><td class="col-arrival">12.04–15.04</td><td style="color:var(--text-dim);">~15–16.04</td></tr><tr><td class="col-station">Мценск</td><td>07.04</td><td class="col-arrival">12.04–14.04</td><td style="color:var(--text-dim);">~14–15.04</td></tr><tr><td class="col-station">Белёв</td><td>07.04</td><td class="col-arrival">11.04–13.04</td><td style="color:var(--text-dim);">~13–14.04</td></tr><tr><td class="col-station">Козельск (Жиздра)</td><td>07.04</td><td class="col-arrival">10.04–13.04</td><td style="color:var(--text-dim);">~13–14.04</td></tr><tr><td class="col-station">Калуга</td><td>07.04</td><td class="col-arrival">09.04–11.04</td><td style="color:var(--text-dim);">~11–12.04</td></tr><tr><td class="col-station">Алексин</td><td>07.04</td><td class="col-arrival">08.04–10.04</td><td style="color:var(--text-dim);">~10–11.04</td></tr><tr><td class="col-station">Таруса</td><td><span style="color:var(--text-dim)">—</span></td><td class="col-arrival"><span style="color:var(--text-dim)">—</span></td><td style="color:var(--text-dim);"><span style="color:var(--text-dim)">—</span></td></tr><tr style="background:rgba(239,68,68,0.06);"><td class="col-station"><b style="color:#ef4444;">СЕРПУХОВ</b></td><td><span style="color:var(--text-dim)">—</span></td><td class="col-arrival">12.04</td><td style="color:var(--text-dim);">~13–14.04</td></tr>
+        <tr><td class="col-station">Орёл</td><td>07.04</td><td class="col-arrival">12.04–15.04</td><td style="color:var(--text-dim);">~15–16.04</td></tr><tr><td class="col-station">Мценск</td><td>07.04</td><td class="col-arrival">12.04–14.04</td><td style="color:var(--text-dim);">~14–15.04</td></tr><tr><td class="col-station">Белёв</td><td>07.04</td><td class="col-arrival">11.04–13.04</td><td style="color:var(--text-dim);">~13–14.04</td></tr><tr><td class="col-station">Козельск (Жиздра)</td><td>07.04</td><td class="col-arrival">10.04–13.04</td><td style="color:var(--text-dim);">~13–14.04</td></tr><tr><td class="col-station">Калуга</td><td>07.04</td><td class="col-arrival">09.04–11.04</td><td style="color:var(--text-dim);">~11–12.04</td></tr><tr><td class="col-station">Алексин</td><td>07.04</td><td class="col-arrival">08.04–10.04</td><td style="color:var(--text-dim);">~10–11.04</td></tr><tr><td class="col-station">Таруса</td><td>07.04</td><td class="col-arrival">07.04–09.04</td><td style="color:var(--text-dim);">~09–10.04</td></tr><tr style="background:rgba(239,68,68,0.06);"><td class="col-station"><b style="color:#ef4444;">СЕРПУХОВ</b></td><td><span style="color:var(--text-dim)">—</span></td><td class="col-arrival">12.04</td><td style="color:var(--text-dim);">~13–14.04</td></tr>
       </tbody>
     </table>
     </div>
@@ -1831,22 +1831,22 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 </a>
 <div class="station-arrow">›</div>
 <a href="cities/tarusa.html" style="text-decoration:none; color:inherit;" data-tooltip="Подробная страница города (в разработке)">
-<div class="station-card">
+<div class="station-card fr-normal">
   <div class="sc-name">Таруса</div>
   <div class="sc-river">р. Ока</div>
   <div class="sc-value" style="color: var(--text-primary);">
-    временно недоступно
+    1224 м³/с
   </div>
-  
-  <div class="sc-sparkline"></div>
-  
+  <div style="font-size:0.65rem; color:var(--text-dim); margin-top:2px;">расход воды (объём, протекающий через сечение реки за 1 сек)</div>
+  <div class="sc-sparkline"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg"><polyline points="0.0,22.0 13.3,14.9 26.7,8.9 40.0,4.2 53.3,2.0 66.7,3.3 80.0,7.0" fill="none" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div style="font-size:0.58rem; color:var(--text-dim); text-align:center;">динамика за 14 дней</div>
   <div class="sc-trend">
-    ?
-    <span class="sc-badge fr-unknown">недоступно</span>
+    →
+    <span class="sc-badge fr-normal">×1.2</span>
   </div>
-  
+  <div class="sc-peak">расчётный пик 7.04: 1174 м³/с</div>
   <div class="sc-travel">0.5–1 дн до Серпухова</div>
-  <div style="font-size:0.6rem; color:var(--text-dim); margin-top:4px; line-height:1.3;">Данные временно недоступны (GloFAS rate limit). Обычно обновляются в течение суток.</div>
+  <div style="font-size:0.6rem; color:var(--text-dim); margin-top:4px; line-height:1.3;">GloFAS Flood API</div>
 </div>
 </a>
 <div class="station-arrow">›</div>
@@ -1858,7 +1858,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     493 см
   </div>
   <div style="font-size:0.65rem; color:var(--text-dim); margin-top:2px; line-height:1.3;">Серпухов: данные serpuhov.ru в сантиметрах уровня (не расход). GloFAS не имеет прямой станции для Серпухова.</div>
-  <div class="sc-sparkline"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg"><polyline points="0.0,2.0 13.3,2.0 26.7,2.0 40.0,6.3 53.3,6.3 66.7,6.3 80.0,22.0" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="sc-sparkline"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg"><polyline points="0.0,2.0 13.3,2.0 26.7,6.3 40.0,6.3 53.3,6.3 66.7,22.0 80.0,22.0" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   <div style="font-size:0.58rem; color:var(--text-dim); text-align:center;">динамика за 14 дней</div>
   <div class="sc-trend">
     ↓ снижается
@@ -2225,7 +2225,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
       <div class="accordion-body" id="peakAcc">
         
 <div class="peak-trend" style="color: #10b981; border-left-color: #10b981;">
-  Спад: уровень снижается (-18 см/сут)
+  Спад: уровень снижается (-37 см/сут)
 </div>
 
 <div style="background:var(--bg-primary); border:1px solid var(--border); border-radius:10px; padding:12px 16px; margin:12px 0; font-size:0.82rem; line-height:1.6;">
@@ -2287,6 +2287,17 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     </thead>
     <tbody>
       
+<tr>
+  <td>2026-04-06 08:58:07</td>
+  <td>493</td>
+  <td style="color:var(--safe);">-37 см</td>
+  <td>112.470</td>
+  <td>—</td>
+  <td>412</td>
+  <td>07.04</td>
+  <td>0</td>
+  <td><span class="status-badge внимание">ВНИМАНИЕ</span></td>
+</tr>
 <tr>
   <td>2026-04-06 07:12:45</td>
   <td>493</td>
@@ -2901,7 +2912,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <footer class="site-footer">
   OkaFloodMonitor v7.7.2 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
-  Обновлено: 06.04.2026 10:13 МСК |
+  Обновлено: 06.04.2026 11:58 МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
   <div style="margin-top:8px;font-size:0.65rem;color:var(--text-dim);opacity:0.5;">
     <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fem-from-pu.github.io%2Foka-flood-monitor&count_bg=%23555555&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F&edge_flat=true"
