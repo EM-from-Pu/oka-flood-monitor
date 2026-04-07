@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-07T18:11:56.336135+00:00",
+  "generated_at": "2026-04-07T21:31:51.278724+00:00",
   "serpuhov": {
     "level_cm": 447.0,
     "level_m": 4.47,
@@ -154,7 +154,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (26 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (31 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -170,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 59,
+  "history_count": 60,
   "sources": {
     "ok": [
       "serpuhov.ru",

@@ -1204,7 +1204,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <div class="header-right">
     <span class="clock-display" id="clock">--:--:-- МСК</span>
     <span class="freshness-dot" id="freshness" title="Проверка свежести данных..."></span>
-    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 07.04.2026 21:11</span>
+    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 08.04.2026 00:31</span>
     <span class="source-badge ok">serp</span>
     <span class="source-badge ok">kim</span>
     <span class="source-badge ok">GloFAS</span>
@@ -1328,7 +1328,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
         <div class="ic-icon">🌧️</div>
         <div class="ic-value">4/4</div>
         <div class="ic-title-colored" style="color:#ef4444;">Паводковый индекс</div>
-        <div class="ic-hint">Активное таяние, осадки (26 мм), тёплые ночи (Tmin &gt; 0°C, 8 из 8). Максимально быстрый рост уровня</div>
+        <div class="ic-hint">Активное таяние, осадки (31 мм), тёплые ночи (Tmin &gt; 0°C, 8 из 8). Максимально быстрый рост уровня</div>
         <div class="ic-hint2"></div>
       </a>
       <a class="info-card" href="#peakAcc" title="Перейти к разделу: Прогноз пика">
@@ -1381,8 +1381,8 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   var ctx = document.getElementById('hydrograph-level');
   if (!ctx) return;
 
-  var histLabels = ["2026-04-02T11:35:37", "2026-04-02T17:11:23", "2026-04-02T19:38:58", "2026-04-03T08:15:12", "2026-04-03T09:10:08", "2026-04-03T10:08:08", "2026-04-03T11:56:31", "2026-04-03T13:35:57", "2026-04-03T14:10:34", "2026-04-03T17:02:17", "2026-04-03T20:04:43", "2026-04-04T05:44:41", "2026-04-04T07:39:31", "2026-04-04T11:04:29", "2026-04-04T16:00:04", "2026-04-04T19:56:50", "2026-04-05T06:19:37", "2026-04-05T08:00:19", "2026-04-05T11:05:31", "2026-04-05T16:03:04", "2026-04-05T19:59:13", "2026-04-06T07:12:45", "2026-04-06T08:58:07", "2026-04-06T12:03:29", "2026-04-06T17:33:40", "2026-04-06T20:59:22", "2026-04-07T06:56:41", "2026-04-07T08:45:37", "2026-04-07T12:07:53", "2026-04-07T18:11:27"];
-  var histValues = [515.0, 515.0, 515.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 530.0, 530.0, 530.0, 493.0, 493.0, 493.0, 493.0, 493.0, 447.0, 447.0, 447.0, 447.0];
+  var histLabels = ["2026-04-02T17:11:23", "2026-04-02T19:38:58", "2026-04-03T08:15:12", "2026-04-03T09:10:08", "2026-04-03T10:08:08", "2026-04-03T11:56:31", "2026-04-03T13:35:57", "2026-04-03T14:10:34", "2026-04-03T17:02:17", "2026-04-03T20:04:43", "2026-04-04T05:44:41", "2026-04-04T07:39:31", "2026-04-04T11:04:29", "2026-04-04T16:00:04", "2026-04-04T19:56:50", "2026-04-05T06:19:37", "2026-04-05T08:00:19", "2026-04-05T11:05:31", "2026-04-05T16:03:04", "2026-04-05T19:59:13", "2026-04-06T07:12:45", "2026-04-06T08:58:07", "2026-04-06T12:03:29", "2026-04-06T17:33:40", "2026-04-06T20:59:22", "2026-04-07T06:56:41", "2026-04-07T08:45:37", "2026-04-07T12:07:53", "2026-04-07T18:11:27", "2026-04-07T21:31:22"];
+  var histValues = [515.0, 515.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 540.0, 530.0, 530.0, 530.0, 493.0, 493.0, 493.0, 493.0, 493.0, 447.0, 447.0, 447.0, 447.0, 447.0];
   var refLabels  = [];
   var refValues  = [];
   var NYA        = 645.0;
@@ -1858,7 +1858,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     447 см
   </div>
   <div style="font-size:0.65rem; color:var(--text-dim); margin-top:2px; line-height:1.3;">Серпухов: данные serpuhov.ru в сантиметрах уровня (не расход). GloFAS не имеет прямой станции для Серпухова.</div>
-  <div class="sc-sparkline"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg"><polyline points="0.0,2.0 13.3,2.0 26.7,2.0 40.0,22.0 53.3,22.0 66.7,22.0 80.0,22.0" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="sc-sparkline"><svg width="80" height="24" viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg"><polyline points="0.0,2.0 13.3,2.0 26.7,22.0 40.0,22.0 53.3,22.0 66.7,22.0 80.0,22.0" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   <div style="font-size:0.58rem; color:var(--text-dim); text-align:center;">динамика за 14 дней</div>
   <div class="sc-trend">
     ↓ снижается
@@ -1923,7 +1923,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     <span class="wfi-label">Паводковый индекс погоды (0–4)</span>
     <span class="wfi-value" style="color:#ef4444;">КРИТИЧЕСКИЙ (4/4)</span>
   </div>
-  <div class="wfi-summary">Активное таяние, осадки (26 мм), тёплые ночи (Tmin &gt; 0°C, 8 из 8). Максимально быстрый рост уровня</div>
+  <div class="wfi-summary">Активное таяние, осадки (31 мм), тёплые ночи (Tmin &gt; 0°C, 8 из 8). Максимально быстрый рост уровня</div>
   
 <div class="table-wrap">
 <table style="width:100%; border-collapse:collapse; font-size:0.78rem; margin:10px 0 6px;">
@@ -1939,15 +1939,15 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     <div class="table-wrap">
 <table class="weather-table">
   <thead>
-    <tr><th>Показатель</th><th class="">Пт 03.04</th><th class="">Сб 04.04</th><th class="">Вс 05.04</th><th class="">Пн 06.04</th><th class="">Вт 07.04</th><th class=" forecast-col">Ср 08.04</th><th class=" forecast-col">Чт 09.04</th><th class=" forecast-col">Пт 10.04</th></tr>
+    <tr><th>Показатель</th><th class="">Сб 04.04</th><th class="">Вс 05.04</th><th class="">Пн 06.04</th><th class="">Вт 07.04</th><th class=" forecast-col">Ср 08.04</th><th class=" forecast-col">Чт 09.04</th><th class=" forecast-col">Пт 10.04</th><th class=" forecast-col">Сб 11.04</th></tr>
   </thead>
   <tbody>
-    <tr><td>Тmax °C</td><td class="">15°</td><td class="">16°</td><td class="">8°</td><td class="">9°</td><td class="">8°</td><td class=" forecast-col">7°</td><td class=" forecast-col">4°</td><td class=" forecast-col">7°</td></tr>
-    <tr><td>Tmin °C</td><td class="" class="warm-night">6°</td><td class="" class="warm-night">6°</td><td class="" class="warm-night">4°</td><td class="">2°</td><td class="" class="warm-night">2°</td><td class=" forecast-col">0°</td><td class=" forecast-col" class="warm-night">2°</td><td class=" forecast-col">1°</td></tr>
-    <tr><td>Осадки, мм</td><td class="">0.2</td><td class="">0.0</td><td class="">2.4</td><td class="">1.1</td><td class="">0.0</td><td class=" forecast-col">1.8</td><td class=" forecast-col">10.9</td><td class=" forecast-col">9.5</td></tr>
-    <tr><td>Снег, см</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td></tr>
-    <tr><td>Ветер, м/с</td><td class="">3</td><td class="">2</td><td class="">5</td><td class="">3</td><td class="">4</td><td class=" forecast-col">2</td><td class=" forecast-col">5</td><td class=" forecast-col">5</td></tr>
-    <tr><td>Погода</td><td class="">дождь</td><td class="">облачно</td><td class="">ливень</td><td class="">дождь</td><td class="">облачно</td><td class=" forecast-col">ливень</td><td class=" forecast-col">дождь</td><td class=" forecast-col">ливень</td></tr>
+    <tr><td>Тmax °C</td><td class="">16°</td><td class="">8°</td><td class="">9°</td><td class="">8°</td><td class=" forecast-col">7°</td><td class=" forecast-col">4°</td><td class=" forecast-col">7°</td><td class=" forecast-col">8°</td></tr>
+    <tr><td>Tmin °C</td><td class="" class="warm-night">6°</td><td class="" class="warm-night">4°</td><td class="">2°</td><td class="" class="warm-night">2°</td><td class=" forecast-col">0°</td><td class=" forecast-col" class="warm-night">2°</td><td class=" forecast-col">1°</td><td class=" forecast-col" class="warm-night">4°</td></tr>
+    <tr><td>Осадки, мм</td><td class="">0.0</td><td class="">2.4</td><td class="">1.1</td><td class="">0.0</td><td class=" forecast-col">1.8</td><td class=" forecast-col">10.9</td><td class=" forecast-col">9.5</td><td class=" forecast-col">5.2</td></tr>
+    <tr><td>Снег, см</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td></tr>
+    <tr><td>Ветер, м/с</td><td class="">2</td><td class="">5</td><td class="">3</td><td class="">4</td><td class=" forecast-col">2</td><td class=" forecast-col">5</td><td class=" forecast-col">5</td><td class=" forecast-col">4</td></tr>
+    <tr><td>Погода</td><td class="">облачно</td><td class="">ливень</td><td class="">дождь</td><td class="">облачно</td><td class=" forecast-col">ливень</td><td class=" forecast-col">дождь</td><td class=" forecast-col">ливень</td><td class=" forecast-col">ливень</td></tr>
   </tbody>
 </table></div>
     
@@ -1955,7 +1955,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   <div style="font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:6px;">📝 Аналитика погодных факторов</div>
   <ul style="list-style:none; padding:0;"><li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>✅ Снежный покров исчез — талые воды уже не добавятся.</li>
 <li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>🌡 Ночные температуры устойчиво выше нуля (теплеют). Снег тает круглосуточно, таяние ускоряется.</li>
-<li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>🌧 Ожидается 14 мм осадков за 4 дня — умеренно в районе Серпухова.</li></ul>
+<li style='padding:4px 0; color:var(--text-secondary); font-size:0.88rem;'>🌧 Ожидается 17 мм осадков за 4 дня — умеренно в районе Серпухова.</li></ul>
 </div>
     
 <div style="margin:16px 0 8px;">
@@ -1970,14 +1970,14 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
       <thead>
         <tr style="background:#f8fafc;">
           <th style="padding:6px 10px; text-align:left; border-bottom:2px solid var(--border); font-weight:600; color:var(--text-dim); min-width:100px;">Район</th>
-          <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; background:#eff6ff;">Вт 07.04</th>
-          <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; ">Ср 08.04</th>
+          <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; background:#eff6ff;">Ср 08.04</th>
           <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; ">Чт 09.04</th>
           <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; ">Пт 10.04</th>
           <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; ">Сб 11.04</th>
           <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; ">Вс 12.04</th>
           <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; ">Пн 13.04</th>
           <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; ">Вт 14.04</th>
+          <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-size:0.72rem; ">Ср 15.04</th>
           <th style="padding:6px 8px; text-align:center; border-bottom:2px solid var(--border); font-weight:700; color:var(--text-primary);">Σ 3д</th>
         </tr>
       </thead>
@@ -1996,68 +1996,68 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
         </tr>
         <tr>
           <td style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:500;">Тула<br><span style="font-size:0.68rem; color:var(--text-dim);">приток Упа, водосбор</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#3b82f6; font-weight:400;">0.5</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:transparent;"><span style="color:#3b82f6; font-weight:400;">1.0</span><br><span style="font-size:0.65rem; color:var(--text-dim);">пасмурно</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#3b82f6; font-weight:400;">1.0</span><br><span style="font-size:0.65rem; color:var(--text-dim);">пасмурно</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">5.9</span><br><span style="font-size:0.65rem; color:var(--text-dim);">дождь</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">6.1</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">5.3</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#f97316;">7</td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#ef4444;">13</td>
         </tr>
         <tr>
           <td style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:500;">Калуга<br><span style="font-size:0.68rem; color:var(--text-dim);">приток Угра, средний бассейн</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#94a3b8; font-weight:400;">0.1</span><br><span style="font-size:0.65rem; color:var(--text-dim);">пасмурно</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:transparent;"><span style="color:#3b82f6; font-weight:400;">0.5</span><br><span style="font-size:0.65rem; color:var(--text-dim);">дождь</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#3b82f6; font-weight:400;">0.5</span><br><span style="font-size:0.65rem; color:var(--text-dim);">дождь</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">8.2</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">5.3</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(245,158,11,0.08);"><span style="color:#f59e0b; font-weight:600;">3.7</span><br><span style="font-size:0.65rem; color:var(--text-dim);">дождь</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#f97316;">9</td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#ef4444;">14</td>
         </tr>
         <tr>
           <td style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:500;">Белёв<br><span style="font-size:0.68rem; color:var(--text-dim);">верхняя Ока</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#3b82f6; font-weight:400;">1.7</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(245,158,11,0.08);"><span style="color:#f59e0b; font-weight:600;">2.3</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#f59e0b; font-weight:600;">2.3</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">8.4</span><br><span style="font-size:0.65rem; color:var(--text-dim);">снег с дождём</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(245,158,11,0.08);"><span style="color:#f59e0b; font-weight:600;">4.1</span><br><span style="font-size:0.65rem; color:var(--text-dim);">дождь</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#ef4444;">12</td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#ef4444;">15</td>
         </tr>
         <tr>
           <td style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:500;">Серпухов<br><span style="font-size:0.68rem; color:var(--text-dim);">основная точка наблюдения</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#94a3b8; font-weight:400;">0.3</span><br><span style="font-size:0.65rem; color:var(--text-dim);">пасмурно</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:transparent;"><span style="color:#3b82f6; font-weight:400;">0.7</span><br><span style="font-size:0.65rem; color:var(--text-dim);">снег</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#3b82f6; font-weight:400;">0.7</span><br><span style="font-size:0.65rem; color:var(--text-dim);">снег</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(239,68,68,0.1);"><span style="color:#ef4444; font-weight:600;">10.2</span><br><span style="font-size:0.65rem; color:var(--text-dim);">дождь</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">8.2</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">7.1</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#ef4444;">11</td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#ef4444;">19</td>
         </tr>
         <tr>
           <td style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:500;">Пущино<br><span style="font-size:0.68rem; color:var(--text-dim);">район Жерновки</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#94a3b8; font-weight:400;">0.2</span><br><span style="font-size:0.65rem; color:var(--text-dim);">пасмурно</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:transparent;"><span style="color:#3b82f6; font-weight:400;">1.3</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:#eff6ff;"><span style="color:#3b82f6; font-weight:400;">1.3</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(239,68,68,0.1);"><span style="color:#ef4444; font-weight:600;">10.9</span><br><span style="font-size:0.65rem; color:var(--text-dim);">дождь</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">8.9</span><br><span style="font-size:0.65rem; color:var(--text-dim);">ливень (сл.)</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:rgba(249,115,22,0.1);"><span style="color:#f97316; font-weight:600;">5.3</span><br><span style="font-size:0.65rem; color:var(--text-dim);">дождь</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#ef4444;">12</td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#ef4444;">21</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div style="font-size:0.82rem; color:var(--text-secondary); margin:10px 0 4px; line-height:1.5;">Суммарные осадки по бассейну за 3 дня: 52 мм. Максимум: Белёв (12 мм за 3 дня). ⚠️ Сильный дождь: Калуга — 8 мм (2026-04-09). ⚠️ Сильный дождь: Белёв — 8 мм (2026-04-09). ⚠️ Сильный дождь: Серпухов — 10 мм (2026-04-09). ⚠️ Сильный дождь: Пущино — 11 мм (2026-04-09). 🔴 Rain-on-Snow: Калуга — дождь 5 мм на снег 14 см (2026-04-10). 🔴 Rain-on-Snow: Серпухов — дождь 8 мм на снег 35 см (2026-04-10). 🔴 Rain-on-Snow: Пущино — дождь 9 мм на снег 35 см (2026-04-10)</div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); margin:10px 0 4px; line-height:1.5;">Суммарные осадки по бассейну за 3 дня: 82 мм. Максимум: Пущино (21 мм за 3 дня). ⚠️ Сильный дождь: Калуга — 8 мм (2026-04-09). ⚠️ Сильный дождь: Белёв — 8 мм (2026-04-09). ⚠️ Сильный дождь: Серпухов — 10 мм (2026-04-09). ⚠️ Сильный дождь: Пущино — 11 мм (2026-04-09). 🔴 Rain-on-Snow: Калуга — дождь 5 мм на снег 14 см (2026-04-10). 🔴 Rain-on-Snow: Серпухов — дождь 8 мм на снег 35 см (2026-04-10). 🔴 Rain-on-Snow: Пущино — дождь 9 мм на снег 35 см (2026-04-10)</div>
   <div style="font-size:0.72rem; color:var(--text-dim); margin-top:4px;">Источник: Open-Meteo API. Данные по координатам каждого района.</div>
 </div>
 
@@ -2237,10 +2237,10 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 
 <div class="regression-block">
   <div style="font-size:0.85rem; font-weight:600; color:var(--accent); margin-bottom:6px;">
-    🤖 Линейная регрессия (R²=0.92, 14 точек)
+    🤖 Линейная регрессия (R²=0.95, 14 точек)
   </div>
-  <p>Тренд: спад 39.5 см/сут (R²=0.92)</p>
-  <p>Прогноз: через 3 дня ≈ <b>332 см</b> | через 7 дней ≈ <b>174 см</b></p>
+  <p>Тренд: спад 41.6 см/сут (R²=0.95)</p>
+  <p>Прогноз: через 3 дня ≈ <b>315 см</b> | через 7 дней ≈ <b>149 см</b></p>
   
 </div>
 
@@ -2296,6 +2296,17 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     </thead>
     <tbody>
       
+<tr>
+  <td>2026-04-07 21:31:22</td>
+  <td>447</td>
+  <td style="color:var(--safe);">-46 см</td>
+  <td>112.010</td>
+  <td>—</td>
+  <td>404</td>
+  <td>08.04</td>
+  <td>0</td>
+  <td><span class="status-badge внимание">ВНИМАНИЕ</span></td>
+</tr>
 <tr>
   <td>2026-04-07 18:11:27</td>
   <td>447</td>
@@ -2998,7 +3009,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <footer class="site-footer">
   OkaFloodMonitor v7.7.2 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
-  Обновлено: 07.04.2026 21:11 МСК |
+  Обновлено: 08.04.2026 00:31 МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
   <div style="margin-top:8px;font-size:0.65rem;color:var(--text-dim);opacity:0.5;">
     <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fem-from-pu.github.io%2Foka-flood-monitor&count_bg=%23555555&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F&edge_flat=true"
