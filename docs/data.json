@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-09T18:13:02.289590+00:00",
+  "generated_at": "2026-04-09T21:35:27.520498+00:00",
   "serpuhov": {
     "level_cm": 296.0,
     "level_m": 2.96,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 10.04, волна 14.04–16.04",
+      "value": "Алексин пик 10.04, волна 11.04–13.04",
       "color": "#10b981"
     },
     "weather": {
@@ -81,16 +81,13 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 399.9,
-        "peak_discharge": 390.7,
-        "peak_date": "2026-04-10",
-        "trend_arrow": "→",
-        "flood_ratio": 1.09,
-        "wave_arrival": {
-          "earliest": "2026-04-14",
-          "latest": "2026-04-16"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
@@ -143,15 +140,15 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-04-14",
-      "latest": "2026-04-16",
-      "based_on": "Белёв"
+      "earliest": "2026-04-11",
+      "latest": "2026-04-13",
+      "based_on": "Алексин"
     }
   },
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (18 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (15 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 69,
+  "history_count": 70,
   "sources": {
     "ok": [
       "serpuhov.ru",
