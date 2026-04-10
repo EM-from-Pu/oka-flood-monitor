@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-04-10T07:10:29.610280+00:00",
+  "generated_at": "2026-04-10T08:57:31.846866+00:00",
   "serpuhov": {
-    "level_cm": 296.0,
-    "level_m": 2.96,
-    "daily_change_cm": -57.0,
-    "abs_level_m_bs": 110.5,
+    "level_cm": 270.0,
+    "level_m": 2.7,
+    "daily_change_cm": -26.0,
+    "abs_level_m_bs": 110.24,
     "water_status": "—",
     "nya_m_bs": 113.99,
     "oya_m_bs": 115.54,
@@ -15,20 +15,20 @@
     "alert_level": "НОРМА",
     "days_to_nya": null,
     "days_to_oya": null,
-    "nya_remaining_m": 3.489999999999995,
-    "oya_remaining_m": 5.040000000000006
+    "nya_remaining_m": 3.75,
+    "oya_remaining_m": 5.300000000000011
   },
   "composite_status": {
     "level": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "296 см (до НЯ 349 см)",
+      "value": "270 см (до НЯ 375 см)",
       "color": "#10b981"
     },
     "trend": {
       "zone": "safe",
       "label": "СПАД",
-      "value": "-57 см/сут",
+      "value": "-26 см/сут",
       "color": "#10b981"
     },
     "glofas": {
@@ -51,17 +51,20 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 73.0,
+        "peak_discharge": 74.3,
+        "peak_date": "2026-04-17",
+        "trend_arrow": "→",
+        "flood_ratio": 1.07,
+        "wave_arrival": {
+          "earliest": "2026-04-22",
+          "latest": "2026-04-25"
+        },
+        "source_status": "ok"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -130,13 +133,16 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 106.7,
+        "peak_discharge": 104.9,
+        "peak_date": "2026-04-11",
+        "trend_arrow": "→",
+        "flood_ratio": 1.1,
+        "wave_arrival": {
+          "earliest": "2026-04-14",
+          "latest": "2026-04-17"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -164,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 71,
+  "history_count": 72,
   "sources": {
     "ok": [
       "serpuhov.ru",
