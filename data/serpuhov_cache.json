@@ -1,13 +1,13 @@
 {
-  "level_m": 0.99,
-  "level_cm": 99.0,
+  "level_m": 0.89,
+  "level_cm": 89.0,
   "daily_change_m": -0.1,
   "daily_change_cm": -10.0,
   "nya_m_bs": 113.99,
   "oya_m_bs": 115.54,
-  "abs_level_m_bs": 108.53,
+  "abs_level_m_bs": 108.43,
   "water_status": "—",
-  "timestamp": "2026-04-14T21:38:40.763428+00:00",
+  "timestamp": "2026-04-15T07:12:42.574418+00:00",
   "source": "serpuhov.ru",
   "source_status": "ok",
   "cache_age_h": 0.0
