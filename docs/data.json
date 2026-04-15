@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-15T14:55:05.450836+00:00",
+  "generated_at": "2026-04-15T18:50:20.521267+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -81,16 +81,13 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 352.2,
-        "peak_discharge": 349.8,
-        "peak_date": "2026-04-16",
-        "trend_arrow": "→",
-        "flood_ratio": 1.05,
-        "wave_arrival": {
-          "earliest": "2026-04-20",
-          "latest": "2026-04-22"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
@@ -143,15 +140,15 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-04-20",
-      "latest": "2026-04-22",
-      "based_on": "Белёв"
+      "earliest": "2026-04-17",
+      "latest": "2026-04-19",
+      "based_on": "Алексин"
     }
   },
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (18 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (17 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "ok"
   },
-  "history_count": 98,
+  "history_count": 99,
   "sources": {
     "ok": [
       "serpuhov.ru",
