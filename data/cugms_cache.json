@@ -1,17 +1,17 @@
 {
-  "review_number": 37,
-  "review_date": "15.04.2026",
-  "serpuhov_change_cm": 32.0,
-  "kashira_change_cm": null,
-  "kolomna_change_cm": 32.0,
+  "review_number": 39,
+  "review_date": "17.04.2026",
+  "serpuhov_change_cm": -26.0,
+  "kashira_change_cm": -26.0,
+  "kolomna_change_cm": 38.0,
   "kaluga_change_cm": null,
   "belev_change_cm": null,
   "ice_status": {},
   "forecast_text": "Прогноз не найден в тексте обзора",
   "forecast_intensity_mps": null,
   "dangerous_expected": false,
-  "source_url": "https://cugms.ru/obzor-%e2%84%9637-razvitiya-vesennego-polovodya-na-rekah-i-vodoemah-moskvy-i-moskovskoj-oblasti-15-aprelya-2026-goda/",
+  "source_url": "https://cugms.ru/obzor-%e2%84%9639-razvitiya-vesennego-polovodya-na-rekah-i-vodoemah-moskvy-i-moskovskoj-oblasti-17-aprelya-2026-goda/",
   "source": "cugms.ru",
   "source_status": "ok",
-  "_timestamp": "2026-04-16T21:29:08.653174+00:00"
+  "_timestamp": "2026-04-17T07:13:19.063424+00:00"
 }
