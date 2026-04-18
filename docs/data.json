@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T08:05:43.894992+00:00",
+  "generated_at": "2026-04-18T11:51:54.998155+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 19.04, волна 23.04–25.04",
+      "value": "Таруса пик 19.04, волна 19.04–21.04",
       "color": "#10b981"
     },
     "weather": {
@@ -81,19 +81,6 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 336.3,
-        "peak_discharge": 324.1,
-        "peak_date": "2026-04-19",
-        "trend_arrow": "→",
-        "flood_ratio": 1.14,
-        "wave_arrival": {
-          "earliest": "2026-04-23",
-          "latest": "2026-04-25"
-        },
-        "source_status": "ok"
-      },
-      "kaluga": {
-        "name": "Калуга",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -101,6 +88,19 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
+      },
+      "kaluga": {
+        "name": "Калуга",
+        "current_discharge": 904.7,
+        "peak_discharge": 872.0,
+        "peak_date": "2026-04-19",
+        "trend_arrow": "→",
+        "flood_ratio": 1.13,
+        "wave_arrival": {
+          "earliest": "2026-04-21",
+          "latest": "2026-04-23"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -143,15 +143,15 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-04-23",
-      "latest": "2026-04-25",
-      "based_on": "Белёв"
+      "earliest": "2026-04-19",
+      "latest": "2026-04-21",
+      "based_on": "Таруса"
     }
   },
   "weather": {
     "flood_index": 3,
     "flood_label": "ВЫСОКИЙ",
-    "flood_summary": "Активное таяние, осадки (17 мм), тёплые ночи (Tmin > 0°C, 7 из 8). Значительный риск подъёма",
+    "flood_summary": "Активное таяние, осадки (18 мм), тёплые ночи (Tmin > 0°C, 7 из 8). Значительный риск подъёма",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "ok"
   },
-  "history_count": 112,
+  "history_count": 113,
   "sources": {
     "ok": [
       "serpuhov.ru",
