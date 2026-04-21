@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-21T18:16:04.008955+00:00",
+  "generated_at": "2026-04-21T21:34:13.569065+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -68,13 +68,16 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 124.6,
+        "peak_discharge": 119.5,
+        "peak_date": "2026-04-22",
+        "trend_arrow": "→",
+        "flood_ratio": 1.07,
+        "wave_arrival": {
+          "earliest": "2026-04-27",
+          "latest": "2026-04-29"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
@@ -130,13 +133,16 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 81.8,
+        "peak_discharge": 77.9,
+        "peak_date": "2026-04-22",
+        "trend_arrow": "→",
+        "flood_ratio": 1.05,
+        "wave_arrival": {
+          "earliest": "2026-04-25",
+          "latest": "2026-04-28"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -148,7 +154,7 @@
   "weather": {
     "flood_index": 3,
     "flood_label": "ВЫСОКИЙ",
-    "flood_summary": "Активное таяние, осадки (17 мм), тёплые ночи (Tmin > 0°C, 6 из 8). Значительный риск подъёма",
+    "flood_summary": "Активное таяние, осадки (17 мм), тёплые ночи (Tmin > 0°C, 5 из 8). Значительный риск подъёма",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -164,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 129,
+  "history_count": 130,
   "sources": {
     "ok": [
       "serpuhov.ru",
