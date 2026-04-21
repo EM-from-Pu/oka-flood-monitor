@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-21T10:06:01.827170+00:00",
+  "generated_at": "2026-04-21T15:01:18.796792+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -56,10 +56,10 @@
       "orel": {
         "name": "Орёл",
         "current_discharge": 56.4,
-        "peak_discharge": 54.1,
+        "peak_discharge": 53.2,
         "peak_date": "2026-04-22",
         "trend_arrow": "→",
-        "flood_ratio": 1.04,
+        "flood_ratio": 1.05,
         "wave_arrival": {
           "earliest": "2026-04-27",
           "latest": "2026-04-30"
@@ -69,7 +69,7 @@
       "mtsensk": {
         "name": "Мценск",
         "current_discharge": 124.6,
-        "peak_discharge": 120.1,
+        "peak_discharge": 119.5,
         "peak_date": "2026-04-22",
         "trend_arrow": "→",
         "flood_ratio": 1.07,
@@ -82,10 +82,10 @@
       "belev": {
         "name": "Белёв",
         "current_discharge": 302.4,
-        "peak_discharge": 290.7,
+        "peak_discharge": 288.1,
         "peak_date": "2026-04-22",
         "trend_arrow": "→",
-        "flood_ratio": 1.06,
+        "flood_ratio": 1.07,
         "wave_arrival": {
           "earliest": "2026-04-26",
           "latest": "2026-04-28"
@@ -95,7 +95,7 @@
       "kaluga": {
         "name": "Калуга",
         "current_discharge": 823.1,
-        "peak_discharge": 793.3,
+        "peak_discharge": 789.7,
         "peak_date": "2026-04-22",
         "trend_arrow": "→",
         "flood_ratio": 1.06,
@@ -108,7 +108,7 @@
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 852.1,
-        "peak_discharge": 823.1,
+        "peak_discharge": 821.2,
         "peak_date": "2026-04-22",
         "trend_arrow": "→",
         "flood_ratio": 1.06,
@@ -121,7 +121,7 @@
       "tarusa": {
         "name": "Таруса",
         "current_discharge": 880.0,
-        "peak_discharge": 852.1,
+        "peak_discharge": 850.1,
         "peak_date": "2026-04-22",
         "trend_arrow": "→",
         "flood_ratio": 1.06,
@@ -134,7 +134,7 @@
       "kozelsk": {
         "name": "Козельск (Жиздра)",
         "current_discharge": 81.8,
-        "peak_discharge": 78.6,
+        "peak_discharge": 77.9,
         "peak_date": "2026-04-22",
         "trend_arrow": "→",
         "flood_ratio": 1.05,
@@ -170,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 127,
+  "history_count": 128,
   "sources": {
     "ok": [
       "serpuhov.ru",
