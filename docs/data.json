@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-22T07:15:21.544120+00:00",
+  "generated_at": "2026-04-22T10:06:05.557867+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -55,16 +55,13 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 53.2,
-        "peak_discharge": 50.0,
-        "peak_date": "2026-04-23",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.0,
-        "wave_arrival": {
-          "earliest": "2026-04-28",
-          "latest": "2026-05-01"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -81,16 +78,13 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 288.1,
-        "peak_discharge": 275.1,
-        "peak_date": "2026-04-23",
-        "trend_arrow": "→",
-        "flood_ratio": 1.03,
-        "wave_arrival": {
-          "earliest": "2026-04-27",
-          "latest": "2026-04-29"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
@@ -133,19 +127,22 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 77.9,
+        "peak_discharge": 73.5,
+        "peak_date": "2026-04-23",
+        "trend_arrow": "→",
+        "flood_ratio": 1.01,
+        "wave_arrival": {
+          "earliest": "2026-04-26",
+          "latest": "2026-04-29"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-04-27",
-      "latest": "2026-04-29",
-      "based_on": "Белёв"
+      "earliest": "2026-04-23",
+      "latest": "2026-04-25",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 131,
+  "history_count": 132,
   "sources": {
     "ok": [
       "serpuhov.ru",
