@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-23T07:17:13.792395+00:00",
+  "generated_at": "2026-04-23T10:10:29.570154+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -94,16 +94,13 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 759.3,
-        "peak_discharge": 728.5,
-        "peak_date": "2026-04-24",
-        "trend_arrow": "→",
-        "flood_ratio": 0.99,
-        "wave_arrival": {
-          "earliest": "2026-04-26",
-          "latest": "2026-04-28"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -151,7 +148,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (18 мм), тёплые ночи (Tmin > 0°C, 5 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (19 мм), тёплые ночи (Tmin > 0°C, 5 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 136,
+  "history_count": 137,
   "sources": {
     "ok": [
       "serpuhov.ru",
