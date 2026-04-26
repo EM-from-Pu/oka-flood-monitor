@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T06:53:35.672176+00:00",
+  "generated_at": "2026-04-26T10:34:15.225556+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -68,16 +68,13 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 112.2,
-        "peak_discharge": 117.3,
-        "peak_date": "2026-04-29",
-        "trend_arrow": "→",
-        "flood_ratio": 1.09,
-        "wave_arrival": {
-          "earliest": "2026-05-04",
-          "latest": "2026-05-06"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "belev": {
         "name": "Белёв",
@@ -104,13 +101,16 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 738.6,
+        "peak_discharge": 752.4,
+        "peak_date": "2026-04-30",
+        "trend_arrow": "→",
+        "flood_ratio": 1.05,
+        "wave_arrival": {
+          "earliest": "2026-05-01",
+          "latest": "2026-05-03"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
@@ -148,7 +148,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (43 мм), тёплые ночи (Tmin > 0°C, 6 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (52 мм), тёплые ночи (Tmin > 0°C, 7 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 151,
+  "history_count": 152,
   "sources": {
     "ok": [
       "serpuhov.ru",
