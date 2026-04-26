@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T15:49:25.724829+00:00",
+  "generated_at": "2026-04-26T19:46:36.013041+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -91,16 +91,13 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 721.8,
-        "peak_discharge": 813.7,
-        "peak_date": "2026-04-30",
-        "trend_arrow": "→",
-        "flood_ratio": 1.02,
-        "wave_arrival": {
-          "earliest": "2026-05-02",
-          "latest": "2026-05-04"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -130,13 +127,16 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 72.3,
+        "peak_discharge": 83.0,
+        "peak_date": "2026-04-29",
+        "trend_arrow": "→",
+        "flood_ratio": 1.02,
+        "wave_arrival": {
+          "earliest": "2026-05-02",
+          "latest": "2026-05-05"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -148,7 +148,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (48 мм), тёплые ночи (Tmin > 0°C, 7 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (45 мм), тёплые ночи (Tmin > 0°C, 7 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 153,
+  "history_count": 154,
   "sources": {
     "ok": [
       "serpuhov.ru",
