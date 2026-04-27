@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T16:45:24.232422+00:00",
+  "generated_at": "2026-04-27T20:08:15.674870+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -94,13 +94,16 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 730.1,
+        "peak_discharge": 802.5,
+        "peak_date": "2026-04-30",
+        "trend_arrow": "→",
+        "flood_ratio": 1.05,
+        "wave_arrival": {
+          "earliest": "2026-05-02",
+          "latest": "2026-05-04"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -127,16 +130,13 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": 71.6,
-        "peak_discharge": 86.9,
-        "peak_date": "2026-05-11",
-        "trend_arrow": "→",
-        "flood_ratio": 1.04,
-        "wave_arrival": {
-          "earliest": "2026-05-14",
-          "latest": "2026-05-17"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       }
     },
     "wave_arrival_serpukhov": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 158,
+  "history_count": 159,
   "sources": {
     "ok": [
       "serpuhov.ru",
