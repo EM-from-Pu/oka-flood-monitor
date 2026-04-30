@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-30T16:24:35.624262+00:00",
+  "generated_at": "2026-04-30T20:09:02.982299+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 01.05, волна 2.05–4.05",
+      "value": "Калуга пик 01.05, волна 3.05–5.05",
       "color": "#10b981"
     },
     "weather": {
@@ -107,19 +107,6 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 802.5,
-        "peak_discharge": 786.0,
-        "peak_date": "2026-05-01",
-        "trend_arrow": "→",
-        "flood_ratio": 1.22,
-        "wave_arrival": {
-          "earliest": "2026-05-02",
-          "latest": "2026-05-04"
-        },
-        "source_status": "ok"
-      },
-      "tarusa": {
-        "name": "Таруса",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -127,6 +114,19 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
+      },
+      "tarusa": {
+        "name": "Таруса",
+        "current_discharge": 826.9,
+        "peak_discharge": 813.7,
+        "peak_date": "2026-05-01",
+        "trend_arrow": "→",
+        "flood_ratio": 1.21,
+        "wave_arrival": {
+          "earliest": "2026-05-01",
+          "latest": "2026-05-03"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 173,
+  "history_count": 174,
   "sources": {
     "ok": [
       "serpuhov.ru",
