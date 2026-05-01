@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-01T16:01:13.037682+00:00",
+  "generated_at": "2026-05-01T20:04:08.621197+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 02.05, волна 3.05–5.05",
+      "value": "Таруса пик 02.05, волна 2.05–4.05",
       "color": "#10b981"
     },
     "weather": {
@@ -68,16 +68,13 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 112.2,
-        "peak_discharge": 107.9,
-        "peak_date": "2026-05-02",
-        "trend_arrow": "→",
-        "flood_ratio": 1.22,
-        "wave_arrival": {
-          "earliest": "2026-05-07",
-          "latest": "2026-05-09"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "belev": {
         "name": "Белёв",
@@ -120,13 +117,16 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 813.7,
+        "peak_discharge": 784.2,
+        "peak_date": "2026-05-02",
+        "trend_arrow": "→",
+        "flood_ratio": 1.25,
+        "wave_arrival": {
+          "earliest": "2026-05-02",
+          "latest": "2026-05-04"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 178,
+  "history_count": 179,
   "sources": {
     "ok": [
       "serpuhov.ru",
