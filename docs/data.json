@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-01T07:22:13.781197+00:00",
+  "generated_at": "2026-05-01T10:59:19.915371+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -68,16 +68,13 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 112.2,
-        "peak_discharge": 108.1,
-        "peak_date": "2026-05-02",
-        "trend_arrow": "→",
-        "flood_ratio": 1.19,
-        "wave_arrival": {
-          "earliest": "2026-05-07",
-          "latest": "2026-05-09"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "belev": {
         "name": "Белёв",
@@ -94,19 +91,6 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 755.8,
-        "peak_discharge": 726.8,
-        "peak_date": "2026-05-02",
-        "trend_arrow": "→",
-        "flood_ratio": 1.21,
-        "wave_arrival": {
-          "earliest": "2026-05-04",
-          "latest": "2026-05-06"
-        },
-        "source_status": "ok"
-      },
-      "aleksin": {
-        "name": "Алексин",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -114,6 +98,19 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
+      },
+      "aleksin": {
+        "name": "Алексин",
+        "current_discharge": 786.0,
+        "peak_discharge": 755.8,
+        "peak_date": "2026-05-02",
+        "trend_arrow": "→",
+        "flood_ratio": 1.22,
+        "wave_arrival": {
+          "earliest": "2026-05-03",
+          "latest": "2026-05-05"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
@@ -130,13 +127,16 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 76.8,
+        "peak_discharge": 74.3,
+        "peak_date": "2026-05-02",
+        "trend_arrow": "→",
+        "flood_ratio": 1.23,
+        "wave_arrival": {
+          "earliest": "2026-05-05",
+          "latest": "2026-05-08"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 176,
+  "history_count": 177,
   "sources": {
     "ok": [
       "serpuhov.ru",
