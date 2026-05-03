@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-03T10:42:09.932001+00:00",
+  "generated_at": "2026-05-03T15:53:32.101141+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -56,13 +56,13 @@
       "orel": {
         "name": "Орёл",
         "current_discharge": 43.8,
-        "peak_discharge": 41.6,
-        "peak_date": "2026-05-18",
+        "peak_discharge": 41.3,
+        "peak_date": "2026-05-04",
         "trend_arrow": "→",
-        "flood_ratio": 1.15,
+        "flood_ratio": 1.12,
         "wave_arrival": {
-          "earliest": "2026-05-23",
-          "latest": "2026-05-26"
+          "earliest": "2026-05-09",
+          "latest": "2026-05-12"
         },
         "source_status": "ok"
       },
@@ -72,7 +72,7 @@
         "peak_discharge": 97.4,
         "peak_date": "2026-05-04",
         "trend_arrow": "→",
-        "flood_ratio": 1.17,
+        "flood_ratio": 1.15,
         "wave_arrival": {
           "earliest": "2026-05-09",
           "latest": "2026-05-11"
@@ -81,24 +81,21 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 243.9,
-        "peak_discharge": 231.3,
-        "peak_date": "2026-05-04",
-        "trend_arrow": "→",
-        "flood_ratio": 1.17,
-        "wave_arrival": {
-          "earliest": "2026-05-08",
-          "latest": "2026-05-10"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
         "current_discharge": 694.0,
-        "peak_discharge": 658.2,
+        "peak_discharge": 659.7,
         "peak_date": "2026-05-04",
         "trend_arrow": "→",
-        "flood_ratio": 1.17,
+        "flood_ratio": 1.13,
         "wave_arrival": {
           "earliest": "2026-05-06",
           "latest": "2026-05-08"
@@ -111,7 +108,7 @@
         "peak_discharge": 689.2,
         "peak_date": "2026-05-04",
         "trend_arrow": "→",
-        "flood_ratio": 1.18,
+        "flood_ratio": 1.14,
         "wave_arrival": {
           "earliest": "2026-05-05",
           "latest": "2026-05-07"
@@ -124,7 +121,7 @@
         "peak_discharge": 716.8,
         "peak_date": "2026-05-04",
         "trend_arrow": "→",
-        "flood_ratio": 1.18,
+        "flood_ratio": 1.15,
         "wave_arrival": {
           "earliest": "2026-05-04",
           "latest": "2026-05-06"
@@ -143,9 +140,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-05-08",
-      "latest": "2026-05-10",
-      "based_on": "Белёв"
+      "earliest": "2026-05-04",
+      "latest": "2026-05-06",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 187,
+  "history_count": 188,
   "sources": {
     "ok": [
       "serpuhov.ru",
