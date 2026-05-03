@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-03T07:13:37.892712+00:00",
+  "generated_at": "2026-05-03T10:42:09.932001+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 04.05, волна 5.05–7.05",
+      "value": "Таруса пик 04.05, волна 4.05–6.05",
       "color": "#10b981"
     },
     "weather": {
@@ -55,13 +55,16 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 43.8,
+        "peak_discharge": 41.6,
+        "peak_date": "2026-05-18",
+        "trend_arrow": "→",
+        "flood_ratio": 1.15,
+        "wave_arrival": {
+          "earliest": "2026-05-23",
+          "latest": "2026-05-26"
+        },
+        "source_status": "ok"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -117,6 +120,19 @@
       },
       "tarusa": {
         "name": "Таруса",
+        "current_discharge": 752.4,
+        "peak_discharge": 716.8,
+        "peak_date": "2026-05-04",
+        "trend_arrow": "→",
+        "flood_ratio": 1.18,
+        "wave_arrival": {
+          "earliest": "2026-05-04",
+          "latest": "2026-05-06"
+        },
+        "source_status": "ok"
+      },
+      "kozelsk": {
+        "name": "Козельск (Жиздра)",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -124,19 +140,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "kozelsk": {
-        "name": "Козельск (Жиздра)",
-        "current_discharge": 70.0,
-        "peak_discharge": 71.6,
-        "peak_date": "2026-05-18",
-        "trend_arrow": "→",
-        "flood_ratio": 1.19,
-        "wave_arrival": {
-          "earliest": "2026-05-21",
-          "latest": "2026-05-24"
-        },
-        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -164,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 186,
+  "history_count": 187,
   "sources": {
     "ok": [
       "serpuhov.ru",
