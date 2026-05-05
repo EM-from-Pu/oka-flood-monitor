@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-05T05:18:59.781727+00:00",
+  "generated_at": "2026-05-05T07:10:50.152142+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -55,13 +55,16 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 38.8,
+        "peak_discharge": 36.4,
+        "peak_date": "2026-05-06",
+        "trend_arrow": "↓",
+        "flood_ratio": 1.07,
+        "wave_arrival": {
+          "earliest": "2026-05-11",
+          "latest": "2026-05-14"
+        },
+        "source_status": "ok"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -127,16 +130,13 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": 61.5,
-        "peak_discharge": 60.4,
-        "peak_date": "2026-05-20",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.07,
-        "wave_arrival": {
-          "earliest": "2026-05-23",
-          "latest": "2026-05-26"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       }
     },
     "wave_arrival_serpukhov": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 195,
+  "history_count": 196,
   "sources": {
     "ok": [
       "serpuhov.ru",
