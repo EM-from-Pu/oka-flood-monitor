@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-06T07:30:45.570131+00:00",
+  "generated_at": "2026-05-06T11:41:44.855603+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -55,29 +55,23 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 36.3,
-        "peak_discharge": 34.0,
-        "peak_date": "2026-05-07",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.01,
-        "wave_arrival": {
-          "earliest": "2026-05-12",
-          "latest": "2026-05-15"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 88.3,
-        "peak_discharge": 84.7,
-        "peak_date": "2026-05-07",
-        "trend_arrow": "→",
-        "flood_ratio": 1.07,
-        "wave_arrival": {
-          "earliest": "2026-05-12",
-          "latest": "2026-05-14"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "belev": {
         "name": "Белёв",
@@ -94,13 +88,16 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 589.2,
+        "peak_discharge": 561.3,
+        "peak_date": "2026-05-07",
+        "trend_arrow": "↓",
+        "flood_ratio": 1.03,
+        "wave_arrival": {
+          "earliest": "2026-05-09",
+          "latest": "2026-05-11"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 201,
+  "history_count": 202,
   "sources": {
     "ok": [
       "serpuhov.ru",
