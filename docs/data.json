@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-06T11:41:44.855603+00:00",
+  "generated_at": "2026-05-06T16:46:57.510615+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,27 +51,33 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 36.3,
+        "peak_discharge": 37.2,
+        "peak_date": "2026-05-18",
+        "trend_arrow": "↓",
+        "flood_ratio": 0.95,
+        "wave_arrival": {
+          "earliest": "2026-05-23",
+          "latest": "2026-05-26"
+        },
+        "source_status": "ok"
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 88.3,
+        "peak_discharge": 84.7,
+        "peak_date": "2026-05-07",
+        "trend_arrow": "→",
+        "flood_ratio": 1.02,
+        "wave_arrival": {
+          "earliest": "2026-05-12",
+          "latest": "2026-05-14"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
@@ -79,7 +85,7 @@
         "peak_discharge": 198.5,
         "peak_date": "2026-05-07",
         "trend_arrow": "↓",
-        "flood_ratio": 1.06,
+        "flood_ratio": 1.0,
         "wave_arrival": {
           "earliest": "2026-05-11",
           "latest": "2026-05-13"
@@ -89,52 +95,52 @@
       "kaluga": {
         "name": "Калуга",
         "current_discharge": 589.2,
-        "peak_discharge": 561.3,
-        "peak_date": "2026-05-07",
+        "peak_discharge": 611.4,
+        "peak_date": "2026-05-20",
         "trend_arrow": "↓",
-        "flood_ratio": 1.03,
+        "flood_ratio": 0.98,
         "wave_arrival": {
-          "earliest": "2026-05-09",
-          "latest": "2026-05-11"
+          "earliest": "2026-05-22",
+          "latest": "2026-05-24"
         },
         "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 617.0,
-        "peak_discharge": 586.5,
-        "peak_date": "2026-05-07",
+        "peak_discharge": 627.1,
+        "peak_date": "2026-05-20",
         "trend_arrow": "↓",
-        "flood_ratio": 1.04,
+        "flood_ratio": 1.0,
         "wave_arrival": {
-          "earliest": "2026-05-08",
-          "latest": "2026-05-10"
+          "earliest": "2026-05-21",
+          "latest": "2026-05-23"
         },
         "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
         "current_discharge": 641.7,
-        "peak_discharge": 609.9,
-        "peak_date": "2026-05-07",
+        "peak_discharge": 644.6,
+        "peak_date": "2026-05-20",
         "trend_arrow": "↓",
-        "flood_ratio": 1.05,
+        "flood_ratio": 1.0,
         "wave_arrival": {
-          "earliest": "2026-05-07",
-          "latest": "2026-05-09"
+          "earliest": "2026-05-20",
+          "latest": "2026-05-22"
         },
         "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
         "current_discharge": 57.3,
-        "peak_discharge": 53.5,
-        "peak_date": "2026-05-07",
+        "peak_discharge": 65.1,
+        "peak_date": "2026-05-19",
         "trend_arrow": "↓",
-        "flood_ratio": 1.0,
+        "flood_ratio": 0.96,
         "wave_arrival": {
-          "earliest": "2026-05-10",
-          "latest": "2026-05-13"
+          "earliest": "2026-05-22",
+          "latest": "2026-05-25"
         },
         "source_status": "ok"
       }
@@ -148,7 +154,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (6 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -164,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 202,
+  "history_count": 203,
   "sources": {
     "ok": [
       "serpuhov.ru",
