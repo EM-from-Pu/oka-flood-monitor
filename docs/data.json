@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-07T07:36:52.729459+00:00",
+  "generated_at": "2026-05-07T11:31:01.244629+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 19.05, волна 23.05–25.05",
+      "value": "Таруса пик 20.05, волна 20.05–22.05",
       "color": "#10b981"
     },
     "weather": {
@@ -68,6 +68,19 @@
       },
       "mtsensk": {
         "name": "Мценск",
+        "current_discharge": 84.7,
+        "peak_discharge": 83.7,
+        "peak_date": "2026-05-22",
+        "trend_arrow": "→",
+        "flood_ratio": 1.0,
+        "wave_arrival": {
+          "earliest": "2026-05-27",
+          "latest": "2026-05-29"
+        },
+        "source_status": "ok"
+      },
+      "belev": {
+        "name": "Белёв",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -75,19 +88,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "belev": {
-        "name": "Белёв",
-        "current_discharge": 198.5,
-        "peak_discharge": 193.1,
-        "peak_date": "2026-05-19",
-        "trend_arrow": "→",
-        "flood_ratio": 0.98,
-        "wave_arrival": {
-          "earliest": "2026-05-23",
-          "latest": "2026-05-25"
-        },
-        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
@@ -140,15 +140,15 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-05-23",
-      "latest": "2026-05-25",
-      "based_on": "Белёв"
+      "earliest": "2026-05-20",
+      "latest": "2026-05-22",
+      "based_on": "Таруса"
     }
   },
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (9 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 206,
+  "history_count": 207,
   "sources": {
     "ok": [
       "serpuhov.ru",
