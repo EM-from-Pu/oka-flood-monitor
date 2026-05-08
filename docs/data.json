@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-08T11:01:10.294989+00:00",
+  "generated_at": "2026-05-08T16:18:59.972183+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Таруса пик 09.05, волна 9.05–11.05",
+      "value": "Таруса пик 18.05, волна 18.05–20.05",
       "color": "#10b981"
     },
     "weather": {
@@ -51,18 +51,18 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
         "current_discharge": 31.9,
-        "peak_discharge": 30.6,
-        "peak_date": "2026-05-13",
+        "peak_discharge": 36.8,
+        "peak_date": "2026-05-17",
         "trend_arrow": "↓",
-        "flood_ratio": 0.88,
+        "flood_ratio": 0.87,
         "wave_arrival": {
-          "earliest": "2026-05-18",
-          "latest": "2026-05-21"
+          "earliest": "2026-05-22",
+          "latest": "2026-05-25"
         },
         "source_status": "ok"
       },
@@ -72,7 +72,7 @@
         "peak_discharge": 73.8,
         "peak_date": "2026-05-09",
         "trend_arrow": "↓",
-        "flood_ratio": 0.95,
+        "flood_ratio": 0.96,
         "wave_arrival": {
           "earliest": "2026-05-14",
           "latest": "2026-05-16"
@@ -82,79 +82,76 @@
       "belev": {
         "name": "Белёв",
         "current_discharge": 186.1,
-        "peak_discharge": 173.2,
-        "peak_date": "2026-05-09",
+        "peak_discharge": 180.1,
+        "peak_date": "2026-05-17",
         "trend_arrow": "↓",
         "flood_ratio": 0.94,
         "wave_arrival": {
-          "earliest": "2026-05-13",
-          "latest": "2026-05-15"
+          "earliest": "2026-05-21",
+          "latest": "2026-05-23"
         },
         "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 533.6,
-        "peak_discharge": 499.0,
-        "peak_date": "2026-05-09",
-        "trend_arrow": "→",
-        "flood_ratio": 0.94,
-        "wave_arrival": {
-          "earliest": "2026-05-11",
-          "latest": "2026-05-13"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 560.0,
-        "peak_discharge": 525.0,
-        "peak_date": "2026-05-09",
+        "peak_discharge": 549.8,
+        "peak_date": "2026-05-18",
         "trend_arrow": "→",
         "flood_ratio": 0.95,
         "wave_arrival": {
-          "earliest": "2026-05-10",
-          "latest": "2026-05-12"
+          "earliest": "2026-05-19",
+          "latest": "2026-05-21"
         },
         "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
         "current_discharge": 582.5,
-        "peak_discharge": 547.3,
-        "peak_date": "2026-05-09",
+        "peak_discharge": 565.2,
+        "peak_date": "2026-05-18",
         "trend_arrow": "→",
-        "flood_ratio": 0.96,
+        "flood_ratio": 0.95,
         "wave_arrival": {
-          "earliest": "2026-05-09",
-          "latest": "2026-05-11"
+          "earliest": "2026-05-18",
+          "latest": "2026-05-20"
         },
         "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
         "current_discharge": 49.9,
-        "peak_discharge": 47.2,
-        "peak_date": "2026-05-13",
+        "peak_discharge": 57.6,
+        "peak_date": "2026-05-18",
         "trend_arrow": "↓",
-        "flood_ratio": 0.88,
+        "flood_ratio": 0.86,
         "wave_arrival": {
-          "earliest": "2026-05-16",
-          "latest": "2026-05-19"
+          "earliest": "2026-05-21",
+          "latest": "2026-05-24"
         },
         "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-05-13",
-      "latest": "2026-05-15",
+      "earliest": "2026-05-21",
+      "latest": "2026-05-23",
       "based_on": "Белёв"
     }
   },
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (14 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (13 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -170,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 212,
+  "history_count": 213,
   "sources": {
     "ok": [
       "serpuhov.ru",
