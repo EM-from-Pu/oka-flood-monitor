@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-08T16:18:59.972183+00:00",
+  "generated_at": "2026-05-08T20:07:06.969850+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -68,32 +68,6 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 78.6,
-        "peak_discharge": 73.8,
-        "peak_date": "2026-05-09",
-        "trend_arrow": "↓",
-        "flood_ratio": 0.96,
-        "wave_arrival": {
-          "earliest": "2026-05-14",
-          "latest": "2026-05-16"
-        },
-        "source_status": "ok"
-      },
-      "belev": {
-        "name": "Белёв",
-        "current_discharge": 186.1,
-        "peak_discharge": 180.1,
-        "peak_date": "2026-05-17",
-        "trend_arrow": "↓",
-        "flood_ratio": 0.94,
-        "wave_arrival": {
-          "earliest": "2026-05-21",
-          "latest": "2026-05-23"
-        },
-        "source_status": "ok"
-      },
-      "kaluga": {
-        "name": "Калуга",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -101,6 +75,29 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
+      },
+      "belev": {
+        "name": "Белёв",
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
+      },
+      "kaluga": {
+        "name": "Калуга",
+        "current_discharge": 533.6,
+        "peak_discharge": 538.5,
+        "peak_date": "2026-05-18",
+        "trend_arrow": "→",
+        "flood_ratio": 0.93,
+        "wave_arrival": {
+          "earliest": "2026-05-20",
+          "latest": "2026-05-22"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -143,9 +140,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-05-21",
-      "latest": "2026-05-23",
-      "based_on": "Белёв"
+      "earliest": "2026-05-18",
+      "latest": "2026-05-20",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 213,
+  "history_count": 214,
   "sources": {
     "ok": [
       "serpuhov.ru",
