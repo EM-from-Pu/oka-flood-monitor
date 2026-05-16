@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-16T10:52:28.849885+00:00",
+  "generated_at": "2026-05-16T16:01:36.226691+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -56,10 +56,10 @@
       "orel": {
         "name": "Орёл",
         "current_discharge": 33.5,
-        "peak_discharge": 33.9,
+        "peak_discharge": 32.0,
         "peak_date": "2026-05-17",
         "trend_arrow": "→",
-        "flood_ratio": 1.14,
+        "flood_ratio": 1.18,
         "wave_arrival": {
           "earliest": "2026-05-22",
           "latest": "2026-05-25"
@@ -69,10 +69,10 @@
       "mtsensk": {
         "name": "Мценск",
         "current_discharge": 73.1,
-        "peak_discharge": 71.4,
+        "peak_discharge": 69.6,
         "peak_date": "2026-05-17",
         "trend_arrow": "→",
-        "flood_ratio": 1.17,
+        "flood_ratio": 1.19,
         "wave_arrival": {
           "earliest": "2026-05-22",
           "latest": "2026-05-24"
@@ -82,10 +82,10 @@
       "belev": {
         "name": "Белёв",
         "current_discharge": 168.4,
-        "peak_discharge": 166.5,
+        "peak_discharge": 163.8,
         "peak_date": "2026-05-17",
         "trend_arrow": "→",
-        "flood_ratio": 1.15,
+        "flood_ratio": 1.16,
         "wave_arrival": {
           "earliest": "2026-05-21",
           "latest": "2026-05-23"
@@ -94,31 +94,37 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 435.5,
+        "peak_discharge": 421.7,
+        "peak_date": "2026-05-17",
+        "trend_arrow": "→",
+        "flood_ratio": 1.13,
+        "wave_arrival": {
+          "earliest": "2026-05-19",
+          "latest": "2026-05-21"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 449.8,
+        "peak_discharge": 435.5,
+        "peak_date": "2026-05-17",
+        "trend_arrow": "→",
+        "flood_ratio": 1.13,
+        "wave_arrival": {
+          "earliest": "2026-05-18",
+          "latest": "2026-05-20"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
         "current_discharge": 464.6,
-        "peak_discharge": 452.9,
+        "peak_discharge": 448.8,
         "peak_date": "2026-05-17",
         "trend_arrow": "→",
-        "flood_ratio": 1.12,
+        "flood_ratio": 1.13,
         "wave_arrival": {
           "earliest": "2026-05-17",
           "latest": "2026-05-19"
@@ -127,16 +133,13 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": 41.1,
-        "peak_discharge": 41.7,
-        "peak_date": "2026-05-17",
-        "trend_arrow": "→",
-        "flood_ratio": 1.13,
-        "wave_arrival": {
-          "earliest": "2026-05-20",
-          "latest": "2026-05-23"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       }
     },
     "wave_arrival_serpukhov": {
@@ -148,7 +151,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (6 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (7 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -164,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 251,
+  "history_count": 252,
   "sources": {
     "ok": [
       "serpuhov.ru",
