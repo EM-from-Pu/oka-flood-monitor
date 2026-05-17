@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-17T10:57:52.585877+00:00",
+  "generated_at": "2026-05-17T16:02:27.824172+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -56,7 +56,7 @@
       "orel": {
         "name": "Орёл",
         "current_discharge": 32.0,
-        "peak_discharge": 30.4,
+        "peak_discharge": 31.4,
         "peak_date": "2026-05-18",
         "trend_arrow": "→",
         "flood_ratio": 1.14,
@@ -89,10 +89,10 @@
       "kaluga": {
         "name": "Калуга",
         "current_discharge": 421.7,
-        "peak_discharge": 411.1,
+        "peak_discharge": 413.9,
         "peak_date": "2026-05-18",
         "trend_arrow": "→",
-        "flood_ratio": 1.12,
+        "flood_ratio": 1.13,
         "wave_arrival": {
           "earliest": "2026-05-20",
           "latest": "2026-05-22"
@@ -102,10 +102,10 @@
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 435.5,
-        "peak_discharge": 424.6,
+        "peak_discharge": 425.6,
         "peak_date": "2026-05-18",
         "trend_arrow": "→",
-        "flood_ratio": 1.12,
+        "flood_ratio": 1.13,
         "wave_arrival": {
           "earliest": "2026-05-19",
           "latest": "2026-05-21"
@@ -115,10 +115,10 @@
       "tarusa": {
         "name": "Таруса",
         "current_discharge": 448.8,
-        "peak_discharge": 438.5,
+        "peak_discharge": 439.6,
         "peak_date": "2026-05-18",
         "trend_arrow": "→",
-        "flood_ratio": 1.12,
+        "flood_ratio": 1.13,
         "wave_arrival": {
           "earliest": "2026-05-18",
           "latest": "2026-05-20"
@@ -128,10 +128,10 @@
       "kozelsk": {
         "name": "Козельск (Жиздра)",
         "current_discharge": 43.8,
-        "peak_discharge": 43.0,
+        "peak_discharge": 43.6,
         "peak_date": "2026-05-18",
         "trend_arrow": "→",
-        "flood_ratio": 1.2,
+        "flood_ratio": 1.19,
         "wave_arrival": {
           "earliest": "2026-05-21",
           "latest": "2026-05-24"
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 256,
+  "history_count": 257,
   "sources": {
     "ok": [
       "serpuhov.ru",
