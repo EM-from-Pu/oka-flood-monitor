@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T06:12:22.918501+00:00",
+  "generated_at": "2026-05-19T08:20:20.383924+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Калуга пик 20.05, волна 22.05–24.05",
+      "value": "Белёв пик 20.05, волна 24.05–26.05",
       "color": "#10b981"
     },
     "weather": {
@@ -81,6 +81,19 @@
       },
       "belev": {
         "name": "Белёв",
+        "current_discharge": 159.0,
+        "peak_discharge": 158.6,
+        "peak_date": "2026-05-20",
+        "trend_arrow": "→",
+        "flood_ratio": 1.12,
+        "wave_arrival": {
+          "earliest": "2026-05-24",
+          "latest": "2026-05-26"
+        },
+        "source_status": "ok"
+      },
+      "kaluga": {
+        "name": "Калуга",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -88,19 +101,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "kaluga": {
-        "name": "Калуга",
-        "current_discharge": 409.2,
-        "peak_discharge": 407.3,
-        "peak_date": "2026-05-20",
-        "trend_arrow": "→",
-        "flood_ratio": 1.11,
-        "wave_arrival": {
-          "earliest": "2026-05-22",
-          "latest": "2026-05-24"
-        },
-        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -143,9 +143,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-05-20",
-      "latest": "2026-05-22",
-      "based_on": "Таруса"
+      "earliest": "2026-05-24",
+      "latest": "2026-05-26",
+      "based_on": "Белёв"
     }
   },
   "weather": {
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 264,
+  "history_count": 265,
   "sources": {
     "ok": [
       "serpuhov.ru",
