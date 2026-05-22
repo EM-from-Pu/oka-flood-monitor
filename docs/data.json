@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T08:16:51.373319+00:00",
+  "generated_at": "2026-05-22T12:10:52.535657+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 02.06, волна 3.06–5.06",
+      "value": "Таруса пик 01.06, волна 1.06–3.06",
       "color": "#10b981"
     },
     "weather": {
@@ -120,6 +120,19 @@
       },
       "tarusa": {
         "name": "Таруса",
+        "current_discharge": 362.9,
+        "peak_discharge": 354.6,
+        "peak_date": "2026-06-01",
+        "trend_arrow": "↓",
+        "flood_ratio": 1.05,
+        "wave_arrival": {
+          "earliest": "2026-06-01",
+          "latest": "2026-06-03"
+        },
+        "source_status": "ok"
+      },
+      "kozelsk": {
+        "name": "Козельск (Жиздра)",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -127,19 +140,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "kozelsk": {
-        "name": "Козельск (Жиздра)",
-        "current_discharge": 32.5,
-        "peak_discharge": 38.0,
-        "peak_date": "2026-05-31",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.03,
-        "wave_arrival": {
-          "earliest": "2026-06-03",
-          "latest": "2026-06-06"
-        },
-        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -151,7 +151,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (6 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 280,
+  "history_count": 281,
   "sources": {
     "ok": [
       "serpuhov.ru",
