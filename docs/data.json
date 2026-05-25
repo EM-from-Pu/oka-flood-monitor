@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T12:54:47.194868+00:00",
+  "generated_at": "2026-05-25T17:10:44.766146+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 30.05, волна 3.06–5.06",
+      "value": "Таруса пик 07.06, волна 7.06–9.06",
       "color": "#10b981"
     },
     "weather": {
@@ -59,7 +59,7 @@
         "peak_discharge": 23.6,
         "peak_date": "2026-06-09",
         "trend_arrow": "↓",
-        "flood_ratio": 0.93,
+        "flood_ratio": 0.92,
         "wave_arrival": {
           "earliest": "2026-06-14",
           "latest": "2026-06-17"
@@ -81,49 +81,49 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 108.1,
-        "peak_discharge": 112.5,
-        "peak_date": "2026-05-30",
-        "trend_arrow": "↓",
-        "flood_ratio": 0.94,
-        "wave_arrival": {
-          "earliest": "2026-06-03",
-          "latest": "2026-06-05"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 279.5,
-        "peak_discharge": 327.1,
-        "peak_date": "2026-06-07",
-        "trend_arrow": "↓",
-        "flood_ratio": 0.92,
-        "wave_arrival": {
-          "earliest": "2026-06-09",
-          "latest": "2026-06-11"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 291.4,
+        "peak_discharge": 336.3,
+        "peak_date": "2026-06-07",
+        "trend_arrow": "↓",
+        "flood_ratio": 0.93,
+        "wave_arrival": {
+          "earliest": "2026-06-08",
+          "latest": "2026-06-10"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 301.7,
+        "peak_discharge": 348.9,
+        "peak_date": "2026-06-07",
+        "trend_arrow": "↓",
+        "flood_ratio": 0.93,
+        "wave_arrival": {
+          "earliest": "2026-06-07",
+          "latest": "2026-06-09"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -140,15 +140,15 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-06-03",
-      "latest": "2026-06-05",
-      "based_on": "Белёв"
+      "earliest": "2026-06-07",
+      "latest": "2026-06-09",
+      "based_on": "Таруса"
     }
   },
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (21 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (16 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 296,
+  "history_count": 297,
   "sources": {
     "ok": [
       "serpuhov.ru",
