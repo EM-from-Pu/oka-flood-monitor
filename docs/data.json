@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T17:57:15.845054+00:00",
+  "generated_at": "2026-05-26T20:52:50.799363+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -94,29 +94,23 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 266.3,
-        "peak_discharge": 282.8,
-        "peak_date": "2026-06-01",
-        "trend_arrow": "↓",
-        "flood_ratio": 0.92,
-        "wave_arrival": {
-          "earliest": "2026-06-03",
-          "latest": "2026-06-05"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 277.0,
-        "peak_discharge": 289.4,
-        "peak_date": "2026-06-01",
-        "trend_arrow": "↓",
-        "flood_ratio": 0.93,
-        "wave_arrival": {
-          "earliest": "2026-06-02",
-          "latest": "2026-06-04"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "tarusa": {
         "name": "Таруса",
@@ -170,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 301,
+  "history_count": 302,
   "sources": {
     "ok": [
       "serpuhov.ru",
