@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T13:47:19.305960+00:00",
+  "generated_at": "2026-06-02T18:44:29.981461+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -55,13 +55,16 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 19.9,
+        "peak_discharge": 18.6,
+        "peak_date": "2026-06-03",
+        "trend_arrow": "→",
+        "flood_ratio": 1.2,
+        "wave_arrival": {
+          "earliest": "2026-06-08",
+          "latest": "2026-06-11"
+        },
+        "source_status": "ok"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -91,29 +94,23 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 265.7,
-        "peak_discharge": 256.0,
-        "peak_date": "2026-06-03",
-        "trend_arrow": "→",
-        "flood_ratio": 1.17,
-        "wave_arrival": {
-          "earliest": "2026-06-05",
-          "latest": "2026-06-07"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 273.2,
-        "peak_discharge": 265.1,
-        "peak_date": "2026-06-03",
-        "trend_arrow": "→",
-        "flood_ratio": 1.17,
-        "wave_arrival": {
-          "earliest": "2026-06-04",
-          "latest": "2026-06-06"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "tarusa": {
         "name": "Таруса",
@@ -151,7 +148,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (9 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (10 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 334,
+  "history_count": 335,
   "sources": {
     "ok": [
       "serpuhov.ru",
