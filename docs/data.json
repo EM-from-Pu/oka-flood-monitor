@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-04T17:48:00.192553+00:00",
+  "generated_at": "2026-06-04T20:55:29.280808+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -55,16 +55,13 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 17.2,
-        "peak_discharge": 16.2,
-        "peak_date": "2026-06-05",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.06,
-        "wave_arrival": {
-          "earliest": "2026-06-10",
-          "latest": "2026-06-13"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -120,13 +117,16 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 262.0,
+        "peak_discharge": 249.0,
+        "peak_date": "2026-06-05",
+        "trend_arrow": "→",
+        "flood_ratio": 1.13,
+        "wave_arrival": {
+          "earliest": "2026-06-05",
+          "latest": "2026-06-07"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 345,
+  "history_count": 346,
   "sources": {
     "ok": [
       "serpuhov.ru",
