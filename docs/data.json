@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-07T16:21:29.140525+00:00",
+  "generated_at": "2026-06-07T20:11:38.177177+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -8,8 +8,8 @@
     "water_status": "—",
     "nya_m_bs": 113.99,
     "oya_m_bs": 115.54,
-    "source_status": "ok",
-    "cache_age_h": 0.0
+    "source_status": "cached",
+    "cache_age_h": 3.8
   },
   "analytics": {
     "alert_level": "НОРМА",
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -94,16 +94,13 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 208.4,
-        "peak_discharge": 198.5,
-        "peak_date": "2026-06-08",
-        "trend_arrow": "→",
-        "flood_ratio": 1.04,
-        "wave_arrival": {
-          "earliest": "2026-06-10",
-          "latest": "2026-06-12"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -170,10 +167,10 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 360,
+  "history_count": 361,
   "sources": {
     "ok": [
-      "serpuhov.ru",
+      "serpuhov.ru(кеш)",
       "kim",
       "cugms(кеш)",
       "weather",
