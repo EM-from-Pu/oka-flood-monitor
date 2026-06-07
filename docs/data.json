@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-07T08:17:59.376740+00:00",
+  "generated_at": "2026-06-07T11:31:07.237466+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -117,6 +117,19 @@
       },
       "tarusa": {
         "name": "Таруса",
+        "current_discharge": 223.9,
+        "peak_discharge": 219.8,
+        "peak_date": "2026-06-22",
+        "trend_arrow": "↓",
+        "flood_ratio": 1.05,
+        "wave_arrival": {
+          "earliest": "2026-06-22",
+          "latest": "2026-06-24"
+        },
+        "source_status": "ok"
+      },
+      "kozelsk": {
+        "name": "Козельск (Жиздра)",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -124,19 +137,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "kozelsk": {
-        "name": "Козельск (Жиздра)",
-        "current_discharge": 19.6,
-        "peak_discharge": 24.3,
-        "peak_date": "2026-06-18",
-        "trend_arrow": "→",
-        "flood_ratio": 0.96,
-        "wave_arrival": {
-          "earliest": "2026-06-21",
-          "latest": "2026-06-24"
-        },
-        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 358,
+  "history_count": 359,
   "sources": {
     "ok": [
       "serpuhov.ru",
