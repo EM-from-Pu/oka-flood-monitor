@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-08T17:59:18.831049+00:00",
+  "generated_at": "2026-06-08T21:10:47.724345+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 09.06, волна 10.06–12.06",
+      "value": "Белёв пик 09.06, волна 13.06–15.06",
       "color": "#10b981"
     },
     "weather": {
@@ -81,6 +81,19 @@
       },
       "belev": {
         "name": "Белёв",
+        "current_discharge": 72.5,
+        "peak_discharge": 67.4,
+        "peak_date": "2026-06-09",
+        "trend_arrow": "↓",
+        "flood_ratio": 1.01,
+        "wave_arrival": {
+          "earliest": "2026-06-13",
+          "latest": "2026-06-15"
+        },
+        "source_status": "ok"
+      },
+      "kaluga": {
+        "name": "Калуга",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -88,19 +101,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "kaluga": {
-        "name": "Калуга",
-        "current_discharge": 198.5,
-        "peak_discharge": 189.1,
-        "peak_date": "2026-06-09",
-        "trend_arrow": "→",
-        "flood_ratio": 0.98,
-        "wave_arrival": {
-          "earliest": "2026-06-11",
-          "latest": "2026-06-13"
-        },
-        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -117,6 +117,19 @@
       },
       "tarusa": {
         "name": "Таруса",
+        "current_discharge": 212.8,
+        "peak_discharge": 202.2,
+        "peak_date": "2026-06-09",
+        "trend_arrow": "→",
+        "flood_ratio": 1.0,
+        "wave_arrival": {
+          "earliest": "2026-06-09",
+          "latest": "2026-06-11"
+        },
+        "source_status": "ok"
+      },
+      "kozelsk": {
+        "name": "Козельск (Жиздра)",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -124,25 +137,12 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "kozelsk": {
-        "name": "Козельск (Жиздра)",
-        "current_discharge": 19.1,
-        "peak_discharge": 18.6,
-        "peak_date": "2026-06-09",
-        "trend_arrow": "→",
-        "flood_ratio": 0.93,
-        "wave_arrival": {
-          "earliest": "2026-06-12",
-          "latest": "2026-06-15"
-        },
-        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-06-10",
-      "latest": "2026-06-12",
-      "based_on": "Алексин"
+      "earliest": "2026-06-13",
+      "latest": "2026-06-15",
+      "based_on": "Белёв"
     }
   },
   "weather": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 365,
+  "history_count": 366,
   "sources": {
     "ok": [
       "serpuhov.ru",
