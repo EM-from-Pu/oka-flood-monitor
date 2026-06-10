@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10T12:47:40.791818+00:00",
+  "generated_at": "2026-06-10T18:06:17.785009+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -81,13 +81,16 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 62.7,
+        "peak_discharge": 58.7,
+        "peak_date": "2026-06-11",
+        "trend_arrow": "↓",
+        "flood_ratio": 0.94,
+        "wave_arrival": {
+          "earliest": "2026-06-15",
+          "latest": "2026-06-17"
+        },
+        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
@@ -104,13 +107,16 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 186.5,
+        "peak_discharge": 178.9,
+        "peak_date": "2026-06-21",
+        "trend_arrow": "→",
+        "flood_ratio": 0.94,
+        "wave_arrival": {
+          "earliest": "2026-06-22",
+          "latest": "2026-06-24"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
@@ -140,9 +146,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-06-21",
-      "latest": "2026-06-23",
-      "based_on": "Таруса"
+      "earliest": "2026-06-15",
+      "latest": "2026-06-17",
+      "based_on": "Белёв"
     }
   },
   "weather": {
@@ -164,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 374,
+  "history_count": 375,
   "sources": {
     "ok": [
       "serpuhov.ru",
