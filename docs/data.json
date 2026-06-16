@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T07:31:13.525997+00:00",
+  "generated_at": "2026-06-16T10:01:06.761584+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Калуга пик 18.06, волна 20.06–22.06",
+      "value": "Белёв пик 19.06, волна 23.06–25.06",
       "color": "#10b981"
     },
     "weather": {
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -81,13 +81,16 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 62.4,
+        "peak_discharge": 72.8,
+        "peak_date": "2026-06-19",
+        "trend_arrow": "↑",
+        "flood_ratio": 0.99,
+        "wave_arrival": {
+          "earliest": "2026-06-23",
+          "latest": "2026-06-25"
+        },
+        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
@@ -143,15 +146,15 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-06-19",
-      "latest": "2026-06-21",
-      "based_on": "Таруса"
+      "earliest": "2026-06-23",
+      "latest": "2026-06-25",
+      "based_on": "Белёв"
     }
   },
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (25 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (22 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 402,
+  "history_count": 403,
   "sources": {
     "ok": [
       "serpuhov.ru",
