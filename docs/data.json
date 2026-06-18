@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-18T06:56:51.852285+00:00",
+  "generated_at": "2026-06-18T09:08:25.647664+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -68,6 +68,19 @@
       },
       "mtsensk": {
         "name": "Мценск",
+        "current_discharge": 26.0,
+        "peak_discharge": 28.3,
+        "peak_date": "2026-06-28",
+        "trend_arrow": "↑",
+        "flood_ratio": 1.12,
+        "wave_arrival": {
+          "earliest": "2026-07-03",
+          "latest": "2026-07-05"
+        },
+        "source_status": "ok"
+      },
+      "belev": {
+        "name": "Белёв",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -75,19 +88,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "belev": {
-        "name": "Белёв",
-        "current_discharge": 68.5,
-        "peak_discharge": 79.3,
-        "peak_date": "2026-06-28",
-        "trend_arrow": "→",
-        "flood_ratio": 1.05,
-        "wave_arrival": {
-          "earliest": "2026-07-02",
-          "latest": "2026-07-04"
-        },
-        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
@@ -143,9 +143,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-07-02",
-      "latest": "2026-07-04",
-      "based_on": "Белёв"
+      "earliest": "2026-06-19",
+      "latest": "2026-06-21",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 412,
+  "history_count": 413,
   "sources": {
     "ok": [
       "serpuhov.ru",
