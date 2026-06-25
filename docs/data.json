@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25T06:11:48.462155+00:00",
+  "generated_at": "2026-06-25T08:16:38.310665+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 26.06, волна 27.06–29.06",
+      "value": "Таруса пик 26.06, волна 26.06–28.06",
       "color": "#10b981"
     },
     "weather": {
@@ -68,16 +68,13 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 18.8,
-        "peak_discharge": 18.0,
-        "peak_date": "2026-06-26",
-        "trend_arrow": "→",
-        "flood_ratio": 0.98,
-        "wave_arrival": {
-          "earliest": "2026-07-01",
-          "latest": "2026-07-03"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "belev": {
         "name": "Белёв",
@@ -120,23 +117,29 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 181.4,
+        "peak_discharge": 176.4,
+        "peak_date": "2026-06-26",
+        "trend_arrow": "→",
+        "flood_ratio": 1.02,
+        "wave_arrival": {
+          "earliest": "2026-06-26",
+          "latest": "2026-06-28"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 18.4,
+        "peak_discharge": 18.1,
+        "peak_date": "2026-06-26",
+        "trend_arrow": "→",
+        "flood_ratio": 1.02,
+        "wave_arrival": {
+          "earliest": "2026-06-29",
+          "latest": "2026-07-02"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -164,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 447,
+  "history_count": 448,
   "sources": {
     "ok": [
       "serpuhov.ru",
