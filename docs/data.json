@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-27T05:56:51.706661+00:00",
+  "generated_at": "2026-06-27T07:42:36.716472+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -130,13 +130,16 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 18.5,
+        "peak_discharge": 40.4,
+        "peak_date": "2026-07-12",
+        "trend_arrow": "→",
+        "flood_ratio": 0.98,
+        "wave_arrival": {
+          "earliest": "2026-07-15",
+          "latest": "2026-07-18"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -164,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 457,
+  "history_count": 458,
   "sources": {
     "ok": [
       "serpuhov.ru",
