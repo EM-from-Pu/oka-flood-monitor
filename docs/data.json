@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-28T16:16:00.550570+00:00",
+  "generated_at": "2026-06-28T20:13:27.166852+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -81,16 +81,13 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 48.8,
-        "peak_discharge": 104.0,
-        "peak_date": "2026-07-08",
-        "trend_arrow": "→",
-        "flood_ratio": 0.88,
-        "wave_arrival": {
-          "earliest": "2026-07-12",
-          "latest": "2026-07-14"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
@@ -107,13 +104,16 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 160.4,
+        "peak_discharge": 343.4,
+        "peak_date": "2026-07-09",
+        "trend_arrow": "→",
+        "flood_ratio": 0.92,
+        "wave_arrival": {
+          "earliest": "2026-07-10",
+          "latest": "2026-07-12"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
@@ -130,19 +130,22 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 17.8,
+        "peak_discharge": 26.9,
+        "peak_date": "2026-07-09",
+        "trend_arrow": "→",
+        "flood_ratio": 0.96,
+        "wave_arrival": {
+          "earliest": "2026-07-12",
+          "latest": "2026-07-15"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-07-12",
-      "latest": "2026-07-14",
-      "based_on": "Белёв"
+      "earliest": "2026-07-09",
+      "latest": "2026-07-11",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -164,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 465,
+  "history_count": 466,
   "sources": {
     "ok": [
       "serpuhov.ru",
