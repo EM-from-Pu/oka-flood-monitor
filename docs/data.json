@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-28T08:15:31.411902+00:00",
+  "generated_at": "2026-06-28T11:29:04.333730+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -68,16 +68,13 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 16.7,
-        "peak_discharge": 16.9,
-        "peak_date": "2026-07-06",
-        "trend_arrow": "→",
-        "flood_ratio": 0.89,
-        "wave_arrival": {
-          "earliest": "2026-07-11",
-          "latest": "2026-07-13"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "belev": {
         "name": "Белёв",
@@ -170,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 463,
+  "history_count": 464,
   "sources": {
     "ok": [
       "serpuhov.ru",
