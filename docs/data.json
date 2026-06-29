@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T06:53:34.238133+00:00",
+  "generated_at": "2026-06-29T09:20:47.306539+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 09.07, волна 10.07–12.07",
+      "value": "Таруса пик 09.07, волна 9.07–11.07",
       "color": "#10b981"
     },
     "weather": {
@@ -117,6 +117,19 @@
       },
       "tarusa": {
         "name": "Таруса",
+        "current_discharge": 160.1,
+        "peak_discharge": 353.8,
+        "peak_date": "2026-07-09",
+        "trend_arrow": "→",
+        "flood_ratio": 0.9,
+        "wave_arrival": {
+          "earliest": "2026-07-09",
+          "latest": "2026-07-11"
+        },
+        "source_status": "ok"
+      },
+      "kozelsk": {
+        "name": "Козельск (Жиздра)",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -124,25 +137,12 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "kozelsk": {
-        "name": "Козельск (Жиздра)",
-        "current_discharge": 17.6,
-        "peak_discharge": 26.9,
-        "peak_date": "2026-07-09",
-        "trend_arrow": "→",
-        "flood_ratio": 0.95,
-        "wave_arrival": {
-          "earliest": "2026-07-12",
-          "latest": "2026-07-15"
-        },
-        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-07-10",
-      "latest": "2026-07-12",
-      "based_on": "Алексин"
+      "earliest": "2026-07-09",
+      "latest": "2026-07-11",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 467,
+  "history_count": 468,
   "sources": {
     "ok": [
       "serpuhov.ru",
