@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T20:17:29.401266+00:00",
+  "generated_at": "2026-07-03T05:59:11.088893+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,20 +34,20 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 16.07, волна 17.07–19.07",
+      "value": "Таруса пик 16.07, волна 16.07–18.07",
       "color": "#10b981"
     },
     "weather": {
-      "zone": "danger",
-      "label": "КРИТИЧЕСКИЙ",
-      "value": "4/4 — КРИТИЧЕСКИЙ",
-      "color": "#ef4444"
+      "zone": "safe",
+      "label": "НОРМА",
+      "value": "0/4 — —",
+      "color": "#10b981"
     },
     "verdict": {
-      "zone": "watch",
-      "label": "🟡 РЕЖИМ: БДИТЕЛЬНОСТЬ",
-      "color": "#f59e0b",
-      "emoji": "🟡"
+      "zone": "safe",
+      "label": "🟢 РЕЖИМ: НОРМА",
+      "color": "#10b981",
+      "emoji": "🟢"
     }
   },
   "glofas": {
@@ -55,11 +55,11 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 11.2,
+        "current_discharge": 11.0,
         "peak_discharge": 20.6,
         "peak_date": "2026-07-15",
         "trend_arrow": "→",
-        "flood_ratio": 0.84,
+        "flood_ratio": 0.82,
         "wave_arrival": {
           "earliest": "2026-07-20",
           "latest": "2026-07-23"
@@ -68,21 +68,24 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 16.4,
+        "peak_discharge": 27.1,
+        "peak_date": "2026-07-16",
+        "trend_arrow": "→",
+        "flood_ratio": 0.81,
+        "wave_arrival": {
+          "earliest": "2026-07-21",
+          "latest": "2026-07-23"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 49.7,
+        "current_discharge": 48.3,
         "peak_discharge": 85.1,
         "peak_date": "2026-07-15",
         "trend_arrow": "→",
-        "flood_ratio": 0.86,
+        "flood_ratio": 0.83,
         "wave_arrival": {
           "earliest": "2026-07-19",
           "latest": "2026-07-21"
@@ -101,11 +104,11 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 156.8,
+        "current_discharge": 155.0,
         "peak_discharge": 278.9,
         "peak_date": "2026-07-16",
         "trend_arrow": "→",
-        "flood_ratio": 0.87,
+        "flood_ratio": 0.85,
         "wave_arrival": {
           "earliest": "2026-07-17",
           "latest": "2026-07-19"
@@ -114,11 +117,11 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 160.1,
+        "current_discharge": 158.6,
         "peak_discharge": 283.4,
         "peak_date": "2026-07-16",
         "trend_arrow": "→",
-        "flood_ratio": 0.86,
+        "flood_ratio": 0.85,
         "wave_arrival": {
           "earliest": "2026-07-16",
           "latest": "2026-07-18"
@@ -127,11 +130,11 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": 17.4,
+        "current_discharge": 17.2,
         "peak_discharge": 34.2,
         "peak_date": "2026-07-16",
         "trend_arrow": "→",
-        "flood_ratio": 0.87,
+        "flood_ratio": 0.86,
         "wave_arrival": {
           "earliest": "2026-07-19",
           "latest": "2026-07-22"
@@ -146,10 +149,10 @@
     }
   },
   "weather": {
-    "flood_index": 4,
-    "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (26 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
-    "snow_depth_cm": 0
+    "flood_index": null,
+    "flood_label": null,
+    "flood_summary": null,
+    "snow_depth_cm": null
   },
   "kim": {
     "kashira_cm": null,
@@ -164,15 +167,16 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 486,
+  "history_count": 487,
   "sources": {
     "ok": [
       "serpuhov.ru",
       "kim",
       "cugms(кеш)",
-      "weather",
       "glofas"
     ],
-    "failed": []
+    "failed": [
+      "weather"
+    ]
   }
 }
