@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-05T06:09:10.828338+00:00",
+  "generated_at": "2026-07-05T07:51:25.506494+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -55,19 +55,6 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 18.1,
-        "peak_discharge": 44.2,
-        "peak_date": "2026-07-20",
-        "trend_arrow": "↑↑",
-        "flood_ratio": 1.1,
-        "wave_arrival": {
-          "earliest": "2026-07-25",
-          "latest": "2026-07-28"
-        },
-        "source_status": "ok"
-      },
-      "mtsensk": {
-        "name": "Мценск",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -75,6 +62,19 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
+      },
+      "mtsensk": {
+        "name": "Мценск",
+        "current_discharge": 17.4,
+        "peak_discharge": 55.2,
+        "peak_date": "2026-07-20",
+        "trend_arrow": "→",
+        "flood_ratio": 0.76,
+        "wave_arrival": {
+          "earliest": "2026-07-25",
+          "latest": "2026-07-27"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
@@ -117,16 +117,13 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 174.8,
-        "peak_discharge": 417.8,
-        "peak_date": "2026-07-20",
-        "trend_arrow": "↑",
-        "flood_ratio": 0.79,
-        "wave_arrival": {
-          "earliest": "2026-07-20",
-          "latest": "2026-07-22"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 497,
+  "history_count": 498,
   "sources": {
     "ok": [
       "serpuhov.ru",
