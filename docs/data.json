@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T17:21:15.251650+00:00",
+  "generated_at": "2026-07-07T20:49:26.369731+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -81,13 +81,16 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 68.7,
+        "peak_discharge": 120.9,
+        "peak_date": "2026-07-16",
+        "trend_arrow": "↑",
+        "flood_ratio": 0.81,
+        "wave_arrival": {
+          "earliest": "2026-07-20",
+          "latest": "2026-07-22"
+        },
+        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
@@ -130,19 +133,22 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 24.8,
+        "peak_discharge": 31.4,
+        "peak_date": "2026-07-16",
+        "trend_arrow": "↑",
+        "flood_ratio": 0.94,
+        "wave_arrival": {
+          "earliest": "2026-07-19",
+          "latest": "2026-07-22"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-07-16",
-      "latest": "2026-07-18",
-      "based_on": "Таруса"
+      "earliest": "2026-07-20",
+      "latest": "2026-07-22",
+      "based_on": "Белёв"
     }
   },
   "weather": {
@@ -164,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 510,
+  "history_count": 511,
   "sources": {
     "ok": [
       "serpuhov.ru",
