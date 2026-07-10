@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T08:14:47.049554+00:00",
+  "generated_at": "2026-07-10T12:16:49.228469+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -107,29 +107,23 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 225.5,
-        "peak_discharge": 447.8,
-        "peak_date": "2026-07-15",
-        "trend_arrow": "→",
-        "flood_ratio": 0.77,
-        "wave_arrival": {
-          "earliest": "2026-07-16",
-          "latest": "2026-07-18"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 233.4,
-        "peak_discharge": 463.5,
-        "peak_date": "2026-07-15",
-        "trend_arrow": "→",
-        "flood_ratio": 0.78,
-        "wave_arrival": {
-          "earliest": "2026-07-15",
-          "latest": "2026-07-17"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -154,7 +148,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (70 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (88 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -170,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 522,
+  "history_count": 523,
   "sources": {
     "ok": [
       "serpuhov.ru",
