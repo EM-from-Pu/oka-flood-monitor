@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-13T12:23:47.161287+00:00",
+  "generated_at": "2026-07-13T17:17:37.145044+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -59,7 +59,7 @@
         "peak_discharge": 26.7,
         "peak_date": "2026-07-14",
         "trend_arrow": "↑",
-        "flood_ratio": 1.32,
+        "flood_ratio": 1.37,
         "wave_arrival": {
           "earliest": "2026-07-19",
           "latest": "2026-07-22"
@@ -72,7 +72,7 @@
         "peak_discharge": 40.3,
         "peak_date": "2026-07-26",
         "trend_arrow": "↑",
-        "flood_ratio": 1.17,
+        "flood_ratio": 1.18,
         "wave_arrival": {
           "earliest": "2026-07-31",
           "latest": "2026-08-02"
@@ -85,7 +85,7 @@
         "peak_discharge": 124.9,
         "peak_date": "2026-07-14",
         "trend_arrow": "↑",
-        "flood_ratio": 1.21,
+        "flood_ratio": 1.2,
         "wave_arrival": {
           "earliest": "2026-07-18",
           "latest": "2026-07-20"
@@ -98,7 +98,7 @@
         "peak_discharge": 369.7,
         "peak_date": "2026-07-15",
         "trend_arrow": "↑↑",
-        "flood_ratio": 1.13,
+        "flood_ratio": 1.15,
         "wave_arrival": {
           "earliest": "2026-07-17",
           "latest": "2026-07-19"
@@ -111,7 +111,7 @@
         "peak_discharge": 374.8,
         "peak_date": "2026-07-15",
         "trend_arrow": "↑",
-        "flood_ratio": 1.07,
+        "flood_ratio": 1.09,
         "wave_arrival": {
           "earliest": "2026-07-16",
           "latest": "2026-07-18"
@@ -124,7 +124,7 @@
         "peak_discharge": 383.6,
         "peak_date": "2026-07-15",
         "trend_arrow": "↑",
-        "flood_ratio": 1.05,
+        "flood_ratio": 1.07,
         "wave_arrival": {
           "earliest": "2026-07-15",
           "latest": "2026-07-17"
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 538,
+  "history_count": 539,
   "sources": {
     "ok": [
       "serpuhov.ru",
