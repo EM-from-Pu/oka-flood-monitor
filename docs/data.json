@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-17T05:17:10.910915+00:00",
+  "generated_at": "2026-07-17T07:08:15.017185+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -68,13 +68,16 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 39.7,
+        "peak_discharge": 38.2,
+        "peak_date": "2026-07-18",
+        "trend_arrow": "→",
+        "flood_ratio": 1.22,
+        "wave_arrival": {
+          "earliest": "2026-07-23",
+          "latest": "2026-07-25"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
@@ -104,13 +107,16 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 350.6,
+        "peak_discharge": 340.2,
+        "peak_date": "2026-07-30",
+        "trend_arrow": "→",
+        "flood_ratio": 1.22,
+        "wave_arrival": {
+          "earliest": "2026-07-31",
+          "latest": "2026-08-02"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
@@ -164,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 556,
+  "history_count": 557,
   "sources": {
     "ok": [
       "serpuhov.ru",
