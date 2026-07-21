@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-21T05:24:22.356423+00:00",
+  "generated_at": "2026-07-21T07:26:29.566971+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -94,23 +94,29 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 255.4,
+        "peak_discharge": 395.3,
+        "peak_date": "2026-07-30",
+        "trend_arrow": "↓",
+        "flood_ratio": 0.91,
+        "wave_arrival": {
+          "earliest": "2026-08-01",
+          "latest": "2026-08-03"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 268.8,
+        "peak_discharge": 400.8,
+        "peak_date": "2026-07-31",
+        "trend_arrow": "↓",
+        "flood_ratio": 0.93,
+        "wave_arrival": {
+          "earliest": "2026-08-01",
+          "latest": "2026-08-03"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
@@ -148,7 +154,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (7 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (8 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -164,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 576,
+  "history_count": 577,
   "sources": {
     "ok": [
       "serpuhov.ru",
