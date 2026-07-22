@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-22T07:28:47.235110+00:00",
+  "generated_at": "2026-07-22T11:40:10.463310+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 02.08, волна 6.08–8.08",
+      "value": "Алексин пик 31.07, волна 1.08–3.08",
       "color": "#10b981"
     },
     "weather": {
@@ -55,16 +55,13 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 15.4,
-        "peak_discharge": 23.7,
-        "peak_date": "2026-07-26",
-        "trend_arrow": "↓",
-        "flood_ratio": 0.91,
-        "wave_arrival": {
-          "earliest": "2026-07-31",
-          "latest": "2026-08-03"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -107,13 +104,16 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 249.6,
+        "peak_discharge": 494.4,
+        "peak_date": "2026-07-31",
+        "trend_arrow": "↓",
+        "flood_ratio": 0.93,
+        "wave_arrival": {
+          "earliest": "2026-08-01",
+          "latest": "2026-08-03"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 582,
+  "history_count": 583,
   "sources": {
     "ok": [
       "serpuhov.ru",
