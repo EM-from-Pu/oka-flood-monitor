@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-23T16:39:27.557177+00:00",
+  "generated_at": "2026-07-23T20:11:37.267007+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -68,16 +68,13 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 26.5,
-        "peak_discharge": 25.1,
-        "peak_date": "2026-07-24",
-        "trend_arrow": "↓",
-        "flood_ratio": 0.91,
-        "wave_arrival": {
-          "earliest": "2026-07-29",
-          "latest": "2026-07-31"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "belev": {
         "name": "Белёв",
@@ -107,16 +104,13 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 233.4,
-        "peak_discharge": 282.8,
-        "peak_date": "2026-08-03",
-        "trend_arrow": "↓",
-        "flood_ratio": 0.92,
-        "wave_arrival": {
-          "earliest": "2026-08-04",
-          "latest": "2026-08-06"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "tarusa": {
         "name": "Таруса",
@@ -154,14 +148,14 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (17 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (13 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
     "kashira_cm": null,
     "kaluga_cm": null,
     "ryazan_cm": null,
-    "api_status": "cached"
+    "api_status": "ok"
   },
   "cugms": {
     "review_number": 39,
@@ -170,11 +164,11 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 589,
+  "history_count": 590,
   "sources": {
     "ok": [
       "serpuhov.ru",
-      "kim(кеш)",
+      "kim",
       "cugms(кеш)",
       "weather",
       "glofas"
