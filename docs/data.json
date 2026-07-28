@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-28T16:43:47.840723+00:00",
+  "generated_at": "2026-07-28T20:15:44.316420+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -9,7 +9,7 @@
     "nya_m_bs": 113.99,
     "oya_m_bs": 115.54,
     "source_status": "cached",
-    "cache_age_h": 107.3
+    "cache_age_h": 110.9
   },
   "analytics": {
     "alert_level": "НОРМА",
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -107,16 +107,13 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 186.9,
-        "peak_discharge": 283.4,
-        "peak_date": "2026-08-02",
-        "trend_arrow": "→",
-        "flood_ratio": 0.84,
-        "wave_arrival": {
-          "earliest": "2026-08-03",
-          "latest": "2026-08-05"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "tarusa": {
         "name": "Таруса",
@@ -154,7 +151,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (20 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (18 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -170,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 614,
+  "history_count": 615,
   "sources": {
     "ok": [
       "serpuhov.ru(кеш)",
