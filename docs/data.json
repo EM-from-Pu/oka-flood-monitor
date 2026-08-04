@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T16:56:01.132499+00:00",
+  "generated_at": "2026-08-04T20:23:13.472451+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -68,23 +68,29 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 29.3,
+        "peak_discharge": 27.1,
+        "peak_date": "2026-08-05",
+        "trend_arrow": "↓",
+        "flood_ratio": 1.16,
+        "wave_arrival": {
+          "earliest": "2026-08-10",
+          "latest": "2026-08-12"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 79.7,
+        "peak_discharge": 74.3,
+        "peak_date": "2026-08-05",
+        "trend_arrow": "↓",
+        "flood_ratio": 1.14,
+        "wave_arrival": {
+          "earliest": "2026-08-09",
+          "latest": "2026-08-11"
+        },
+        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
@@ -140,9 +146,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-08-05",
-      "latest": "2026-08-07",
-      "based_on": "Таруса"
+      "earliest": "2026-08-09",
+      "latest": "2026-08-11",
+      "based_on": "Белёв"
     }
   },
   "weather": {
@@ -164,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 649,
+  "history_count": 650,
   "sources": {
     "ok": [
       "serpuhov.ru",
