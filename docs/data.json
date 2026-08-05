@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05T05:18:02.515412+00:00",
+  "generated_at": "2026-08-05T07:30:31.937747+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -94,16 +94,13 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 234.0,
-        "peak_discharge": 219.8,
-        "peak_date": "2026-08-06",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.1,
-        "wave_arrival": {
-          "earliest": "2026-08-08",
-          "latest": "2026-08-10"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -133,16 +130,13 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": 23.5,
-        "peak_discharge": 22.2,
-        "peak_date": "2026-08-06",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.04,
-        "wave_arrival": {
-          "earliest": "2026-08-09",
-          "latest": "2026-08-12"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       }
     },
     "wave_arrival_serpukhov": {
@@ -170,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 651,
+  "history_count": 652,
   "sources": {
     "ok": [
       "serpuhov.ru",
