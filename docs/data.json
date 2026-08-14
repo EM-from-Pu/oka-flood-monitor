@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T06:07:21.756723+00:00",
+  "generated_at": "2026-08-14T10:44:21.813634+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -81,16 +81,13 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 57.6,
-        "peak_discharge": 55.5,
-        "peak_date": "2026-08-15",
-        "trend_arrow": "→",
-        "flood_ratio": 1.01,
-        "wave_arrival": {
-          "earliest": "2026-08-19",
-          "latest": "2026-08-21"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
@@ -146,15 +143,15 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-08-19",
-      "latest": "2026-08-21",
-      "based_on": "Белёв"
+      "earliest": "2026-08-15",
+      "latest": "2026-08-17",
+      "based_on": "Таруса"
     }
   },
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (9 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (13 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -170,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 696,
+  "history_count": 697,
   "sources": {
     "ok": [
       "serpuhov.ru",
