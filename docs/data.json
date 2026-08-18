@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-18T02:58:15.470494+00:00",
+  "generated_at": "2026-08-18T05:18:52.951170+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -170,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 715,
+  "history_count": 716,
   "sources": {
     "ok": [
       "serpuhov.ru",
