@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T03:00:34.947568+00:00",
+  "generated_at": "2026-08-19T05:18:54.511257+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Таруса пик 26.08, волна 26.08–28.08",
+      "value": "Алексин пик 26.08, волна 27.08–29.08",
       "color": "#10b981"
     },
     "weather": {
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -120,16 +120,13 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 172.0,
-        "peak_discharge": 236.1,
-        "peak_date": "2026-08-26",
-        "trend_arrow": "→",
-        "flood_ratio": 0.88,
-        "wave_arrival": {
-          "earliest": "2026-08-26",
-          "latest": "2026-08-28"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -154,14 +151,14 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (16 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (6 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
     "kashira_cm": null,
     "kaluga_cm": null,
     "ryazan_cm": null,
-    "api_status": "cached"
+    "api_status": "ok"
   },
   "cugms": {
     "review_number": 39,
@@ -170,11 +167,11 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 720,
+  "history_count": 721,
   "sources": {
     "ok": [
       "serpuhov.ru",
-      "kim(кеш)",
+      "kim",
       "cugms(кеш)",
       "weather",
       "glofas"
