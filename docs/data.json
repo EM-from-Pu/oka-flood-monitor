@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T16:58:46.447977+00:00",
+  "generated_at": "2026-08-28T21:00:24.649364+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Таруса пик 05.09, волна 5.09–7.09",
+      "value": "Калуга пик 04.09, волна 6.09–8.09",
       "color": "#10b981"
     },
     "weather": {
@@ -68,13 +68,16 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 18.0,
+        "peak_discharge": 19.3,
+        "peak_date": "2026-09-10",
+        "trend_arrow": "→",
+        "flood_ratio": 0.93,
+        "wave_arrival": {
+          "earliest": "2026-09-15",
+          "latest": "2026-09-17"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
@@ -114,16 +117,13 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 165.7,
-        "peak_discharge": 172.0,
-        "peak_date": "2026-09-05",
-        "trend_arrow": "→",
-        "flood_ratio": 0.95,
-        "wave_arrival": {
-          "earliest": "2026-09-05",
-          "latest": "2026-09-07"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 766,
+  "history_count": 767,
   "sources": {
     "ok": [
       "serpuhov.ru",
