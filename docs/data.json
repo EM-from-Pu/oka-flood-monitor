@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T10:10:14.522958+00:00",
+  "generated_at": "2026-08-30T14:32:41.037889+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -8,8 +8,8 @@
     "water_status": "—",
     "nya_m_bs": 113.99,
     "oya_m_bs": 115.54,
-    "source_status": "ok",
-    "cache_age_h": 0.0
+    "source_status": "cached",
+    "cache_age_h": 4.4
   },
   "analytics": {
     "alert_level": "НОРМА",
@@ -51,25 +51,25 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
         "current_discharge": 11.4,
-        "peak_discharge": 15.1,
-        "peak_date": "2026-09-11",
+        "peak_discharge": 13.9,
+        "peak_date": "2026-09-12",
         "trend_arrow": "→",
-        "flood_ratio": 0.92,
+        "flood_ratio": 0.93,
         "wave_arrival": {
-          "earliest": "2026-09-16",
-          "latest": "2026-09-19"
+          "earliest": "2026-09-17",
+          "latest": "2026-09-20"
         },
         "source_status": "ok"
       },
       "mtsensk": {
         "name": "Мценск",
         "current_discharge": 17.7,
-        "peak_discharge": 23.6,
+        "peak_discharge": 21.1,
         "peak_date": "2026-09-12",
         "trend_arrow": "→",
         "flood_ratio": 0.94,
@@ -82,7 +82,7 @@
       "belev": {
         "name": "Белёв",
         "current_discharge": 49.6,
-        "peak_discharge": 66.5,
+        "peak_discharge": 61.5,
         "peak_date": "2026-09-12",
         "trend_arrow": "→",
         "flood_ratio": 0.93,
@@ -94,53 +94,50 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 152.5,
-        "peak_discharge": 215.3,
-        "peak_date": "2026-09-13",
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
+      },
+      "aleksin": {
+        "name": "Алексин",
+        "current_discharge": 156.0,
+        "peak_discharge": 192.6,
+        "peak_date": "2026-09-14",
         "trend_arrow": "→",
-        "flood_ratio": 0.92,
+        "flood_ratio": 0.93,
         "wave_arrival": {
           "earliest": "2026-09-15",
           "latest": "2026-09-17"
         },
         "source_status": "ok"
       },
-      "aleksin": {
-        "name": "Алексин",
-        "current_discharge": 156.0,
-        "peak_discharge": 219.3,
-        "peak_date": "2026-09-13",
+      "tarusa": {
+        "name": "Таруса",
+        "current_discharge": 160.1,
+        "peak_discharge": 197.2,
+        "peak_date": "2026-09-14",
         "trend_arrow": "→",
-        "flood_ratio": 0.92,
+        "flood_ratio": 0.93,
         "wave_arrival": {
           "earliest": "2026-09-14",
           "latest": "2026-09-16"
         },
         "source_status": "ok"
       },
-      "tarusa": {
-        "name": "Таруса",
-        "current_discharge": 160.1,
-        "peak_discharge": 223.4,
-        "peak_date": "2026-09-13",
-        "trend_arrow": "→",
-        "flood_ratio": 0.93,
-        "wave_arrival": {
-          "earliest": "2026-09-13",
-          "latest": "2026-09-15"
-        },
-        "source_status": "ok"
-      },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
         "current_discharge": 17.1,
-        "peak_discharge": 21.8,
-        "peak_date": "2026-09-12",
+        "peak_discharge": 19.4,
+        "peak_date": "2026-09-13",
         "trend_arrow": "→",
         "flood_ratio": 0.95,
         "wave_arrival": {
-          "earliest": "2026-09-15",
-          "latest": "2026-09-18"
+          "earliest": "2026-09-16",
+          "latest": "2026-09-19"
         },
         "source_status": "ok"
       }
@@ -170,10 +167,10 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 776,
+  "history_count": 777,
   "sources": {
     "ok": [
-      "serpuhov.ru",
+      "serpuhov.ru(кеш)",
       "kim",
       "cugms(кеш)",
       "weather",
