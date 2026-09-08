@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T18:24:32.468817+00:00",
+  "generated_at": "2026-09-08T21:35:04.306507+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Калуга пик 09.09, волна 11.09–13.09",
+      "value": "Таруса пик 09.09, волна 9.09–11.09",
       "color": "#10b981"
     },
     "weather": {
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -81,29 +81,23 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 51.0,
-        "peak_discharge": 50.2,
-        "peak_date": "2026-09-09",
-        "trend_arrow": "→",
-        "flood_ratio": 1.03,
-        "wave_arrival": {
-          "earliest": "2026-09-13",
-          "latest": "2026-09-15"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 163.4,
-        "peak_discharge": 166.9,
-        "peak_date": "2026-09-09",
-        "trend_arrow": "→",
-        "flood_ratio": 1.05,
-        "wave_arrival": {
-          "earliest": "2026-09-11",
-          "latest": "2026-09-13"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -146,9 +140,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-09-13",
-      "latest": "2026-09-15",
-      "based_on": "Белёв"
+      "earliest": "2026-09-09",
+      "latest": "2026-09-11",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -170,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 823,
+  "history_count": 824,
   "sources": {
     "ok": [
       "serpuhov.ru",
