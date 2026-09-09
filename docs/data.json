@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T09:16:51.393211+00:00",
+  "generated_at": "2026-09-09T13:59:24.095020+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 10.09, волна 11.09–13.09",
+      "value": "Таруса пик 10.09, волна 10.09–12.09",
       "color": "#10b981"
     },
     "weather": {
@@ -56,13 +56,13 @@
       "orel": {
         "name": "Орёл",
         "current_discharge": 11.2,
-        "peak_discharge": 11.4,
-        "peak_date": "2026-09-17",
+        "peak_discharge": 11.3,
+        "peak_date": "2026-09-19",
         "trend_arrow": "→",
-        "flood_ratio": 0.98,
+        "flood_ratio": 0.97,
         "wave_arrival": {
-          "earliest": "2026-09-22",
-          "latest": "2026-09-25"
+          "earliest": "2026-09-24",
+          "latest": "2026-09-27"
         },
         "source_status": "ok"
       },
@@ -72,7 +72,7 @@
         "peak_discharge": 17.2,
         "peak_date": "2026-09-10",
         "trend_arrow": "→",
-        "flood_ratio": 1.0,
+        "flood_ratio": 0.99,
         "wave_arrival": {
           "earliest": "2026-09-15",
           "latest": "2026-09-17"
@@ -85,7 +85,7 @@
         "peak_discharge": 49.1,
         "peak_date": "2026-09-10",
         "trend_arrow": "→",
-        "flood_ratio": 1.02,
+        "flood_ratio": 1.01,
         "wave_arrival": {
           "earliest": "2026-09-14",
           "latest": "2026-09-16"
@@ -95,10 +95,10 @@
       "kaluga": {
         "name": "Калуга",
         "current_discharge": 166.9,
-        "peak_discharge": 163.8,
+        "peak_discharge": 164.2,
         "peak_date": "2026-09-10",
         "trend_arrow": "→",
-        "flood_ratio": 1.07,
+        "flood_ratio": 1.06,
         "wave_arrival": {
           "earliest": "2026-09-12",
           "latest": "2026-09-14"
@@ -108,10 +108,10 @@
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 169.6,
-        "peak_discharge": 168.4,
+        "peak_discharge": 168.8,
         "peak_date": "2026-09-10",
         "trend_arrow": "→",
-        "flood_ratio": 1.07,
+        "flood_ratio": 1.06,
         "wave_arrival": {
           "earliest": "2026-09-11",
           "latest": "2026-09-13"
@@ -137,7 +137,7 @@
         "peak_discharge": 17.8,
         "peak_date": "2026-09-10",
         "trend_arrow": "→",
-        "flood_ratio": 1.07,
+        "flood_ratio": 1.06,
         "wave_arrival": {
           "earliest": "2026-09-13",
           "latest": "2026-09-16"
@@ -154,7 +154,7 @@
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (16 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (19 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -170,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 826,
+  "history_count": 827,
   "sources": {
     "ok": [
       "serpuhov.ru",
