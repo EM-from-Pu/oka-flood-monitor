@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T09:51:50.376971+00:00",
+  "generated_at": "2026-09-13T13:57:03.092949+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Таруса пик 14.09, волна 14.09–16.09",
+      "value": "Таруса пик 15.09, волна 15.09–17.09",
       "color": "#10b981"
     },
     "weather": {
@@ -55,40 +55,37 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 11.0,
-        "peak_discharge": 12.5,
-        "peak_date": "2026-09-28",
-        "trend_arrow": "→",
-        "flood_ratio": 0.96,
-        "wave_arrival": {
-          "earliest": "2026-10-03",
-          "latest": "2026-10-06"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
         "current_discharge": 17.0,
-        "peak_discharge": 17.9,
-        "peak_date": "2026-09-22",
+        "peak_discharge": 17.2,
+        "peak_date": "2026-09-14",
         "trend_arrow": "→",
         "flood_ratio": 0.98,
         "wave_arrival": {
-          "earliest": "2026-09-27",
-          "latest": "2026-09-29"
+          "earliest": "2026-09-19",
+          "latest": "2026-09-21"
         },
         "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
         "current_discharge": 48.3,
-        "peak_discharge": 51.5,
-        "peak_date": "2026-09-21",
+        "peak_discharge": 49.4,
+        "peak_date": "2026-09-14",
         "trend_arrow": "→",
-        "flood_ratio": 0.98,
+        "flood_ratio": 0.97,
         "wave_arrival": {
-          "earliest": "2026-09-25",
-          "latest": "2026-09-27"
+          "earliest": "2026-09-18",
+          "latest": "2026-09-20"
         },
         "source_status": "ok"
       },
@@ -105,26 +102,26 @@
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 158.6,
-        "peak_discharge": 156.8,
-        "peak_date": "2026-09-14",
+        "peak_discharge": 157.8,
+        "peak_date": "2026-09-15",
         "trend_arrow": "→",
-        "flood_ratio": 1.01,
+        "flood_ratio": 0.99,
         "wave_arrival": {
-          "earliest": "2026-09-15",
-          "latest": "2026-09-17"
+          "earliest": "2026-09-16",
+          "latest": "2026-09-18"
         },
         "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
         "current_discharge": 163.4,
-        "peak_discharge": 160.8,
-        "peak_date": "2026-09-14",
+        "peak_discharge": 161.2,
+        "peak_date": "2026-09-15",
         "trend_arrow": "→",
-        "flood_ratio": 1.01,
+        "flood_ratio": 1.0,
         "wave_arrival": {
-          "earliest": "2026-09-14",
-          "latest": "2026-09-16"
+          "earliest": "2026-09-15",
+          "latest": "2026-09-17"
         },
         "source_status": "ok"
       },
@@ -134,7 +131,7 @@
         "peak_discharge": 16.6,
         "peak_date": "2026-09-14",
         "trend_arrow": "→",
-        "flood_ratio": 0.99,
+        "flood_ratio": 0.98,
         "wave_arrival": {
           "earliest": "2026-09-17",
           "latest": "2026-09-20"
@@ -143,8 +140,8 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-09-25",
-      "latest": "2026-09-27",
+      "earliest": "2026-09-18",
+      "latest": "2026-09-20",
       "based_on": "Белёв"
     }
   },
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 846,
+  "history_count": 847,
   "sources": {
     "ok": [
       "serpuhov.ru",
