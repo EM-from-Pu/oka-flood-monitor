@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T09:16:29.777933+00:00",
+  "generated_at": "2026-09-18T13:55:45.903034+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 26.09, волна 30.09–2.10",
+      "value": "Таруса пик 28.09, волна 28.09–30.09",
       "color": "#10b981"
     },
     "weather": {
@@ -56,23 +56,23 @@
       "orel": {
         "name": "Орёл",
         "current_discharge": 11.3,
-        "peak_discharge": 15.5,
-        "peak_date": "2026-09-26",
+        "peak_discharge": 19.7,
+        "peak_date": "2026-09-25",
         "trend_arrow": "→",
-        "flood_ratio": 0.87,
+        "flood_ratio": 0.86,
         "wave_arrival": {
-          "earliest": "2026-10-01",
-          "latest": "2026-10-04"
+          "earliest": "2026-09-30",
+          "latest": "2026-10-03"
         },
         "source_status": "ok"
       },
       "mtsensk": {
         "name": "Мценск",
         "current_discharge": 17.8,
-        "peak_discharge": 20.8,
+        "peak_discharge": 26.6,
         "peak_date": "2026-09-26",
         "trend_arrow": "→",
-        "flood_ratio": 0.9,
+        "flood_ratio": 0.89,
         "wave_arrival": {
           "earliest": "2026-10-01",
           "latest": "2026-10-03"
@@ -81,19 +81,6 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 49.6,
-        "peak_discharge": 61.5,
-        "peak_date": "2026-09-26",
-        "trend_arrow": "→",
-        "flood_ratio": 0.88,
-        "wave_arrival": {
-          "earliest": "2026-09-30",
-          "latest": "2026-10-02"
-        },
-        "source_status": "ok"
-      },
-      "kaluga": {
-        "name": "Калуга",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -102,13 +89,26 @@
         "wave_arrival": null,
         "source_status": "unavailable"
       },
+      "kaluga": {
+        "name": "Калуга",
+        "current_discharge": 147.9,
+        "peak_discharge": 272.5,
+        "peak_date": "2026-09-27",
+        "trend_arrow": "→",
+        "flood_ratio": 0.82,
+        "wave_arrival": {
+          "earliest": "2026-09-29",
+          "latest": "2026-10-01"
+        },
+        "source_status": "ok"
+      },
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 150.7,
-        "peak_discharge": 193.1,
+        "peak_discharge": 275.7,
         "peak_date": "2026-09-27",
         "trend_arrow": "→",
-        "flood_ratio": 0.85,
+        "flood_ratio": 0.82,
         "wave_arrival": {
           "earliest": "2026-09-28",
           "latest": "2026-09-30"
@@ -118,10 +118,10 @@
       "tarusa": {
         "name": "Таруса",
         "current_discharge": 154.6,
-        "peak_discharge": 196.7,
+        "peak_discharge": 280.8,
         "peak_date": "2026-09-28",
         "trend_arrow": "→",
-        "flood_ratio": 0.85,
+        "flood_ratio": 0.82,
         "wave_arrival": {
           "earliest": "2026-09-28",
           "latest": "2026-09-30"
@@ -131,21 +131,21 @@
       "kozelsk": {
         "name": "Козельск (Жиздра)",
         "current_discharge": 16.1,
-        "peak_discharge": 24.2,
-        "peak_date": "2026-09-26",
+        "peak_discharge": 32.5,
+        "peak_date": "2026-09-27",
         "trend_arrow": "→",
-        "flood_ratio": 0.86,
+        "flood_ratio": 0.85,
         "wave_arrival": {
-          "earliest": "2026-09-29",
-          "latest": "2026-10-02"
+          "earliest": "2026-09-30",
+          "latest": "2026-10-03"
         },
         "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-09-30",
-      "latest": "2026-10-02",
-      "based_on": "Белёв"
+      "earliest": "2026-09-28",
+      "latest": "2026-09-30",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 871,
+  "history_count": 872,
   "sources": {
     "ok": [
       "serpuhov.ru",
