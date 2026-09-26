@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T09:36:38.101721+00:00",
+  "generated_at": "2026-09-26T13:55:44.460423+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -59,7 +59,7 @@
         "peak_discharge": 12.1,
         "peak_date": "2026-09-27",
         "trend_arrow": "→",
-        "flood_ratio": 1.11,
+        "flood_ratio": 1.1,
         "wave_arrival": {
           "earliest": "2026-10-02",
           "latest": "2026-10-05"
@@ -69,7 +69,7 @@
       "mtsensk": {
         "name": "Мценск",
         "current_discharge": 19.5,
-        "peak_discharge": 18.7,
+        "peak_discharge": 18.8,
         "peak_date": "2026-09-27",
         "trend_arrow": "↑",
         "flood_ratio": 1.12,
@@ -81,21 +81,18 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 55.1,
-        "peak_discharge": 53.2,
-        "peak_date": "2026-09-27",
-        "trend_arrow": "→",
-        "flood_ratio": 1.11,
-        "wave_arrival": {
-          "earliest": "2026-10-01",
-          "latest": "2026-10-03"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
         "current_discharge": 173.6,
-        "peak_discharge": 179.3,
+        "peak_discharge": 177.7,
         "peak_date": "2026-09-27",
         "trend_arrow": "↑",
         "flood_ratio": 1.12,
@@ -108,10 +105,10 @@
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 172.4,
-        "peak_discharge": 181.4,
+        "peak_discharge": 179.3,
         "peak_date": "2026-09-28",
         "trend_arrow": "↑",
-        "flood_ratio": 1.09,
+        "flood_ratio": 1.1,
         "wave_arrival": {
           "earliest": "2026-09-29",
           "latest": "2026-10-01"
@@ -120,21 +117,24 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 175.2,
+        "peak_discharge": 183.1,
+        "peak_date": "2026-09-28",
+        "trend_arrow": "↑",
+        "flood_ratio": 1.09,
+        "wave_arrival": {
+          "earliest": "2026-09-28",
+          "latest": "2026-09-30"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
         "current_discharge": 18.6,
-        "peak_discharge": 18.1,
+        "peak_discharge": 18.2,
         "peak_date": "2026-09-27",
         "trend_arrow": "→",
-        "flood_ratio": 1.14,
+        "flood_ratio": 1.13,
         "wave_arrival": {
           "earliest": "2026-09-30",
           "latest": "2026-10-03"
@@ -143,9 +143,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-10-01",
-      "latest": "2026-10-03",
-      "based_on": "Белёв"
+      "earliest": "2026-09-28",
+      "latest": "2026-09-30",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 911,
+  "history_count": 912,
   "sources": {
     "ok": [
       "serpuhov.ru",
