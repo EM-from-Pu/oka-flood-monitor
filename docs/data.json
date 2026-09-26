@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T07:16:55.051862+00:00",
+  "generated_at": "2026-09-26T09:36:38.101721+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -120,16 +120,13 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 175.2,
-        "peak_discharge": 185.2,
-        "peak_date": "2026-09-28",
-        "trend_arrow": "↑",
-        "flood_ratio": 1.08,
-        "wave_arrival": {
-          "earliest": "2026-09-28",
-          "latest": "2026-09-30"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -170,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 910,
+  "history_count": 911,
   "sources": {
     "ok": [
       "serpuhov.ru",
