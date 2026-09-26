@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T13:55:44.460423+00:00",
+  "generated_at": "2026-09-26T18:26:21.683636+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Калуга пик 27.09, волна 29.09–1.10",
+      "value": "Белёв пик 27.09, волна 1.10–3.10",
       "color": "#10b981"
     },
     "weather": {
@@ -55,16 +55,13 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 12.8,
-        "peak_discharge": 12.1,
-        "peak_date": "2026-09-27",
-        "trend_arrow": "→",
-        "flood_ratio": 1.1,
-        "wave_arrival": {
-          "earliest": "2026-10-02",
-          "latest": "2026-10-05"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -81,6 +78,19 @@
       },
       "belev": {
         "name": "Белёв",
+        "current_discharge": 55.1,
+        "peak_discharge": 53.6,
+        "peak_date": "2026-09-27",
+        "trend_arrow": "→",
+        "flood_ratio": 1.11,
+        "wave_arrival": {
+          "earliest": "2026-10-01",
+          "latest": "2026-10-03"
+        },
+        "source_status": "ok"
+      },
+      "kaluga": {
+        "name": "Калуга",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -88,19 +98,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "kaluga": {
-        "name": "Калуга",
-        "current_discharge": 173.6,
-        "peak_discharge": 177.7,
-        "peak_date": "2026-09-27",
-        "trend_arrow": "↑",
-        "flood_ratio": 1.12,
-        "wave_arrival": {
-          "earliest": "2026-09-29",
-          "latest": "2026-10-01"
-        },
-        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -143,9 +140,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-09-28",
-      "latest": "2026-09-30",
-      "based_on": "Таруса"
+      "earliest": "2026-10-01",
+      "latest": "2026-10-03",
+      "based_on": "Белёв"
     }
   },
   "weather": {
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 912,
+  "history_count": 913,
   "sources": {
     "ok": [
       "serpuhov.ru",
