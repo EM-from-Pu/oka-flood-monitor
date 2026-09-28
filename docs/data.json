@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T17:50:35.219087+00:00",
+  "generated_at": "2026-09-28T21:08:51.071881+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 29.09, волна 30.09–2.10",
+      "value": "Таруса пик 29.09, волна 29.09–1.10",
       "color": "#10b981"
     },
     "weather": {
@@ -55,16 +55,13 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 11.4,
-        "peak_discharge": 11.2,
-        "peak_date": "2026-09-29",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.0,
-        "wave_arrival": {
-          "earliest": "2026-10-04",
-          "latest": "2026-10-07"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -107,19 +104,6 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 179.3,
-        "peak_discharge": 174.0,
-        "peak_date": "2026-09-29",
-        "trend_arrow": "→",
-        "flood_ratio": 1.14,
-        "wave_arrival": {
-          "earliest": "2026-09-30",
-          "latest": "2026-10-02"
-        },
-        "source_status": "ok"
-      },
-      "tarusa": {
-        "name": "Таруса",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -127,6 +111,19 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
+      },
+      "tarusa": {
+        "name": "Таруса",
+        "current_discharge": 183.1,
+        "peak_discharge": 178.9,
+        "peak_date": "2026-09-29",
+        "trend_arrow": "→",
+        "flood_ratio": 1.13,
+        "wave_arrival": {
+          "earliest": "2026-09-29",
+          "latest": "2026-10-01"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -167,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 922,
+  "history_count": 923,
   "sources": {
     "ok": [
       "serpuhov.ru",
