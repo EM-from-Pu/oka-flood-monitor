@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T08:26:17.419265+00:00",
+  "generated_at": "2026-09-28T11:18:28.407753+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -81,16 +81,13 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 51.0,
-        "peak_discharge": 49.1,
-        "peak_date": "2026-09-29",
-        "trend_arrow": "→",
-        "flood_ratio": 1.01,
-        "wave_arrival": {
-          "earliest": "2026-10-03",
-          "latest": "2026-10-05"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
@@ -146,9 +143,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-10-03",
-      "latest": "2026-10-05",
-      "based_on": "Белёв"
+      "earliest": "2026-09-29",
+      "latest": "2026-10-01",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -170,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 920,
+  "history_count": 921,
   "sources": {
     "ok": [
       "serpuhov.ru",
