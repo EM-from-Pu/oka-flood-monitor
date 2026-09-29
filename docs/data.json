@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T19:53:02.258848+00:00",
+  "generated_at": "2026-09-29T22:50:44.115629+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Таруса пик 14.10, волна 14.10–16.10",
+      "value": "Алексин пик 14.10, волна 15.10–17.10",
       "color": "#10b981"
     },
     "weather": {
@@ -51,20 +51,17 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 11.2,
-        "peak_discharge": 13.6,
-        "peak_date": "2026-10-12",
-        "trend_arrow": "→",
-        "flood_ratio": 0.98,
-        "wave_arrival": {
-          "earliest": "2026-10-17",
-          "latest": "2026-10-20"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -120,16 +117,13 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 178.9,
-        "peak_discharge": 184.3,
-        "peak_date": "2026-10-14",
-        "trend_arrow": "→",
-        "flood_ratio": 1.11,
-        "wave_arrival": {
-          "earliest": "2026-10-14",
-          "latest": "2026-10-16"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
@@ -170,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 928,
+  "history_count": 929,
   "sources": {
     "ok": [
       "serpuhov.ru",
