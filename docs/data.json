@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T16:10:35.522867+00:00",
+  "generated_at": "2026-09-29T19:53:02.258848+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -107,13 +107,16 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 174.0,
+        "peak_discharge": 181.4,
+        "peak_date": "2026-10-14",
+        "trend_arrow": "→",
+        "flood_ratio": 1.11,
+        "wave_arrival": {
+          "earliest": "2026-10-15",
+          "latest": "2026-10-17"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
@@ -167,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 927,
+  "history_count": 928,
   "sources": {
     "ok": [
       "serpuhov.ru",
