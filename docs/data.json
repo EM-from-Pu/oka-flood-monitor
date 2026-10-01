@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T11:14:28.974891+00:00",
+  "generated_at": "2026-10-01T16:43:30.355778+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Таруса пик 13.10, волна 13.10–15.10",
+      "value": "Таруса пик 02.10, волна 2.10–4.10",
       "color": "#10b981"
     },
     "weather": {
@@ -51,28 +51,25 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 10.8,
-        "peak_discharge": 17.8,
-        "peak_date": "2026-10-15",
-        "trend_arrow": "→",
-        "flood_ratio": 0.94,
-        "wave_arrival": {
-          "earliest": "2026-10-20",
-          "latest": "2026-10-23"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
         "current_discharge": 16.8,
-        "peak_discharge": 30.0,
+        "peak_discharge": 24.8,
         "peak_date": "2026-10-16",
         "trend_arrow": "→",
-        "flood_ratio": 0.97,
+        "flood_ratio": 0.99,
         "wave_arrival": {
           "earliest": "2026-10-21",
           "latest": "2026-10-23"
@@ -82,10 +79,10 @@
       "belev": {
         "name": "Белёв",
         "current_discharge": 47.1,
-        "peak_discharge": 79.3,
+        "peak_discharge": 57.5,
         "peak_date": "2026-10-16",
         "trend_arrow": "→",
-        "flood_ratio": 0.96,
+        "flood_ratio": 0.98,
         "wave_arrival": {
           "earliest": "2026-10-20",
           "latest": "2026-10-22"
@@ -95,52 +92,52 @@
       "kaluga": {
         "name": "Калуга",
         "current_discharge": 157.1,
-        "peak_discharge": 202.7,
-        "peak_date": "2026-10-13",
+        "peak_discharge": 161.2,
+        "peak_date": "2026-10-16",
         "trend_arrow": "→",
-        "flood_ratio": 1.01,
+        "flood_ratio": 1.02,
         "wave_arrival": {
-          "earliest": "2026-10-15",
-          "latest": "2026-10-17"
+          "earliest": "2026-10-18",
+          "latest": "2026-10-20"
         },
         "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
         "current_discharge": 161.9,
-        "peak_discharge": 207.4,
-        "peak_date": "2026-10-13",
+        "peak_discharge": 158.2,
+        "peak_date": "2026-10-02",
         "trend_arrow": "→",
-        "flood_ratio": 1.03,
+        "flood_ratio": 1.04,
         "wave_arrival": {
-          "earliest": "2026-10-14",
-          "latest": "2026-10-16"
+          "earliest": "2026-10-03",
+          "latest": "2026-10-05"
         },
         "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
         "current_discharge": 166.5,
-        "peak_discharge": 210.8,
-        "peak_date": "2026-10-13",
+        "peak_discharge": 162.3,
+        "peak_date": "2026-10-02",
         "trend_arrow": "→",
-        "flood_ratio": 1.03,
+        "flood_ratio": 1.04,
         "wave_arrival": {
-          "earliest": "2026-10-13",
-          "latest": "2026-10-15"
+          "earliest": "2026-10-02",
+          "latest": "2026-10-04"
         },
         "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
         "current_discharge": 16.0,
-        "peak_discharge": 20.3,
-        "peak_date": "2026-10-12",
+        "peak_discharge": 15.8,
+        "peak_date": "2026-10-02",
         "trend_arrow": "→",
         "flood_ratio": 0.98,
         "wave_arrival": {
-          "earliest": "2026-10-15",
-          "latest": "2026-10-18"
+          "earliest": "2026-10-05",
+          "latest": "2026-10-08"
         },
         "source_status": "ok"
       }
@@ -170,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 936,
+  "history_count": 937,
   "sources": {
     "ok": [
       "serpuhov.ru",
