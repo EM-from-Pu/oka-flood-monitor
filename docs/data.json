@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T17:00:57.910339+00:00",
+  "generated_at": "2026-10-08T20:35:32.696670+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 16.10, волна 20.10–22.10",
+      "value": "Таруса пик 17.10, волна 17.10–19.10",
       "color": "#10b981"
     },
     "weather": {
@@ -81,16 +81,13 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 44.8,
-        "peak_discharge": 48.9,
-        "peak_date": "2026-10-16",
-        "trend_arrow": "→",
-        "flood_ratio": 0.94,
-        "wave_arrival": {
-          "earliest": "2026-10-20",
-          "latest": "2026-10-22"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
@@ -107,13 +104,16 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 142.6,
+        "peak_discharge": 160.8,
+        "peak_date": "2026-10-17",
+        "trend_arrow": "→",
+        "flood_ratio": 0.94,
+        "wave_arrival": {
+          "earliest": "2026-10-18",
+          "latest": "2026-10-20"
+        },
+        "source_status": "ok"
       },
       "tarusa": {
         "name": "Таруса",
@@ -143,9 +143,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-10-20",
-      "latest": "2026-10-22",
-      "based_on": "Белёв"
+      "earliest": "2026-10-17",
+      "latest": "2026-10-19",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 972,
+  "history_count": 973,
   "sources": {
     "ok": [
       "serpuhov.ru",
