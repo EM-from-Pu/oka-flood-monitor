@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T22:26:39.580222+00:00",
+  "generated_at": "2026-10-13T01:06:52.491695+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 17.10, волна 21.10–23.10",
+      "value": "Алексин пик 18.10, волна 19.10–21.10",
       "color": "#10b981"
     },
     "weather": {
@@ -65,21 +65,24 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 15.9,
+        "peak_discharge": 22.0,
+        "peak_date": "2026-10-17",
+        "trend_arrow": "→",
+        "flood_ratio": 0.9,
+        "wave_arrival": {
+          "earliest": "2026-10-22",
+          "latest": "2026-10-24"
+        },
+        "source_status": "ok"
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 45.5,
+        "current_discharge": 45.1,
         "peak_discharge": 65.7,
         "peak_date": "2026-10-17",
         "trend_arrow": "→",
-        "flood_ratio": 0.91,
+        "flood_ratio": 0.9,
         "wave_arrival": {
           "earliest": "2026-10-21",
           "latest": "2026-10-23"
@@ -88,24 +91,21 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 141.2,
-        "peak_discharge": 192.6,
-        "peak_date": "2026-10-18",
-        "trend_arrow": "→",
-        "flood_ratio": 0.9,
-        "wave_arrival": {
-          "earliest": "2026-10-20",
-          "latest": "2026-10-22"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 143.5,
+        "current_discharge": 144.6,
         "peak_discharge": 193.5,
         "peak_date": "2026-10-18",
         "trend_arrow": "→",
-        "flood_ratio": 0.9,
+        "flood_ratio": 0.91,
         "wave_arrival": {
           "earliest": "2026-10-19",
           "latest": "2026-10-21"
@@ -114,7 +114,7 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 146.6,
+        "current_discharge": 147.6,
         "peak_discharge": 197.6,
         "peak_date": "2026-10-19",
         "trend_arrow": "→",
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 993,
+  "history_count": 994,
   "sources": {
     "ok": [
       "serpuhov.ru",
