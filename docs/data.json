@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T20:33:38.770376+00:00",
+  "generated_at": "2026-10-13T23:11:51.096269+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -81,29 +81,23 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 45.1,
-        "peak_discharge": 66.8,
-        "peak_date": "2026-10-17",
-        "trend_arrow": "→",
-        "flood_ratio": 0.87,
-        "wave_arrival": {
-          "earliest": "2026-10-21",
-          "latest": "2026-10-23"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 142.2,
-        "peak_discharge": 204.1,
-        "peak_date": "2026-10-18",
-        "trend_arrow": "→",
-        "flood_ratio": 0.88,
-        "wave_arrival": {
-          "earliest": "2026-10-20",
-          "latest": "2026-10-22"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -146,15 +140,15 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-10-21",
-      "latest": "2026-10-23",
-      "based_on": "Белёв"
+      "earliest": "2026-10-18",
+      "latest": "2026-10-20",
+      "based_on": "Таруса"
     }
   },
   "weather": {
     "flood_index": 4,
     "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, осадки (27 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_summary": "Активное таяние, осадки (21 мм), тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -170,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 998,
+  "history_count": 999,
   "sources": {
     "ok": [
       "serpuhov.ru",
