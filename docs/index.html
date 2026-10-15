@@ -1204,7 +1204,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <div class="header-right">
     <span class="clock-display" id="clock">--:--:-- МСК</span>
     <span class="freshness-dot" id="freshness" title="Проверка свежести данных..."></span>
-    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 15.10.2026 10:09</span>
+    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 15.10.2026 12:30</span>
     <span class="source-badge ok">serp</span>
     <span class="source-badge cached">kim</span>
     <span class="source-badge ok">GloFAS</span>
@@ -1381,7 +1381,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   var ctx = document.getElementById('hydrograph-level');
   if (!ctx) return;
 
-  var histLabels = ["2026-10-09T11:33:19", "2026-10-09T16:38:48", "2026-10-09T20:02:16", "2026-10-09T23:02:01", "2026-10-10T08:14:31", "2026-10-10T10:51:14", "2026-10-10T15:35:49", "2026-10-10T19:10:53", "2026-10-10T22:13:27", "2026-10-11T08:29:02", "2026-10-11T11:04:03", "2026-10-11T15:59:15", "2026-10-11T19:24:44", "2026-10-11T22:40:13", "2026-10-12T08:50:13", "2026-10-12T12:32:00", "2026-10-12T19:25:55", "2026-10-12T22:26:11", "2026-10-13T01:06:26", "2026-10-13T09:07:02", "2026-10-13T12:15:40", "2026-10-13T17:10:56", "2026-10-13T20:33:29", "2026-10-13T23:11:23", "2026-10-14T07:16:52", "2026-10-14T09:49:02", "2026-10-14T14:43:48", "2026-10-14T19:14:20", "2026-10-14T22:02:44", "2026-10-15T07:08:41"];
+  var histLabels = ["2026-10-09T16:38:48", "2026-10-09T20:02:16", "2026-10-09T23:02:01", "2026-10-10T08:14:31", "2026-10-10T10:51:14", "2026-10-10T15:35:49", "2026-10-10T19:10:53", "2026-10-10T22:13:27", "2026-10-11T08:29:02", "2026-10-11T11:04:03", "2026-10-11T15:59:15", "2026-10-11T19:24:44", "2026-10-11T22:40:13", "2026-10-12T08:50:13", "2026-10-12T12:32:00", "2026-10-12T19:25:55", "2026-10-12T22:26:11", "2026-10-13T01:06:26", "2026-10-13T09:07:02", "2026-10-13T12:15:40", "2026-10-13T17:10:56", "2026-10-13T20:33:29", "2026-10-13T23:11:23", "2026-10-14T07:16:52", "2026-10-14T09:49:02", "2026-10-14T14:43:48", "2026-10-14T19:14:20", "2026-10-14T22:02:44", "2026-10-15T07:08:41", "2026-10-15T09:29:42"];
   var histValues = [89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0];
   var refLabels  = [];
   var refValues  = [];
@@ -1946,7 +1946,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     <tr><td>Tmin °C</td><td class="" class="warm-night">7°</td><td class="" class="warm-night">12°</td><td class="" class="warm-night">9°</td><td class="" class="warm-night">8°</td><td class="" class="warm-night">8°</td><td class=" forecast-col" class="warm-night">9°</td><td class=" forecast-col" class="warm-night">8°</td><td class=" forecast-col" class="warm-night">7°</td></tr>
     <tr><td>Осадки, мм</td><td class="">0.0</td><td class="">0.0</td><td class="">0.0</td><td class="">6.5</td><td class="">4.0</td><td class=" forecast-col">0.1</td><td class=" forecast-col">0.1</td><td class=" forecast-col">0.0</td></tr>
     <tr><td>Снег, см</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td><td class=" forecast-col">0</td></tr>
-    <tr><td>Ветер, м/с</td><td class="">3</td><td class="">3</td><td class="">2</td><td class="">3</td><td class="">3</td><td class=" forecast-col">2</td><td class=" forecast-col">2</td><td class=" forecast-col">2</td></tr>
+    <tr><td>Ветер, м/с</td><td class="">3</td><td class="">3</td><td class="">2</td><td class="">3</td><td class="">3</td><td class=" forecast-col">2</td><td class=" forecast-col">2</td><td class=" forecast-col">3</td></tr>
     <tr><td>Погода</td><td class="">облачно</td><td class="">облачно</td><td class="">облачно</td><td class="">дождь</td><td class="">дождь</td><td class=" forecast-col">туман</td><td class=" forecast-col">дождь</td><td class=" forecast-col">туман</td></tr>
   </tbody>
 </table></div>
@@ -2287,6 +2287,17 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     </thead>
     <tbody>
       
+<tr>
+  <td>2026-10-15 09:29:42</td>
+  <td>89</td>
+  <td style="color:var(--safe);">-10 см</td>
+  <td>108.430</td>
+  <td>—</td>
+  <td>48</td>
+  <td>18.10</td>
+  <td>0</td>
+  <td><span class="status-badge норма">НОРМА</span></td>
+</tr>
 <tr>
   <td>2026-10-15 07:08:41</td>
   <td>89</td>
@@ -3376,17 +3387,6 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   <td>0</td>
   <td><span class="status-badge норма">НОРМА</span></td>
 </tr>
-<tr>
-  <td>2026-09-25 09:53:32</td>
-  <td>89</td>
-  <td style="color:var(--safe);">-10 см</td>
-  <td>108.430</td>
-  <td>—</td>
-  <td>58</td>
-  <td>28.09</td>
-  <td>0</td>
-  <td><span class="status-badge норма">НОРМА</span></td>
-</tr>
     </tbody>
   </table>
 </div>
@@ -3440,7 +3440,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <footer class="site-footer">
   OkaFloodMonitor v7.7.2 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
-  Обновлено: 15.10.2026 10:09 МСК |
+  Обновлено: 15.10.2026 12:30 МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
   <div style="margin-top:8px;font-size:0.65rem;color:var(--text-dim);opacity:0.5;">
     <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fem-from-pu.github.io%2Foka-flood-monitor&count_bg=%23555555&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F&edge_flat=true"
