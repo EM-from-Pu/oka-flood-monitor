@@ -1204,7 +1204,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <div class="header-right">
     <span class="clock-display" id="clock">--:--:-- МСК</span>
     <span class="freshness-dot" id="freshness" title="Проверка свежести данных..."></span>
-    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 16.10.2026 09:52</span>
+    <span style="color:var(--text-dim); font-size:0.72rem;">обн. 16.10.2026 12:22</span>
     <span class="source-badge ok">serp</span>
     <span class="source-badge cached">kim</span>
     <span class="source-badge ok">GloFAS</span>
@@ -1381,7 +1381,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   var ctx = document.getElementById('hydrograph-level');
   if (!ctx) return;
 
-  var histLabels = ["2026-10-10T10:51:14", "2026-10-10T15:35:49", "2026-10-10T19:10:53", "2026-10-10T22:13:27", "2026-10-11T08:29:02", "2026-10-11T11:04:03", "2026-10-11T15:59:15", "2026-10-11T19:24:44", "2026-10-11T22:40:13", "2026-10-12T08:50:13", "2026-10-12T12:32:00", "2026-10-12T19:25:55", "2026-10-12T22:26:11", "2026-10-13T01:06:26", "2026-10-13T09:07:02", "2026-10-13T12:15:40", "2026-10-13T17:10:56", "2026-10-13T20:33:29", "2026-10-13T23:11:23", "2026-10-14T07:16:52", "2026-10-14T09:49:02", "2026-10-14T14:43:48", "2026-10-14T19:14:20", "2026-10-14T22:02:44", "2026-10-15T07:08:41", "2026-10-15T09:29:42", "2026-10-15T14:29:10", "2026-10-15T18:58:05", "2026-10-15T21:56:18", "2026-10-16T06:51:59"];
+  var histLabels = ["2026-10-10T15:35:49", "2026-10-10T19:10:53", "2026-10-10T22:13:27", "2026-10-11T08:29:02", "2026-10-11T11:04:03", "2026-10-11T15:59:15", "2026-10-11T19:24:44", "2026-10-11T22:40:13", "2026-10-12T08:50:13", "2026-10-12T12:32:00", "2026-10-12T19:25:55", "2026-10-12T22:26:11", "2026-10-13T01:06:26", "2026-10-13T09:07:02", "2026-10-13T12:15:40", "2026-10-13T17:10:56", "2026-10-13T20:33:29", "2026-10-13T23:11:23", "2026-10-14T07:16:52", "2026-10-14T09:49:02", "2026-10-14T14:43:48", "2026-10-14T19:14:20", "2026-10-14T22:02:44", "2026-10-15T07:08:41", "2026-10-15T09:29:42", "2026-10-15T14:29:10", "2026-10-15T18:58:05", "2026-10-15T21:56:18", "2026-10-16T06:51:59", "2026-10-16T09:22:20"];
   var histValues = [89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0, 89.0];
   var refLabels  = [];
   var refValues  = [];
@@ -2027,7 +2027,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); background:transparent;"><span style="color:#3b82f6; font-weight:400;">1.5</span><br><span style="font-size:0.65rem; color:var(--text-dim);">дождь</span></td>
-          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">0.3</span><br><span style="font-size:0.65rem; color:var(--text-dim);">морось</span></td>
+          <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); "><span style="color:#94a3b8; font-weight:400;">—</span></td>
           <td style="padding:6px 8px; text-align:center; border-bottom:1px solid var(--border); font-weight:700; color:#f59e0b;">2</td>
         </tr>
         <tr>
@@ -2288,6 +2288,17 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
     </thead>
     <tbody>
       
+<tr>
+  <td>2026-10-16 09:22:20</td>
+  <td>89</td>
+  <td style="color:var(--safe);">-10 см</td>
+  <td>108.430</td>
+  <td>—</td>
+  <td>59</td>
+  <td>19.10</td>
+  <td>0</td>
+  <td><span class="status-badge норма">НОРМА</span></td>
+</tr>
 <tr>
   <td>2026-10-16 06:51:59</td>
   <td>89</td>
@@ -3377,17 +3388,6 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
   <td>0</td>
   <td><span class="status-badge норма">НОРМА</span></td>
 </tr>
-<tr>
-  <td>2026-09-26 09:36:09</td>
-  <td>89</td>
-  <td style="color:var(--safe);">-10 см</td>
-  <td>108.430</td>
-  <td>—</td>
-  <td>55</td>
-  <td>28.09</td>
-  <td>0</td>
-  <td><span class="status-badge норма">НОРМА</span></td>
-</tr>
     </tbody>
   </table>
 </div>
@@ -3441,7 +3441,7 @@ a.station-card-link:hover .station-card { border-color: var(--border-hover); tra
 <footer class="site-footer">
   OkaFloodMonitor v7.7.2 | 54.833413, 37.741813 | Жерновка, р. Ока<br>
   Источники: serpuhov.ru | КИМ | ЦУГМС | Open-Meteo | GloFAS Flood API<br>
-  Обновлено: 16.10.2026 09:52 МСК |
+  Обновлено: 16.10.2026 12:22 МСК |
   <a href="https://em-from-pu.github.io/oka-flood-monitor">em-from-pu.github.io/oka-flood-monitor</a>
   <div style="margin-top:8px;font-size:0.65rem;color:var(--text-dim);opacity:0.5;">
     <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fem-from-pu.github.io%2Foka-flood-monitor&count_bg=%23555555&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F&edge_flat=true"
