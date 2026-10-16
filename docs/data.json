@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T21:56:47.077078+00:00",
+  "generated_at": "2026-10-16T06:52:28.002017+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Калуга пик 18.10, волна 20.10–22.10",
+      "value": "Белёв пик 18.10, волна 22.10–24.10",
       "color": "#10b981"
     },
     "weather": {
@@ -51,15 +51,15 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 15.3,
+        "current_discharge": 16.5,
         "peak_discharge": 17.2,
         "peak_date": "2026-10-17",
         "trend_arrow": "↑↑",
-        "flood_ratio": 1.28,
+        "flood_ratio": 1.38,
         "wave_arrival": {
           "earliest": "2026-10-22",
           "latest": "2026-10-25"
@@ -68,11 +68,11 @@
       },
       "mtsensk": {
         "name": "Мценск",
-        "current_discharge": 16.4,
+        "current_discharge": 19.3,
         "peak_discharge": 23.4,
         "peak_date": "2026-10-18",
-        "trend_arrow": "→",
-        "flood_ratio": 0.94,
+        "trend_arrow": "↑",
+        "flood_ratio": 1.1,
         "wave_arrival": {
           "earliest": "2026-10-23",
           "latest": "2026-10-25"
@@ -81,21 +81,24 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 59.3,
+        "peak_discharge": 66.6,
+        "peak_date": "2026-10-18",
+        "trend_arrow": "↑↑",
+        "flood_ratio": 1.19,
+        "wave_arrival": {
+          "earliest": "2026-10-22",
+          "latest": "2026-10-24"
+        },
+        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 150.4,
+        "current_discharge": 156.0,
         "peak_discharge": 184.8,
         "peak_date": "2026-10-18",
         "trend_arrow": "→",
-        "flood_ratio": 1.01,
+        "flood_ratio": 1.05,
         "wave_arrival": {
           "earliest": "2026-10-20",
           "latest": "2026-10-22"
@@ -104,11 +107,11 @@
       },
       "aleksin": {
         "name": "Алексин",
-        "current_discharge": 151.4,
+        "current_discharge": 153.9,
         "peak_discharge": 185.6,
         "peak_date": "2026-10-18",
         "trend_arrow": "→",
-        "flood_ratio": 1.0,
+        "flood_ratio": 1.02,
         "wave_arrival": {
           "earliest": "2026-10-19",
           "latest": "2026-10-21"
@@ -117,11 +120,11 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": 155.0,
+        "current_discharge": 157.1,
         "peak_discharge": 189.1,
         "peak_date": "2026-10-19",
         "trend_arrow": "→",
-        "flood_ratio": 1.0,
+        "flood_ratio": 1.01,
         "wave_arrival": {
           "earliest": "2026-10-19",
           "latest": "2026-10-21"
@@ -130,11 +133,11 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": 16.5,
+        "current_discharge": 17.2,
         "peak_discharge": 17.8,
         "peak_date": "2026-10-17",
-        "trend_arrow": "→",
-        "flood_ratio": 1.07,
+        "trend_arrow": "↑",
+        "flood_ratio": 1.11,
         "wave_arrival": {
           "earliest": "2026-10-20",
           "latest": "2026-10-23"
@@ -143,9 +146,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-10-19",
-      "latest": "2026-10-21",
-      "based_on": "Таруса"
+      "earliest": "2026-10-22",
+      "latest": "2026-10-24",
+      "based_on": "Белёв"
     }
   },
   "weather": {
@@ -167,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1009,
+  "history_count": 1010,
   "sources": {
     "ok": [
       "serpuhov.ru",
