@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T19:04:43.717045+00:00",
+  "generated_at": "2026-10-20T22:07:15.454052+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -55,16 +55,13 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": 12.7,
-        "peak_discharge": 11.9,
-        "peak_date": "2026-10-21",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.09,
-        "wave_arrival": {
-          "earliest": "2026-10-26",
-          "latest": "2026-10-29"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -81,13 +78,16 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 54.9,
+        "peak_discharge": 51.2,
+        "peak_date": "2026-10-21",
+        "trend_arrow": "↓",
+        "flood_ratio": 1.14,
+        "wave_arrival": {
+          "earliest": "2026-10-25",
+          "latest": "2026-10-27"
+        },
+        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
@@ -140,9 +140,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-10-21",
-      "latest": "2026-10-23",
-      "based_on": "Таруса"
+      "earliest": "2026-10-25",
+      "latest": "2026-10-27",
+      "based_on": "Белёв"
     }
   },
   "weather": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1033,
+  "history_count": 1034,
   "sources": {
     "ok": [
       "serpuhov.ru",
