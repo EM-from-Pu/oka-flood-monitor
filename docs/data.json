@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T14:43:56.788935+00:00",
+  "generated_at": "2026-10-22T19:05:48.489381+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -38,16 +38,16 @@
       "color": "#10b981"
     },
     "weather": {
-      "zone": "safe",
-      "label": "НОРМА",
-      "value": "0/4 — —",
-      "color": "#10b981"
+      "zone": "danger",
+      "label": "КРИТИЧЕСКИЙ",
+      "value": "4/4 — КРИТИЧЕСКИЙ",
+      "color": "#ef4444"
     },
     "verdict": {
-      "zone": "safe",
-      "label": "🟢 РЕЖИМ: НОРМА",
-      "color": "#10b981",
-      "emoji": "🟢"
+      "zone": "watch",
+      "label": "🟡 РЕЖИМ: БДИТЕЛЬНОСТЬ",
+      "color": "#f59e0b",
+      "emoji": "🟡"
     }
   },
   "glofas": {
@@ -55,13 +55,16 @@
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 11.3,
+        "peak_discharge": 10.8,
+        "peak_date": "2026-10-23",
+        "trend_arrow": "↓",
+        "flood_ratio": 0.97,
+        "wave_arrival": {
+          "earliest": "2026-10-28",
+          "latest": "2026-10-31"
+        },
+        "source_status": "ok"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -78,29 +81,23 @@
       },
       "belev": {
         "name": "Белёв",
-        "current_discharge": 48.4,
-        "peak_discharge": 46.4,
-        "peak_date": "2026-10-23",
-        "trend_arrow": "↓",
-        "flood_ratio": 1.01,
-        "wave_arrival": {
-          "earliest": "2026-10-27",
-          "latest": "2026-10-29"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 145.9,
-        "peak_discharge": 141.2,
-        "peak_date": "2026-10-23",
-        "trend_arrow": "→",
-        "flood_ratio": 1.01,
-        "wave_arrival": {
-          "earliest": "2026-10-25",
-          "latest": "2026-10-27"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -130,26 +127,29 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 15.0,
+        "peak_discharge": 14.8,
+        "peak_date": "2026-10-23",
+        "trend_arrow": "→",
+        "flood_ratio": 0.99,
+        "wave_arrival": {
+          "earliest": "2026-10-26",
+          "latest": "2026-10-29"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-10-27",
-      "latest": "2026-10-29",
-      "based_on": "Белёв"
+      "earliest": "2026-10-23",
+      "latest": "2026-10-25",
+      "based_on": "Таруса"
     }
   },
   "weather": {
-    "flood_index": null,
-    "flood_label": null,
-    "flood_summary": null,
-    "snow_depth_cm": null
+    "flood_index": 4,
+    "flood_label": "КРИТИЧЕСКИЙ",
+    "flood_summary": "Активное таяние, тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "snow_depth_cm": 0
   },
   "kim": {
     "kashira_cm": null,
@@ -164,16 +164,15 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1042,
+  "history_count": 1043,
   "sources": {
     "ok": [
       "serpuhov.ru",
       "kim",
       "cugms(кеш)",
+      "weather",
       "glofas"
     ],
-    "failed": [
-      "weather"
-    ]
+    "failed": []
   }
 }
