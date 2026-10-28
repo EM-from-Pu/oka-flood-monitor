@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T16:18:25.439071+00:00",
+  "generated_at": "2026-10-28T20:09:19.738668+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,7 +34,7 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Белёв пик 05.11, волна 9.11–11.11",
+      "value": "Таруса пик 07.11, волна 7.11–9.11",
       "color": "#10b981"
     },
     "weather": {
@@ -68,6 +68,19 @@
       },
       "mtsensk": {
         "name": "Мценск",
+        "current_discharge": 15.4,
+        "peak_discharge": 16.0,
+        "peak_date": "2026-11-05",
+        "trend_arrow": "→",
+        "flood_ratio": 0.97,
+        "wave_arrival": {
+          "earliest": "2026-11-10",
+          "latest": "2026-11-12"
+        },
+        "source_status": "ok"
+      },
+      "belev": {
+        "name": "Белёв",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -75,19 +88,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "belev": {
-        "name": "Белёв",
-        "current_discharge": 43.4,
-        "peak_discharge": 48.8,
-        "peak_date": "2026-11-05",
-        "trend_arrow": "→",
-        "flood_ratio": 0.97,
-        "wave_arrival": {
-          "earliest": "2026-11-09",
-          "latest": "2026-11-11"
-        },
-        "source_status": "ok"
       },
       "kaluga": {
         "name": "Калуга",
@@ -140,9 +140,9 @@
       }
     },
     "wave_arrival_serpukhov": {
-      "earliest": "2026-11-09",
-      "latest": "2026-11-11",
-      "based_on": "Белёв"
+      "earliest": "2026-11-07",
+      "latest": "2026-11-09",
+      "based_on": "Таруса"
     }
   },
   "weather": {
@@ -164,7 +164,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1072,
+  "history_count": 1073,
   "sources": {
     "ok": [
       "serpuhov.ru",
