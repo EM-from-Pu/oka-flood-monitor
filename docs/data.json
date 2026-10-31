@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T19:10:26.331389+00:00",
+  "generated_at": "2026-10-31T22:11:50.424289+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -34,20 +34,20 @@
     "glofas": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "Алексин пик 07.11, волна 8.11–10.11",
+      "value": "Таруса пик 07.11, волна 7.11–9.11",
       "color": "#10b981"
     },
     "weather": {
-      "zone": "danger",
-      "label": "КРИТИЧЕСКИЙ",
-      "value": "4/4 — КРИТИЧЕСКИЙ",
-      "color": "#ef4444"
+      "zone": "safe",
+      "label": "НОРМА",
+      "value": "1/4 — УМЕРЕННЫЙ",
+      "color": "#10b981"
     },
     "verdict": {
-      "zone": "watch",
-      "label": "🟡 РЕЖИМ: БДИТЕЛЬНОСТЬ",
-      "color": "#f59e0b",
-      "emoji": "🟡"
+      "zone": "safe",
+      "label": "🟢 РЕЖИМ: НОРМА",
+      "color": "#10b981",
+      "emoji": "🟢"
     }
   },
   "glofas": {
@@ -120,6 +120,19 @@
       },
       "tarusa": {
         "name": "Таруса",
+        "current_discharge": 134.2,
+        "peak_discharge": 134.8,
+        "peak_date": "2026-11-07",
+        "trend_arrow": "→",
+        "flood_ratio": 0.99,
+        "wave_arrival": {
+          "earliest": "2026-11-07",
+          "latest": "2026-11-09"
+        },
+        "source_status": "ok"
+      },
+      "kozelsk": {
+        "name": "Козельск (Жиздра)",
         "current_discharge": null,
         "peak_discharge": null,
         "peak_date": null,
@@ -127,19 +140,6 @@
         "flood_ratio": null,
         "wave_arrival": null,
         "source_status": "unavailable"
-      },
-      "kozelsk": {
-        "name": "Козельск (Жиздра)",
-        "current_discharge": 13.9,
-        "peak_discharge": 13.8,
-        "peak_date": "2026-11-01",
-        "trend_arrow": "→",
-        "flood_ratio": 1.0,
-        "wave_arrival": {
-          "earliest": "2026-11-04",
-          "latest": "2026-11-07"
-        },
-        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -149,9 +149,9 @@
     }
   },
   "weather": {
-    "flood_index": 4,
-    "flood_label": "КРИТИЧЕСКИЙ",
-    "flood_summary": "Активное таяние, тёплые ночи (Tmin > 0°C, 8 из 8). Максимально быстрый рост уровня",
+    "flood_index": 1,
+    "flood_label": "УМЕРЕННЫЙ",
+    "flood_summary": "Незначительное таяние. Ночные заморозки сдерживают.",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1088,
+  "history_count": 1089,
   "sources": {
     "ok": [
       "serpuhov.ru",
