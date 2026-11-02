@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T19:52:46.535010+00:00",
+  "generated_at": "2026-11-02T23:02:29.552833+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -40,7 +40,7 @@
     "weather": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "1/4 — УМЕРЕННЫЙ",
+      "value": "0/4 — СТАБИЛЬНЫЙ",
       "color": "#10b981"
     },
     "verdict": {
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -94,13 +94,16 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 127.2,
+        "peak_discharge": 130.2,
+        "peak_date": "2026-11-06",
+        "trend_arrow": "→",
+        "flood_ratio": 0.98,
+        "wave_arrival": {
+          "earliest": "2026-11-08",
+          "latest": "2026-11-10"
+        },
+        "source_status": "ok"
       },
       "aleksin": {
         "name": "Алексин",
@@ -149,9 +152,9 @@
     }
   },
   "weather": {
-    "flood_index": 1,
-    "flood_label": "УМЕРЕННЫЙ",
-    "flood_summary": "Незначительное таяние. Ночные заморозки сдерживают.",
+    "flood_index": 0,
+    "flood_label": "СТАБИЛЬНЫЙ",
+    "flood_summary": "Морозы сдерживают таяние.",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -167,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1097,
+  "history_count": 1098,
   "sources": {
     "ok": [
       "serpuhov.ru",
