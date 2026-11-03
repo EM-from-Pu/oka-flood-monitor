@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T12:28:30.087406+00:00",
+  "generated_at": "2026-11-03T17:24:47.883746+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -59,7 +59,7 @@
         "peak_discharge": 12.8,
         "peak_date": "2026-11-17",
         "trend_arrow": "→",
-        "flood_ratio": 1.04,
+        "flood_ratio": 1.05,
         "wave_arrival": {
           "earliest": "2026-11-22",
           "latest": "2026-11-25"
@@ -98,7 +98,7 @@
         "peak_discharge": 170.8,
         "peak_date": "2026-11-18",
         "trend_arrow": "→",
-        "flood_ratio": 0.97,
+        "flood_ratio": 0.98,
         "wave_arrival": {
           "earliest": "2026-11-20",
           "latest": "2026-11-22"
@@ -111,7 +111,7 @@
         "peak_discharge": 169.6,
         "peak_date": "2026-11-18",
         "trend_arrow": "→",
-        "flood_ratio": 0.97,
+        "flood_ratio": 0.98,
         "wave_arrival": {
           "earliest": "2026-11-19",
           "latest": "2026-11-21"
@@ -120,23 +120,29 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 132.3,
+        "peak_discharge": 170.0,
+        "peak_date": "2026-11-18",
+        "trend_arrow": "→",
+        "flood_ratio": 0.98,
+        "wave_arrival": {
+          "earliest": "2026-11-18",
+          "latest": "2026-11-20"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 13.7,
+        "peak_discharge": 16.2,
+        "peak_date": "2026-11-17",
+        "trend_arrow": "→",
+        "flood_ratio": 1.0,
+        "wave_arrival": {
+          "earliest": "2026-11-20",
+          "latest": "2026-11-23"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -164,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1101,
+  "history_count": 1102,
   "sources": {
     "ok": [
       "serpuhov.ru",
