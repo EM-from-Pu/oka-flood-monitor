@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T12:39:04.835918+00:00",
+  "generated_at": "2026-11-04T17:37:28.666102+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -40,7 +40,7 @@
     "weather": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "0/4 — СТАБИЛЬНЫЙ",
+      "value": "1/4 — УМЕРЕННЫЙ",
       "color": "#10b981"
     },
     "verdict": {
@@ -51,7 +51,7 @@
     }
   },
   "glofas": {
-    "status": "ok",
+    "status": "partial",
     "stations": {
       "orel": {
         "name": "Орёл",
@@ -59,7 +59,7 @@
         "peak_discharge": 12.6,
         "peak_date": "2026-11-19",
         "trend_arrow": "→",
-        "flood_ratio": 0.95,
+        "flood_ratio": 0.94,
         "wave_arrival": {
           "earliest": "2026-11-24",
           "latest": "2026-11-27"
@@ -72,7 +72,7 @@
         "peak_discharge": 21.9,
         "peak_date": "2026-11-19",
         "trend_arrow": "→",
-        "flood_ratio": 0.99,
+        "flood_ratio": 0.98,
         "wave_arrival": {
           "earliest": "2026-11-24",
           "latest": "2026-11-26"
@@ -85,7 +85,7 @@
         "peak_discharge": 54.7,
         "peak_date": "2026-11-19",
         "trend_arrow": "→",
-        "flood_ratio": 0.98,
+        "flood_ratio": 0.97,
         "wave_arrival": {
           "earliest": "2026-11-23",
           "latest": "2026-11-25"
@@ -94,16 +94,13 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 127.8,
-        "peak_discharge": 160.8,
-        "peak_date": "2026-11-19",
-        "trend_arrow": "→",
-        "flood_ratio": 0.95,
-        "wave_arrival": {
-          "earliest": "2026-11-21",
-          "latest": "2026-11-23"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -152,9 +149,9 @@
     }
   },
   "weather": {
-    "flood_index": 0,
-    "flood_label": "СТАБИЛЬНЫЙ",
-    "flood_summary": "Морозы сдерживают таяние.",
+    "flood_index": 1,
+    "flood_label": "УМЕРЕННЫЙ",
+    "flood_summary": "Незначительное таяние. Ночные заморозки сдерживают.",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -170,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1106,
+  "history_count": 1107,
   "sources": {
     "ok": [
       "serpuhov.ru",
