@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T12:50:07.714198+00:00",
+  "generated_at": "2026-11-05T17:42:33.573408+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -40,7 +40,7 @@
     "weather": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "1/4 — УМЕРЕННЫЙ",
+      "value": "0/4 — СТАБИЛЬНЫЙ",
       "color": "#10b981"
     },
     "verdict": {
@@ -94,16 +94,13 @@
       },
       "kaluga": {
         "name": "Калуга",
-        "current_discharge": 128.7,
-        "peak_discharge": 208.9,
-        "peak_date": "2026-11-19",
-        "trend_arrow": "→",
-        "flood_ratio": 0.97,
-        "wave_arrival": {
-          "earliest": "2026-11-21",
-          "latest": "2026-11-23"
-        },
-        "source_status": "ok"
+        "current_discharge": null,
+        "peak_discharge": null,
+        "peak_date": null,
+        "trend_arrow": "?",
+        "flood_ratio": null,
+        "wave_arrival": null,
+        "source_status": "unavailable"
       },
       "aleksin": {
         "name": "Алексин",
@@ -120,23 +117,29 @@
       },
       "tarusa": {
         "name": "Таруса",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 133.0,
+        "peak_discharge": 213.3,
+        "peak_date": "2026-11-20",
+        "trend_arrow": "→",
+        "flood_ratio": 0.96,
+        "wave_arrival": {
+          "earliest": "2026-11-20",
+          "latest": "2026-11-22"
+        },
+        "source_status": "ok"
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 13.6,
+        "peak_discharge": 22.1,
+        "peak_date": "2026-11-18",
+        "trend_arrow": "→",
+        "flood_ratio": 0.98,
+        "wave_arrival": {
+          "earliest": "2026-11-21",
+          "latest": "2026-11-24"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -146,9 +149,9 @@
     }
   },
   "weather": {
-    "flood_index": 1,
-    "flood_label": "УМЕРЕННЫЙ",
-    "flood_summary": "Незначительное таяние. Ночные заморозки сдерживают.",
+    "flood_index": 0,
+    "flood_label": "СТАБИЛЬНЫЙ",
+    "flood_summary": "Морозы сдерживают таяние.",
     "snow_depth_cm": 0
   },
   "kim": {
@@ -164,7 +167,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1111,
+  "history_count": 1112,
   "sources": {
     "ok": [
       "serpuhov.ru",
