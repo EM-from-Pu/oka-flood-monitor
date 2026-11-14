@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T00:10:07.626469+00:00",
+  "generated_at": "2026-11-14T08:47:00.038219+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -38,10 +38,10 @@
       "color": "#10b981"
     },
     "weather": {
-      "zone": "watch",
-      "label": "ПОВЫШЕННЫЙ",
-      "value": "2/4 — ПОВЫШЕННЫЙ",
-      "color": "#f59e0b"
+      "zone": "safe",
+      "label": "НОРМА",
+      "value": "0/4 — —",
+      "color": "#10b981"
     },
     "verdict": {
       "zone": "safe",
@@ -149,10 +149,10 @@
     }
   },
   "weather": {
-    "flood_index": 2,
-    "flood_label": "ПОВЫШЕННЫЙ",
-    "flood_summary": "Снег тает, осадки умеренные. Следим.",
-    "snow_depth_cm": 0
+    "flood_index": null,
+    "flood_label": null,
+    "flood_summary": null,
+    "snow_depth_cm": null
   },
   "kim": {
     "kashira_cm": null,
@@ -167,15 +167,16 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1154,
+  "history_count": 1155,
   "sources": {
     "ok": [
       "serpuhov.ru",
       "kim",
       "cugms(кеш)",
-      "weather",
       "glofas"
     ],
-    "failed": []
+    "failed": [
+      "weather"
+    ]
   }
 }
