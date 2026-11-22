@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T12:55:08.033829+00:00",
+  "generated_at": "2026-11-22T17:27:24.068731+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -40,7 +40,7 @@
     "weather": {
       "zone": "safe",
       "label": "НОРМА",
-      "value": "0/4 — СТАБИЛЬНЫЙ",
+      "value": "0/4 — —",
       "color": "#10b981"
     },
     "verdict": {
@@ -51,17 +51,20 @@
     }
   },
   "glofas": {
-    "status": "partial",
+    "status": "ok",
     "stations": {
       "orel": {
         "name": "Орёл",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 15.7,
+        "peak_discharge": 16.4,
+        "peak_date": "2026-11-23",
+        "trend_arrow": "↑",
+        "flood_ratio": 1.34,
+        "wave_arrival": {
+          "earliest": "2026-11-28",
+          "latest": "2026-12-01"
+        },
+        "source_status": "ok"
       },
       "mtsensk": {
         "name": "Мценск",
@@ -130,13 +133,16 @@
       },
       "kozelsk": {
         "name": "Козельск (Жиздра)",
-        "current_discharge": null,
-        "peak_discharge": null,
-        "peak_date": null,
-        "trend_arrow": "?",
-        "flood_ratio": null,
-        "wave_arrival": null,
-        "source_status": "unavailable"
+        "current_discharge": 16.2,
+        "peak_discharge": 17.1,
+        "peak_date": "2026-11-23",
+        "trend_arrow": "→",
+        "flood_ratio": 1.11,
+        "wave_arrival": {
+          "earliest": "2026-11-26",
+          "latest": "2026-11-29"
+        },
+        "source_status": "ok"
       }
     },
     "wave_arrival_serpukhov": {
@@ -146,10 +152,10 @@
     }
   },
   "weather": {
-    "flood_index": 0,
-    "flood_label": "СТАБИЛЬНЫЙ",
-    "flood_summary": "Морозы сдерживают таяние.",
-    "snow_depth_cm": 0
+    "flood_index": null,
+    "flood_label": null,
+    "flood_summary": null,
+    "snow_depth_cm": null
   },
   "kim": {
     "kashira_cm": null,
@@ -164,15 +170,16 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1196,
+  "history_count": 1197,
   "sources": {
     "ok": [
       "serpuhov.ru",
       "kim",
       "cugms(кеш)",
-      "weather",
       "glofas"
     ],
-    "failed": []
+    "failed": [
+      "weather"
+    ]
   }
 }
