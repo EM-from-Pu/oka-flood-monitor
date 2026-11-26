@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T02:01:44.167180+00:00",
+  "generated_at": "2026-11-26T10:36:16.596622+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -155,7 +155,7 @@
     "flood_index": 0,
     "flood_label": "СТАБИЛЬНЫЙ",
     "flood_summary": "Морозы сдерживают таяние.",
-    "snow_depth_cm": 16.0
+    "snow_depth_cm": 19.0
   },
   "kim": {
     "kashira_cm": null,
@@ -170,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1214,
+  "history_count": 1215,
   "sources": {
     "ok": [
       "serpuhov.ru",
