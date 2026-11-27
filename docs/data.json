@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T10:39:20.644093+00:00",
+  "generated_at": "2026-11-27T14:29:07.330961+00:00",
   "serpuhov": {
     "level_cm": 89.0,
     "level_m": 0.89,
@@ -56,13 +56,13 @@
       "orel": {
         "name": "Орёл",
         "current_discharge": 11.5,
-        "peak_discharge": 12.0,
-        "peak_date": "2026-12-12",
+        "peak_discharge": 10.7,
+        "peak_date": "2026-11-28",
         "trend_arrow": "↓",
         "flood_ratio": 1.02,
         "wave_arrival": {
-          "earliest": "2026-12-17",
-          "latest": "2026-12-20"
+          "earliest": "2026-12-03",
+          "latest": "2026-12-06"
         },
         "source_status": "ok"
       },
@@ -137,7 +137,7 @@
         "peak_discharge": 14.1,
         "peak_date": "2026-11-28",
         "trend_arrow": "↓",
-        "flood_ratio": 1.05,
+        "flood_ratio": 1.06,
         "wave_arrival": {
           "earliest": "2026-12-01",
           "latest": "2026-12-04"
@@ -170,7 +170,7 @@
     "forecast_text": "Прогноз не найден в тексте обзора",
     "source_status": "cached"
   },
-  "history_count": 1220,
+  "history_count": 1221,
   "sources": {
     "ok": [
       "serpuhov.ru",
